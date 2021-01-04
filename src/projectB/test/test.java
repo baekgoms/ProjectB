@@ -1,10 +1,15 @@
 package projectB.test;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("myTest")
 public class test {
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		System.out.println("test");
+	
+	@RequestMapping("testing.aa")
+	public String testing() {
+		System.out.println("test run");
+		return "test/Test";
 	}
-
 }
