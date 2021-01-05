@@ -3,7 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 
-<!--주석을 추가해봅시다 --!>
+
 
 <html>
 <head>
