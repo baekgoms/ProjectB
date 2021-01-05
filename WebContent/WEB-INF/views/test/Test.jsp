@@ -11,3 +11,6 @@
 </body>
 </html>
 <!-- commit테스트해보기  -->
+<%
+	System.out.println("어거 어렵다...");
+%>
