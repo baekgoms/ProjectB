@@ -3,6 +3,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="/resource/etc/color.jsp"%>
 
+<!--주석을 추가해봅시다 --!>
+
 <html>
 <head>
 <title>게시판</title>
