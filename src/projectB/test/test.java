@@ -11,7 +11,11 @@ public class test {
 	public String testing() {
 		System.out.println("test run");
 		return "test/Test";
+	}
 		
-		
+	@RequestMapping("n1.aa")
+	public String num01() {
+		System.out.println("test run");
+		return "test/n1";
 	}
 }
