@@ -18,4 +18,9 @@ public class test {
 		System.out.println("test run");
 		return "test/n1";
 	}
+	@RequestMapping("n2.aa")
+	public String num02() {
+		System.out.println("test run");
+		return "test/n2";
+	}
 }
