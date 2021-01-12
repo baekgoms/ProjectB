@@ -24,6 +24,6 @@ public class test {
 		return "test/n2";
 	}
 
-	//우찬 주석 0112 15:57	
+	/wooch1 주석 0112 16:44	
 
 }
