@@ -1,56 +1,40 @@
-<%@ page language="java" contentType="text/html; charset=euc-kr"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
-<%--ÄÚµå¸¦ ÇÕÄ£´Ù. taglibº¸´Ù À§¿¡ÀÖÀ¸¸é ¾ÈµÈ´Ù --%>
-
+<!-- test test -->
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
-<head><title>·Î±×ÀÎ</title>
-<link href="/spring/resource/style/style.css" rel="stylesheet" type="text/css">
-
-   <script language="javascript">
-     <!--
-       function begin(){
-         document.myform.id.focus();
-       }
-       function checkIt(){
-         if(!document.myform.id.value){
-           alert("¾ÆÀÌµğ¸¦ ÀÔ·ÂÇÏÁö ¾ÊÀ¸¼Ì½À´Ï´Ù.");
-           document.myform.id.focus();
-           return false;
-         }
-         if(!document.myform.passwd.value){
-           alert("ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇÏÁö ¾ÊÀ¸¼Ì½À´Ï´Ù.");
-           document.myform.passwd.focus();
-           return false;
-         }
-         
-       }
-     -->
-   </script>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
+    <title>Adminmart Template - The Ultimate Multipurpose admin template</title>
+    <link href="resources/dist/css/style.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="resources/assets/extra-libs/prism/prism.css">
 </head>
-<BODY onload="begin()" bgcolor="${bodyback_c}">
-<form name="myform" action="/spring/member/loginPro.do" method="post" onSubmit="return checkIt()">
-<TABLE cellSpacing=1 cellPadding=1 width="260" border=1 align="center" >
-  
-  <TR height="30">
-    <TD colspan="2" align="middle" bgcolor="${title_c}"><STRONG>È¸¿ø·Î±×ÀÎ</STRONG></TD></TR>
-  
-  <TR height="30">
-    <TD width="110" bgcolor="${title_c}" align=center>¾ÆÀÌµğ</TD>
-    <TD width="150" bgcolor="${value_c}" align=center>
-       <INPUT type="text" name="id" size="15" maxlength="12"></TD></TR>
-  <TR height="30">
-    <TD width="110" bgcolor="${title_c}" align=center>ºñ¹Ğ¹øÈ£</TD>
-    <TD width="150" bgcolor="${value_c}" align=center>
-      <INPUT type=password name="passwd"  size="15" maxlength="12"></TD></TR>
-  <TR height="30">
-    <TD colspan="2" align="middle" bgcolor="${title_c}" >
-      <INPUT type=submit value="·Î±×ÀÎ"> 
-      <INPUT type=reset value="´Ù½ÃÀÔ·Â">
-      <input type="button" value="È¸¿ø°¡ÀÔ" onclick="javascript:window.location='/spring/member/inputForm.do'"></TD></TR>
-</TABLE>
-</form>
+<body>
 
-</BODY>
-</HTML>
+
+
+
+
+
+                                    <button type="button" class="btn waves-effect waves-light btn-primary">í™•ì¸</button>
+                                    
+
+
+
+ <script src="resources/assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="resources/assets/libs/popper.js/dist/umd/popper.min.js"></script>
+    <script src="resources/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="resources/dist/js/app-style-switcher.js"></script>
+    <script src="resources/dist/js/feather.min.js"></script>
+    <script src="resources/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+    <script src="resources/assets/extra-libs/sparkline/sparkline.js"></script>
+    <script src="resources/dist/js/sidebarmenu.js"></script>
+    <script src="resources/dist/js/custom.min.js"></script>
+    <script src="resources/assets/extra-libs/prism/prism.js"></script>
+</body>
+</html>
