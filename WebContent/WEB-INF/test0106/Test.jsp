@@ -7,7 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<!-- 브랜치 연습 -->
-<!--  연습연습 -->
+<!--  테스트 테스트 -->
 </body>
 </html>
