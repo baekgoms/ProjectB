@@ -9,7 +9,7 @@
 <body>
 <%
 	int t = 12;
-	String a = "야효";
+	String a = "잠온다";
 
 
 %>

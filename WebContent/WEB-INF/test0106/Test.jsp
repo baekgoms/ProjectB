@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<!--  테스트 테스트 -->
-<!-- 연습연습  -->
+<!--  ! -->
+<!-- ! -->
 </body>
 </html>
