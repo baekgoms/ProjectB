@@ -25,4 +25,7 @@ public class test {
 		System.out.println("test run");
 		return "test/n2";
 	}
+
+	/wooch1 주석 0112 16:44	
+
 }
