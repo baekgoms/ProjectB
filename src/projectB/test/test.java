@@ -13,12 +13,12 @@ public class test {
 		return "test/Test";
 	}
 		
-	@RequestMapping("n1.aa")
+	@RequestMapping("nana1.aa")
 	public String num01() {
 		System.out.println("test run");
 		return "test/n1";
 	}
-	@RequestMapping("n2.aa")
+	@RequestMapping("nana2.aa")
 	public String num02() {
 		System.out.println("test run");
 		return "test/n2";
