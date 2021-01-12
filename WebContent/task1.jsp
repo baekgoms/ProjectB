@@ -8,5 +8,6 @@
 </head>
 <body>
 1. 커밋 풀 푸시
+2. mini2브랜치 생성
 </body>
 </html>
