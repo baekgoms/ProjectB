@@ -9,7 +9,9 @@ public class test {
 	
 	@RequestMapping("testing.aa")
 	public String testing() {
-		System.out.println("test run");
+
+		System.out.println("test run~~~!");
+
 		return "test/Test";
 	}
 		
