@@ -7,7 +7,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-<!--  ! -->
-<!-- ! -->
+<%
+	int t = 12;
+	String a = "잠온다";
+
+
+%>
 </body>
 </html>
