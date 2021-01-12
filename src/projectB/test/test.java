@@ -23,4 +23,7 @@ public class test {
 		System.out.println("test run");
 		return "test/n2";
 	}
+
+	//우찬 주석 0112 15:57	
+
 }
