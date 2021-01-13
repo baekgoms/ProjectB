@@ -13,7 +13,7 @@
           destroy-method="close"
           p:driverClassName="oracle.jdbc.driver.OracleDriver"
           p:url="jdbc:oracle:thin:@masternull.iptime.org:1521:orcl"
-          p:username="java17" p:password="java"/>
+          p:username="final04" p:password="final"/>
 
    <!-- DB 연결된 객체 생성 -->
    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"> 
