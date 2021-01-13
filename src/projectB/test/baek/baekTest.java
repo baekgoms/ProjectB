@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("beakTest")
 public class baekTest {
-	
+	//Test
 	@RequestMapping("inputEmail.aa")
 	public String test() {
 		System.out.println("inputEmail run");
