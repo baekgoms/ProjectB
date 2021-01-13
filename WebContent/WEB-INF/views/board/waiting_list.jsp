@@ -78,8 +78,10 @@
    </tbody>
   </table>
 </div>
-                                
 
+ <input type="text" class="form-control" id="keyword" name="keyword" size="10" placeholder="검색어를 입력하세요"/> <button type="submit" class="btn waves-effect waves-light btn-outline-dark">검색 </button>
+
+<!-- 검색창 사이즈 조절 -->
 
 
 </form>

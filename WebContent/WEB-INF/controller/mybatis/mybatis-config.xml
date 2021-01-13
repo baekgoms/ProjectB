@@ -19,11 +19,19 @@
 	<!-- 별칭 설정 / 전체 경로를 매번 사용할려면 너무 길어지니깐 줄여서 사용! -->
  	<!-- typeAliases는 해도되고, 안해도됨 -->
 	<typeAliases>
+<<<<<<< HEAD
 		<typeAlias alias="disDTO" type="projectB.test.hj.DisBoardDTO" />
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="/sql/SQL.xml" />
+=======
+
+	</typeAliases>
+	
+	<mappers>
+	
+>>>>>>> b935744033e34a504eafb4143fe7c731ab683163
 	</mappers>
   
 </configuration>
