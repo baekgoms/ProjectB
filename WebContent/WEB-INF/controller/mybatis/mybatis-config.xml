@@ -19,9 +19,11 @@
 	<!-- 별칭 설정 / 전체 경로를 매번 사용할려면 너무 길어지니깐 줄여서 사용! -->
  	<!-- typeAliases는 해도되고, 안해도됨 -->
 	<typeAliases>
+
 	</typeAliases>
 	
 	<mappers>
+	
 	</mappers>
   
 </configuration>
