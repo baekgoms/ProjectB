@@ -7,13 +7,13 @@
 <!-- Custom CSS -->
 <link href="/projectB/resource/bootstrap/css/style.css" rel="stylesheet">
 <!-- This Page CSS -->
-<link rel="stylesheet" type="text/css" href="/projectB/resource/assets/extra-libs/prism/prism.css">
-    
+<link href="/projectB/resource/assets/libs/morris.js/morris.css" rel="stylesheet">
+                
+<title>토론게시판</title>
 <input type="button" value="최신순">
 <input type="button" value="베스트순">
 
 <br />
-글 리스트...
 <!-- 
 <c:if test="${count == 0}">
 <table>
@@ -24,7 +24,8 @@
   </tr>
 </table>
 </c:if>
--->
+
+ 
 <c:if test="${count > 0}">
 <table>
 그리고 이게 4번반복
@@ -37,8 +38,22 @@
 4번반복 끝
 </table>
 </c:if>
+
+ -->
+ 
+<table>
+그리고 이게 4번반복
+<tr>
+차트 5번 반복
+<td>
+
+</td>
+....여기까지
+</tr>
+4번반복 끝</table>
+
 <input type="button" class="btn waves-effect waves-light btn-outline-dark" 
-	onclick="document.location.href='/projectB/discussion/writeForm.aa'" value="토론글 작성하기">
+	onclick="document.location.href='/projectB/discussion/writeForm.aa?pageNum=${pageNum}'" value="토론글 작성하기">
 <div class="col-lg-4 mb-4">
 <nav aria-label="Page navigation example">
 <ul class="pagination justify-content-center">

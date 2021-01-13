@@ -2,6 +2,8 @@ package projectB.test.hj;
 
 import java.util.List;
 
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service("boardDAO")
@@ -37,7 +39,7 @@ public class DisBoardDAO implements DisBoardService{
 	}
 
 	@Override
-	public int deleteArticle(int num, String passwd) throws Exception {
+	public int deleteArticle(int num) throws Exception {
 		return 0;
 	}
 

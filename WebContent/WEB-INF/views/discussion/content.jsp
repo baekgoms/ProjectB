@@ -2,9 +2,7 @@
     pageEncoding="UTF-8"%>
 <!-- 
 -토론 상세페이지
-  토론 제목 // 찬, 반 // 작성일 // 아이디(계정/이름)
-  내용
-  태그
+
   신고버튼
   댓글창
      - 전체 댓글의 찬성/반대 내용을 도넛그래프로 표시
@@ -17,10 +15,24 @@
 -->
 
 <table>
-
+<tr>
+<td>제목</td>
+</tr>
+<tr>
+<td>찬성수 1: 반대수1</td>
+</tr>
+<tr>
+<td>2020-02-31, 작성자 :id</td>
+</tr>
+<tr>
+<td>내용</td>
+</tr>
 </table>
-
-<input type="button" value="수정" OnClick="window.location='/projectB/discussion/updateForm.aa'">
-<input type="button" value="삭제" OnClick="window.location='/projectB/discussion/deletePro.aa'">
-<input type="button" value="목록" OnClick="window.location='/projectB/discussion/main.aa'">
+<input type="button" value="신고">
+<input type="button" value="찬성">
+<input type="button" value="반대">
+<br />
+<input type="button" value="수정" OnClick="window.location='/projectB/discussion/updateForm.aa?pageNum=${pageNum}&num=${num}'">
+<input type="button" value="삭제" OnClick="window.location='/projectB/discussion/deletePro.aa?pageNum=${pageNum}&num=${num}'">
+<input type="button" value="목록" OnClick="window.location='/projectB/discussion/main.aa?pageNum=${pageNum}'">
 

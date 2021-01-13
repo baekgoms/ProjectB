@@ -12,7 +12,11 @@ public class DisBoardDTO {
 	private String tag;
 	private int report;
 	private int open;
+	private String subject;
 	
+	public String getSubject() {
+		return subject;
+	}
 	public int getNum() {
 		return num;
 	}
@@ -67,6 +71,9 @@ public class DisBoardDTO {
 	}
 	public void setOpen(int open) {
 		this.open = open;
+	}
+	public void setSubject(String subject) {
+		this.subject = subject;
 	}
 	
 }

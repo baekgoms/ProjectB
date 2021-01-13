@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
     
 
-<form method="post" name="updateform" action="/projectB/discussion/updatePro.aa" >
+<form method="post" name="updateform" action="/projectB/discussion/updatePro.aa?pageNum=${pageNum}&num=${num}" >
 
 <table>
 <tr>
@@ -35,5 +35,5 @@
 </table>
 <input type="submit" value="수정">  
 <input type="reset" value="내용지우기">
-<input type="button" value="취소" OnClick="window.location='/projectB/discussion/main.aa'">
+<input type="button" value="취소" OnClick="window.location='/projectB/discussion/main.aa?pageNum=${pageNum}'">
 </form>
