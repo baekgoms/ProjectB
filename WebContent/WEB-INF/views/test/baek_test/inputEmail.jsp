@@ -15,7 +15,10 @@
 <link rel="icon" type="image/png" sizes="16x16"	href="/projectB/resource/bootstrap/assets/images/favicon.png">
 <style type="text/css">
 .container {
-	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 80vh;
 }
 </style>
 <title>Insert title here</title>
