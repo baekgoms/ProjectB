@@ -14,7 +14,7 @@ public class test {
 
 		return "test/Test";
 	}
-		
+	
 	@RequestMapping("nana1.aa")
 	public String num01() {
 		System.out.println("test run");
