@@ -1,12 +1,16 @@
 package projectB.test.wooch;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+@RequestMapping("wooch")
 public class woochTest {
-	// main edit 직접   
-
-	int a = 0;	
-
-	// 수정 01/12 15:08
-
-	// wooch1 edit   
+	
+	@RequestMapping("test.aa")
+	public String board() {
+		System.out.println("wooch test");
+		return "";
+	}
 }
 
