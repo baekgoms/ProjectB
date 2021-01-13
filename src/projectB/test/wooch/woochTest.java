@@ -10,7 +10,7 @@ public class woochTest {
 	@RequestMapping("test.aa")
 	public String board() {
 		System.out.println("wooch test");
-		return "";
+		return "test/woochTest";
 	}
 }
 
