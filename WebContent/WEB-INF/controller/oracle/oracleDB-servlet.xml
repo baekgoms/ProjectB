@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+   xmlns:context="http://www.springframework.org/schema/context"
+   xmlns:p="http://www.springframework.org/schema/p"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans.xsd
+   http://www.springframework.org/schema/context
+   http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+   
+   <!-- DB Connection Setting 방법 -->
+	<bean id="dataSource" class="org.apache.tomcat.dbcp.dbcp2.BasicDataSource"
+          destroy-method="close"
+          p:driverClassName="oracle.jdbc.driver.OracleDriver"
+          p:url="jdbc:oracle:thin:@masternull.iptime.org:1521:orcl"
+          p:username="java17" p:password="java"/>
+
+   <!-- DB 연결된 객체 생성 -->
+   <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean"> 
+      <property name="dataSource" ref="dataSource" />
+      <property name="configLocation" value="/WEB-INF/controller/mybatis/mybatis-config.xml"/>
+   </bean>
+   
+   <!-- DB 연결된 객체를 이용하여 SQL 실행을 위한 객체 생성-->
+   <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+      <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>
+   </bean>
+   
+</beans>
