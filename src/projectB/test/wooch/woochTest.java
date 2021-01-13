@@ -4,13 +4,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("wooch")
+@RequestMapping("petition")
 public class woochTest {
 	
-	@RequestMapping("test.aa")
-	public String board() {
-		System.out.println("wooch test");
-		return "test/woochTest";
+	@RequestMapping("upload.aa")
+	public String upload() {
+		System.out.println("wooch upload controller");
+		return "wooch/uploadForm";
 	}
+	
+	@RequestMapping("test.aa")
+	public String test() {
+		System.out.println("wooch test controller");
+		return "wooch/test";
+	}
+	
 }
 
