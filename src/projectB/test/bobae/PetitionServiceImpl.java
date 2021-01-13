@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import projectB.model.PetitionDTO;
+import projectB.model.petition.PetitionDTO;
 
 @Service("petitionDAO")
 public class PetitionServiceImpl implements PetitionService{

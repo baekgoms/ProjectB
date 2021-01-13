@@ -2,7 +2,7 @@ package projectB.test.bobae;
 
 import java.util.List;
 
-import projectB.model.PetitionDTO;
+import projectB.model.petition.PetitionDTO;
 
 public interface PetitionService {
 	
