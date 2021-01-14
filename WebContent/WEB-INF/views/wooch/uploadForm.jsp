@@ -216,7 +216,7 @@
                     <!-- ============================================================== -->
                     <ul class="navbar-nav float-right">
                         <!-- ============================================================== -->
-                        <!-- Search -->
+                        <!-- Search 검색창-->
                         <!-- ============================================================== -->
                         <li class="nav-item d-none d-md-block">
                             <a class="nav-link" href="javascript:void(0)">
@@ -522,7 +522,7 @@
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-7 align-self-center">
-                        <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">청원 올리기 </h4>
+                        <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">청원 작성 </h4>
                         <div class="d-flex align-items-center">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb m-0 p-0">
@@ -564,78 +564,124 @@
                 <!-- ============================================================== -->
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Scrollspy with Navbar</h4>
-                        <nav id="navbar-example2" class="navbar navbar-light bg-light">
-
-
-
-                            <ul class="nav nav-pills">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#fat">First</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#mdo">Second</a>
-                                </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
-                                        aria-haspopup="true" aria-expanded="false">Third with Dropdown</a>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#one">one</a>
-                                        <a class="dropdown-item" href="#two">two</a>
-                                        <div role="separator" class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#three">three</a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </nav>
-                        <div data-spy="scroll" data-target="#navbar-example2" data-offset="0"
-                            class="position-relative mt-2" style="height: 500px; overflow: auto;">
-                            <h4 id="fat">@fat</h4>
-                            <p>Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they
-                                sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles
-                                cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo
-                                jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et
-                                cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus,
-                                cred irony biodiesel keffiyeh artisan ullamco consequat.</p>
-                            <h4 id="mdo">@mdo</h4>
-                            <p>Veniam marfa mustache skateboard, adipisicing fugiat velit pitchfork beard. Freegan beard
-                                aliqua cupidatat mcsweeney's vero. Cupidatat four loko nisi, ea helvetica nulla carles.
-                                Tattooed cosby sweater food truck, mcsweeney's quis non freegan vinyl. Lo-fi wes
-                                anderson +1 sartorial. Carles non aesthetic exercitation quis gentrify. Brooklyn
-                                adipisicing craft beer vice keytar deserunt.</p>
-                            <h4 id="one">First item</h4>
-                            <p>Occaecat commodo aliqua delectus. Fap craft beer deserunt skateboard ea. Lomo bicycle
-                                rights adipisicing banh mi, velit ea sunt next level locavore single-origin coffee in
-                                magna veniam. High life id vinyl, echo park consequat quis aliquip banh mi pitchfork.
-                                Vero VHS est adipisicing. Consectetur nisi DIY minim messenger bag. Cred ex in,
-                                sustainable delectus consectetur fanny pack iphone.</p>
-                            <h4 id="two">Second item</h4>
-                            <p>In incididunt echo park, officia deserunt mcsweeney's proident master cleanse thundercats
-                                sapiente veniam. Excepteur VHS elit, proident shoreditch +1 biodiesel laborum craft
-                                beer. Single-origin coffee wayfarers irure four loko, cupidatat terry richardson master
-                                cleanse. Assumenda you probably haven't heard of them art party fanny pack, tattooed
-                                nulla cardigan tempor ad. Proident wolf nesciunt sartorial keffiyeh eu banh mi
-                                sustainable. Elit wolf voluptate, lo-fi ea portland before they sold out four loko.
-                                Locavore enim nostrud mlkshk brooklyn nesciunt.</p>
-                            <h4 id="three">Third item</h4>
-                            <p>Ad leggings keytar, brunch id art party dolor labore. Pitchfork yr enim lo-fi before they
-                                sold out qui. Tumblr farm-to-table bicycle rights whatever. Anim keffiyeh carles
-                                cardigan. Velit seitan mcsweeney's photo booth 3 wolf moon irure. Cosby sweater lomo
-                                jean shorts, williamsburg hoodie minim qui you probably haven't heard of them et
-                                cardigan trust fund culpa biodiesel wes anderson aesthetic. Nihil tattooed accusamus,
-                                cred irony biodiesel keffiyeh artisan ullamco consequat.</p>
-                            <p>Keytar twee blog, culpa messenger bag marfa whatever delectus food truck. Sapiente synth
-                                id assumenda. Locavore sed helvetica cliche irony, thundercats you probably haven't
-                                heard of them consequat hoodie gluten-free lo-fi fap aliquip. Labore elit placeat before
-                                they sold out, terry richardson proident brunch nesciunt quis cosby sweater pariatur
-                                keffiyeh ut helvetica artisan. Cardigan craft beer seitan readymade velit. VHS chambray
-                                laboris tempor veniam. Anim mollit minim commodo ullamco thundercats.
-                            </p>
-                        </div>
+                    
+                    
+		                <div class="row">
+		                    <div class="col-12">
+		                        <div class="card">
+		                            <div class="card-body">
+		                                <h4 class="card-title">청원제목 </h4>
+			                                <div class="form-group">
+	                                            <input type="text" class="form-control"
+	                                                placeholder="제목 입력 ">
+	                                        </div>
+		                                <hr>
+		                                <form action="#">
+		                                    <div class="form-body">
+		                                        <div class="form-group row">
+		                                            <!-- 분류 카테고리 영역  -->
+		                   
+		                                              <div class="col-md-10">
+		                                                <div class="row">
+		                                            
+				                                            <div class="col-sm-12 col-md-6 col-lg-4">
+										                        <div class="card">
+										                            <div class="card-body">
+										                                <form>
+										                                    <div class="form-group mb-1">
+										                                        <label class="mr-sm-2" for="inlineFormCustomSelect">카테고리 </label>
+										                                        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+										                                            <option selected>선택하기</option>
+										                                            
+										                                           <!-- DB 컬 개수만큼 반복  -->
+										                                           
+										                                            <option value="1">One</option>
+										                                           
+										                                            
+										                                        </select>
+										                                    </div>
+										                                </form>
+										                            </div>
+										                        </div>
+										                    </div>
+		                                            
+		                                                    <div class="col-md-8">
+		                                                        <div class="form-group">
+		                                                            <input type="text" class="form-control"
+		                                                                placeholder="해시태그 입력(최대 5개)">
+		                                                        </div>
+		                                                    </div>
+		                                                    
+		                                                </div>
+		                                            </div>
+		                                        </div>
+		                                        
+		                                        <hr>
+		                                        <h4 class="card-title">청원내용  </h4>
+		                                         <div data-spy="scroll" data-target="#navbar-example2" data-offset="0"
+						                            class="position-relative mt-2" style="height: 700px; overflow: auto;">	
+						                            
+						                            <textarea class="form-control" rows="3" placeholder="청원내용 작성 " 
+						                            				style="height: 700px; overflow: auto;"></textarea>
+						                            					                          
+						                        </div>
+		                                        
+		                                        <hr>
+		                                        
+		                                        <div class="form-group row">
+		                                            <label class="col-md-2">링크 첨부 </label>
+		                                            <div class="col-md-10">
+		                                                <div class="row">
+		                                                    <div class="col-md-8">
+		                                                        <div class="form-group">
+		                                                            <input type="text" class="form-control"
+		                                                                placeholder="First Input &amp; First Row">
+		                                                        </div>
+		                                                    </div>
+		                                                    <div class="col-md-4">
+		                                                        <div class="form-group">
+		                                                             <button type="submit" class="btn btn-info">추가하기  </button>
+		                                                        </div>
+		                                                    </div>
+		                                                </div>
+		                                                <!--  
+		                                                <div class="row">
+		                                                    <div class="col-md-10">
+		                                                        <div class="form-group">
+		                                                            <input type="text" class="form-control"
+		                                                                placeholder="First Input &amp; Second Row">
+		                                                        </div>
+		                                                    </div>
+		                                                    <div class="col-md-4">
+		                                                        <div class="form-group">
+		                                                            <input type="text" class="form-control"
+		                                                                placeholder="Second Input &amp; Second Row">
+		                                                        </div>
+		                                                    </div>
+		                                                </div>
+		                                                -->
+		                                                
+		                                            </div>
+		                                        </div>
+		                                    </div>
+		                                    
+		                                    <div class="form-actions">
+		                                        <div class="text-right">
+		                                            <button type="submit" class="btn btn-info">등록 </button>
+		                                            <button type="reset" class="btn btn-dark">취소 </button>
+		                                        </div>
+		                                    </div>
+		                                </form>
+		                            </div>
+		                        </div>
+		                    </div>
+		                </div>
+                    
+                       
                     </div>
                 </div>
                 <!-- ============================================================== -->
-                
+               
                 
                 
                 
