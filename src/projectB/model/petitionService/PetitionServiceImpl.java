@@ -22,6 +22,14 @@ public class PetitionServiceImpl implements PetitionService{
 	}
 
 	@Override
+	public List<PetitionDTO> getCategory() throws Exception {
+		Map map = new HashMap();
+		
+		
+		return dao.selectList("petition.getCategory",map);
+	}
+	
+	@Override
 	public int getArticleCount() throws Exception {
 	
 		return dao.selectOne("petition.getArticleCount");
@@ -74,6 +82,8 @@ public class PetitionServiceImpl implements PetitionService{
 		List<PetitionDTO> stateList = dao.selectList("petition.getArticleState", map);
 		return stateList;
 	}
+
+
 
 
 

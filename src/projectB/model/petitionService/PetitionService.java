@@ -7,6 +7,7 @@ import projectB.model.petition.PetitionDTO;
 public interface PetitionService {
 	
 	public void insertArticle(PetitionDTO petition) throws Exception;
+	public List<PetitionDTO> getCategory() throws Exception;
 	public int getArticleCount() throws Exception;
 	public List<PetitionDTO> getArticles(int start, int end) throws Exception;
 	public PetitionDTO getArticle(int num) throws Exception;

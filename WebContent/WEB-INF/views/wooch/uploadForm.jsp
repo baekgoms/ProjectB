@@ -547,10 +547,7 @@
             <!-- End Bread crumb and right sidebar toggle -->
             <!-- ============================================================== -->
             
-            
-            
-            
-            
+  
             
             <!-- ============================================================== -->
             <!-- Container fluid 첫번째꺼  -->
@@ -570,13 +567,16 @@
 		                    <div class="col-12">
 		                        <div class="card">
 		                            <div class="card-body">
-		                                <h4 class="card-title">청원제목 </h4>
+		                                <h4 class="card-title">청원제목 </h4>    
+		                                  
+<!-- 			<form>				 --> <form method="post" name="uploadForm" action="/projectB/petition/uploadPro.aa" >
 			                                <div class="form-group">
+	                                            
 	                                            <input type="text" class="form-control"
-	                                                placeholder="제목 입력 ">
+	                                                placeholder="제목 입력 " name="title">
 	                                        </div>
 		                                <hr>
-		                                <form action="#">
+		                              
 		                                    <div class="form-body">
 		                                        <div class="form-group row">
 		                                            <!-- 분류 카테고리 영역  -->
@@ -587,10 +587,10 @@
 				                                            <div class="col-sm-12 col-md-6 col-lg-4">
 										                        <div class="card">
 										                            <div class="card-body">
-										                                <form>
+										                               
 										                                    <div class="form-group mb-1">
 										                                        <label class="mr-sm-2" for="inlineFormCustomSelect">카테고리 </label>
-										                                        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+										                                        <select class="custom-select mr-sm-2" id="inputGroupSelect01" name="category" >
 										                                            <option selected>선택하기</option>
 										                                            
 										                                           <!-- DB 컬 개수만큼 반복  -->
@@ -600,7 +600,7 @@
 										                                            
 										                                        </select>
 										                                    </div>
-										                                </form>
+										                               
 										                            </div>
 										                        </div>
 										                    </div>
@@ -621,7 +621,7 @@
 		                                         <div data-spy="scroll" data-target="#navbar-example2" data-offset="0"
 						                            class="position-relative mt-2" style="height: 700px; overflow: auto;">	
 						                            
-						                            <textarea class="form-control" rows="3" placeholder="청원내용 작성 " 
+						                            <textarea class="form-control" rows="3" placeholder="청원내용 작성 " name="content"
 						                            				style="height: 700px; overflow: auto;"></textarea>
 						                            					                          
 						                        </div>
