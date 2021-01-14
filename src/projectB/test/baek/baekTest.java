@@ -56,6 +56,11 @@ public class baekTest {
 		return "redirect:inputEmail.aa";
 	}
 	
+	@RequestMapping("authMail.aa")
+	public String testAuthMail() {
+		return "test/baek_test/AuthMail";
+	}
+	
 //	@RequestMapping("insertTest.aa")
 //	public String test5(PetitionerDTO dto) {
 //		System.out.println("insertTest run");
@@ -73,10 +78,11 @@ public class baekTest {
 //	}
 	
 	@RequestMapping("confirmId.aa")
-	public @ResponseBody String confirmId2(Model model) throws Exception
+	public @ResponseBody String confirmId2(String id) throws Exception
 	{
 		System.out.println("confirmId run");
-		int check = 12;
+		System.out.println(id);
+		int check = petitionerService.confirmId(id);
 		
 		return check + "";
 	}

@@ -31,7 +31,6 @@
 	</typeAliases>
 	
 	<mappers>
-		<mapper resource="/sql/SQL.xml" />
 		<mapper resource="/sql/petitionSQL.xml" />
 		<mapper resource="/sql/discussionSQL.xml" />
 	</mappers>

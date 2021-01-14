@@ -14,7 +14,11 @@ public class PetitionerServiceImpl implements PetitionerService {
 	
 	@Override
 	public void insertPetitioner(PetitionerDTO dto) {
-		//정보 추가
 		connection.insert("petitioner.insertPetitioner", dto);
+	}
+	
+	@Override
+	public int confirmId(String id) {
+		return connection.selectOne("petitioner.confirmId", id);
 	}
 }

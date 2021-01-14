@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("petition")
 public class woochTest {
 	
-	@RequestMapping("upload.aa")
-	public String upload() {
-		System.out.println("wooch upload controller");
-		return "wooch/uploadForm";
-	}
+//	@RequestMapping("upload.aa")
+//	public String upload() {
+//		System.out.println("wooch upload controller");
+//		return "wooch/uploadForm";
+//	}
 	
 	@RequestMapping("test.aa")
 	public String test() {

@@ -22,8 +22,8 @@
     		<param-name>contextConfigLocation</param-name>
     		<param-value>
     			/WEB-INF/controller/oracle/oracleDB-servlet.xml
-    			/WEB-INF/controller/test-servlet.xml  
-    			/WEB-INF/controller/mybatis/mybatis-config.xml			
+    			/WEB-INF/controller/petitioner-servlet.xml
+    			/WEB-INF/controller/test-servlet.xml			
     		</param-value>
     	</init-param>
     </servlet>

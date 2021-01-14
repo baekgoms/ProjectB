@@ -128,13 +128,7 @@ $(document).ready(function(){
 				}
 			}
 		})
-	});
-	/* $("input[name='gender']").change(function(){
-		//성별 가져오기!
-		//var inputValue = $("input[name='inlineRadioOptions']:checked").val();
-	    //alert(inputValue);
-	}) */
-    
+	});    
 });
 
 </script>

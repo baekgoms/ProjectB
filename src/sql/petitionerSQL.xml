@@ -12,5 +12,9 @@
 		0, 0, 0, sysdate, to_date('20001212', 'YYYYMMDD'), #{ authKey })
 	</insert>
 	
+	<select id = "confirmId" resultType="int" parameterType="String">
+		select count(*) from petitioner where id = #{ value }
+	</select>
+	
 </mapper>
 

@@ -4,4 +4,5 @@ import projectB.model.petitioner.PetitionerDTO;
 
 public interface PetitionerService {
 	void insertPetitioner(PetitionerDTO dto);
+	int confirmId(String id);
 }
