@@ -24,8 +24,7 @@
 	</typeAliases>
 	
 	<mappers>
-		<mapper resource="/sql/SQL.xml" />
-		<mapper resource="/sql/petitionerSQL.xml" />
+		<mapper resource="/sql/discussionSQL.xml" />
 	</mappers>
   
 </configuration>
