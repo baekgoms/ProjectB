@@ -14,8 +14,8 @@
        신고버튼
 -->
 
-<table>
-<tr>
+<table width="700">
+<tr width="200">
 <td>제목</td>
 </tr>
 <tr>
@@ -32,6 +32,16 @@
 <input type="button" value="찬성">
 <input type="button" value="반대">
 <br />
+<form method="post" name="commentWriteForm" action="/projectB/discussion/commentWritePro.aa">
+<input type="radio" name="agreement" value="0">찬성
+<input type="radio" name="agreement" value="1">반대
+<input type="text" class="form-control" id="comment" aria-describedby="name" placeholder="댓글을 입력해주세요">
+
+<input type="hidden" id="bNum" value="${num}">
+<input type="submit" value="댓글 입력" >
+</form>
+
+
 <input type="button" value="수정" OnClick="window.location='/projectB/discussion/updateForm.aa?pageNum=${pageNum}&num=${num}'">
 <input type="button" value="삭제" OnClick="window.location='/projectB/discussion/deletePro.aa?pageNum=${pageNum}&num=${num}'">
 <input type="button" value="목록" OnClick="window.location='/projectB/discussion/main.aa?pageNum=${pageNum}'">

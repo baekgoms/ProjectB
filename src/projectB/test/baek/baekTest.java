@@ -1,16 +1,26 @@
 package projectB.test.baek;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import projectB.model.petitioner.PetitionerDTO;
+import projectB.model.petitionerService.PetitionerService;
+
 @Controller
 @RequestMapping("beakTest")
 public class baekTest {
+	@Autowired
+	private PetitionerService petitionerService;
+	
+	@Autowired
+	private MailSendService mailSendService;
+	
 	@RequestMapping("inputEmail.aa")
 	public String test() {
-		System.out.println("inputEmail run");
+		System.out.println("inputEmail run" + "/" + petitionerService);
 		
 		return "test/baek_test/inputEmail";
 	}
@@ -28,6 +38,39 @@ public class baekTest {
 		
 		return "test/baek_test/signUp";
 	}
+	
+	@RequestMapping("sendEmail.aa")
+	public String test4(PetitionerDTO dto) {
+		System.out.println("sendEmail run");
+		
+		mailSendService.createAuthKey();
+		
+		String authKey = mailSendService.getAuthKey();
+		
+		dto.setAuthKey(authKey);
+		
+		petitionerService.insertPetitioner(dto);
+		
+		mailSendService.sendMail("asx14@naver.com");
+		
+		return "redirect:inputEmail.aa";
+	}
+	
+//	@RequestMapping("insertTest.aa")
+//	public String test5(PetitionerDTO dto) {
+//		System.out.println("insertTest run");
+//		
+//		System.out.println("insertTest run/" + dto.getId());
+//		System.out.println("insertTest run/" + dto.getPassword());
+//		System.out.println("insertTest run/" + dto.getName());
+//		System.out.println("insertTest run/" + dto.getContact());		
+//		System.out.println("insertTest run/" + dto.getEmail());
+//		System.out.println("insertTest run/" + dto.getGender());
+//		
+//		petitionerService.insertPetitioner(dto);
+//		
+//		return "test/baek_test/signUp";
+//	}
 	
 	@RequestMapping("confirmId.aa")
 	public @ResponseBody String confirmId2(Model model) throws Exception

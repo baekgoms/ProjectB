@@ -6,8 +6,11 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service("boardDAO")
+@Service("disBoardDAO")
 public class DisBoardDAO implements DisBoardService{
+	
+	@Autowired
+	private SqlSessionTemplate bDao = null;
 	
 	@Override
 	public void insertArticle(DisBoardDTO article) throws Exception {
@@ -29,11 +32,6 @@ public class DisBoardDAO implements DisBoardService{
 	}
 
 	@Override
-	public DisBoardDTO updateGetArticle(int num) throws Exception {
-		return null;
-	}
-
-	@Override
 	public int updateArticle(DisBoardDTO article) throws Exception {
 		return 0;
 	}
@@ -50,6 +48,30 @@ public class DisBoardDAO implements DisBoardService{
 
 	@Override
 	public void opposition(int num) throws Exception {
+		
+	}
+
+	@Override
+	public void report(int num) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void openStateOpen(int num) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void openStateCheck(int num) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void openStateClose(int num) throws Exception {
+		// TODO Auto-generated method stub
 		
 	}
 

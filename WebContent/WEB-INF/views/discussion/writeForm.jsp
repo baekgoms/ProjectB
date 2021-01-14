@@ -6,9 +6,6 @@
 <!-- This Page CSS -->
 <link rel="stylesheet" type="text/css" href="/projectB/resource/assets/extra-libs/prism/prism.css">
     
-<div class="col-sm-12 col-md-6 col-lg-4">
-                        <div class="card">
-                            <div class="card-body">
 <form method="post" name="writeform" action="/projectB/discussion/writePro.aa?pageNum=${pageNum}">
 
 <table>
@@ -42,6 +39,3 @@
 <input type="reset" value="내용지우기">
 <input type="button" value="취소" OnClick="window.location='/projectB/discussion/main.aa?pageNum=${pageNum}'">
 </form>
-</div>
-</div>
-</div>

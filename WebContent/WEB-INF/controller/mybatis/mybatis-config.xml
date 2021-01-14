@@ -21,11 +21,13 @@
 	<typeAliases>
 		<typeAlias alias="disDTO" type="projectB.test.hj.DisBoardDTO" />
 		<typeAlias alias="petitionDTO" type="projectB.model.petition.PetitionDTO" />
+		<typeAlias alias="petitionerDTO" type="projectB.model.petitioner.PetitionerDTO" />
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="/sql/SQL.xml" />
 		<mapper resource="/sql/petitionSQL.xml" />
+		<mapper resource="/sql/discussionSQL.xml" />
 	</mappers>
   
 </configuration>
