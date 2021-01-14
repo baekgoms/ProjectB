@@ -25,6 +25,12 @@ public class PetCommentDTO implements BaseDTO{
 			e.printStackTrace();
 		}
 	}
+	
+	public PetCommentDTO() {
+		System.out.println("동의 디폴트");
+		this.content = "동의합니다";
+	}
+	
 	public int getNum() {
 		return num;
 	}

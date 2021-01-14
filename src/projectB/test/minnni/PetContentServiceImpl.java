@@ -1,5 +1,7 @@
 package projectB.test.minnni;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,8 +22,17 @@ public class PetContentServiceImpl implements PetitionService{
 
 	@Override
 	public void insertCmt(PetCommentDTO dto) throws Exception {
-		// TODO Auto-generated method stub
-		
+		dao.insert("petition.insertCmt",dto);
+	}
+
+	@Override
+	public List petCmtList(int petitionNum) throws Exception {
+		return dao.selectList("petition.petCmtList",petitionNum);
+	}
+	
+	@Override
+	public int petCmtCount() throws Exception {
+		return dao.selectOne("petition.petCmtCount");
 	}
 
 }

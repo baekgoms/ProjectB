@@ -10,10 +10,20 @@
 		select * from petition where num = #{num}
 	</select>
 	
-		
 	<select id="insertCmt" parameterType="PetCommentDTO">
-		insert into PetComment values (num_seq.nextval,#,#,#,sysdate);
+		insert into petitionComment values (num_seq.nextval,
+											#{petitionNum},
+											#{writer},
+											#{content},sysdate);
 	</select>	
+		
+	<select id="petCmtList" resultType="PetCommentDTO" parameterType="int">
+		select * from petitionComment where petitionNum = #{petitionNum}
+	</select>
+	
+	<select id="petCmtCount" resultType="int" >
+		select count(*) from petitionComment 
+	</select>
 		
 </mapper>
 

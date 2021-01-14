@@ -19,13 +19,5 @@ public class PetContentBean {
 		model.addAttribute("petDTO",petDTO);
 		return "board/petitionContent";
 	}
-
-	
-	@RequestMapping("pettest.aa")
-	public String hello() {
-		System.out.println("PetCohjhntenbean run");
-		return "board/petitionContent";
-
-	}
 	
 }
