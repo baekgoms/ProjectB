@@ -13,11 +13,13 @@ public class PetitionerDTO implements BaseDTO{
 	private String name;
 	private String contact;
 	private String email;
+	private String gender;
 	private int report;
 	private int state;
 	private int emailArg;
 	private Timestamp reg;
 	private Timestamp blockReg;
+	private String authKey;
 
 	public void setInfo(ResultSet rs) {
 		try {
@@ -27,6 +29,7 @@ public class PetitionerDTO implements BaseDTO{
 			setName(rs.getString("name"));
 			setContact(rs.getString("contact"));
 			setEmail(rs.getString("email"));
+			setGender(rs.getString("gender"));
 			setReport(rs.getInt("report"));
 			setState(rs.getInt("state"));
 			setEmailArg(rs.getInt("emailArg"));
@@ -49,6 +52,8 @@ public class PetitionerDTO implements BaseDTO{
 	public void setContact(String contact) { this.contact = contact; }
 	public String getEmail() { return email; }
 	public void setEmail(String email) { this.email = email; }
+	public String getGender() { return gender; }
+	public void setGender(String gender) { this.gender = gender; }
 	public int getReport() { return report; }
 	public void setReport(int report) { this.report = report; }
 	public int getState() { return state; }
@@ -59,4 +64,6 @@ public class PetitionerDTO implements BaseDTO{
 	public void setReg(Timestamp reg) { this.reg = reg; }
 	public Timestamp getBlockReg() { return blockReg; }
 	public void setBlockReg(Timestamp blockReg) { this.blockReg = blockReg; }
+	public String getAuthKey() { return authKey; }
+	public void setAuthKey(String authKey) { this.authKey = authKey; }
 }
