@@ -1,10 +1,9 @@
-package projectB.test.wooch;
+package projectB.model.petitionService;
 
 import projectB.model.petition.PetitionDTO;
 
-public interface petitionService {
+public interface PetitionService {
 
 	public void insertPetition(PetitionDTO DTO) throws Exception;
-	
 	
 }
