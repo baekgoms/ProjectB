@@ -10,11 +10,24 @@
 <link href="/projectB/resource/assets/libs/morris.js/morris.css" rel="stylesheet">
                 
 <title>토론게시판</title>
-<input type="button" value="최신순">
-<input type="button" value="베스트순">
+<center>
+<body>
+<input type="button" class="btn waves-effect waves-light btn-outline-dark" value="                           최신순                              ">
+<input type="button" class="btn waves-effect waves-light btn-outline-dark" value="                           베스트순                           ">
 
 <br />
-
+<form>
+<table>
+<tr height="50">
+<td></td></tr>
+<tr>
+<td><input type="text">  <input class="btn waves-effect waves-light btn-outline-dark" type="submit" value="검색" >
+</td>
+</tr>
+<tr height="50">
+<td></td></tr>
+</table>
+</form>
 <c:if test="${count == 0}">
 <table>
   <tr>
@@ -25,40 +38,42 @@
 </table>
 </c:if>
 
-<div class="col-lg-6">
-	<div class="card">
-        <div class="card-body">
-            <h4 class="card-title">Donute Chart</h4>
-            <div id="morris-donut-chart"></div>
-        </div>
-    </div>
-</div>
-
 <c:if test="${count > 0}">
-<c:forEach var="article" items="${articleList}">
-
-${article.subject}
-${article.write}
-${article.reg}
-</c:forEach>
-<table>
-
-
+<c:set var="i" value="0" />
+<c:set var="j" value="5" />
+<table border="1">
+<c:forEach items="${articleList}" var="article">
+<c:if test="${i%j == 0 }">
 <tr>
-...5번반복
-<td>
-</td>
-....여기까지
+</c:if>
+<td><div id="morris-donut-chart" style= "height: 100px"></div>
+${article.subject}<br />
+${article.write}<br />
+${article.reg}<br /></td>
+<c:if test="${i%j == j-1 }">
 </tr>
-4번반복 끝
+</c:if>
+<c:set var="i" value="${i+1 }" />
+</c:forEach>
 </table>
 </c:if>
 
+<c:if test="${count > 0}">
+   <c:set var="pageCount" value="${count / pageSize + ( count % pageSize == 0 ? 0 : 1)}"/>
+   <c:set var="pageBlock" value="${20}"/>
+   <fmt:parseNumber var="result" value="${currentPage / 10}" integerOnly="true" />
+   <c:set var="startPage" value="${result * 10 + 1}" />
+   <c:set var="endPage" value="${startPage + pageBlock-1}"/>
+   <c:if test="${endPage > pageCount}">
+        <c:set var="endPage" value="${pageCount}"/>
+   </c:if> 
+   
 <input type="button" class="btn waves-effect waves-light btn-outline-dark" 
 	onclick="document.location.href='/projectB/discussion/writeForm.aa?pageNum=${pageNum}'" value="토론글 작성하기">
 <div class="col-lg-4 mb-4">
 <nav aria-label="Page navigation example">
 <ul class="pagination justify-content-center">
+<c:if test="${startPage > 20}">
 <li class="page-item">
     <a class="page-link" href="javascript:void(0)"
         aria-label="Previous">
@@ -66,41 +81,50 @@ ${article.reg}
         <span class="sr-only">Previous</span>
     </a>
 </li>
+</c:if>
+<c:forEach var="i" begin="${startPage}" end="${endPage}">
 <li class="page-item"><a class="page-link"
-        href="javascript:void(0)">1</a></li>
-<li class="page-item"><a class="page-link"
-        href="javascript:void(0)">2</a></li>
-<li class="page-item"><a class="page-link"
-        href="javascript:void(0)">3</a></li>
+        href="/projectB/discussion/main.aa?pageNum=${i}">${i}</a>
+</li>
+</c:forEach>
+<c:if test="${endPage < pageCount}">
 <li class="page-item">
     <a class="page-link" href="javascript:void(0)" aria-label="Next">
         <span aria-hidden="true">&raquo;</span>
         <span class="sr-only">Next</span>
     </a>
 </li>
+</c:if>
 </ul>
 </nav>
 </div>
-
-	<script src="/projectB/resource/bootstrap/assets/libs/raphael/raphael.min.js"></script>
+</c:if>
+    <script src="/projectB/resource/bootstrap/assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="/projectB/resource/bootstrap/assets/libs/popper.js/dist/umd/popper.min.js"></script>
+    <script src="/projectB/resource/bootstrap/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/projectB/resource/bootstrap/js/app-style-switcher.js"></script>
+    <script src="/projectB/resource/bootstrap/js/feather.min.js"></script>
+    <script src="/projectB/resource/bootstrap/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+    <script src="/projectB/resource/bootstrap/assets/extra-libs/sparkline/sparkline.js"></script>
+    <script src="/projectB/resource/bootstrap/js/sidebarmenu.js"></script>
+    <script src="/projectB/resource/bootstrap/js/custom.min.js"></script>
+    <script src="/projectB/resource/bootstrap/assets/libs/raphael/raphael.min.js"></script>
     <script src="/projectB/resource/bootstrap/assets/libs/morris.js/morris.min.js"></script>
-    <script src="/projectB/resource/bootstrap/js/pages/morris/morris-data.js">
-    $(function () {
-    	"use strict"
-    	 Morris.Donut({
+    <script src="/projectB/resource/bootstrap/js/pages/morris/morris-data.js"></script>
+    <script>
+
+    	new Morris.Donut({
     	        element: 'morris-donut-chart',
     	        data: [{
-    	            label: "Download Sales",
-    	            value: 12,
+    	            label: "찬성",
+    	            value: 30,
 
     	        }, {
-    	            label: "In-Store Sales",
+    	            label: "반대",
     	            value: 30
-    	        }, {
-    	            label: "Mail-Order Sales",
-    	            value: 20
     	        }],
     	        resize: true,
     	        colors:['#5f76e8', '#01caf1', '#8fa0f3']
-    	    });
-    });    </script>
+    	    });   </script>
+</body>
+</center>

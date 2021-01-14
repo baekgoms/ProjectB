@@ -33,15 +33,21 @@ public class MailSendService {
 			
 			mailSender.setSubject("회원가입 메일 인증");
 			
-			mailSender.setHtmlText(new StringBuffer().append("<h1>[이메일 인증]</h1>")
-					.append("<p>아래 링크를 클릭하면 이메일 인증이 완료됩니다.</p>")
-					.append("<a href = '주소?email=")
-					.append(toEmail)
-					.append("&authKey=")
-					.append(authKey)
-					.append("'")
-					.append("target='_blenk'>이메일 인증 확인</a>")
-					.toString());
+			StringBuffer bf = new StringBuffer()
+					.append("<h1>[이메일 인증]</h1>")
+					.append("<p>버튼 클릭하면 이메일 인증이 완료됩니다.</p>")
+					.append("<form method = 'post'")
+					.append("action = 'http://localhost:8080/projectB/beakTest/authMail.aa'>")
+					.append("<input type='hidden' name= 'email'")
+					.append("value=" + toEmail + ">")
+					.append("<input type='hidden' name= 'authKey'")
+					.append("value=" + authKey + ">")
+					.append("<button type='submit'")
+					.append("class='btn waves-effect waves-light btn-outline-dark'>")
+					.append("인증하기</button>")
+					.append("</from>");
+
+			mailSender.setHtmlText(bf.toString());
 			mailSender.setFrom("projectB", "관리자");
 			mailSender.setTo(toEmail);
 			mailSender.sendMail();

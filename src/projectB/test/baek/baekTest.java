@@ -12,6 +12,9 @@ import projectB.model.petitionerService.PetitionerService;
 @Controller
 @RequestMapping("beakTest")
 public class baekTest {
+	private static final int NOT_CONFIRM = 0;
+	private static final int CONFIRM = 1;
+	
 	@Autowired
 	private PetitionerService petitionerService;
 	
@@ -47,6 +50,7 @@ public class baekTest {
 		
 		String authKey = mailSendService.getAuthKey();
 		
+		dto.setState(PetitionerService.NOT_AUTH_STATE);
 		dto.setAuthKey(authKey);
 		
 		petitionerService.insertPetitioner(dto);
@@ -57,7 +61,30 @@ public class baekTest {
 	}
 	
 	@RequestMapping("authMail.aa")
-	public String testAuthMail() {
+	public String testAuthMail(PetitionerDTO dto, Model model) {
+		//인증키 체크
+		//System.out.println("testAuthMail run Email/ " + dto.getEmail());
+		//System.out.println("testAuthMail run AuthKey/ " + dto.getAuthKey());
+		
+		int confirmResult = NOT_CONFIRM;
+		PetitionerDTO dbData = null;
+		if(dto.getEmail() != null && dto.getAuthKey() != null) {
+			
+			//confirmResult = petitionerService.confirmAuthKey(dto);
+			dbData = petitionerService.getPetitionerByEmailAndAuthKey(dto.getEmail(), dto.getAuthKey());
+		}
+		
+		//인증 업데이트
+		if(dbData != null) {
+			confirmResult = CONFIRM;
+			petitionerService.updatePetitionerState(dbData.getId());
+		}
+		//System.out.println("confirmResult : " + confirmResult);
+		
+		model.addAttribute("confirmResult", confirmResult);
+		
+		
+		
 		return "test/baek_test/AuthMail";
 	}
 	
