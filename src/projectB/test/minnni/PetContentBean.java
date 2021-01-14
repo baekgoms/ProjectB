@@ -11,11 +11,11 @@ import projectB.model.petition.PetitionDTO;
 @RequestMapping("/petition/")
 public class PetContentBean {
 	@Autowired
-	private PetitionService petitionDAO = null;
+	private PetitionService petitionContentService = null;
 	
 	@RequestMapping("petContent.aa")
 	public String petContent(int num, Model model) throws Exception{
-		PetitionDTO petDTO = petitionDAO.getArticle(num);
+		PetitionDTO petDTO = petitionContentService.getArticle(num);
 		model.addAttribute("petDTO",petDTO);
 		return "board/petitionContent";
 	}

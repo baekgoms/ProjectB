@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import projectB.model.petition.PetitionDTO;
 
-@Service("petitionDAO")
+@Service("petitionContentService")
 public class PetContentServiceImpl implements PetitionService{
 
 	@Autowired
