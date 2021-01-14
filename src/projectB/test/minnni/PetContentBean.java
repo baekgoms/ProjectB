@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import projectB.model.petition.PetitionDTO;
+
 @Controller
 @RequestMapping("/petition/")
 public class PetContentBean {
@@ -21,7 +23,7 @@ public class PetContentBean {
 	
 	@RequestMapping("pettest.aa")
 	public String hello() {
-		System.out.println("PetCohjhntenbean ½ÇÇà");
+		System.out.println("PetCohjhntenbean run");
 		return "board/petitionContent";
 
 	}

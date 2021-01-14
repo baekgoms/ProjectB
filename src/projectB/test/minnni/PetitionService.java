@@ -1,5 +1,7 @@
 package projectB.test.minnni;
 
+import projectB.model.petition.PetitionDTO;
+
 public interface PetitionService {
 
 	//public static final String dbConnect = "jdbc/orcl";

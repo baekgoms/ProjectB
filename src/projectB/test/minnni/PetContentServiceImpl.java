@@ -4,7 +4,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import projectB.test.minnni.PetitionDTO;
+import projectB.model.petition.PetitionDTO;
 
 @Service("petitionDAO")
 public class PetContentServiceImpl implements PetitionService{
