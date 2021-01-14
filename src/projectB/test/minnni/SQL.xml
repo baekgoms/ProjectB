@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="petition">
+	<!-- resultType으로 리턴
+		 parameterType DAO에서 가지고 오는 타입 -->
+	
+	<select id="getArticle" resultType="PetitionDTO" parameterType="int">
+		select * from petition where num = #{num}
+	</select>
+	
+		
+	<select id="insertCmt" parameterType="PetCommentDTO">
+		insert into PetComment values (num_seq.nextval,#,#,#,sysdate);
+	</select>	
+		
+</mapper>
+

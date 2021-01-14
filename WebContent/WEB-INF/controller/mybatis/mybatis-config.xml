@@ -20,19 +20,16 @@
  	<!-- typeAliases는 해도되고, 안해도됨 -->
 	<typeAliases>
 		<typeAlias alias="disDTO" type="projectB.test.hj.DisBoardDTO" />
-
-		<typeAlias alias="PetitionDTO" type="projectB.model.petition.PetitionDTO" />
-
-
 		<typeAlias alias="petitionDTO" type="projectB.model.petition.PetitionDTO" />
-
 		<typeAlias alias="petitionerDTO" type="projectB.model.petitioner.PetitionerDTO" />
-
+		<typeAlias alias="PetitionDTO" type="projectB.test.minnni.PetitionDTO" />
+		<typeAlias alias="PetCommentDTO" type="projectB.test.minnni.PetCommentDTO" />
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="/sql/petitionSQL.xml" />
 		<mapper resource="/sql/discussionSQL.xml" />
+		<mapper resource="/projectB/test/minnni/SQL.xml"/>
 	</mappers>
   
 </configuration>
