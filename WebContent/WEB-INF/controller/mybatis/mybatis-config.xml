@@ -20,10 +20,12 @@
  	<!-- typeAliases는 해도되고, 안해도됨 -->
 	<typeAliases>
 		<typeAlias alias="disDTO" type="projectB.test.hj.DisBoardDTO" />
+		<typeAlias alias="petitionDTO" type="projectB.model.petition.PetitionDTO" />
 	</typeAliases>
 	
 	<mappers>
 		<mapper resource="/sql/SQL.xml" />
+		<mapper resource="/sql/petitionSQL.xml" />
 	</mappers>
   
 </configuration>

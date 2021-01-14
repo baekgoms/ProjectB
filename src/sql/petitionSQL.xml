@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="petition">
+
+	<select id="MaxnumCount" resultType="int">
+		select max(num)from petition
+	</select>
+	
+	<insert id ="insertArticle" parameterType="petitionDTO">
+		insert into petition values(petition_seq.nextval,
+		#{title}, #{content}, #{category}, sysdate, sysdate, #{writer}, #{petition},
+		#{petitionState}, #{link}, #{indicaterNum}, #{tag}, #{report}, #{open})
+	</insert>
+	
+	<select id ="getArticleCount" resultType="int">
+		select count(*) from petition
+	</select>
+	
+	<select id="getArticleAll" resultType="petitionDTO" parameterType="map">
+		select * from (select num, title, content, category, startDate, endDate, writer,
+		petition, petitionState, link, indicaterNum, tag, report, open,rownum r 
+		from(select * from petition order by num desc) order by num desc) 
+		where r <![CDATA[>=]]> #{startRow} and r <![CDATA[<=]]>#{endRow}
+	</select>
+	
+
+	<!-- 남은부분은 미리써두면 엉킬까봐 안썻어요! -->
+	
+</mapper>
+
