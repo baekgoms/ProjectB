@@ -20,6 +20,7 @@
  	<!-- typeAliases는 해도되고, 안해도됨 -->
 	<typeAliases>
 		<typeAlias alias="disDTO" type="projectB.test.hj.DisBoardDTO" />
+		<typeAlias alias="PetitionDTO" type="projectB.model.petition.petitionDTO" />
 	</typeAliases>
 	
 	<mappers>
