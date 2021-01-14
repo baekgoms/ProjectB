@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -13,7 +15,7 @@
     <link href="/projectB/resource/bootstrap/css/style.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/projectB/resource/bootstrap/assets/extra-libs/prism/prism.css">
 
-<title>Insert title here</title>
+<title>청원진행중인 게시판</title>
 </head>
 <body>
 <br />
@@ -39,8 +41,8 @@
 <tr>
 <td colspan ="6" align="right">
 <select name="option">
-	<option value="">조회순</option>
-	<option value="">동의순</option>
+	<option value="newest">최신순</option>
+	<option value="agree">동의순</option>
 </select>
 </td>
 </tr>
@@ -48,6 +50,24 @@
 <br />
 <br />
 
+<c:if test="${count == 0}">
+<div class="table-responsive">
+ <table class="table" >
+  <tr>
+   <td colspan ="5" align="right">
+        <button type="button" class="btn waves-effect waves-light btn-outline-dark">지금 청원하기</button>
+	</td>
+   </tr>
+ 	<tr>
+ 		<td align ="center">
+ 		진행중인 청원이 없습니다.
+ 		</td>
+ 	</tr>
+ </table>
+</div>
+</c:if>
+
+<c:if test="${count > 0}">
 <div class="table-responsive">
  <table class="table" >
    <thead>
@@ -68,36 +88,50 @@
     </tr>
   </thead>
   <tbody>
+  <c:forEach var="article" items="${ articleList }"> 
     <tr>
-   		<th scope="row">1</th>
-        	<td>의료보건</td>
-            <td>제목</td>
-            <td>만료일</td>
-            <td>동의수</td>
+    <c:out value="${ number }"/>
+    <c:set var="number" value="${ number -1 }"/>
+   		<th scope="row">${article.num}</th>
+        	<td>${article.category }</td>
+        	<td>
+        	<a href ="projectB/board/content.aa?num=${article.num}&pageNum=${currentPage}">
+        	${article.title}</a>
+        	</td>
+            <td>${article.endDate}</td>
+            <td>${artilcle.petition}</td>
     </tr>
-        <tr>
-   		<th scope="row">2</th>
-        	<td>의료보건</td>
-            <td>제목</td>
-            <td>만료일</td>
-            <td>동의수</td>
-    </tr>
-        <tr>
-   		<th scope="row">3</th>
-        	<td>의료보건</td>
-            <td>제목</td>
-            <td>만료일</td>
-            <td>동의수</td>
-    </tr>
-
+    </c:forEach>
    </tbody>
   </table>
 </div>
-                                
-<input type="text" name="keyword" id="keyword"><button type="submit" class="btn waves-effect waves-light btn-outline-dark" value="검색">
+</c:if>
 
 
+<c:if test="${count > 0}">
+	<c:set var="pageCount" value="${count / pageSize +(count % pageSize == 0 ? 0: 1)}" />
+	<c:set var="pageBlock" value="${10}" />
+	<fmt:parseNumber var="result" value="${ currentPage/10 }" integerOnly="true" />
+	<c:set var ="startPage" value="${ result * 10 + 1 }" />
+	<c:set var="endPage" value="${startPage + pageBlock-1 }" />
+	<c:if test="${ endPage > pageCount }">
+		<c:set var="endPage" value="${ pageCount }" />
+	</c:if>
+
+	<c:if test="${startPage > 10 }">
+		<a href ="/projectB/board/ing_list.aa?pageNum=${startPage - 10 }">[이전]</a>
+	</c:if>
+
+	<c:forEach var="i" begin="${ startPage }" end="${ endPage }">
+		<a href ="/projectB/board/ing_list.aa?pageNum=${ i }">[${ i }]</a>
+	</c:forEach>
+	
+	<c:if test="${endPAge < pageCount}">
+		<a href="/projectB/board/ing_list.aa?pageNum=${ startPAge + 10 }">[다음]</a>
+	</c:if>
+</c:if>
 </form>
+
 <script src="/projectB/resource/bootstrap/assets/libs/jquery/dist/jquery.min.js"></script>
     <script src="/projectB/resource/bootstrap/assets/libs/popper.js/dist/umd/popper.min.js"></script>
     <script src="/projectB/resource/bootstrap/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>

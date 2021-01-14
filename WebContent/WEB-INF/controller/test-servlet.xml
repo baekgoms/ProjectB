@@ -16,4 +16,5 @@
 	</bean>
 	
 	<context:component-scan base-package="projectB.test"/>
+	<context:component-scan base-package="projectB.model"/>
 </beans>
