@@ -11,8 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("discussion")
 public class Discussion {
+	
 	@Autowired
-	private DisBoardService boardDAO = null;
+	private DisBoardService disBoardDAO = null;
+	
+	@Autowired
+	private DisBoardCommService disBoardCommDAO = null;
 	
 	@RequestMapping("main.aa")
 	public String main(int pageNum, Model model) throws Exception {
@@ -24,9 +28,9 @@ public class Discussion {
         int number=0;
         
         List<DisBoardDTO> articleList = null;
-        count = boardDAO.getArticleCount();
+        count = disBoardDAO.getArticleCount();
         if (count > 0) {
-            articleList = boardDAO.getArticles(startRow, endRow);//현재 페이지에 해당하는 글 목록
+            articleList = disBoardDAO.getArticles(startRow, endRow);//현재 페이지에 해당하는 글 목록
         } else {
             articleList = Collections.emptyList();
         }
@@ -52,8 +56,8 @@ public class Discussion {
 	}
 	
 	@RequestMapping("writePro.aa")
-    public String writePro(DisBoardDTO dto, int pageNum,Model model) throws Exception{
-		boardDAO.insertArticle(dto);
+    public String writePro(DisBoardDTO dto, int pageNum, Model model) throws Exception{
+		disBoardDAO.insertArticle(dto);
         model.addAttribute("pageNum", new Integer(pageNum));
 		return "discussion/writePro";
 	}
@@ -65,25 +69,31 @@ public class Discussion {
 
 	@RequestMapping("updateForm.aa")
     public String updateForm(int num, Model model) throws Exception{
-		DisBoardDTO article = boardDAO.updateGetArticle(num);
+		DisBoardDTO article = disBoardDAO.getArticle(num);
 		model.addAttribute("article", article);
 		return "discussion/updateForm";
 	}
 	
 	@RequestMapping("deletePro.aa")
     public String deletePro(int num, int pageNum, Model model) throws Exception{
-		boardDAO.deleteArticle(num);
+		disBoardDAO.deleteArticle(num);
         model.addAttribute("pageNum", new Integer(pageNum));
 		return "discussion/deletePro";
 	}
 	
 	@RequestMapping("content.aa")
     public String content(int num, int pageNum, Model model) throws Exception{
-		DisBoardDTO article = boardDAO.getArticle(num);
-		
+		DisBoardDTO article = disBoardDAO.getArticle(num);
+		List<DisBoardCommDTO>comment = disBoardCommDAO.getCommentList(num);
 		model.addAttribute("num", new Integer(num));
         model.addAttribute("pageNum", new Integer(pageNum));
         model.addAttribute("article", article);
 		return "discussion/content";
+	}
+
+	@RequestMapping("commentWritePro.aa")
+    public String writePro(DisBoardCommDTO dto, Model model) throws Exception{
+		disBoardCommDAO.insertComment(dto);
+		return "discussion/commentWritePro";
 	}
 }

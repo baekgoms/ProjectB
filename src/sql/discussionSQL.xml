@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="disBoard">
+	<!--  CRUD (Create, Read, Update, Delete) -> DB구축  -->
+	<!-- 
+	<insert id="insertArticle" parameterType="disDTO">
+		insert into discussion values(discussion_seq.nextval, 
+									  #{write},
+									  #{content},
+									  sysdate,
+									  #{agreement},
+									  #{opposition},
+									  #{tag},
+									  #{report},
+									  #{open},
+									  #{subject})
+	</insert>
+	
+	<select id="getArticleCount" resultType="int">
+		select count(*) from board
+	</select>
+	
+	<select id="getArticles" parameterType="disDTO" resultType="disDTO">
+		select * from (select num, write, content, reg, agreement, opposition, tag, report, open, subject, rownum as r 
+		from(select * from discussion order by num desc) order by num desc)
+		<![CDATA[where r >= #{start} and r <= #{end}]]>
+	</select>
+	
+	<select id="getArticle" parameterType="int" resultType="disDTO">
+		select * from discussion where num = #{num}
+	</select>
+	
+	<update id="updateArticle" parameterType="disDTO">
+	 	update discussion set subject=#{subject},content=#{content} where num=#{num}
+	</update>
+	
+	 <delete id="deleteArticle" parameterType="int">
+	 	delete from discussion where num=#{num}
+	 </delete>
+	 
+	 <update id="agreement" parameterType="int">
+	 	update discussion set agreement=agreement+1 where num=#{num}
+	 </update>
+	 
+	 <update id="opposition" parameterType="int">
+	 	update discussion set opposition=opposition+1 where num=#{num}
+	 </update>
+	 
+	 <update id="report" parameterType="int">
+	 	update discussion set report=report+1 where num=#{num}
+	 </update>
+	 
+	 <select id="openStateCheck" parameterType="int" resultType="int">
+	 	select open from discussion where num=#{num}
+	 </select>
+	 
+	 <update id="openStateOpen" parameterType="int">
+	 	update discussion set open=0 where num=#{num}
+	 </update>
+	 
+	 <update id="openStateClose" parameterType="int">
+	 	update discussion set open=1 where num=#{num}
+	 </update>
+	 -->
+</mapper>
+
