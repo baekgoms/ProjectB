@@ -4,6 +4,8 @@ package projectB.test.bobae;
 import java.util.Collections;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -56,12 +58,43 @@ public class BoardListBean {
 	@RequestMapping("finish_list.aa")
 	public String test1() {
 		System.out.println("finish Test");
+		
+		
 		return "board/finish_list";
 	}
 
 	@RequestMapping("timeout_list.aa")
-	public String test2() {
+	public String test2(@RequestParam(defaultValue="1")int pageNum, PetitionDTO dto, Model model, HttpServletRequest request) throws Exception {
+		
 		System.out.println("timeout Test");
+		int pageSize = 10;
+		int currentPage = pageNum;
+		int startRow = (currentPage - 1) * pageSize +1;
+		int endRow = currentPage * pageSize;
+		int count = 0;
+		int number = 0;
+		
+		
+		List<PetitionDTO> articleList = null;
+		count = petitionDAO.getArticleCountbyState();
+		if(count > 0) {
+			articleList = petitionDAO.getArtilclebyState(dto);
+		} else {
+			articleList = Collections.emptyList();
+		}
+		number = count-(currentPage-1)*pageSize;
+		
+		 System.out.println(count + "//count");
+	     System.out.println(articleList.size() + "//size");
+		
+		model.addAttribute("currentPage", new Integer(currentPage));
+		model.addAttribute("startRow", new Integer(startRow));
+		model.addAttribute("endRow", new Integer(endRow));
+		model.addAttribute("count", new Integer(count));
+		model.addAttribute("pageSize", new Integer(pageSize));
+		model.addAttribute("number", new Integer(number));
+		model.addAttribute("articleList", articleList);
+		
 		return "board/timeout_list";
 	}
 

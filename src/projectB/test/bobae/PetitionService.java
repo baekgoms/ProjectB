@@ -13,6 +13,7 @@ public interface PetitionService {
 	public PetitionDTO updateGetArticle(int num) throws Exception;
 	public int updateArticle(PetitionDTO petition) throws Exception;
 	public int daleteArtilcle(int num) throws Exception;
-	
+	public int getArticleCountbyState() throws Exception;
+	public List<PetitionDTO> getArtilclebyState(PetitionDTO petition) throws Exception;
 
 }

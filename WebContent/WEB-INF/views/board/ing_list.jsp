@@ -16,6 +16,18 @@
     <link rel="stylesheet" type="text/css" href="/projectB/resource/bootstrap/assets/extra-libs/prism/prism.css">
 
 <title>청원진행중인 게시판</title>
+<script>
+function sort1(){
+	end.sort(function(a,b){return b-a});
+	document.getElementById("area").innerHTML=end;
+}
+function sort2(){
+	agr.sort(function(a,b){return b-a});
+	document.getElementById("area").innerHTML=agr;
+}
+//데이터 들어오면 확인예정ㅠ
+
+</script>
 </head>
 <body>
 <br />
@@ -40,9 +52,9 @@
 </tr>
 <tr>
 <td colspan ="6" align="right">
-<select name="option">
-	<option value="newest">최신순</option>
-	<option value="agree">동의순</option>
+
+	<button type="button" class="btn waves-effect waves-light btn-outline-dark" onclick="sort1()">최신순</option> 
+	<button type="button" class="btn waves-effect waves-light btn-outline-dark" onclick="sort2()">동의순</option>
 </select>
 </td>
 </tr>
@@ -68,7 +80,7 @@
 </c:if>
 
 <c:if test="${count > 0}">
-<div class="table-responsive">
+<div class="table-responsive" id="area">
  <table class="table" >
    <thead>
    <tr>
@@ -83,8 +95,8 @@
    		<th scope="col">글번호</th>
     	<th scope="col">분류</th>
     	<th scope="col">제목</th>
-    	<th scope="col">청원만료일</th>
-    	<th scope="col">참여인원</th>
+    	<th scope="col" id="end" value="end">청원만료일</th>
+    	<th scope="col" id="agr" value="agr">참여인원</th>
     </tr>
   </thead>
   <tbody>

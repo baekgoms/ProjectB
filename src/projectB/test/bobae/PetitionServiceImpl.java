@@ -55,6 +55,17 @@ public class PetitionServiceImpl implements PetitionService{
 		return 0;
 	}
 
+	@Override
+	public int getArticleCountbyState() throws Exception {
+		return dao.selectOne("petition.getArticleCountState");
+	}
+
+	@Override
+	public List<PetitionDTO> getArtilclebyState(PetitionDTO petition) throws Exception {
+		
+		return dao.selectList("petition.getArticleState", petition);
+	}
+
 
 
 
