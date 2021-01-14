@@ -8,25 +8,25 @@
 <link href="/projectB/resource/bootstrap/css/style.css" rel="stylesheet">
 <!-- This Page CSS -->
 <link href="/projectB/resource/assets/libs/morris.js/morris.css" rel="stylesheet">
-                
+           
 <title>토론게시판</title>
 <center>
-<body>
 <input type="button" class="btn waves-effect waves-light btn-outline-dark" value="                           최신순                              ">
 <input type="button" class="btn waves-effect waves-light btn-outline-dark" value="                           베스트순                           ">
 
 <br />
-<form>
+<form action="/projectB/discussion/mainSearch.aa?pageNum=${pageNum}">
 <table>
 <tr height="50">
 <td></td></tr>
 <tr>
-<td><input type="text">  <input class="btn waves-effect waves-light btn-outline-dark" type="submit" value="검색" >
+<td><input type="text" name="keyword">  <input class="btn waves-effect waves-light btn-outline-dark" type="submit" value="검색" >
 </td>
 </tr>
 <tr height="50">
 <td></td></tr>
 </table>
+<input type="hidden" name="pageNum" value="${pageNum}">
 </form>
 <c:if test="${count == 0}">
 <table>
@@ -37,7 +37,6 @@
   </tr>
 </table>
 </c:if>
-
 <c:if test="${count > 0}">
 <c:set var="i" value="0" />
 <c:set var="j" value="5" />
@@ -47,9 +46,9 @@
 <tr>
 </c:if>
 <td><div id="morris-donut-chart" style= "height: 100px"></div>
-${article.subject}<br />
-${article.write}<br />
-${article.reg}<br /></td>
+	${article.subject}<br />
+	${article.write}<br />
+	${article.reg}<br /></td>
 <c:if test="${i%j == j-1 }">
 </tr>
 </c:if>
@@ -75,21 +74,31 @@ ${article.reg}<br /></td>
 <ul class="pagination justify-content-center">
 <c:if test="${startPage > 20}">
 <li class="page-item">
-    <a class="page-link" href="javascript:void(0)"
-        aria-label="Previous">
+    <a class="page-link" href="/projectB/discussion/main.aa?pageNum=${startPage - 10}"aria-label="Previous">
         <span aria-hidden="true">&laquo;</span>
         <span class="sr-only">Previous</span>
     </a>
 </li>
 </c:if>
-<c:forEach var="i" begin="${startPage}" end="${endPage}">
-<li class="page-item"><a class="page-link"
-        href="/projectB/discussion/main.aa?pageNum=${i}">${i}</a>
-</li>
-</c:forEach>
+<c:choose>
+	<c:when test="${empty keyword}">
+	<c:forEach var="i" begin="${startPage}" end="${endPage}">
+		<li class="page-item"><a class="page-link"
+  	      href="/projectB/discussion/main.aa?pageNum=${i}">${i}</a>
+		</li>
+	</c:forEach>
+	</c:when>
+	<c:otherwise>
+	<c:forEach var="i" begin="${startPage}" end="${endPage}">
+		<li class="page-item"><a class="page-link"
+  	      href="/projectB/discussion/mainSearch.aa?keyword=${keyword}&pageNum=${i}">${i}</a>
+		</li>
+	</c:forEach>
+	</c:otherwise>
+</c:choose>
 <c:if test="${endPage < pageCount}">
 <li class="page-item">
-    <a class="page-link" href="javascript:void(0)" aria-label="Next">
+    <a class="page-link" href="/projectB/discussion/main.aa?pageNum=${startPage + 10}" aria-label="Next">
         <span aria-hidden="true">&raquo;</span>
         <span class="sr-only">Next</span>
     </a>
@@ -99,19 +108,20 @@ ${article.reg}<br /></td>
 </nav>
 </div>
 </c:if>
-    <script src="/projectB/resource/bootstrap/assets/libs/jquery/dist/jquery.min.js"></script>
-    <script src="/projectB/resource/bootstrap/assets/libs/popper.js/dist/umd/popper.min.js"></script>
-    <script src="/projectB/resource/bootstrap/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="/projectB/resource/bootstrap/js/app-style-switcher.js"></script>
-    <script src="/projectB/resource/bootstrap/js/feather.min.js"></script>
-    <script src="/projectB/resource/bootstrap/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
-    <script src="/projectB/resource/bootstrap/assets/extra-libs/sparkline/sparkline.js"></script>
-    <script src="/projectB/resource/bootstrap/js/sidebarmenu.js"></script>
-    <script src="/projectB/resource/bootstrap/js/custom.min.js"></script>
-    <script src="/projectB/resource/bootstrap/assets/libs/raphael/raphael.min.js"></script>
-    <script src="/projectB/resource/bootstrap/assets/libs/morris.js/morris.min.js"></script>
-    <script src="/projectB/resource/bootstrap/js/pages/morris/morris-data.js"></script>
-    <script>
+
+<script src="/projectB/resource/bootstrap/assets/libs/jquery/dist/jquery.min.js"></script>
+<script src="/projectB/resource/bootstrap/assets/libs/popper.js/dist/umd/popper.min.js"></script>
+<script src="/projectB/resource/bootstrap/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/projectB/resource/bootstrap/js/app-style-switcher.js"></script>
+<script src="/projectB/resource/bootstrap/js/feather.min.js"></script>
+<script src="/projectB/resource/bootstrap/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+<script src="/projectB/resource/bootstrap/assets/extra-libs/sparkline/sparkline.js"></script>
+<script src="/projectB/resource/bootstrap/js/sidebarmenu.js"></script>
+<script src="/projectB/resource/bootstrap/js/custom.min.js"></script>
+<script src="/projectB/resource/bootstrap/assets/libs/raphael/raphael.min.js"></script>
+<script src="/projectB/resource/bootstrap/assets/libs/morris.js/morris.min.js"></script>
+<script src="/projectB/resource/bootstrap/js/pages/morris/morris-data.js"></script>
+<script>
 
     	new Morris.Donut({
     	        element: 'morris-donut-chart',
@@ -125,6 +135,6 @@ ${article.reg}<br /></td>
     	        }],
     	        resize: true,
     	        colors:['#5f76e8', '#01caf1', '#8fa0f3']
-    	    });   </script>
-</body>
+    	    });   
+</script>
 </center>

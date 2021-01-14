@@ -48,6 +48,37 @@ public class Discussion {
 		return "discussion/main";
 	}
 	
+	@RequestMapping("mainSearch.aa")
+	public String mainSearch(int pageNum, Model model, String keyword) throws Exception {
+		int pageSize = 20;
+        int currentPage = pageNum;
+        int startRow = (currentPage - 1) * pageSize + 1;
+        int endRow = currentPage * pageSize;
+        int count = 0;
+        int number=0;
+        
+        List<DisBoardDTO> articleList = null;
+        count = disBoardDAO.getArticleCount(keyword);
+        if (count > 0) {
+            articleList = disBoardDAO.getArticles(startRow, endRow, keyword);//현재 페이지에 해당하는 글 목록
+        } else {
+            articleList = Collections.emptyList();
+        }
+        number=count-(currentPage-1)*pageSize;
+
+        model.addAttribute("currentPage", new Integer(currentPage));
+        model.addAttribute("startRow", new Integer(startRow));
+        model.addAttribute("endRow", new Integer(endRow));
+        model.addAttribute("count", new Integer(count));
+        model.addAttribute("pageSize", new Integer(pageSize));
+        model.addAttribute("number", new Integer(number));
+        model.addAttribute("articleList", articleList);
+        model.addAttribute("pageNum", new Integer(pageNum));
+        model.addAttribute("keyword", keyword);
+        
+		return "discussion/main";
+	}
+	
 	@RequestMapping("writeForm.aa")
     public String writeForm(Model model, DisBoardDTO dto, int pageNum){
 		model.addAttribute("dto", dto);
@@ -84,7 +115,6 @@ public class Discussion {
 	@RequestMapping("content.aa")
     public String content(int num, int pageNum, Model model) throws Exception{
 		DisBoardDTO article = disBoardDAO.getArticle(num);
-		List<DisBoardCommDTO>comment = disBoardCommDAO.getCommentList(num);
 		model.addAttribute("num", new Integer(num));
         model.addAttribute("pageNum", new Integer(pageNum));
         model.addAttribute("article", article);

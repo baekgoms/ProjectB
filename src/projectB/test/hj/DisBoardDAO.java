@@ -26,7 +26,7 @@ public class DisBoardDAO implements DisBoardService{
 
 	@Override
 	public List<DisBoardDTO> getArticles(int start, int end) throws Exception {
-		Map map = new HashMap();
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("start",start);
 		map.put("end",end);
 		List<DisBoardDTO> articleList = bDao.selectList("disBoard.getArticles", map);
@@ -80,6 +80,22 @@ public class DisBoardDAO implements DisBoardService{
 	public void openStateClose(int num) throws Exception {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public int getArticleCount(String keyword) throws Exception {
+		int a = bDao.selectOne("disBoard.getArticleCount");
+		return a;
+	}
+
+	@Override
+	public List<DisBoardDTO> getArticles(int start, int end, String keyword) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("start",start);
+		map.put("end",end);
+		map.put("keyword",keyword);
+		List<DisBoardDTO> articleList = bDao.selectList("disBoard.getArticles", map);
+		return articleList;
 	}
 
 }

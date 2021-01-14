@@ -17,12 +17,19 @@
 									  #{subject})
 	</insert>
 	
-	<select id="getArticleCount" resultType="int">
+	<select id="getArticleCount" parameterType="String" resultType="int">
 		select count(*) from discussion
+		<if test="keyword != null">
+		where subject like %#{keyword}% or content like %#{keyword}%
+		</if>
 	</select>
 	
 	<select id="getArticles" parameterType="map" resultType="disDTO">
-		select * from (select num, write, content, reg, agreement, opposition, tag, report, open, subject, rownum as r from(select * from discussion order by num desc) order by num desc)<![CDATA[where r >= #{start} and r <= #{end}]]>
+		select * from (select num, write, content, reg, agreement, opposition, tag, report, open, subject, rownum as r from(select * from discussion 
+		<if test="keyword != null">
+			where subject like '%' || #{keyword} || '%' or content like '%' || #{keyword} || '%'
+		</if>
+		order by num desc) order by num desc)<![CDATA[where r >= #{start} and r <= #{end}]]>
 	</select>
 	
 	<select id="getArticle" parameterType="int" resultType="disDTO">
