@@ -5,16 +5,29 @@
 <mapper namespace="petitioner">
 	<!--  CRUD (Create, Read, Update, Delete) -> DB구축  -->
 	
-	
 	<insert id = "insertPetitioner" parameterType="petitionerDTO">
 		insert into petitioner values(petitioner_seq.nextval, 
 		#{ id }, #{ password }, #{ name }, #{ contact }, #{ email }, #{ gender }, 
-		0, 0, 0, sysdate, to_date('20001212', 'YYYYMMDD'), #{ authKey })
+		0, #{ state }, 0, sysdate, to_date('20001212', 'YYYYMMDD'), #{ authKey })
 	</insert>
 	
 	<select id = "confirmId" resultType="int" parameterType="String">
 		select count(*) from petitioner where id = #{ value }
 	</select>
+	
+	<select id = "confirmAuthKey" resultType="int" parameterType="petitionerDTO">
+		select count(*) from petitioner where email = #{ email } and authKey = #{ authKey }
+	</select>
+	
+	<select id = "getPetitionerByEmailAndAuthKey" resultType="petitionerDTO" parameterType="HashMap">
+		select * from petitioner where email = #{ email } and authKey = #{ authKey }
+	</select>
+	
+	<update id="updatePetitionerState" parameterType="petitionerDTO">
+		update petitioner set state = 1 where id = #{ id }
+	</update>
+	
+	
 	
 </mapper>
 
