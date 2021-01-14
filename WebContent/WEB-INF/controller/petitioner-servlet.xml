@@ -31,6 +31,6 @@
 			</props>
 		</property>
 	</bean>
-	
+
 	<context:component-scan base-package="projectB.model"/>
 </beans>

@@ -1,6 +1,8 @@
 package projectB.test.hj;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +20,17 @@ public class DisBoardDAO implements DisBoardService{
 
 	@Override
 	public int getArticleCount() throws Exception {
-		return 0;
+		int a = bDao.selectOne("disBoard.getArticleCount");
+		return a;
 	}
 
 	@Override
 	public List<DisBoardDTO> getArticles(int start, int end) throws Exception {
-		return null;
+		Map map = new HashMap();
+		map.put("start",start);
+		map.put("end",end);
+		List<DisBoardDTO> articleList = bDao.selectList("disBoard.getArticles", map);
+		return articleList;
 	}
 
 	@Override

@@ -4,7 +4,6 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="disBoard">
 	<!--  CRUD (Create, Read, Update, Delete) -> DB구축  -->
-	<!-- 
 	<insert id="insertArticle" parameterType="disDTO">
 		insert into discussion values(discussion_seq.nextval, 
 									  #{write},
@@ -19,13 +18,11 @@
 	</insert>
 	
 	<select id="getArticleCount" resultType="int">
-		select count(*) from board
+		select count(*) from discussion
 	</select>
 	
-	<select id="getArticles" parameterType="disDTO" resultType="disDTO">
-		select * from (select num, write, content, reg, agreement, opposition, tag, report, open, subject, rownum as r 
-		from(select * from discussion order by num desc) order by num desc)
-		<![CDATA[where r >= #{start} and r <= #{end}]]>
+	<select id="getArticles" parameterType="map" resultType="disDTO">
+		select * from (select num, write, content, reg, agreement, opposition, tag, report, open, subject, rownum as r from(select * from discussion order by num desc) order by num desc)<![CDATA[where r >= #{start} and r <= #{end}]]>
 	</select>
 	
 	<select id="getArticle" parameterType="int" resultType="disDTO">
@@ -63,6 +60,6 @@
 	 <update id="openStateClose" parameterType="int">
 	 	update discussion set open=1 where num=#{num}
 	 </update>
-	 -->
+
 </mapper>
 
