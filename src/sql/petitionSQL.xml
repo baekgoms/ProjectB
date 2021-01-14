@@ -25,7 +25,7 @@
 		where r <![CDATA[>=]]> #{startRow} and r <![CDATA[<=]]>#{endRow}
 	</select>
 	
-	<select id ="getArticleState" resultType="petitionDTO" parameterType="petitionDTO">
+	<select id ="getArticleState" resultType="petitionDTO" parameterType="map">
 				select * from (select num, title, content, category, startDate, endDate, writer,
 		petition, petitionState, link, indicaterNum, tag, report, open,rownum r 
 		from(select * from petition where petitionState= #{petitionState} order by num desc) order by num desc) 

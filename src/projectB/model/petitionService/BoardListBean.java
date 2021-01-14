@@ -1,4 +1,4 @@
-package projectB.test.bobae;
+package projectB.model.petitionService;
 
 
 import java.util.Collections;
@@ -22,7 +22,7 @@ public class BoardListBean {
 	private PetitionService petitionDAO = null;
 	
 	@RequestMapping("ing_list.aa")
-	public String ing_list(@RequestParam(defaultValue="1")int pageNum, PetitionDTO dto, Model model) throws Exception {
+	public String ing_list(@RequestParam(defaultValue="1")int pageNum, Model model) throws Exception {
 		
 		System.out.println("viewTest");
 		int pageSize = 10;
@@ -35,7 +35,7 @@ public class BoardListBean {
 		List<PetitionDTO> articleList = null;
 		count = petitionDAO.getArticleCount();
 		if(count > 0) {
-			articleList = petitionDAO.getArticles(dto);
+			articleList = petitionDAO.getArticles(startRow, endRow);
 		} else {
 			articleList = Collections.emptyList();
 		}
@@ -64,7 +64,7 @@ public class BoardListBean {
 	}
 
 	@RequestMapping("timeout_list.aa")
-	public String test2(@RequestParam(defaultValue="1")int pageNum, PetitionDTO dto, Model model, HttpServletRequest request) throws Exception {
+	public String timeout_list(@RequestParam(defaultValue="1")int pageNum, Model model) throws Exception {
 		
 		System.out.println("timeout Test");
 		int pageSize = 10;
@@ -73,12 +73,12 @@ public class BoardListBean {
 		int endRow = currentPage * pageSize;
 		int count = 0;
 		int number = 0;
-		
+		int state= 3; // 기간이 만료된 청원 
 		
 		List<PetitionDTO> articleList = null;
 		count = petitionDAO.getArticleCountbyState();
 		if(count > 0) {
-			articleList = petitionDAO.getArtilclebyState(dto);
+			articleList = petitionDAO.getArtilclebyState(state,startRow, endRow);
 		} else {
 			articleList = Collections.emptyList();
 		}
@@ -99,8 +99,37 @@ public class BoardListBean {
 	}
 
 	@RequestMapping("waiting_list.aa")
-	public String test3() {
+	public String test3(@RequestParam(defaultValue="1")int pageNum, Model model) throws Exception{
 		System.out.println("waiting Test");
+
+		int pageSize = 10;
+		int currentPage = pageNum;
+		int startRow = (currentPage - 1) * pageSize +1;
+		int endRow = currentPage * pageSize;
+		int count = 0;
+		int number = 0;
+		int state= 4; // 답변을 기다리는 청원
+		
+		List<PetitionDTO> articleList = null;
+		count = petitionDAO.getArticleCountbyState();
+		if(count > 0) {
+			articleList = petitionDAO.getArtilclebyState(state,startRow, endRow);
+		} else {
+			articleList = Collections.emptyList();
+		}
+		number = count-(currentPage-1)*pageSize;
+		
+		 System.out.println(count + "//count");
+	     System.out.println(articleList.size() + "//size");
+		
+		model.addAttribute("currentPage", new Integer(currentPage));
+		model.addAttribute("startRow", new Integer(startRow));
+		model.addAttribute("endRow", new Integer(endRow));
+		model.addAttribute("count", new Integer(count));
+		model.addAttribute("pageSize", new Integer(pageSize));
+		model.addAttribute("number", new Integer(number));
+		model.addAttribute("articleList", articleList);
+		
 		return "board/waiting_list";
 	}
 
