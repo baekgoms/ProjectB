@@ -16,7 +16,7 @@
 	<insert id ="insertArticle" parameterType="petitionDTO">
 		insert into petition values(petition_seq.nextval,
 		#{title}, #{content}, #{category}, sysdate, sysdate, #{writer}, #{petition}, 
-		#{petitionState}, #{link}, #{indicaterNum}, #{tag}, #{report}, #{open})
+		#{petitionState}, #{link}, #{indicatorNum}, #{tag}, #{report}, #{open})
 	</insert>
 	
 	<!-- 
@@ -43,20 +43,20 @@
 	
 	<select id="getArticleAll" resultType="petitionDTO" parameterType="map">
 		select * from (select num, title, content, category, startDate, endDate, writer,
-		petition, petitionState, link, indicaterNum, tag, report, open,rownum r 
+		petition, petitionState, link, indicatorNum, tag, report, open, rownum r 
 		from(select * from petition order by num desc) order by num desc) 
 		where r <![CDATA[>=]]> #{startRow} and r <![CDATA[<=]]>#{endRow}
 	</select>
 	
 	<select id ="getArticleState" resultType="petitionDTO" parameterType="map">
 				select * from (select num, title, content, category, startDate, endDate, writer,
-		petition, petitionState, link, indicaterNum, tag, report, open,rownum r 
-		from(select * from petition where petitionState= #{petitionState} order by num desc) order by num desc) 
+		petition, petitionState, link, indicatorNum, tag, report, open,rownum r 
+		from(select * from petition where petitionState= #{state} order by num desc) order by num desc) 
 		where r <![CDATA[>=]]> #{startRow} and r <![CDATA[<=]]>#{endRow}
 	</select>
 
 	<select id ="getArticleCountState" resultType="int" parameterType="int">
-		select count(*) from petition where petitionState = #{petitionState} 
+		select count(*) from petition where petitionState = #{state} 
 	</select>
 
 	<!-- 남은부분은 미리써두면 엉킬까봐 안썻어요! -->

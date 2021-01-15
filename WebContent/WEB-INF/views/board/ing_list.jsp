@@ -16,27 +16,17 @@
     <link rel="stylesheet" type="text/css" href="/projectB/resource/bootstrap/assets/extra-libs/prism/prism.css">
 
 <title>청원진행중인 게시판</title>
-<script>
-function sort1(){
-	end.sort(function(a,b){return b-a});
-	document.getElementById("area").innerHTML=end;
-}
-function sort2(){
-	agr.sort(function(a,b){return b-a});
-	document.getElementById("area").innerHTML=agr;
-}
-//데이터 들어오면 확인예정ㅠ
 
-</script>
 </head>
 <body>
+
 <br />
 <br />
 <form name="form" method="post">
 <table cellSpacing=1 cellPadding=1 width="1200" border=1 align="center" >
 <tr>
-<td  align="center"> <a href="/projectB/board/ing_list.aa">진행중인 청원</a></td>
-<td  align="center"> <a href="/projectB/board/finish_list.aa">완료된 청원</a></td>
+<td  align="center"> <a href="/projectB/petition/ing_list.aa">진행중인 청원</a></td>
+<td  align="center"> <a href="/projectB/petition/finish_list.aa">완료된 청원</a></td>
 </tr>
 </table>
 <br />
@@ -50,37 +40,25 @@ function sort2(){
 <tr>
 <td>교통/건축/국토</td> <td>경제민주화</td> <td>인권/성평등</td> <td>문화/예술/체육/언론</td> <td>반려동물</td> <td>기타</td>
 </tr>
+
+<div>
 <tr>
 <td colspan ="6" align="right">
+ <button type="button" class="btn waves-effect waves-light btn-outline-dark">최신순</button>
+  <button type="button" class="btn waves-effect waves-light btn-outline-dark">동의순</button>
 
-	<button type="button" class="btn waves-effect waves-light btn-outline-dark" onclick="sort1()">최신순</option> 
-	<button type="button" class="btn waves-effect waves-light btn-outline-dark" onclick="sort2()">동의순</option>
-</select>
 </td>
 </tr>
-</table>
-<br />
-<br />
-
-<c:if test="${count == 0}">
-<div class="table-responsive">
- <table class="table" >
-  <tr>
-   <td colspan ="5" align="right">
-        <button type="button" class="btn waves-effect waves-light btn-outline-dark">지금 청원하기</button>
-	</td>
-   </tr>
- 	<tr>
- 		<td align ="center">
- 		진행중인 청원이 없습니다.
- 		</td>
- 	</tr>
- </table>
 </div>
-</c:if>
+</table>
 
-<c:if test="${count > 0}">
-<div class="table-responsive" id="area">
+<br />
+<br />
+
+
+
+
+<div class="table-responsive">
  <table class="table" >
    <thead>
    <tr>
@@ -95,11 +73,24 @@ function sort2(){
    		<th scope="col">글번호</th>
     	<th scope="col">분류</th>
     	<th scope="col">제목</th>
-    	<th scope="col" id="end" value="end">청원만료일</th>
-    	<th scope="col" id="agr" value="agr">참여인원</th>
+    	<th scope="col" >청원만료일</th>
+    	<th scope="col" >참여인원</th>
     </tr>
   </thead>
-  <tbody>
+  <tbody >
+  <c:if test="${count == 0}">
+<div class="table-responsive">
+ <table align ="center">
+ 	<tr>
+ 		<td align ="center">
+ 		진행중인 청원이 없습니다.
+ 		</td>
+ 	</tr>
+ </table>
+</div>
+</c:if>
+
+<c:if test="${count > 0}">
   <c:forEach var="article" items="${ articleList }"> 
     <tr>
     <c:out value="${ number }"/>
@@ -107,7 +98,7 @@ function sort2(){
    		<th scope="row">${article.num}</th>
         	<td>${article.category }</td>
         	<td>
-        	<a href ="projectB/board/content.aa?num=${article.num}&pageNum=${currentPage}">
+        	<a href ="projectB/petition/content.aa?num=${article.num}&pageNum=${currentPage}">
         	${article.title}</a>
         	</td>
             <td>${article.endDate}</td>
@@ -116,7 +107,7 @@ function sort2(){
     </c:forEach>
    </tbody>
   </table>
-</div>
+  </div>
 </c:if>
 
 
@@ -129,20 +120,43 @@ function sort2(){
 	<c:if test="${ endPage > pageCount }">
 		<c:set var="endPage" value="${ pageCount }" />
 	</c:if>
-
-	<c:if test="${startPage > 10 }">
-		<a href ="/projectB/board/ing_list.aa?pageNum=${startPage - 10 }">[이전]</a>
-	</c:if>
+	
+<div class="col-lg-4 mb-4">
+<nav aria-label="Page navigation example">
+<ul class="pagination justify-content-center">
+   <ul class="pagination">
+   
+   <c:if test="${startPage > 10}">
+	 <li class="page-item">
+      	<a class="page-link" href="/projectB/petition/ing_list.aa?pageNum=${startPage - 10}" aria-label="Previous">
+     	<span aria-hidden="true">«</span>
+      	<span class="sr-only">Previous</span>
+        	</a>
+    	</li>
+</c:if>
 
 	<c:forEach var="i" begin="${ startPage }" end="${ endPage }">
-		<a href ="/projectB/board/ing_list.aa?pageNum=${ i }">[${ i }]</a>
+	    
+	<li class="page-item"><a class="page-link" href="/projectB/petition/ing_list.aa?pageNum=${i}">${i}</a></li>
 	</c:forEach>
 	
-	<c:if test="${endPAge < pageCount}">
-		<a href="/projectB/board/ing_list.aa?pageNum=${ startPAge + 10 }">[다음]</a>
+	<c:if test="${endPage < pageCount}">
+	<li class="page-item">
+	  <a class="page-link" href="/projectB/petition/ing_list.aa?pageNum=${startPage + 10}" aria-label="Next">
+	  <span aria-hidden="true">»</span>
+	  <span class="sr-only">Next</span>
+	  </a>
+	</li>
 	</c:if>
+	</ul>
+
+</ul>
+</nav>
+</div>
 </c:if>
 </form>
+
+
 
 <script src="/projectB/resource/bootstrap/assets/libs/jquery/dist/jquery.min.js"></script>
     <script src="/projectB/resource/bootstrap/assets/libs/popper.js/dist/umd/popper.min.js"></script>
