@@ -11,19 +11,41 @@
            
 <title>토론게시판</title>
 <center>
-<input type="button" value="                           최신순                              " class="btn waves-effect waves-light btn-outline-dark" 
-	onclick="document.location.href='/projectB/discussion/main.aa?pageNum=${pageNum}'">
-<input type="button" value="                           베스트순                           " class="btn waves-effect waves-light btn-outline-dark" 
-	onclick="document.location.href='/projectB/discussion/mainSort.aa?pageNum=${pageNum}&sort=1'">
-
+<table class="table">
+<tr align="center"><td colspan="4">
+<c:choose>
+<c:when test="${empty keyword && empty sort}">
+	<input type="button" value="                           최신순                              " class="btn waves-effect waves-light btn-dark" 
+		onclick="document.location.href='/projectB/discussion/main.aa?pageNum=1'">
+	<input type="button" value="                           베스트순                           " class="btn waves-effect waves-light btn-outline-dark" 
+		onclick="document.location.href='/projectB/discussion/mainSort.aa?pageNum=1&sort=1'">
+	</c:when>
+<c:when test="${empty keyword && not empty sort}">
+	<input type="button" value="                           최신순                              " class="btn waves-effect waves-light btn-outline-dark" 
+		onclick="document.location.href='/projectB/discussion/main.aa?pageNum=1'">
+	<input type="button" value="                           베스트순                           " class="btn waves-effect waves-light btn-dark" 
+		onclick="document.location.href='/projectB/discussion/mainSort.aa?pageNum=1&sort=1'">
+</c:when>
+<c:otherwise>
+	<input type="button" value="                           최신순                              " class="btn waves-effect waves-light btn-outline-dark" 
+		onclick="document.location.href='/projectB/discussion/main.aa?pageNum=1'">
+	<input type="button" value="                           베스트순                           " class="btn waves-effect waves-light btn-outline-dark" 
+		onclick="document.location.href='/projectB/discussion/mainSort.aa?pageNum=1&sort=1'">
+</c:otherwise>
+</c:choose>
 <br />
+</td></tr>
 <form action="/projectB/discussion/mainSearch.aa?pageNum=${pageNum}">
-<table>
+
 <tr height="50">
 <td></td></tr>
 <tr>
-<td><input type="text" name="keyword">  <input class="btn waves-effect waves-light btn-outline-dark" type="submit" value="검색" >
+<td width="30"></td>
+<td><input type="text" name="keyword" class="form-control" id="nametext" aria-describedby="name" placeholder="검색어를 입력해주세요.">
 </td>
+<td width="30"><input class="btn waves-effect waves-light btn-outline-dark" type="submit" value="검색" >
+</td>
+
 </tr>
 <tr height="50">
 <td></td></tr>
@@ -39,18 +61,25 @@
   </tr>
 </table>
 </c:if>
+
+
 <c:if test="${count > 0}">
 <c:set var="i" value="0" />
 <c:set var="j" value="5" />
-<table border="1">
+
+<table class="table">
 <c:forEach items="${articleList}" var="article">
+
 <c:if test="${i%j == 0 }">
-<tr>
+<tr align="center">
 </c:if>
-<td><div id="morris-donut-chart" style= "height: 100px"></div>
-	${article.subject}<br />
+<td>
+<div id="${article.num}" style= "height: 100px"></div>
+	<a href="/projectB/discussion/content.aa?pageNum=${pageNum}&num=${article.num}">${article.subject}<br />
 	${article.write}<br />
-	${article.reg}<br /></td>
+	${article.reg}<br />
+	</a>
+	</td>
 <c:if test="${i%j == j-1 }">
 </tr>
 </c:if>
@@ -68,9 +97,15 @@
    <c:if test="${endPage > pageCount}">
         <c:set var="endPage" value="${pageCount}"/>
    </c:if> 
-   
+
 <input type="button" class="btn waves-effect waves-light btn-outline-dark" 
 	onclick="document.location.href='/projectB/discussion/writeForm.aa?pageNum=${pageNum}'" value="토론글 작성하기">
+<div class="col-12">
+                                        <br>
+                                        <hr>
+                                        <br>
+</div>
+                                   
 <div class="col-lg-4 mb-4">
 <nav aria-label="Page navigation example">
 <ul class="pagination justify-content-center">
@@ -131,19 +166,15 @@
 <script src="/projectB/resource/bootstrap/assets/libs/morris.js/morris.min.js"></script>
 <script src="/projectB/resource/bootstrap/js/pages/morris/morris-data.js"></script>
 <script>
-
-    	new Morris.Donut({
-    	        element: 'morris-donut-chart',
-    	        data: [{
-    	            label: "찬성",
-    	            value: 30,
-
-    	        }, {
-    	            label: "반대",
-    	            value: 30
-    	        }],
-    	        resize: true,
-    	        colors:['#5f76e8', '#01caf1', '#8fa0f3']
-    	    });   
+<c:forEach items="${articleList}" var="chart">
+	new Morris.Donut({
+		element: '${chart.num}',
+		data: [{ label: "찬성", value: '${chart.agreement}' }, 
+			   { label: "반대", value: '${chart.opposition}'}],
+		resize: true,
+		colors:['#5f76e8','#e04643']
+});
+</c:forEach>
 </script>
+
 </center>

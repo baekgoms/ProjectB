@@ -37,7 +37,7 @@
 		</if>
 		<![CDATA[where r >= #{start} and r <= #{end}]]>
 	</select>
-	
+
 	<select id="getArticle" parameterType="int" resultType="disDTO">
 		select * from discussion where num = #{num}
 	</select>
