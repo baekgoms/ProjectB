@@ -30,8 +30,29 @@
 </tr>
 </table>
 <br />
-<table cellSpacing=1 cellPadding=1 width="1200" border=1 align="center">
-<tr>
+<c:set var="i" value="0" />
+<c:set var="j" value="6" />
+
+ <table cellSpacing=1 cellPadding=1 width="1200" border=1 align="center">
+<c:set var="i" value="0" />
+<c:set var="j" value="6" />
+
+ <table cellSpacing=1 cellPadding=1 width="1200" border=1 align="center">
+<tbody>
+	<c:forEach items="${category}" varStatus="list" >
+		<c:if test="${i%j == 0 }">
+		<tr>
+		</c:if>
+			<td>${category[i]}</td>
+			<c:if test="${i%j == j-1 }">
+			</tr>
+			</c:if>
+			<c:set var="i" value="${i+1 }" />
+	</c:forEach>
+</tbody>
+</table>
+
+<!-- <tr>
 <td width="200">전체</td> <td width="200">정치개혁</td> <td width="200">외교/통일/국방</td> <td width="200">일자리</td> <td width="200">미래</td> <td width="200">성장동력</td> <br />
 </tr>
 <tr>
@@ -39,7 +60,7 @@
 </tr>
 <tr>
 <td>교통/건축/국토</td> <td>경제민주화</td> <td>인권/성평등</td> <td>문화/예술/체육/언론</td> <td>반려동물</td> <td>기타</td>
-</tr>
+</tr> -->
 
 <div>
 <tr>
@@ -59,7 +80,7 @@
 
 
 <div class="table-responsive">
- <table class="table" >
+ <table class="table" width="1200">
    <thead>
    <tr>
    <td colspan ="5" align="right">
@@ -80,7 +101,7 @@
   <tbody >
   <c:if test="${count == 0}">
 <div class="table-responsive">
- <table align ="center">
+ <table align ="center" width="1200">
  	<tr>
  		<td align ="center">
  		진행중인 청원이 없습니다.

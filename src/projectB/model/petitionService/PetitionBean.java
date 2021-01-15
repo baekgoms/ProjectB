@@ -83,6 +83,10 @@ public class PetitionBean {
 		
 		 System.out.println(count + "//count");
 	     System.out.println(articleList.size() + "//size");
+	     
+	     List<PetitionDTO> getCategory = dao.getCategory();
+	     model.addAttribute("category", getCategory);
+	
 		
 		model.addAttribute("currentPage", new Integer(currentPage));
 		model.addAttribute("startRow", new Integer(startRow));
@@ -116,7 +120,7 @@ public class PetitionBean {
 		int state= 3;
 		
 		List<PetitionDTO> articleList = null;
-		count = 0;//dao.getArticleCountbyState();//잘못된 메서드
+		count = dao.getArticleCountbyState(state);
 		if(count > 0) {
 			articleList = dao.getArtilclebyState(state,startRow, endRow);
 		} else {
@@ -152,7 +156,7 @@ public class PetitionBean {
 		int state= 4;
 		
 		List<PetitionDTO> articleList = null;
-		count = 0;//dao.getArticleCountbyState();//메서드 잘못댐
+		count = dao.getArticleCountbyState(state);
 		if(count > 0) {
 			articleList = dao.getArtilclebyState(state,startRow, endRow);
 		} else {
