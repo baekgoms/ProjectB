@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,23 +23,39 @@ public class PetitionBean {
 	@Autowired
 	private PetitionService dao = null;
 	
+	
 	@RequestMapping("uploadForm.aa")
-	public String upload(PetitionDTO dto, Model model) throws Exception {
-		List category = null;
-		System.out.println("wooch uploadForm run");
-		model.addAttribute("dto", dto);
-		category = dao.getCategory();
-		model.addAttribute("category", category);
-		System.out.println("category size:"+category.size()+"\n"+category);
+	public String upload(PetitionDTO dto, Model model,HttpSession session) throws Exception {
+		
+		//임시 세션 아이디 입력
+		session.setAttribute("memId", "홍우찬테스트");
+		
+		String id = (String) session.getAttribute("memId");
+		System.out.println("session id:"+id);
+		
+		if(id != null) {
+			
+			List category = null;
+			System.out.println("wooch uploadForm run");
+			
+			model.addAttribute("dto", dto);
+			dto.setWriter((String)session.getAttribute("memId"));
+			System.out.println("Writer:"+dto.getWriter());
+			category = dao.getCategory();
+			model.addAttribute("category", category);
+			System.out.println("category size:"+category.size()+"\n"+category);
+		}	
 		
 		return "wooch/uploadForm";
 	}
 	
    @RequestMapping("uploadPro.aa")
-   public String writePro(PetitionDTO dto, HttpServletRequest request) throws Exception{
+   public String writePro(PetitionDTO dto, HttpServletRequest request, HttpSession session) throws Exception{
 	   	   
-	   dao.insertArticle(dto);
 	   
+	   dto.setWriter((String)session.getAttribute("memId"));
+	   System.out.println("Writer:"+dto.getWriter());
+	   dao.insertArticle(dto);
 	   System.out.println("uploadPro run");
 	   
 	   return "wooch/uploadPro";
