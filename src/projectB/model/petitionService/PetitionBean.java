@@ -205,7 +205,7 @@ public class PetitionBean {
 		dao.insertPetCmt(dto);
 		return "board/petitionCommentPro";
 	}
-	
+	  
 	
 	
 	
