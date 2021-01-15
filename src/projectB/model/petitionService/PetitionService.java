@@ -14,7 +14,9 @@ public interface PetitionService {
 	public PetitionDTO updateGetArticle(int num) throws Exception;
 	public int getArticleCountbyState(int state) throws Exception;
 	public List<PetitionDTO> getArtilclebyState(int state, int start, int end) throws Exception;
-
+	
+	public List<PetitionDTO> getCategoryList() throws Exception;
+	
 	public PetitionDTO getArticle(int num) throws Exception;
 	public void insertPetCmt(PetCommentDTO dto) throws Exception;
 	public List<PetitionDTO> petCmtListAll(int petitionNum) throws Exception;

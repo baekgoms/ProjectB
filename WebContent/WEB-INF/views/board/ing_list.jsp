@@ -37,10 +37,11 @@
  <table cellSpacing=1 cellPadding=1 width="1200" border=1 align="center">
 <tbody>
 	<c:forEach items="${category}" varStatus="list" >
+	
 		<c:if test="${i%j == 0 }">
 		<tr>
 		</c:if>
-			<td>${category[i]}</td>
+			<td>${category}</td>
 			<c:if test="${i%j == j-1 }">
 			</tr>
 			</c:if>
@@ -51,31 +52,32 @@
 
 
 
-<div>
-<tr>
-<td align="right">
- <button type="button" class="btn waves-effect waves-light btn-outline-dark">최신순</button>
-  <button type="button" class="btn waves-effect waves-light btn-outline-dark" >동의순</button>
-
-</td>
-</tr>
-</div>
-</table>
 
 <br />
 <br />
 
 
+</form>
 
 
-<div class="table-responsive">
  <table class="table" width="1200">
    <thead>
+   <tr >
+   <td align="right">
+        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+                                            <option selected="">정렬</option>
+                                            <option value="1" onclick="document.location.href='/projectB/petition/ing_list.aa?pageNum=1'">최신순</option>
+                                            <option value="2" onclick="document.location.href='/projectB/petition/ing_list.aa?pageNum=1&sort=1'">동의순</option>
+                                        </select>
+	</td>
+   </tr>
    <tr>
    <td colspan ="5" align="right">
+   
         <button type="button" class="btn waves-effect waves-light btn-outline-dark">지금 청원하기</button>
 	</td>
    </tr>
+
    <tr>
    <td colspan ="5" align="lift" border=1>청원 목록</td>
    </tr>
@@ -115,7 +117,6 @@
     </c:forEach>
    </tbody>
   </table>
-  </div>
 </c:if>
 
 
@@ -129,11 +130,9 @@
 		<c:set var="endPage" value="${ pageCount }" />
 	</c:if>
 	
-<div class="col-lg-4 mb-4">
-<nav aria-label="Page navigation example">
+
 <ul class="pagination justify-content-center">
-   <ul class="pagination">
-   
+
    <c:if test="${startPage > 10}">
 	 <li class="page-item">
       	<a class="page-link" href="/projectB/petition/ing_list.aa?pageNum=${startPage - 10}" aria-label="Previous">
@@ -157,12 +156,7 @@
 	</li>
 	</c:if>
 	</ul>
-
-</ul>
-</nav>
-</div>
 </c:if>
-</form>
 
 
 

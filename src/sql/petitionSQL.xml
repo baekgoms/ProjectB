@@ -41,7 +41,13 @@
 	<select id="getArticleAll" resultType="petitionDTO" parameterType="map">
 		select * from (select num, title, content, category, startDate, endDate, writer,
 		petition, petitionState, link, indicatorNum, tag, report, open, rownum r 
-		from(select * from petition order by num desc) order by num desc) 
+		from(select * from petition 
+		<if test="sort == null">
+		order by num desc) order by num desc) 
+		</if>
+		<if test="sort != null">
+		order by petition desc) order by petition desc) 
+		</if> 
 		where r <![CDATA[>=]]> #{startRow} and r <![CDATA[<=]]>#{endRow}
 	</select>
 	
@@ -56,6 +62,9 @@
 		select count(*) from petition where petitionState = #{state} 
 	</select>
 	
+	<select id="getCategoryList" resultType="CategoryDTO" >
+		select*from category 
+	</select>
 
 
 

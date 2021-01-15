@@ -26,7 +26,7 @@ public class DisBoardDAO implements DisBoardService{
 	
 	@Override
 	public int getArticleCount(String keyword) throws Exception {
-		int a = bDao.selectOne("disBoard.getSearchArticleCount", keyword);
+		int a = bDao.selectOne("disBoard.getArticleCount", keyword);
 		return a;
 	}
 

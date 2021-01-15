@@ -8,7 +8,19 @@
 <link href="/projectB/resource/bootstrap/css/style.css" rel="stylesheet">
 <!-- This Page CSS -->
 <link href="/projectB/resource/assets/libs/morris.js/morris.css" rel="stylesheet">
-           
+
+<script>
+function inputCheck(){ 
+	if($("#keyword").val() == ""){
+		$("#keyword").addClass(" is-invalid");
+		$("#keyword").focus(); 
+		return;
+	}else{
+		$("#search").submit();
+	}
+}
+</script>
+
 <title>토론게시판</title>
 <center>
 <div class="col-12">
@@ -35,18 +47,20 @@
 </c:otherwise>
 </c:choose>
 
-<form action="/projectB/discussion/mainSearch.aa">
+<form action="/projectB/discussion/mainSearch.aa" id="search">
 <table class="table">
 <tr height="50">
-<td></td>
+<td colspan="2"></td>
 </tr>
 <tr>
 <td width="30"></td>
 <td>
-<input type="text" name="keyword" class="form-control" id="nametext" aria-describedby="name" placeholder="검색어를 입력해주세요.">
+<input type="text" class="form-control" name="keyword" id="keyword" placeholder="검색어를 입력해주세요"><div class="invalid-feedback">
+검색어가 입력되지 않았습니다.
+</div>
 </td>
-<td width="30"><input class="btn waves-effect waves-light btn-outline-dark" type="submit" value="검색" >
-${count }
+<td width="100">
+<button type="button" class="btn waves-effect waves-light btn-outline-dark" onClick="inputCheck()" >검색</button>
 </td>
 </tr>
 <tr height="50" align="right">
@@ -54,16 +68,22 @@ ${count }
 	onclick="document.location.href='/projectB/discussion/writeForm.aa?pageNum=${pageNum}'" value="토론글 작성하기"></td></tr>
 </table>
 </form>
-
-<c:if test="${articleList == null}">
-<table>
-  <tr>
-    <td align="center">
-      게시판에 저장된 글이 없습니다.
-    </td>
-  </tr>
-</table>
-</c:if>
+<c:choose>
+	<c:when test="${count == 0 && empty keyword}">
+		<table class="table">
+		  <tr>
+		    <td align="center">작성된 글이 없습니다.</td>
+		  </tr>
+		</table>
+	</c:when>
+	<c:when test="${count == 0 && not empty keyword }">
+		<table class="table">
+			<tr>
+		    <td align="center">검색결과가 없습니다.</td>
+			</tr>
+		</table>
+	</c:when>
+</c:choose>
 
 
 <c:if test="${count > 0}">
