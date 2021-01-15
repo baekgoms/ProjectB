@@ -30,7 +30,10 @@
 </tr>
 </table>
 <br />
-<table cellSpacing=1 cellPadding=1 width="1200" border=1 align="center">
+ <table cellSpacing=1 cellPadding=1 width="1200" border=1 align="center">
+
+
+
 <tr>
 <td width="200">전체</td> <td width="200">정치개혁</td> <td width="200">외교/통일/국방</td> <td width="200">일자리</td> <td width="200">미래</td> <td width="200">성장동력</td> <br />
 </tr>
@@ -59,7 +62,7 @@
 
 
 <div class="table-responsive">
- <table class="table" >
+ <table class="table" width="1200">
    <thead>
    <tr>
    <td colspan ="5" align="right">
@@ -80,7 +83,7 @@
   <tbody >
   <c:if test="${count == 0}">
 <div class="table-responsive">
- <table align ="center">
+ <table align ="center" width="1200">
  	<tr>
  		<td align ="center">
  		진행중인 청원이 없습니다.

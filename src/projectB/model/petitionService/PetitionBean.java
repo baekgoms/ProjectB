@@ -67,6 +67,11 @@ public class PetitionBean {
 		
 		 System.out.println(count + "//count");
 	     System.out.println(articleList.size() + "//size");
+	     
+	     List<PetitionDTO> getCategory = null;
+	     getCategory = dao.getCategory();
+	     model.addAttribute("category", getCategory);
+	
 		
 		model.addAttribute("currentPage", new Integer(currentPage));
 		model.addAttribute("startRow", new Integer(startRow));
