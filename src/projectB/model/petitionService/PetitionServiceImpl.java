@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import projectB.model.petition.PetCommentDTO;
 import projectB.model.petition.PetitionDTO;
 
 @Service("petitionDAO")
@@ -47,11 +48,6 @@ public class PetitionServiceImpl implements PetitionService{
 		return articleList;
 	}
 
-	@Override
-	public PetitionDTO getArticle(int num) throws Exception {
-	
-		return null;
-	}
 
 	@Override
 	public PetitionDTO updateGetArticle(int num) throws Exception {
@@ -60,22 +56,11 @@ public class PetitionServiceImpl implements PetitionService{
 	}
 
 	@Override
-	public int updateArticle(PetitionDTO petition) throws Exception {
+	public int getArticleCountbyState() throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
-		return 0;
-	}
-
-	@Override
-	public int daleteArtilcle(int num) throws Exception {
-
-		return 0;
-	}
-
-	@Override
-	public int getArticleCountbyState(int state) throws Exception {
-		return dao.selectOne("petition.getArticleCountState", state);
-	}
-
 	@Override
 	public List<PetitionDTO> getArtilclebyState(int state, int startRow, int endRow) throws Exception {
 		Map map = new HashMap();
@@ -86,10 +71,37 @@ public class PetitionServiceImpl implements PetitionService{
 		return stateList;
 	}
 
+	@Override
+	public PetitionDTO getArticle(int num) throws Exception {
+		return dao.selectOne("petition.getArticle",num);
+	}
 
+	@Override
+	public void insertPetCmt(PetCommentDTO dto) throws Exception {
+		dao.insert("petition.insertPetCmt",dto);
+	}
 
+	@Override
+	public List<PetitionDTO> petCmtListAll(int petitionNum) throws Exception {
+		return dao.selectList("petition.petCmtListAll",petitionNum);
+	}
+	
+	@Override
+	public int petCmtCount(int petitionNum) throws Exception {
+		return dao.selectOne("petition.petCmtCount",petitionNum);
+	}
 
+	@Override
+	public List<PetitionDTO> petCmtList(int petitionNum, int start, int end) throws Exception {
+		Map map = new HashMap();
+		map.put("petitionNum",petitionNum);
+		map.put("start",start);
+		map.put("end",end);
+		List<PetitionDTO> petCmtList = dao.selectList("petition.petCmtList",map);
+		return petCmtList;
+	}
 
+	
 
 
 }

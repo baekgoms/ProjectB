@@ -1,4 +1,4 @@
-package projectB.test.minnni;
+package projectB.model.petition;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

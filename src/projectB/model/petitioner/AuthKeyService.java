@@ -6,7 +6,9 @@ import org.springframework.stereotype.Service;
 @Service("authKeyService")
 public class AuthKeyService {
 	public static final int AUTHKEY_SZIE = 6;
-	private String authKey;
+	
+	private int authKey;
+	private final int encodingValue = 0x1261515;
 	
 	public void createAuthKey() {
 		Random rd = new Random();
@@ -18,10 +20,21 @@ public class AuthKeyService {
 			buffer.append(num);
 		}
 				
-		authKey = buffer.toString();
+		authKey = Integer.parseInt(buffer.toString());
 	}
 	
-	public String getAuthKey() {
+	public int getEncodingKey() {
+		int encodingKey = authKey ^ encodingValue;		
+		return encodingKey;
+	}
+	
+	public boolean isDecoding(int mailEncodingKey, int dbEncodingKey) {
+		int mailDecodingKey = mailEncodingKey ^ encodingValue;
+		int dbDecodingKey = dbEncodingKey ^ encodingValue;
+		return (mailDecodingKey == dbDecodingKey);
+	}
+	
+	public int getAuthKey() {
 		return authKey;
 	}
 }

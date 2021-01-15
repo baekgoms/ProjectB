@@ -24,17 +24,13 @@ public class PetitionerController {
 
 	@RequestMapping("signUp.aa")
 	public String signUp() {
-		System.out.println("signUp run");
-
 		return "petitioner/signUp";
 	}
 
 	@RequestMapping("confirmId.aa")
 	public @ResponseBody String confirmId(String id) throws Exception {
-		System.out.println("confrimId run / " + id);
 
 		int confrimResult = petitionerService.confirmId(id);
-		System.out.println("confrimResult - " + confrimResult);
 		return "" + confrimResult;
 	}
 
@@ -43,7 +39,7 @@ public class PetitionerController {
 		System.out.println("mailSend run");
 
 		mailSendService.createAuthKey();
-		String authKey = mailSendService.getAuthKey();
+		int authKey = mailSendService.getEncodingKey();
 
 		dto.setAuthKey(authKey);
 		dto.setState(PetitionerService.NOT_AUTH_STATE);
@@ -54,23 +50,28 @@ public class PetitionerController {
 			e.printStackTrace();
 		}
 
-		mailSendService.sendMail(dto.getEmail());
+		mailSendService.sendMail(dto.getEmail(), authKey);
 		return "redirect:signUp.aa";
 	}
 
 	@RequestMapping("mailAuth.aa")
 	public String mailAuth(PetitionerDTO dto, Model model) {
 		int confirmResult = NOT_CONFIRM;
-		PetitionerDTO dbData = null;
-
+		PetitionerDTO dbDTO = null;
+		
+		String email = dto.getEmail();
+		int userAuthKey = dto.getAuthKey();
+		int dbAuthKey = 0;
 		try {
-			if (dto.getEmail() != null && dto.getAuthKey() != null) {
-				dbData = petitionerService.getPetitionerByEmailAndAuthKey(dto.getEmail(), dto.getAuthKey());
+			if (email != null) {
+				dbDTO = petitionerService.getPetitionerByEmailAndAuthKey(email, userAuthKey);
+				dbAuthKey = dbDTO.getAuthKey();
 			}
-
-			if (dbData != null) {
+			
+			boolean isDecoding = mailSendService.isDecoding(userAuthKey, dbAuthKey);
+			if (isDecoding) {
 				confirmResult = CONFIRM;
-				petitionerService.updatePetitionerState(dbData.getId());
+				petitionerService.updatePetitionerState(dbDTO.getId());
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

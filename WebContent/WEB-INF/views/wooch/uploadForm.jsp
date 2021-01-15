@@ -640,16 +640,21 @@
 		                                                <div class="row">
 		                                                    <div class="col-md-8">
 		                                                        <div class="form-group">
-		                                                            <input type="text" class="form-control"
+		                                                            <input type="text" class="form-control" name="link"
 		                                                                placeholder="First Input &amp; First Row">
+		                                                                <!-- 링크 텍스트 박스 추가  -->	
+		                                                                <div class="addInput"> </div>
 		                                                        </div>
 		                                                    </div>
 		                                                    <div class="col-md-4">
 		                                                        <div class="form-group">
-		                                                             <button type="submit" class="btn btn-info">추가하기  </button>
+		                                                             <input type="button" class="btnAdd" value="추가" /><br>
+		                                                           
 		                                                        </div>
 		                                                    </div>
 		                                                </div>
+		                                                
+		                                                
 		                                                <!--  
 		                                                <div class="row">
 		                                                    <div class="col-md-10">
@@ -824,10 +829,31 @@
 	        });
 	})
 	</script>
-    
-</body>
-
-</html>
-
-
+	
+	<script>
+		$(document).ready(function () {
+			var counter = 0;
+				
+			$('.btnAdd').click(function(){
+				if (counter <= 1 || counter > 2 ) {
+					counter++;
+				$('.addInput').append(
+					'<input type="text" name="link" class="form-control" value="">\
+					<button type="button" class="btnRemove">삭제</button><br>'
+				);
+		
+				
+				$('.btnRemove').on('click', function(){
+					$(this).prev().remove();
+					$(this).next().remove();
+					$(this).remove();
+					if(counter >= 1){
+						counter--;
+					}
+				});
+				}
+			});		
+			
+		});
+	</script>
 
