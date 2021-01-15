@@ -1,4 +1,4 @@
-package projectB.test.baek;
+package projectB.model.petitioner;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -37,7 +37,7 @@ public class MailSendService {
 					.append("<h1>[이메일 인증]</h1>")
 					.append("<p>버튼 클릭하면 이메일 인증이 완료됩니다.</p>")
 					.append("<form method = 'post'")
-					.append("action = 'http://localhost:8080/projectB/beakTest/authMail.aa'>")
+					.append("action = 'http://localhost:8080/projectB/petitioner/mailAuth.aa'>")
 					.append("<input type='hidden' name= 'email'")
 					.append("value=" + toEmail + ">")
 					.append("<input type='hidden' name= 'authKey'")
