@@ -299,9 +299,7 @@
 	        // 태그를 추가한다.
 	        function addTag (value) {
 	            tag[counter] = value; // 태그를 Object 안에 추가
-	        	if(counter < 5){ 
-	        		counter++; // counter 증가 삭제를 위한 del-btn 의 고유 id 가 된다.
-	        	}
+	            counter++; // counter 증가 삭제를 위한 del-btn 의 고유 id 가 된다.
 	        }
 	
 	        // 최종적으로 서버에 넘길때 tag 안에 있는 값을 array type 으로 만들어서 넘긴다.
@@ -336,8 +334,8 @@
 	                    })
 	                
 	                    // 태그 중복 검사
-	                     if (counter < 5 && counter >= 0) { //5개 제한 
-	                    	
+	                     if (counter <= 4) { //5개 제
+	                    
 		                    if (result.length == 0) { 
 		                        $("#tag-list").append("<li class='tag-item'>"+tagValue+"<span class='del-btn' style='color:blue' idx='"+counter+"'>(X)</span></li>");
 		                        addTag(tagValue);
@@ -348,7 +346,7 @@
 		                        alert("태그값이 중복됩니다.");
 		                    }
 	              		} else {
-                        	alert("최대 5개까지 입력 가능합니다.");
+                        alert("최대 5개까지 입력 가능합니다.");
                    		 }
 	                }
 	                e.preventDefault(); // SpaceBar 시 빈공간이 생기지 않도록 방지
@@ -361,7 +359,6 @@
 	            var index = $(this).attr("idx");
 	            tag[index] = " ";
 	            $(this).parent().remove();
-	            counter--;
 	        });
 	})
 	</script>
