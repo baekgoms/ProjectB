@@ -41,7 +41,7 @@
 		<c:if test="${i%j == 0 }">
 		<tr>
 		</c:if>
-			<td>${category}</td>
+			<td>${category[i].categoryName}</td>
 			<c:if test="${i%j == j-1 }">
 			</tr>
 			</c:if>
@@ -106,7 +106,9 @@
     <c:out value="${ number }"/>
     <c:set var="number" value="${ number -1 }"/>
    		<th scope="row">${article.num}</th>
-        	<td>${article.category }</td>
+        	<td>
+        		${ category[article.category].categoryName }        		
+        	</td>
         	<td>
         	<a href ="projectB/petition/content.aa?num=${article.num}&pageNum=${currentPage}">
         	${article.title}</a>
