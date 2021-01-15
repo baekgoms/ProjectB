@@ -30,9 +30,27 @@
 </tr>
 </table>
 <br />
+<c:set var="i" value="0" />
+<c:set var="j" value="6" />
+
  <table cellSpacing=1 cellPadding=1 width="1200" border=1 align="center">
+<c:set var="i" value="0" />
+<c:set var="j" value="6" />
 
-
+ <table cellSpacing=1 cellPadding=1 width="1200" border=1 align="center">
+<tbody>
+	<c:forEach items="${category}" varStatus="list" >
+		<c:if test="${i%j == 0 }">
+		<tr>
+		</c:if>
+			<td>${list.count}</td>
+			<c:if test="${i%j == j-1 }">
+			</tr>
+			</c:if>
+			<c:set var="i" value="${i+1 }" />
+	</c:forEach>
+</tbody>
+</table>
 
 <tr>
 <td width="200">전체</td> <td width="200">정치개혁</td> <td width="200">외교/통일/국방</td> <td width="200">일자리</td> <td width="200">미래</td> <td width="200">성장동력</td> <br />

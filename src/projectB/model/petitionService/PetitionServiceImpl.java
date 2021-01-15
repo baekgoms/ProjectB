@@ -56,9 +56,8 @@ public class PetitionServiceImpl implements PetitionService{
 	}
 
 	@Override
-	public int getArticleCountbyState() throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+	public int getArticleCountbyState(int state) throws Exception {
+		return dao.selectOne("petition.getArticleCountState",state);
 	}
 	
 	@Override
