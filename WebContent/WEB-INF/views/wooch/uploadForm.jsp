@@ -168,24 +168,25 @@
 		                                        <div class="form-group row">
 		                                            <label class="col-md-2">링크 첨부 </label>
 		                                            <div class="col-md-10">
+		                                            
 		                                                <div class="row">
 		                                                    <div class="col-md-8">
 		                                                        <div class="form-group">
 		                                                            <input type="text" class="form-control" name="link"
 		                                                                placeholder="First Input &amp; First Row">
 		                                                                <!-- 링크 텍스트 박스 추가  -->	
-		                                                                <div class="addInput"> </div>
+		                                                                
 		                                                        </div>
 		                                                    </div>
 		                                                    <div class="col-md-4">
 		                                                        <div class="form-group">
-		                                                             <input type="button" class="btnAdd" value="추가" /><br>
+		                                                             <input type="button" class="btnAdd btn btn-info" value="추가" /><br>
 		                                                           
 		                                                        </div>
 		                                                    </div>
 		                                                </div>
 		                                                
-		                                                
+		                                                <div class="row addInput"> </div>
 		                                                <!--  
 		                                                <div class="row">
 		                                                    <div class="col-md-10">
@@ -374,14 +375,25 @@
 				if (counter <= 1 || counter > 2 ) {
 					counter++;
 				$('.addInput').append(
-					'<input type="text" name="link" class="form-control" value="">\
-					<button type="button" class="btnRemove">삭제</button><br>'
+						
+					'<div class="col-md-8">\
+	                	<div class="form-group">\
+							<input type="text" name="link" class="form-control counter" value=""\
+	                    	   	 placeholder="First Input &amp; First Row">\
+		                </div>\
+		            </div>\
+		            <div class="col-md-4">\
+		                <div class="form-group">\
+		                    <button type="button" class="btnRemove btn btn-info">삭제</button>\
+		                </div>\
+		            </div>'
+			
 				);
 		
 				
+				
 				$('.btnRemove').on('click', function(){
-					$(this).prev().remove();
-					$(this).next().remove();
+					$( 'input' ).remove( '.counter' );
 					$(this).remove();
 					if(counter >= 1){
 						counter--;
