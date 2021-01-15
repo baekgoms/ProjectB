@@ -16,7 +16,7 @@
 	<insert id ="insertArticle" parameterType="petitionDTO">
 		insert into petition values(petition_seq.nextval,
 		#{title}, #{content}, #{category}, sysdate, sysdate, #{writer}, #{petition}, 
-		#{petitionState}, #{link}, #{indicaterNum}, #{tag}, #{open})
+		#{petitionState}, #{link}, #{indicaterNum}, #{tag}, #{report}, #{open})
 	</insert>
 	
 	<!-- 
