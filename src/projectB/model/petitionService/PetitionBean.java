@@ -83,10 +83,13 @@ public class PetitionBean {
 		
 		 System.out.println(count + "//count");
 	     System.out.println(articleList.size() + "//size");
-	     
-	     List<PetitionDTO> getCategory = dao.getCategory();
+	  
+	   
+	     List<PetitionDTO> getCategory = dao.getCategoryList();
+	     System.out.println(getCategory + "//category");
 	     model.addAttribute("category", getCategory);
 	
+	 
 		
 		model.addAttribute("currentPage", new Integer(currentPage));
 		model.addAttribute("startRow", new Integer(startRow));
@@ -95,6 +98,7 @@ public class PetitionBean {
 		model.addAttribute("pageSize", new Integer(pageSize));
 		model.addAttribute("number", new Integer(number));
 		model.addAttribute("articleList", articleList);
+		
 		
 		return "board/ing_list";
 	}

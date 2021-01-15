@@ -100,6 +100,13 @@ public class PetitionServiceImpl implements PetitionService{
 		return petCmtList;
 	}
 
+	@Override
+	public List<PetitionDTO> getCategoryList() throws Exception {
+	
+	 
+		return dao.selectList("petition. getCategoryList");
+	}
+
 	}
 
 	

@@ -23,6 +23,7 @@
 		<typeAlias alias="petitionDTO" type="projectB.model.petition.PetitionDTO" />
 		<typeAlias alias="petCommentDTO" type="projectB.model.petition.PetCommentDTO" />
 		<typeAlias alias="petitionerDTO" type="projectB.model.petitioner.PetitionerDTO" />
+		<typeAlias alias="CategoryDTO" type="projectB.model.petition.CategoryDTO" />
 	</typeAliases>
 	
 	<mappers>
