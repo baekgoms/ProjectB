@@ -47,7 +47,7 @@ public class Discussion {
         
 		return "discussion/main";
 	}
-	@RequestMapping("main.aa")
+	@RequestMapping("mainSort.aa")
 	public String main(int pageNum, Model model,int sort) throws Exception {
 		int pageSize = 20;
         int currentPage = pageNum;
