@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import projectB.model.petition.CategoryDTO;
 import projectB.model.petition.PetCommentDTO;
 import projectB.model.petition.PetitionDTO;
 
@@ -21,7 +22,7 @@ import projectB.model.petition.PetitionDTO;
 public class PetitionBean {
 	
 	@Autowired
-	private PetitionService dao = null;
+	private PetitionService petitionDAO = null;
 	
 	
 	@RequestMapping("uploadForm.aa")
@@ -41,7 +42,7 @@ public class PetitionBean {
 			model.addAttribute("dto", dto);
 			dto.setWriter((String)session.getAttribute("memId"));
 			System.out.println("Writer:"+dto.getWriter());
-			category = dao.getCategory();
+			category = petitionDAO.getCategory();
 			model.addAttribute("category", category);
 			System.out.println("category size:"+category.size()+"\n"+category);
 		}	
@@ -55,7 +56,7 @@ public class PetitionBean {
 	   
 	   dto.setWriter((String)session.getAttribute("memId"));
 	   System.out.println("Writer:"+dto.getWriter());
-	   dao.insertArticle(dto);
+	   petitionDAO.insertArticle(dto);
 	   System.out.println("uploadPro run");
 	   
 	   return "wooch/uploadPro";
@@ -73,9 +74,9 @@ public class PetitionBean {
 		int number = 0;
 		
 		List<PetitionDTO> articleList = null;
-		count = dao.getArticleCount();
+		count = petitionDAO.getArticleCount();
 		if(count > 0) {
-			articleList = dao.getArticles(startRow, endRow);
+			articleList = petitionDAO.getArticles(startRow, endRow);
 		} else {
 			articleList = Collections.emptyList();
 		}
@@ -85,7 +86,7 @@ public class PetitionBean {
 	     System.out.println(articleList.size() + "//size");
 	  
 	   
-	     List<PetitionDTO> getCategory = dao.getCategoryList();
+	     List<CategoryDTO> getCategory = petitionDAO.getCategoryList();
 	     System.out.println(getCategory + "//category");
 	     model.addAttribute("category", getCategory);
 	
@@ -124,9 +125,9 @@ public class PetitionBean {
 		int state= 3;
 		
 		List<PetitionDTO> articleList = null;
-		count = dao.getArticleCountbyState(state);
+		count = petitionDAO.getArticleCountbyState(state);
 		if(count > 0) {
-			articleList = dao.getArtilclebyState(state,startRow, endRow);
+			articleList = petitionDAO.getArtilclebyState(state,startRow, endRow);
 		} else {
 			articleList = Collections.emptyList();
 		}
@@ -160,9 +161,9 @@ public class PetitionBean {
 		int state= 4;
 		
 		List<PetitionDTO> articleList = null;
-		count = dao.getArticleCountbyState(state);
+		count = petitionDAO.getArticleCountbyState(state);
 		if(count > 0) {
-			articleList = dao.getArtilclebyState(state,startRow, endRow);
+			articleList = petitionDAO.getArtilclebyState(state,startRow, endRow);
 		} else {
 			articleList = Collections.emptyList();
 		}
@@ -184,7 +185,7 @@ public class PetitionBean {
 	//청원보기
 	@RequestMapping("petContent.aa")
 	public String petContent(int num, Model model) throws Exception{
-		PetitionDTO petDTO = dao.getArticle(num);
+		PetitionDTO petDTO = petitionDAO.getArticle(num);
 		model.addAttribute("petDTO",petDTO);
 		return "board/petitionContent";
 	}
@@ -200,9 +201,9 @@ public class PetitionBean {
 		int number = 0;
 		
 		List<PetitionDTO> petCmtList = null;
-		count = dao.petCmtCount(petitionNum);
+		count = petitionDAO.petCmtCount(petitionNum);
 		if(count > 0) {
-			petCmtList = dao.petCmtList(petitionNum,startRow, endRow);
+			petCmtList = petitionDAO.petCmtList(petitionNum,startRow, endRow);
 		} else {
 			petCmtList = Collections.emptyList();
 		}
@@ -222,7 +223,7 @@ public class PetitionBean {
 	
 	@RequestMapping("petCommentPro.aa")
 	public String insertCmt(PetCommentDTO dto)throws Exception{
-		dao.insertPetCmt(dto);
+		petitionDAO.insertPetCmt(dto);
 		return "board/petitionCommentPro";
 	}
 
