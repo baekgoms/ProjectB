@@ -188,19 +188,19 @@ public class PetitionBean {
 	//청원댓글
 	@RequestMapping("petComment.aa")
 	public String petCmtListAll(int petitionNum,@RequestParam(defaultValue="1")int pageNum, Model model) throws Exception{
-		int pageSize = 20;
+		int pageSize = 10;
 		int currentPage = pageNum;
 		int startRow = (currentPage - 1) * pageSize +1;
 		int endRow = currentPage * pageSize;
 		int count = 0;
 		int number = 0;
 		
-		List<PetitionDTO> articleList = null;
+		List<PetitionDTO> petCmtList = null;
 		count = dao.petCmtCount(petitionNum);
 		if(count > 0) {
-			articleList = dao.petCmtList(petitionNum,startRow, endRow);
+			petCmtList = dao.petCmtList(petitionNum,startRow, endRow);
 		} else {
-			articleList = Collections.emptyList();
+			petCmtList = Collections.emptyList();
 		}
 		number = count-(currentPage-1)*pageSize;
 		
@@ -211,7 +211,7 @@ public class PetitionBean {
 		model.addAttribute("pageSize", new Integer(pageSize));
 		model.addAttribute("number", new Integer(number));
 		model.addAttribute("petitionNum", new Integer(petitionNum));
-		model.addAttribute("articleList", articleList);
+		model.addAttribute("petCmtList", petCmtList);
 		
 		return "board/petitionComment";
 	}
@@ -221,9 +221,6 @@ public class PetitionBean {
 		dao.insertPetCmt(dto);
 		return "board/petitionCommentPro";
 	}
-	  
-	
-	
-	
+
 }
 

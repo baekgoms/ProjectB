@@ -23,48 +23,66 @@
 
 <body>  
 
-<script language="javascript">
-	function sessionCheck(frm) {
-    if (true) {
-        alert("로그인 후에 동의 가능합니다.");
-        window.location = "로그인폼주소";
-        frm.content.focus();
-        return 로그인폼;
-    }
-}
-	
-	
-	function agreeCheck(agc){
-		if(confirm('청원 동의 철회 및 댓글 수정은 불가능하오니 신중하게 참여해주시기 바랍니다')){
-			
-		
 
-		}
-	}
-</script>
 
 <form method="post" action="petitionCommentPro.aa" onsubmit="return formCheck(this)">
-		<input type="hidden" name="petitionNum" value="${dto.petitionNum}" />
-		<table style="align-content: center; width: 40%;" border="1">
+		<input type="hidden" name="petitionNum" value="${petitionNum}" />
+        <table align="center" width = "500" border="1">
+		
 			<tr>
-				<td rowspan="3" style="width: 10%;" >${sessionId}<input
-					type="hidden" name="writer" value="${sessionId}"></td>
-				
-				<td style="width: 20%">
+				<td width ="50" >댓글번호${petCmtList.num}</td>
+                <td width="100">${sessionId}
+                <input type="hidden" name="writer" value="${sessionId}"></td>
+                <td width="350" align="center"> 동의합니다.</td>
+                <td width = "50">
 				<input type="submit" VALUE="동의" onclick="Confirm()"/></td>					
 			</tr>
 		</table>
   
-  		<table style="align-content: center; width: 40%;" border="1">
+         <table align="center" width = "500" border="1">
+		
+		<c:forEach var="x" items="${petCmtList}">  
 		<tr>
-			<td>${dto.num}</td>
-			<td>${dto.writer}</td>
-			<td style="width: 60%">{dto.content}</td>
-			<td>{dto.reg}</td>
+			<td width ="50" >댓글번호${x.num}</td>
+            <td width ="100">작성자${x.writer}</td>
+            <td width ="350">내용${x.content}</td>
+            <td width ="100">작성날짜${x.reg}</td>
 		</tr>
+		</c:forEach>  
 	</table>
-
+    <tbody>
+    </tbody>
+     
+     
+<div class="col-lg-4 mb-4">
+<nav aria-label="Page navigation example">
+<ul class="pagination justify-content-center">
+   <ul class="pagination">
+   <c:if test="${startPage > 10}">
+     <li class="page-item">
+          <a class="page-link" href="/projectB/petition/petitionComment.aa?pageNum=${startPage - 10}" aria-label="Previous">
+         <span aria-hidden="true">«</span>
+          <span class="sr-only">Previous</span>
+            </a>
+        </li>
+    </c:if>
+    <c:forEach var="i" begin="${startRow}" end="${endRow}">    
+        <li class="page-item"><a class="page-link" href="/projectB/petition/petitionComment.aa?pageNum=${i}">${i}</a></li>
+    </c:forEach>
+    <c:if test="${endPage < pageCount}">
+        <li class="page-item">
+        <a class="page-link" href="/projectB/petition/petitionComment.aa?pageNum=${startPage + 10}" aria-label="Next">
+          <span aria-hidden="true">»</span>
+          <span class="sr-only">Next</span>
+          </a>
+        </li>
+    </c:if>
+    </ul>
+</ul>
+</nav>
+</div>
 </form>   
+
 <script src="/projectB/resource/bootstrap/assets/libs/jquery/dist/jquery.min.js"></script>
     <script src="/projectB/resource/bootstrap/assets/libs/popper.js/dist/umd/popper.min.js"></script>
     <script src="/projectB/resource/bootstrap/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
