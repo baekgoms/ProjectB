@@ -43,7 +43,7 @@
 		<c:if test="${i%j == 0 }">
 		<tr>
 		</c:if>
-			<td>${list.count}</td>
+			<td>${category[i]}</td>
 			<c:if test="${i%j == j-1 }">
 			</tr>
 			</c:if>
@@ -52,7 +52,7 @@
 </tbody>
 </table>
 
-<tr>
+<!-- <tr>
 <td width="200">전체</td> <td width="200">정치개혁</td> <td width="200">외교/통일/국방</td> <td width="200">일자리</td> <td width="200">미래</td> <td width="200">성장동력</td> <br />
 </tr>
 <tr>
@@ -60,7 +60,7 @@
 </tr>
 <tr>
 <td>교통/건축/국토</td> <td>경제민주화</td> <td>인권/성평등</td> <td>문화/예술/체육/언론</td> <td>반려동물</td> <td>기타</td>
-</tr>
+</tr> -->
 
 <div>
 <tr>
