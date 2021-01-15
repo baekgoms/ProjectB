@@ -101,11 +101,11 @@
 		                            <div class="card-body">
 		                                <h4 class="card-title">청원제목 </h4>    
 		                                  
-<!-- 			<form>				 --> <form method="post" id="tag-form" name="uploadForm" action="/projectB/petition/uploadPro.aa" >
+<!-- 			<form>				 --> <form method="post" id="tag-form" name="uploadForm" onsubmit="return checkIt()" action="/projectB/petition/uploadPro.aa" >
 			                                <div class="form-group">
 	                                            
 	                                            <input type="text" class="form-control"
-	                                                placeholder="제목 입력 " name="title">
+	                                                placeholder="제목 입력" id="title" name="title">
 	                                        </div>
 		                                <hr>
 		                              
@@ -121,13 +121,12 @@
 										                            <div class="card-body">
 										                               
 										                                    <div class="form-group mb-1">
-										                                        <label class="mr-sm-2" for="inlineFormCustomSelect">카테고리 </label>
+										                                        <label class="mr-sm-2" for="inlineFormCustomSelect">청원 분류 </label>
 										                                        <select class="custom-select mr-sm-2" id="inputGroupSelect01" name="category" >
 										                                            <option selected>선택하기</option>
 										                                            
-										                                           <!-- DB 컬 개수만큼 반복  -->
+										                                           <!-- DB 컬럼 개수만큼 반복  -->
 										                                           <c:forEach var="name" items="${category}" varStatus="status">
-	
 																						<option value="${status.count}"><c:out value="${name}" /></option>
 																					</c:forEach>
 
@@ -159,7 +158,7 @@
 		                                         <div data-spy="scroll" data-target="#navbar-example2" data-offset="0"
 						                            class="position-relative mt-2" style="height: 700px; overflow: auto;">	
 						                            
-						                            <textarea class="form-control" rows="3" placeholder="청원내용 작성 " name="content"
+						                            <textarea class="form-control" rows="3" placeholder="청원내용 작성 " name="content" id="content"
 						                            				style="height: 700px; overflow: auto;"></textarea>
 						                            					                          
 						                        </div>
@@ -390,33 +389,38 @@
 			
 		});
 	</script>
+	
 	<script type="text/javascript">
-		function SaveCheck()
-		{
-		    if (vCheck(tag-form.TbUserID, "UserID") == 0) return false;
-		}
-	</script>
-	<script type="text/javascript">
-    var upload = document.querySelector('#img');
-    //var upload2 = document.querySelector('#img2');
- 
-     /* FileReader 객체 생성 */
-    var reader = new FileReader();
- 
     function checkIt()
     {
-       var form = document.write_form;     
-       if (form.img.value=="")
-       {
-          alert ("제목을 입력해주세요.");
-          form.img.focus();
-          return false;
+    	
+        var title = document.getElementById("title");
+        var content = document.getElementById("content");
+        var category = document.getElementById("inputGroupSelect01");
+        
+       if(title.value=="") {
+           alert("제목을 입력해주세요");
+           title.focus();
+           return false;
        }
+       
+       else if(content.value=="") {
+           alert("청원 내용을 입력해주세요");
+           content.focus();
+           return false;
+       }
+       
+       else if(category.value=="선택하기") {
+           alert("청원 분류를 선택해주세요");
+           category.focus();
+           return false;
+       }
+     
     return true;
     }
      
      
-</script>
+	</script>
 	
 
 
