@@ -18,7 +18,7 @@
 		#{title}, #{content}, #{category}, sysdate, sysdate, #{writer}, #{petition}, 
 		#{petitionState}, #{link}, #{indicatorNum}, #{tag}, #{report}, #{open})
 	</insert>
-	
+	 
 	<!-- 
 	<select id="selectFor" resultType="fileDTO" >
 		select * from fileList where num in
@@ -56,6 +56,7 @@
 		select count(*) from petition where petitionState = #{state} 
 	</select>
 	
+
 
 
 	<!-- 남은부분은 미리써두면 엉킬까봐 안썻어요! -->

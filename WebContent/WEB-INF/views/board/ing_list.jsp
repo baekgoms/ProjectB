@@ -30,10 +30,7 @@
 </tr>
 </table>
 <br />
-<c:set var="i" value="0" />
-<c:set var="j" value="6" />
 
- <table cellSpacing=1 cellPadding=1 width="1200" border=1 align="center">
 <c:set var="i" value="0" />
 <c:set var="j" value="6" />
 
@@ -52,21 +49,13 @@
 </tbody>
 </table>
 
-<!-- <tr>
-<td width="200">전체</td> <td width="200">정치개혁</td> <td width="200">외교/통일/국방</td> <td width="200">일자리</td> <td width="200">미래</td> <td width="200">성장동력</td> <br />
-</tr>
-<tr>
-<td>농산어촌</td> <td>보건복지</td> <td>육아교육</td> <td>안전환경</td> <td>저출산/고령화대책</td> <td>행정</td> <br />
-</tr>
-<tr>
-<td>교통/건축/국토</td> <td>경제민주화</td> <td>인권/성평등</td> <td>문화/예술/체육/언론</td> <td>반려동물</td> <td>기타</td>
-</tr> -->
+
 
 <div>
 <tr>
-<td colspan ="6" align="right">
+<td align="right">
  <button type="button" class="btn waves-effect waves-light btn-outline-dark">최신순</button>
-  <button type="button" class="btn waves-effect waves-light btn-outline-dark">동의순</button>
+  <button type="button" class="btn waves-effect waves-light btn-outline-dark" >동의순</button>
 
 </td>
 </tr>
