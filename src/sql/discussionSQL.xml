@@ -17,7 +17,7 @@
 									  #{subject})
 	</insert>
 	
-	<select id="getArticleCount" parameterType="String" resultType="int">
+	<select id="getArticleCount" parameterType="object" resultType="int">
 		select count(*) from discussion
 		<if test="keyword != null">
 		where subject like %#{keyword}% or content like %#{keyword}%
@@ -29,7 +29,15 @@
 		<if test="keyword != null">
 			where subject like '%' || #{keyword} || '%' or content like '%' || #{keyword} || '%'
 		</if>
-		order by num desc) order by num desc)<![CDATA[where r >= #{start} and r <= #{end}]]>
+		<where>
+		<if test="sort == null">
+		order by num desc) order by num desc)
+		</if>
+		<if test="sort != null">
+		order by agreement desc) order by agreement desc)
+		</if>
+		</where>
+		<![CDATA[where r >= #{start} and r <= #{end}]]>
 	</select>
 	
 	<select id="getArticle" parameterType="int" resultType="disDTO">

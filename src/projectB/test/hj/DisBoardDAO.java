@@ -98,4 +98,14 @@ public class DisBoardDAO implements DisBoardService{
 		return articleList;
 	}
 
+	@Override
+	public List<DisBoardDTO> getArticles(int start, int end, int sort) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("start",start);
+		map.put("end",end);
+		map.put("sort",sort);
+		List<DisBoardDTO> articleList = bDao.selectList("disBoard.getArticles", map);
+		return articleList;
+	}
+
 }

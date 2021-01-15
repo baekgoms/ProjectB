@@ -11,8 +11,10 @@
            
 <title>토론게시판</title>
 <center>
-<input type="button" class="btn waves-effect waves-light btn-outline-dark" value="                           최신순                              ">
-<input type="button" class="btn waves-effect waves-light btn-outline-dark" value="                           베스트순                           ">
+<input type="button" value="                           최신순                              " class="btn waves-effect waves-light btn-outline-dark" 
+	onclick="document.location.href='/projectB/discussion/main.aa?pageNum=${pageNum}'">
+<input type="button" value="                           베스트순                           " class="btn waves-effect waves-light btn-outline-dark" 
+	onclick="document.location.href='/projectB/discussion/main.aa?pageNum=${pageNum}&sort=1'">
 
 <br />
 <form action="/projectB/discussion/mainSearch.aa?pageNum=${pageNum}">
