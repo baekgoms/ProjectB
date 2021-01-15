@@ -9,7 +9,7 @@ public interface PetitionerService {
 	
 	int confirmId(String id)  throws SQLException;
 	int confirmAuthKey(PetitionerDTO dto)  throws SQLException;
-	PetitionerDTO getPetitionerByEmailAndAuthKey(String email, String authKey)  throws SQLException;
+	PetitionerDTO getPetitionerByEmailAndAuthKey(String email, int authKey)  throws SQLException;
 	void insertPetitioner(PetitionerDTO dto) throws SQLException;
 	void updatePetitionerState(String id)  throws SQLException;
 }

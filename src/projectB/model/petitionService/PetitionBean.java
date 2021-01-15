@@ -44,8 +44,6 @@ public class PetitionBean {
 	   return "wooch/uploadPro";
    }
 	
-   
-	//泥��썝寃뚯떆�뙋 由ъ뒪�듃
 	@RequestMapping("ing_list.aa")
 	public String ing_list(@RequestParam(defaultValue="1")int pageNum, Model model) throws Exception {
 		
@@ -80,7 +78,6 @@ public class PetitionBean {
 		return "board/ing_list";
 	}
 	
-	//�떟蹂��씠 �셿猷뚮맂 寃뚯떆�뙋 由ъ뒪�듃
 	@RequestMapping("finish_list.aa")
 	public String test1() {
 		System.out.println("finish Test");
@@ -89,7 +86,6 @@ public class PetitionBean {
 		return "board/finish_list";
 	}
 
-	//湲곌컙�씠 留뚮즺�맂 泥��썝 由ъ뒪�듃
 	@RequestMapping("timeout_list.aa")
 	public String timeout_list(@RequestParam(defaultValue="1")int pageNum, Model model) throws Exception {
 		
@@ -100,10 +96,10 @@ public class PetitionBean {
 		int endRow = currentPage * pageSize;
 		int count = 0;
 		int number = 0;
-		int state= 3; // 湲곌컙�씠 留뚮즺�맂 泥��썝 
+		int state= 3;
 		
 		List<PetitionDTO> articleList = null;
-		count = dao.getArticleCountbyState(state);
+		count = 0;//dao.getArticleCountbyState();//잘못된 메서드
 		if(count > 0) {
 			articleList = dao.getArtilclebyState(state,startRow, endRow);
 		} else {
@@ -125,7 +121,6 @@ public class PetitionBean {
 		return "board/timeout_list";
 	}
 
-	//�떟蹂��쓣 湲곕떎由щ뒗 由ъ뒪�듃
 	@RequestMapping("waiting_list.aa")
 	public String watiting_list(@RequestParam(defaultValue="1")int pageNum, Model model) throws Exception{
 		
@@ -137,10 +132,10 @@ public class PetitionBean {
 		int endRow = currentPage * pageSize;
 		int count = 0;
 		int number = 0;
-		int state= 4; // �떟蹂��쓣 湲곕떎由щ뒗 泥��썝
+		int state= 4;
 		
 		List<PetitionDTO> articleList = null;
-		count = dao.getArticleCountbyState(state);
+		count = 0;//dao.getArticleCountbyState();//메서드 잘못댐
 		if(count > 0) {
 			articleList = dao.getArtilclebyState(state,startRow, endRow);
 		} else {
@@ -205,7 +200,7 @@ public class PetitionBean {
 		dao.insertPetCmt(dto);
 		return "board/petitionCommentPro";
 	}
-	
+	  
 	
 	
 	

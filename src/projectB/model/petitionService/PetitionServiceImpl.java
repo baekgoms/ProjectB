@@ -56,22 +56,11 @@ public class PetitionServiceImpl implements PetitionService{
 	}
 
 	@Override
-	public int updateArticle(PetitionDTO petition) throws Exception {
+	public int getArticleCountbyState() throws Exception {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
-		return 0;
-	}
-
-	@Override
-	public int daleteArtilcle(int num) throws Exception {
-
-		return 0;
-	}
-
-	@Override
-	public int getArticleCountbyState(int state) throws Exception {
-		return dao.selectOne("petition.getArticleCountState", state);
-	}
-
 	@Override
 	public List<PetitionDTO> getArtilclebyState(int state, int startRow, int endRow) throws Exception {
 		Map map = new HashMap();
@@ -81,8 +70,6 @@ public class PetitionServiceImpl implements PetitionService{
 		List<PetitionDTO> stateList = dao.selectList("petition.getArticleState", map);
 		return stateList;
 	}
-
-	//√ªø¯≥ªøÎ+¥Ò±€
 
 	@Override
 	public PetitionDTO getArticle(int num) throws Exception {
@@ -114,6 +101,6 @@ public class PetitionServiceImpl implements PetitionService{
 		return petCmtList;
 	}
 
-
+	
 
 }

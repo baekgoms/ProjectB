@@ -30,10 +30,10 @@ public class PetitionerServiceImpl implements PetitionerService {
 	}
 	
 	@Override
-	public PetitionerDTO getPetitionerByEmailAndAuthKey(String email, String authKey) {
+	public PetitionerDTO getPetitionerByEmailAndAuthKey(String email, int authKey) {
 		HashMap<String, String> dataMap = new HashMap<>();
 		dataMap.put("email", email);
-		dataMap.put("authKey", authKey);
+		dataMap.put("authKey", authKey + "");
 		
 		return connection.selectOne("petitioner.getPetitionerByEmailAndAuthKey", dataMap);
 	}

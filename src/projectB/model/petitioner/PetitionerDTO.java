@@ -19,7 +19,7 @@ public class PetitionerDTO implements BaseDTO{
 	private int emailArg;
 	private Timestamp reg;
 	private Timestamp blockReg;
-	private String authKey;
+	private int authKey;
 
 	public void setInfo(ResultSet rs) {
 		try {
@@ -35,6 +35,7 @@ public class PetitionerDTO implements BaseDTO{
 			setEmailArg(rs.getInt("emailArg"));
 			setReg(rs.getTimestamp("reg"));
 			setBlockReg(rs.getTimestamp("blockReg"));
+			setAuthKey(rs.getInt("authKey"));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -64,6 +65,6 @@ public class PetitionerDTO implements BaseDTO{
 	public void setReg(Timestamp reg) { this.reg = reg; }
 	public Timestamp getBlockReg() { return blockReg; }
 	public void setBlockReg(Timestamp blockReg) { this.blockReg = blockReg; }
-	public String getAuthKey() { return authKey; }
-	public void setAuthKey(String authKey) { this.authKey = authKey; }
+	public int getAuthKey() { return authKey; }
+	public void setAuthKey(int authKey) { this.authKey = authKey; }
 }
