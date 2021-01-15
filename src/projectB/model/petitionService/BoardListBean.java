@@ -59,7 +59,7 @@ public class BoardListBean {
 	public String test1() {
 		System.out.println("finish Test");
 		
-		
+		System.out.println("ddd");
 		return "board/finish_list";
 	}
 
