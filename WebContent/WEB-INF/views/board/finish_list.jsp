@@ -22,16 +22,16 @@
 <form name="form" method="post">
 <table cellSpacing=1 cellPadding=1 width="1200" border=1 align="center" >
 <tr>
-<td  align="center"> <a href="/projectB/board/ing_list.aa">진행중인 청원</a></td>
-<td  align="center"> <a href="/projectB/board/finish_list.aa">완료된 청원</a></td>
+<td  align="center"> <a href="/projectB/petition/ing_list.aa">진행중인 청원</a></td>
+<td  align="center"> <a href="/projectB/petition/finish_list.aa">완료된 청원</a></td>
 </tr>
 </table>
 <br />
 <table cellSpacing=1 cellPadding=1 width="1200" border=1 align="center">
 <tr>
-<td align="center" width="400"><a href="/projectB/board/finish_list.aa">답변된 청원</a></td>
-<td align="center" width="400"><a href="/projectB/board/waiting_list.aa">답변 대기중인 청원</a></td>
-<td align="center" width="400"><a href="/projectB/board/timeout_list.aa">기간이 만료된 청원</a></td>
+<td align="center" width="400"><a href="/projectB/petition/finish_list.aa">답변된 청원</a></td>
+<td align="center" width="400"><a href="/projectB/petition/waiting_list.aa">답변 대기중인 청원</a></td>
+<td align="center" width="400"><a href="/projectB/petition/timeout_list.aa">기간이 만료된 청원</a></td>
 </tr>
 </table>
 <br />

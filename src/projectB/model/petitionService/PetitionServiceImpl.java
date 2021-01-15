@@ -36,12 +36,15 @@ public class PetitionServiceImpl implements PetitionService{
 	}
 
 	@Override
-	public List<PetitionDTO> getArticles(int start, int end) throws Exception {
+	public List<PetitionDTO> getArticles(int startRow, int endRow) throws Exception {
+ 
 		Map map = new HashMap();
-		map.put("start",start);
-		map.put("end",end);
-		List<PetitionDTO> getArticles = dao.selectList("petition.getArticleAll", map);
-		return getArticles;
+		map.put("startRow",startRow);
+		map.put("endRow",endRow);
+		
+		List<PetitionDTO> articleList = dao.selectList("petition.getArticleAll", map);
+		
+		return articleList;
 	}
 
 	@Override
@@ -69,16 +72,16 @@ public class PetitionServiceImpl implements PetitionService{
 	}
 
 	@Override
-	public int getArticleCountbyState() throws Exception {
-		return dao.selectOne("petition.getArticleCountState");
+	public int getArticleCountbyState(int state) throws Exception {
+		return dao.selectOne("petition.getArticleCountState", state);
 	}
 
 	@Override
-	public List<PetitionDTO> getArtilclebyState(int state, int start, int end) throws Exception {
+	public List<PetitionDTO> getArtilclebyState(int state, int startRow, int endRow) throws Exception {
 		Map map = new HashMap();
 		map.put("state",state);
-		map.put("start",start);
-		map.put("end",end);
+		map.put("startRow",startRow);
+		map.put("endRow",endRow);
 		List<PetitionDTO> stateList = dao.selectList("petition.getArticleState", map);
 		return stateList;
 	}

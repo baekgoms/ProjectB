@@ -102,7 +102,7 @@ public class PetitionBean {
 		int state= 3; // 기간이 만료된 청원 
 		
 		List<PetitionDTO> articleList = null;
-		count = dao.getArticleCountbyState();
+		count = dao.getArticleCountbyState(state);
 		if(count > 0) {
 			articleList = dao.getArtilclebyState(state,startRow, endRow);
 		} else {
@@ -126,7 +126,8 @@ public class PetitionBean {
 
 	//답변을 기다리는 리스트
 	@RequestMapping("waiting_list.aa")
-	public String test3(@RequestParam(defaultValue="1")int pageNum, Model model) throws Exception{
+	public String watiting_list(@RequestParam(defaultValue="1")int pageNum, Model model) throws Exception{
+		
 		System.out.println("waiting Test");
 
 		int pageSize = 10;
@@ -138,7 +139,7 @@ public class PetitionBean {
 		int state= 4; // 답변을 기다리는 청원
 		
 		List<PetitionDTO> articleList = null;
-		count = dao.getArticleCountbyState();
+		count = dao.getArticleCountbyState(state);
 		if(count > 0) {
 			articleList = dao.getArtilclebyState(state,startRow, endRow);
 		} else {

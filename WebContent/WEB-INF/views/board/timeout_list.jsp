@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -13,7 +15,7 @@
     <link href="/projectB/resource/bootstrap/css/style.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/projectB/resource/bootstrap/assets/extra-libs/prism/prism.css">
 
-<title>Insert title here</title>
+<title>기간이 만료된 게시판</title>
 </head>
 <body>
 
@@ -22,20 +24,23 @@
 <form name="form" method="post">
 <table cellSpacing=1 cellPadding=1 width="1200" border=1 align="center" >
 <tr>
-<td  align="center"> <a href="/projectB/board/ing_list.aa">진행중인 청원</a></td>
-<td  align="center"> <a href="/projectB/board/finish_list.aa">완료된 청원</a></td>
+<td  align="center"> <a href="/projectB/petition/ing_list.aa">진행중인 청원</a></td>
+<td  align="center"> <a href="/projectB/petition/finish_list.aa">완료된 청원</a></td>
 </tr>
 </table>
 <br />
 <table cellSpacing=1 cellPadding=1 width="1200" border=1 align="center">
 <tr>
-<td align="center" width="400"><a href="/projectB/board/finish_list.aa">답변된 청원</a></td>
-<td align="center" width="400"><a href="/projectB/board/waiting_list.aa">답변 대기중인 청원</a></td>
-<td align="center" width="400"><a href="/projectB/board/timeout_list.aa">기간이 만료된 청원</a></td>
+<td align="center" width="400"><a href="/projectB/petition/finish_list.aa">답변된 청원</a></td>
+<td align="center" width="400"><a href="/projectB/petition/waiting_list.aa">답변 대기중인 청원</a></td>
+<td align="center" width="400"><a href="/projectB/petition/timeout_list.aa">기간이 만료된 청원</a></td>
 </tr>
 </table>
 <br />
 <br />
+
+
+
 
 <div class="table-responsive">
  <table class="table" >
@@ -53,33 +58,69 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-   		<th scope="row">1</th>
-        	<td>의료보건</td>
-            <td>제목</td>
-            <td>만료일</td>
-            <td>동의수</td>
-    </tr>
-        <tr>
-   		<th scope="row">2</th>
-        	<td>의료보건</td>
-            <td>제목</td>
-            <td>만료일</td>
-            <td>동의수</td>
-    </tr>
-        <tr>
-   		<th scope="row">3</th>
-        	<td>의료보건</td>
-            <td>제목</td>
-            <td>만료일</td>
-            <td>동의수</td>
-    </tr>
+  <c:if test="${count == 0}">
+<div class="table-responsive">
+ <table align ="center">
+ 	<tr>
+ 		<td align ="center">
+ 		기간이 만료된 청원이 없습니다.
+ 		</td>
+ 	</tr>
+ </table>
+</div>
+</c:if>
 
+<c:if test="${count > 0}">
+    <c:forEach var="article" items="${ articleList }"> 
+    <tr>
+    <c:out value="${ number }"/>
+    <c:set var="number" value="${ number -1 }"/>
+   		<th scope="row">${article.num}</th>
+        	<td>${article.category }</td>
+        	<td>
+        	<a href ="projectB/petition/content.aa?num=${article.num}&pageNum=${currentPage}">
+        	${article.title}</a>
+        	</td>
+            <td>${article.endDate}</td>
+            <td>${artilcle.petition}</td>
+    </tr>
+    </c:forEach>
    </tbody>
   </table>
 </div>
-                                
+                         
 
+<div class="col-lg-4 mb-4">
+<nav aria-label="Page navigation example">
+<ul class="pagination justify-content-center">
+   <ul class="pagination">
+   
+   <c:if test="${startPage > 10}">
+	 <li class="page-item">
+      	<a class="page-link" href="/projectB/petition/ing_list.aa?pageNum=${startPage - 10}" aria-label="Previous">
+     	<span aria-hidden="true">«</span>
+      	<span class="sr-only">Previous</span>
+        	</a>
+    	</li>
+	</c:if>
+
+	<c:forEach var="i" begin="${ startPage }" end="${ endPage }">    
+		<li class="page-item"><a class="page-link" href="/projectB/petition/ing_list.aa?pageNum=${i}">${i}</a></li>
+	</c:forEach>
+	
+	<c:if test="${endPage < pageCount}">
+		<li class="page-item">
+		<a class="page-link" href="/projectB/petition/ing_list.aa?pageNum=${startPage + 10}" aria-label="Next">
+	  	<span aria-hidden="true">»</span>
+	  	<span class="sr-only">Next</span>
+	  	</a>
+		</li>
+	</c:if>
+	</ul>
+</ul>
+</nav>
+</div>
+</c:if>
 
 </form>
 <script src="/projectB/resource/bootstrap/assets/libs/jquery/dist/jquery.min.js"></script>
