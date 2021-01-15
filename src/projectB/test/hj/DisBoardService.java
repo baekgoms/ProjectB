@@ -9,6 +9,7 @@ public interface DisBoardService {
 	public int getArticleCount(String keyword) throws Exception;
 	public List<DisBoardDTO> getArticles(int start, int end) throws Exception;
 	public List<DisBoardDTO> getArticles(int start, int end, String keyword) throws Exception;
+	public List<DisBoardDTO> getArticles(int start, int end, int sort) throws Exception;
 	public DisBoardDTO getArticle(int num) throws Exception;
 	public int updateArticle(DisBoardDTO article) throws Exception;
 	int deleteArticle(int num) throws Exception;

@@ -11,8 +11,10 @@
            
 <title>토론게시판</title>
 <center>
-<input type="button" class="btn waves-effect waves-light btn-outline-dark" value="                           최신순                              ">
-<input type="button" class="btn waves-effect waves-light btn-outline-dark" value="                           베스트순                           ">
+<input type="button" value="                           최신순                              " class="btn waves-effect waves-light btn-outline-dark" 
+	onclick="document.location.href='/projectB/discussion/main.aa?pageNum=${pageNum}'">
+<input type="button" value="                           베스트순                           " class="btn waves-effect waves-light btn-outline-dark" 
+	onclick="document.location.href='/projectB/discussion/mainSort.aa?pageNum=${pageNum}&sort=1'">
 
 <br />
 <form action="/projectB/discussion/mainSearch.aa?pageNum=${pageNum}">
@@ -81,19 +83,26 @@
 </li>
 </c:if>
 <c:choose>
-	<c:when test="${empty keyword}">
-	<c:forEach var="i" begin="${startPage}" end="${endPage}">
-		<li class="page-item"><a class="page-link"
-  	      href="/projectB/discussion/main.aa?pageNum=${i}">${i}</a>
-		</li>
-	</c:forEach>
+	<c:when test="${empty keyword && empty sort}">
+		<c:forEach var="i" begin="${startPage}" end="${endPage}">
+			<li class="page-item"><a class="page-link"
+  	 	     href="/projectB/discussion/main.aa?pageNum=${i}">${i}</a>
+			</li>
+		</c:forEach>
+	</c:when>
+	<c:when test="${empty keyword && not empty sort}">
+		<c:forEach var="i" begin="${startPage}" end="${endPage}">
+			<li class="page-item"><a class="page-link"
+  		      href="/projectB/discussion/mainSort.aa?pageNum=${i}&sort=${sort}">${i}</a>
+			</li>
+		</c:forEach>
 	</c:when>
 	<c:otherwise>
-	<c:forEach var="i" begin="${startPage}" end="${endPage}">
-		<li class="page-item"><a class="page-link"
-  	      href="/projectB/discussion/mainSearch.aa?keyword=${keyword}&pageNum=${i}">${i}</a>
-		</li>
-	</c:forEach>
+		<c:forEach var="i" begin="${startPage}" end="${endPage}">
+			<li class="page-item"><a class="page-link"
+  		      href="/projectB/discussion/mainSearch.aa?keyword=${keyword}&pageNum=${i}">${i}</a>
+			</li>
+		</c:forEach>
 	</c:otherwise>
 </c:choose>
 <c:if test="${endPage < pageCount}">

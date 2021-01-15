@@ -23,12 +23,12 @@ public class PetitionBean {
 	
 	@RequestMapping("uploadForm.aa")
 	public String upload(PetitionDTO dto, Model model) throws Exception {
-		//List category = null;
+		List category = null;
 		System.out.println("wooch uploadForm run");
 		model.addAttribute("dto", dto);
-		//category = dao.getCategory();
-		
-		//System.out.println(category);
+		category = dao.getCategory();
+		model.addAttribute("category", category);
+		System.out.println("category size:"+category.size()+"\n"+category);
 		
 		return "wooch/uploadForm";
 	}

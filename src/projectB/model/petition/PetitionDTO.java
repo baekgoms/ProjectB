@@ -15,7 +15,7 @@ public class PetitionDTO implements BaseDTO{
 	private Timestamp endDate;
 	private String writer;
 	private int petition;
-	private int petitionSate;
+	private int petitionState;
 	private String link;
 	private int indicatorNum;
 	private String tag;
@@ -32,7 +32,7 @@ public class PetitionDTO implements BaseDTO{
 			setEndDate(rs.getTimestamp("endDate"));
 			setWriter(rs.getString("writer"));
 			setPetition(rs.getInt("petition"));
-			setPetitionSate(rs.getInt("petitionSate"));
+			setPetitionState(rs.getInt("petitionState"));
 			setLink(rs.getString("link"));
 			setIndicatorNum(rs.getInt("indicatorNum"));
 			setTag(rs.getString("tag"));
@@ -60,8 +60,8 @@ public class PetitionDTO implements BaseDTO{
 	public void setWriter(String writer) { this.writer = writer; }
 	public int getPetition() { return petition; }
 	public void setPetition(int petition) { this.petition = petition; }
-	public int getPetitionSate() { return petitionSate; }
-	public void setPetitionSate(int petitionSate) { this.petitionSate = petitionSate; }
+	public int getPetitionState() { return petitionState; }
+	public void setPetitionState(int petitionSate) { this.petitionState = petitionSate; }
 	public String getLink() { return link; }
 	public void setLink(String link) { this.link = link; }
 	public int getIndicatorNum() { return indicatorNum; }

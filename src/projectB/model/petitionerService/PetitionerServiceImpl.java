@@ -34,12 +34,13 @@ public class PetitionerServiceImpl implements PetitionerService {
 		HashMap<String, String> dataMap = new HashMap<>();
 		dataMap.put("email", email);
 		dataMap.put("authKey", authKey);
+		
 		return connection.selectOne("petitioner.getPetitionerByEmailAndAuthKey", dataMap);
 	}
 	
 	@Override
 	public void updatePetitionerState(String id) {
-		System.out.println("updatePetitionerState id - " + id);
+		//System.out.println("updatePetitionerState id - " + id);
 		connection.update("petitioner.updatePetitionerState", id);
 	}
 }

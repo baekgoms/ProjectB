@@ -1,4 +1,4 @@
-package projectB.test.baek;
+package projectB.model.petitioner;
 
 import java.io.UnsupportedEncodingException;
 
