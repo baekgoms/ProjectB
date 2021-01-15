@@ -26,7 +26,7 @@ public class PetitionServiceImpl implements PetitionService{
 		Map map = new HashMap();
 		
 		
-		return dao.selectList("petition.getCategory",map);
+		return dao.selectList("petition.getCategory");
 	}
 	
 	@Override

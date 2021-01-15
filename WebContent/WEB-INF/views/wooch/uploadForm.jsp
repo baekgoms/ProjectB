@@ -594,8 +594,14 @@
 										                                            <option selected>선택하기</option>
 										                                            
 										                                           <!-- DB 컬 개수만큼 반복  -->
+										                                           <c:forEach var="name" items="${category}" varStatus="status">
+	
+																						<option value="${status.count}"><c:out value="${name}" /></option>
+																					</c:forEach>
+
+
 										                                           
-										                                            <option value="1">One</option>
+										                                           
 										                                           
 										                                            
 										                                        </select>

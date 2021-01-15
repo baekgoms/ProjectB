@@ -25,14 +25,11 @@
 		<foreach item="it" collection="list" open="(" separator="," close=")"></foreach>
 	</select>
 	-->
-	<!--  
-	<select id ="getCategory" resultType="petitionDTO">
-		select * from category
-		<foreach item="item" collection="list" open="(" separator="," close=")">
-			#{categoryName}
-		</foreach>
+	 
+	<select id ="getCategory" resultType="String">
+		select categoryName from category
 	</select>
-	-->
+	
 
 
 
