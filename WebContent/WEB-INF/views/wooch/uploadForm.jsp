@@ -299,7 +299,9 @@
 	        // 태그를 추가한다.
 	        function addTag (value) {
 	            tag[counter] = value; // 태그를 Object 안에 추가
+	            if(counter < 5){
 	            counter++; // counter 증가 삭제를 위한 del-btn 의 고유 id 가 된다.
+	        	}
 	        }
 	
 	        // 최종적으로 서버에 넘길때 tag 안에 있는 값을 array type 으로 만들어서 넘긴다.
@@ -359,6 +361,7 @@
 	            var index = $(this).attr("idx");
 	            tag[index] = " ";
 	            $(this).parent().remove();
+	            counter--;
 	        });
 	})
 	</script>
