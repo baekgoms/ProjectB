@@ -29,14 +29,12 @@
 		<if test="keyword != null">
 			where subject like '%' || #{keyword} || '%' or content like '%' || #{keyword} || '%'
 		</if>
-		<where>
 		<if test="sort == null">
 		order by num desc) order by num desc)
 		</if>
 		<if test="sort != null">
 		order by agreement desc) order by agreement desc)
 		</if>
-		</where>
 		<![CDATA[where r >= #{start} and r <= #{end}]]>
 	</select>
 	
