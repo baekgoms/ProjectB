@@ -1,5 +1,6 @@
 package projectB.test.hj;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class Discussion {
         List<DisBoardDTO> articleList = null;
         count = disBoardDAO.getArticleCount();
         if (count > 0) {
-            articleList = disBoardDAO.getArticles(startRow, endRow);//현재 페이지에 해당하는 글 목록
+            articleList = disBoardDAO.getArticles(startRow, endRow);
         } else {
             articleList = Collections.emptyList();
         }
@@ -57,9 +58,10 @@ public class Discussion {
         int number=0;
         
         List<DisBoardDTO> articleList = null;
+        
         count = disBoardDAO.getArticleCount();
         if (count > 0) {
-            articleList = disBoardDAO.getArticles(startRow, endRow, sort);//현재 페이지에 해당하는 글 목록
+            articleList = disBoardDAO.getArticles(startRow, endRow, sort);
         } else {
             articleList = Collections.emptyList();
         }
@@ -94,7 +96,7 @@ public class Discussion {
             articleList = Collections.emptyList();
         }
         number=count-(currentPage-1)*pageSize;
-
+        
         model.addAttribute("currentPage", new Integer(currentPage));
         model.addAttribute("startRow", new Integer(startRow));
         model.addAttribute("endRow", new Integer(endRow));
