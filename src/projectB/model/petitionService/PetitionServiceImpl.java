@@ -82,7 +82,7 @@ public class PetitionServiceImpl implements PetitionService{
 		return stateList;
 	}
 
-	//Ã»¿ø³»¿ë+´ñ±Û
+	//âˆšÂªÃ¸Â¯â‰¥ÂªÃ¸ÃŽ+Â¥Ã’Â±â‚¬
 
 	@Override
 	public PetitionDTO getArticle(int num) throws Exception {
@@ -113,5 +113,7 @@ public class PetitionServiceImpl implements PetitionService{
 		List<PetitionDTO> petCmtList = dao.selectList("petition.petCmtList",map);
 		return petCmtList;
 	}
+
+
 
 }

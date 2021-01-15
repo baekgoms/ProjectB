@@ -393,8 +393,30 @@
 	<script type="text/javascript">
 		function SaveCheck()
 		{
-		    if (vCheck(frm_FirstPage.TbUserID, "UserID") == 0) return false;
+		    if (vCheck(tag-form.TbUserID, "UserID") == 0) return false;
 		}
 	</script>
+	<script type="text/javascript">
+    var upload = document.querySelector('#img');
+    //var upload2 = document.querySelector('#img2');
+ 
+     /* FileReader 객체 생성 */
+    var reader = new FileReader();
+ 
+    function checkIt()
+    {
+       var form = document.write_form;     
+       if (form.img.value=="")
+       {
+          alert ("제목을 입력해주세요.");
+          form.img.focus();
+          return false;
+       }
+    return true;
+    }
+     
+     
+</script>
+	
 
 
