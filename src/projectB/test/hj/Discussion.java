@@ -1,6 +1,5 @@
 package projectB.test.hj;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -8,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("discussion")
@@ -20,13 +20,13 @@ public class Discussion {
 	private DisBoardCommService disBoardCommDAO = null;
 	
 	@RequestMapping("main.aa")
-	public String main(int pageNum, Model model) throws Exception {
-		int pageSize = 20;
+	public String main(
+			@RequestParam(defaultValue="1" , required = true)int pageNum, Model model) throws Exception {
+		int pageSize = 12;
         int currentPage = pageNum;
         int startRow = (currentPage - 1) * pageSize + 1;
         int endRow = currentPage * pageSize;
         int count = 0;
-        int number=0;
         
         List<DisBoardDTO> articleList = null;
         count = disBoardDAO.getArticleCount();
@@ -35,14 +35,11 @@ public class Discussion {
         } else {
             articleList = Collections.emptyList();
         }
-        number=count-(currentPage-1)*pageSize;
-
         model.addAttribute("currentPage", new Integer(currentPage));
         model.addAttribute("startRow", new Integer(startRow));
         model.addAttribute("endRow", new Integer(endRow));
         model.addAttribute("count", new Integer(count));
         model.addAttribute("pageSize", new Integer(pageSize));
-        model.addAttribute("number", new Integer(number));
         model.addAttribute("articleList", articleList);
         model.addAttribute("pageNum", new Integer(pageNum));
         
@@ -50,12 +47,11 @@ public class Discussion {
 	}
 	@RequestMapping("mainSort.aa")
 	public String main(int pageNum, Model model,int sort) throws Exception {
-		int pageSize = 20;
+		int pageSize = 12;
         int currentPage = pageNum;
         int startRow = (currentPage - 1) * pageSize + 1;
         int endRow = currentPage * pageSize;
         int count = 0;
-        int number=0;
         
         List<DisBoardDTO> articleList = null;
         
@@ -65,14 +61,11 @@ public class Discussion {
         } else {
             articleList = Collections.emptyList();
         }
-        number=count-(currentPage-1)*pageSize;
-
         model.addAttribute("currentPage", new Integer(currentPage));
         model.addAttribute("startRow", new Integer(startRow));
         model.addAttribute("endRow", new Integer(endRow));
         model.addAttribute("count", new Integer(count));
         model.addAttribute("pageSize", new Integer(pageSize));
-        model.addAttribute("number", new Integer(number));
         model.addAttribute("articleList", articleList);
         model.addAttribute("pageNum", new Integer(pageNum));
         model.addAttribute("sort", new Integer(sort));
@@ -80,29 +73,26 @@ public class Discussion {
 		return "discussion/main";
 	}
 	@RequestMapping("mainSearch.aa")
-	public String mainSearch(int pageNum, Model model, String keyword) throws Exception {
-		int pageSize = 20;
+	public String mainSearch(
+			@RequestParam(defaultValue="1" , required = true)int pageNum, Model model, String keyword) throws Exception {
+		int pageSize = 12;
         int currentPage = pageNum;
         int startRow = (currentPage - 1) * pageSize + 1;
         int endRow = currentPage * pageSize;
         int count = 0;
-        int number=0;
         
         List<DisBoardDTO> articleList = null;
         count = disBoardDAO.getArticleCount(keyword);
         if (count > 0) {
-            articleList = disBoardDAO.getArticles(startRow, endRow, keyword);//현재 페이지에 해당하는 글 목록
+            articleList = disBoardDAO.getArticles(startRow, endRow, keyword);
         } else {
             articleList = Collections.emptyList();
         }
-        number=count-(currentPage-1)*pageSize;
-        
         model.addAttribute("currentPage", new Integer(currentPage));
         model.addAttribute("startRow", new Integer(startRow));
         model.addAttribute("endRow", new Integer(endRow));
         model.addAttribute("count", new Integer(count));
         model.addAttribute("pageSize", new Integer(pageSize));
-        model.addAttribute("number", new Integer(number));
         model.addAttribute("articleList", articleList);
         model.addAttribute("pageNum", new Integer(pageNum));
         model.addAttribute("keyword", keyword);

@@ -17,17 +17,17 @@
 									  #{subject})
 	</insert>
 	
-	<select id="getArticleCount" parameterType="object" resultType="int">
+	<select id="getArticleCount" resultType="int">
 		select count(*) from discussion
 		<if test="keyword != null">
-		where subject like %#{keyword}% or content like %#{keyword}%
+			where subject like '%' || #{keyword} || '%' or content like '%' || #{keyword} || '%' or tag like '%' || #{keyword} || '%' 
 		</if>
 	</select>
 	
 	<select id="getArticles" parameterType="map" resultType="disDTO">
 		select * from (select num, write, content, reg, agreement, opposition, tag, report, open, subject, rownum as r from(select * from discussion 
 		<if test="keyword != null">
-			where subject like '%' || #{keyword} || '%' or content like '%' || #{keyword} || '%'
+			where subject like '%' || #{keyword} || '%' or content like '%' || #{keyword} || '%' or tag like '%' || #{keyword} || '%' 
 		</if>
 		<if test="sort == null">
 		order by num desc) order by num desc)

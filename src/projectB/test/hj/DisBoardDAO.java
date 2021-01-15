@@ -23,6 +23,12 @@ public class DisBoardDAO implements DisBoardService{
 		int a = bDao.selectOne("disBoard.getArticleCount");
 		return a;
 	}
+	
+	@Override
+	public int getArticleCount(String keyword) throws Exception {
+		int a = bDao.selectOne("disBoard.getSearchArticleCount", keyword);
+		return a;
+	}
 
 	@Override
 	public List<DisBoardDTO> getArticles(int start, int end) throws Exception {
@@ -32,6 +38,27 @@ public class DisBoardDAO implements DisBoardService{
 		List<DisBoardDTO> articleList = bDao.selectList("disBoard.getArticles", map);
 		return articleList;
 	}
+
+	@Override
+	public List<DisBoardDTO> getArticles(int start, int end, String keyword) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("start",start);
+		map.put("end",end);
+		map.put("keyword",keyword);
+		List<DisBoardDTO> articleList = bDao.selectList("disBoard.getArticles", map);
+		return articleList;
+	}
+
+	@Override
+	public List<DisBoardDTO> getArticles(int start, int end, int sort) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("start",start);
+		map.put("end",end);
+		map.put("sort",sort);
+		List<DisBoardDTO> articleList = bDao.selectList("disBoard.getArticles", map);
+		return articleList;
+	}
+
 
 	@Override
 	public DisBoardDTO getArticle(int num) throws Exception {
@@ -82,30 +109,5 @@ public class DisBoardDAO implements DisBoardService{
 		
 	}
 
-	@Override
-	public int getArticleCount(String keyword) throws Exception {
-		int a = bDao.selectOne("disBoard.getArticleCount");
-		return a;
-	}
-
-	@Override
-	public List<DisBoardDTO> getArticles(int start, int end, String keyword) throws Exception {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("start",start);
-		map.put("end",end);
-		map.put("keyword",keyword);
-		List<DisBoardDTO> articleList = bDao.selectList("disBoard.getArticles", map);
-		return articleList;
-	}
-
-	@Override
-	public List<DisBoardDTO> getArticles(int start, int end, int sort) throws Exception {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("start",start);
-		map.put("end",end);
-		map.put("sort",sort);
-		List<DisBoardDTO> articleList = bDao.selectList("disBoard.getArticles", map);
-		return articleList;
-	}
 
 }

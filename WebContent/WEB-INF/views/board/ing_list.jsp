@@ -88,16 +88,14 @@
     </tr>
   </thead>
   <tbody >
-  <c:if test="${count == 0}">
-<div class="table-responsive">
- <table align ="center" width="1200">
- 	<tr>
- 		<td align ="center">
+<c:if test="${count == 0}">
+<table class="table">
+ 	<tr align ="center">
+ 		<td>
  		진행중인 청원이 없습니다.
  		</td>
  	</tr>
- </table>
-</div>
+</table>
 </c:if>
 
 <c:if test="${count > 0}">
