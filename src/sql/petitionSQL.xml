@@ -58,5 +58,39 @@
 
 	<!-- 남은부분은 미리써두면 엉킬까봐 안썻어요! -->
 	
+	<!-- 청원보기+청원댓글 -->
+	
+	<!-- resultType으로 리턴
+		 parameterType DAO에서 가지고 오는 타입 -->
+	
+	<select id="getArticle" resultType="PetitionDTO" parameterType="int">
+		select * from petition where num = #{num}
+	</select>
+	
+	<insert id="insertPetCmt" parameterType="PetCommentDTO">
+		insert into petitionComment values (num_seq.nextval,
+											#{petitionNum},
+											#{writer},
+											#{content},
+											sysdate)
+	</insert>	
+		
+	<select id="petCmtListAll" resultType="PetCommentDTO" parameterType="int">
+		select * from petitionComment where petitionNum = #{petitionNum}
+	</select>
+	
+	<select id="petCmtCount" resultType="int" parameterType="int" >
+		select count(*) from petitionComment where petitionNum = #{petitionNum}
+	</select>
+	
+	<select id="petCmtList" resultType="petCommentDTO" parameterType="map">
+		<![CDATA[
+		select * from (select num,writer,content,reg, petitionNum, rownum r from
+        (select * from petitionComment where petitionNum = #{petitionNum} order by num desc) order by num desc) 
+        where r >= #{start} and r <= #{end}
+        ]]>
+	</select>
+	
+	
 </mapper>
 

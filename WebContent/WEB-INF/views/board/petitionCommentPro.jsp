@@ -5,7 +5,6 @@
 <%@ page import = "java.text.SimpleDateFormat" %>
 
 
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,53 +17,15 @@
     <link href="/projectB/resource/bootstrap/css/style.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/projectB/resource/bootstrap/assets/extra-libs/prism/prism.css">
 
-<title>청원 댓글</title>
+
 </head>
 
 <body>  
 
-<script language="javascript">
-	function sessionCheck(frm) {
-    if (true) {
-        alert("로그인 후에 동의 가능합니다.");
-        window.location = "로그인폼주소";
-        frm.content.focus();
-        return 로그인폼;
-    }
-}
-	
-	
-	function agreeCheck(agc){
-		if(confirm('청원 동의 철회 및 댓글 수정은 불가능하오니 신중하게 참여해주시기 바랍니다')){
-			
-		
-
-		}
-	}
+<script>
+	window.location="projectB/board/petitionContent.aa"
 </script>
 
-<form method="post" action="petitionCommentPro.aa" onsubmit="return formCheck(this)">
-		<input type="hidden" name="petitionNum" value="${dto.petitionNum}" />
-		<table style="align-content: center; width: 40%;" border="1">
-			<tr>
-				<td rowspan="3" style="width: 10%;" >${sessionId}<input
-					type="hidden" name="writer" value="${sessionId}"></td>
-				
-				<td style="width: 20%">
-				<input type="submit" VALUE="동의" onclick="Confirm()"/></td>					
-			</tr>
-		</table>
-  
-  		<table style="align-content: center; width: 40%;" border="1">
-		<tr>
-			<td>${dto.num}</td>
-			<td>${dto.writer}</td>
-			<td style="width: 60%">{dto.content}</td>
-			<td>{dto.reg}</td>
-		</tr>
-	</table>
-
-</form>   
 <script src="/projectB/resource/bootstrap/assets/libs/jquery/dist/jquery.min.js"></script>
     <script src="/projectB/resource/bootstrap/assets/libs/popper.js/dist/umd/popper.min.js"></script>
     <script src="/projectB/resource/bootstrap/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
