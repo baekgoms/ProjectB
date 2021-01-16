@@ -37,15 +37,15 @@
  <table cellSpacing=1 cellPadding=1 width="1200" border=1 align="center">
 <tbody>
 	<c:forEach items="${category}" varStatus="list" >
-	
 		<c:if test="${i%j == 0 }">
 		<tr>
 		</c:if>
-			<td>${category[i].categoryName}</td>
+			<c:set var="categorya" value="${category[i].num}" />
+			<td><a href ="/projectB/petition/ing_listcategory.aa?category=${categorya}">${category[i].categoryName}</a></td>
 			<c:if test="${i%j == j-1 }">
 			</tr>
 			</c:if>
-			<c:set var="i" value="${i+1 }" />
+			<c:set var="i" value="${i+1}" />
 	</c:forEach>
 </tbody>
 </table>
@@ -67,7 +67,7 @@
         <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
                                             <option selected="">정렬</option>
                                             <option value="1" onclick="document.location.href='/projectB/petition/ing_list.aa?pageNum=1'">최신순</option>
-                                            <option value="2" onclick="document.location.href='/projectB/petition/ing_list.aa?pageNum=1&sort=1'">동의순</option>
+                                            <option value="2" onclick="document.location.href='/projectB/petition/ing_listSort.aa?pageNum=1&sort=1'">동의순</option>
                                         </select>
 	</td>
    </tr>
@@ -107,7 +107,7 @@
     <c:set var="number" value="${ number -1 }"/>
    		<th scope="row">${article.num}</th>
         	<td>
-        		${ category[article.category].categoryName }        		
+        		${ category[article.category].categoryName }  
         	</td>
         	<td>
         	<a href ="projectB/petition/content.aa?num=${article.num}&pageNum=${currentPage}">
@@ -143,12 +143,19 @@
         	</a>
     	</li>
 </c:if>
-
+<c:choose>
+<c:when test="${sort == null }">
 	<c:forEach var="i" begin="${ startPage }" end="${ endPage }">
-	    
 	<li class="page-item"><a class="page-link" href="/projectB/petition/ing_list.aa?pageNum=${i}">${i}</a></li>
 	</c:forEach>
-	
+</c:when>
+<c:when test="${sort != null }">
+	<c:forEach var="i" begin="${ startPage }" end="${ endPage }">
+	<li class="page-item"><a class="page-link" href="/projectB/petition/ing_listSort.aa?pageNum=${i}&sort=${sort}">${i}</a></li>
+	</c:forEach>
+</c:when>
+</c:choose>	
+
 	<c:if test="${endPage < pageCount}">
 	<li class="page-item">
 	  <a class="page-link" href="/projectB/petition/ing_list.aa?pageNum=${startPage + 10}" aria-label="Next">

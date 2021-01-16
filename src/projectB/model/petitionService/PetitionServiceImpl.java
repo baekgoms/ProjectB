@@ -47,6 +47,32 @@ public class PetitionServiceImpl implements PetitionService {
 
 		return articleList;
 	}
+	
+	@Override
+	public List<PetitionDTO> getArticles(int startRow, int endRow, int category) throws Exception {
+		Map map = new HashMap();
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		map.put("category", category);
+		List<PetitionDTO> articleList = dao.selectList("petition.getArticleCategory", map);
+		return articleList;
+	}
+	
+	@Override
+	public List<PetitionDTO> getArticlesSort(int startRow, int endRow, int sort) throws Exception {
+		Map map = new HashMap();
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		map.put("sort", sort);
+		List<PetitionDTO> articleList = dao.selectList("petition.getArticleAll", map);
+		return articleList;
+	}
+	
+	@Override
+	public int getArticleCountbyCategory(int category) throws Exception {
+		return dao.selectOne("petition.getArticleCountCategory", category);
+	}
+	
 
 	@Override
 	public PetitionDTO updateGetArticle(int num) throws Exception {
@@ -103,5 +129,11 @@ public class PetitionServiceImpl implements PetitionService {
 	public List<CategoryDTO> getCategoryList() throws Exception {
 		return dao.selectList("petition.getCategoryList");
 	}
+
+
+
+
+
+
 
 }

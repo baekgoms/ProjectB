@@ -99,10 +99,95 @@ public class PetitionBean {
 		model.addAttribute("pageSize", new Integer(pageSize));
 		model.addAttribute("number", new Integer(number));
 		model.addAttribute("articleList", articleList);
+		model.addAttribute("pageNum", new Integer(pageNum));
 		
 		
 		return "board/ing_list";
 	}
+	
+	@RequestMapping("ing_listcategory.aa")
+	public String ing_listbyCategory(@RequestParam(defaultValue="1")int pageNum, Model model, int category) throws Exception {
+		
+		System.out.println("viewTest");
+		int pageSize = 10;
+		int currentPage = pageNum;
+		int startRow = (currentPage - 1) * pageSize +1;
+		int endRow = currentPage * pageSize;
+		int count = 0;
+		int number = 0;
+		
+		List<PetitionDTO> articleList = null;
+		count = petitionDAO.getArticleCountbyCategory(category);
+		if(count > 0) {
+			articleList = petitionDAO.getArticles(startRow, endRow, category);
+		} else {
+			articleList = Collections.emptyList();
+		}
+		number = count-(currentPage-1)*pageSize;
+		
+		 System.out.println(count + "//count");
+	     System.out.println(articleList.size() + "//size");
+	 
+	     
+	     List<CategoryDTO> getCategory = petitionDAO.getCategoryList();
+	     System.out.println(getCategory + "//category");
+	     model.addAttribute("category", getCategory);
+		
+		model.addAttribute("currentPage", new Integer(currentPage));
+		model.addAttribute("startRow", new Integer(startRow));
+		model.addAttribute("endRow", new Integer(endRow));
+		model.addAttribute("count", new Integer(count));
+		model.addAttribute("pageSize", new Integer(pageSize));
+		model.addAttribute("number", new Integer(number));
+		model.addAttribute("articleList", articleList);
+		model.addAttribute("pageNum", new Integer(pageNum));
+		model.addAttribute("categorya", new Integer(category));
+		
+		return "board/ing_list";
+	}
+	
+	@RequestMapping("ing_listSort.aa")
+	public String ing_listSort(@RequestParam(defaultValue="1")int pageNum, Model model, int sort) throws Exception {
+		
+		System.out.println("viewTest");
+		int pageSize = 10;
+		int currentPage = pageNum;
+		int startRow = (currentPage - 1) * pageSize +1;
+		int endRow = currentPage * pageSize;
+		int count = 0;
+		int number = 0;
+		
+		List<PetitionDTO> articleList = null;
+		count = petitionDAO.getArticleCount();
+		if(count > 0) {
+			articleList = petitionDAO.getArticlesSort(startRow, endRow, sort);
+		} else {
+			articleList = Collections.emptyList();
+		}
+		number = count-(currentPage-1)*pageSize;
+		
+		 System.out.println(count + "//count");
+		 System.out.println(articleList.size() + "//size");
+	   
+	     List<CategoryDTO> getCategory = petitionDAO.getCategoryList();
+	     System.out.println(getCategory + "//category");
+	     model.addAttribute("category", getCategory);
+	
+	 
+		
+		model.addAttribute("currentPage", new Integer(currentPage));
+		model.addAttribute("startRow", new Integer(startRow));
+		model.addAttribute("endRow", new Integer(endRow));
+		model.addAttribute("count", new Integer(count));
+		model.addAttribute("pageSize", new Integer(pageSize));
+		model.addAttribute("number", new Integer(number));
+		model.addAttribute("articleList", articleList);
+		model.addAttribute("pageNum", new Integer(pageNum));
+		model.addAttribute("sort", new Integer(sort));
+		
+		return "board/ing_list";
+	}
+	
 	
 	@RequestMapping("finish_list.aa")
 	public String test1() {
