@@ -22,20 +22,23 @@
 <br />
 <br />
 <form name="form" method="post">
-<table cellSpacing=1 cellPadding=1 width="1200" border=1 align="center" >
-<tr>
-<td  align="center"> <a href="/projectB/petition/ing_list.aa">진행중인 청원</a></td>
-<td  align="center"> <a href="/projectB/petition/finish_list.aa">완료된 청원</a></td>
-</tr>
-</table>
+
+<div align="center">
+<input type="button" value="							진행중인 청원							" class="btn waves-effect waves-light btn-outline-dark"
+	onclick="document.location.href='/projectB/petition/ing_list.aa'" >
+<input type="button" value="							완료된 청원								" class="btn waves-effect waves-light btn-outline-dark"
+	onclick="document.location.href='/projectB/petition/finish_list.aa'" >
+</div>
+
 <br />
-<table cellSpacing=1 cellPadding=1 width="1200" border=1 align="center">
-<tr>
-<td align="center" width="400"><a href="/projectB/petition/finish_list.aa">답변된 청원</a></td>
-<td align="center" width="400"><a href="/projectB/petition/waiting_list.aa">답변 대기중인 청원</a></td>
-<td align="center" width="400"><a href="/projectB/petition/timeout_list.aa">기간이 만료된 청원</a></td>
-</tr>
-</table>
+<div align="center">
+<input type="button" value="				답변된 청원				" class="btn waves-effect waves-light btn-outline-dark"
+	onclick="document.location.href='/projectB/petition/finish_list.aa'" >
+<input type="button" value="				답변 대기중인 청원				" class="btn waves-effect waves-light btn-outline-dark"
+	onclick="document.location.href='/projectB/petition/waiting_list.aa'" >
+<input type="button" value="			기간이 만료된 청원				" class="btn waves-effect waves-light btn-outline-dark"
+	onclick="document.location.href='/projectB/petition/timeout_list.aa'" >
+</div>
 <br />
 <br />
 
@@ -47,7 +50,7 @@
    <thead>
 
    <tr>
-   <td colspan ="5" align="lift" border=1>기간이 만료된 청원</td>
+   <td colspan ="5" align="left" >기간이 만료된 청원</td>
    </tr>
     <tr>
    		<th scope="col">글번호</th>
@@ -59,8 +62,8 @@
   </thead>
   <tbody>
   <c:if test="${count == 0}">
-<div class="table-responsive">
- <table align ="center">
+<div class="table-responsive" align="center">
+ <table>
  	<tr>
  		<td align ="center">
  		기간이 만료된 청원이 없습니다.
@@ -85,19 +88,27 @@
             <td>${artilcle.petition}</td>
     </tr>
     </c:forEach>
+    </c:if>
    </tbody>
   </table>
 </div>
-                         
 
-<div class="col-lg-4 mb-4">
-<nav aria-label="Page navigation example">
+
+<c:if test="${count > 0}">
+	<c:set var="pageCount" value="${count / pageSize +(count % pageSize == 0 ? 0: 1)}" />
+	<c:set var="pageBlock" value="${10}" />
+	<fmt:parseNumber var="result" value="${ currentPage/10 }" integerOnly="true" />
+	<c:set var ="startPage" value="${ result * 10 + 1 }" />
+	<c:set var="endPage" value="${startPage + pageBlock-1 }" />
+	<c:if test="${ endPage > pageCount }">
+		<c:set var="endPage" value="${ pageCount }" />
+</c:if>
+
 <ul class="pagination justify-content-center">
-   <ul class="pagination">
-   
+
    <c:if test="${startPage > 10}">
 	 <li class="page-item">
-      	<a class="page-link" href="/projectB/petition/ing_list.aa?pageNum=${startPage - 10}" aria-label="Previous">
+      	<a class="page-link" href="/projectB/petition/timeout_list.aa?pageNum=${startPage - 10}" aria-label="Previous">
      	<span aria-hidden="true">«</span>
       	<span class="sr-only">Previous</span>
         	</a>
@@ -105,22 +116,21 @@
 	</c:if>
 
 	<c:forEach var="i" begin="${ startPage }" end="${ endPage }">    
-		<li class="page-item"><a class="page-link" href="/projectB/petition/ing_list.aa?pageNum=${i}">${i}</a></li>
+		<li class="page-item"><a class="page-link" href="/projectB/petition/timeout_list.aa?pageNum=${i}">${i}</a></li>
 	</c:forEach>
 	
 	<c:if test="${endPage < pageCount}">
 		<li class="page-item">
-		<a class="page-link" href="/projectB/petition/ing_list.aa?pageNum=${startPage + 10}" aria-label="Next">
+		<a class="page-link" href="/projectB/petition/timeout_list.aa?pageNum=${startPage + 10}" aria-label="Next">
 	  	<span aria-hidden="true">»</span>
 	  	<span class="sr-only">Next</span>
 	  	</a>
 		</li>
 	</c:if>
 	</ul>
-</ul>
-</nav>
-</div>
 </c:if>
+
+
 
 </form>
 <script src="/projectB/resource/bootstrap/assets/libs/jquery/dist/jquery.min.js"></script>

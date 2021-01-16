@@ -20,20 +20,24 @@
 <br />
 <br />
 <form name="form" method="post">
-<table cellSpacing=1 cellPadding=1 width="1200" border=1 align="center" >
-<tr>
-<td  align="center"> <a href="/projectB/petition/ing_list.aa">진행중인 청원</a></td>
-<td  align="center"> <a href="/projectB/petition/finish_list.aa">완료된 청원</a></td>
-</tr>
-</table>
+
+<div align="center">
+<input type="button" value="							진행중인 청원							" class="btn waves-effect waves-light btn-outline-dark"
+	onclick="document.location.href='/projectB/petition/ing_list.aa'" >
+<input type="button" value="							완료된 청원								" class="btn waves-effect waves-light btn-outline-dark"
+	onclick="document.location.href='/projectB/petition/finish_list.aa'" >
+</div>
+
 <br />
-<table cellSpacing=1 cellPadding=1 width="1200" border=1 align="center">
-<tr>
-<td align="center" width="400"><a href="/projectB/petition/finish_list.aa">답변된 청원</a></td>
-<td align="center" width="400"><a href="/projectB/petition/waiting_list.aa">답변 대기중인 청원</a></td>
-<td align="center" width="400"><a href="/projectB/petition/timeout_list.aa">기간이 만료된 청원</a></td>
-</tr>
-</table>
+
+<div align="center">
+<input type="button" value="				답변된 청원				" class="btn waves-effect waves-light btn-outline-dark"
+	onclick="document.location.href='/projectB/petition/finish_list.aa'" >
+<input type="button" value="				답변 대기중인 청원				" class="btn waves-effect waves-light btn-outline-dark"
+	onclick="document.location.href='/projectB/petition/waiting_list.aa'" >
+<input type="button" value="			기간이 만료된 청원				" class="btn waves-effect waves-light btn-outline-dark"
+	onclick="document.location.href='/projectB/petition/timeout_list.aa'" >
+</div>
 <br />
 <br />
 

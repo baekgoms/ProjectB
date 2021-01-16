@@ -23,32 +23,47 @@
 <br />
 <br />
 <form name="form" method="post">
-<table cellSpacing=1 cellPadding=1 width="1200" border=1 align="center" >
-<tr>
-<td  align="center"> <a href="/projectB/petition/ing_list.aa">진행중인 청원</a></td>
-<td  align="center"> <a href="/projectB/petition/finish_list.aa">완료된 청원</a></td>
-</tr>
-</table>
+
+<div align="center">
+<input type="button" value="							진행중인 청원							" class="btn waves-effect waves-light btn-outline-dark"
+	onclick="document.location.href='/projectB/petition/ing_list.aa'" >
+<input type="button" value="							완료된 청원								" class="btn waves-effect waves-light btn-outline-dark"
+	onclick="document.location.href='/projectB/petition/finish_list.aa'" >
+</div>
+
 <br />
 
 <c:set var="i" value="0" />
 <c:set var="j" value="6" />
 
- <table cellSpacing=1 cellPadding=1 width="1200" border=1 align="center">
+<div align="center">
 <tbody>
 	<c:forEach items="${category}" varStatus="list" >
 		<c:if test="${i%j == 0 }">
 		<tr>
 		</c:if>
 			<c:set var="categorya" value="${category[i].num}" />
-			<td><a href ="/projectB/petition/ing_listcategory.aa?category=${categorya}">${category[i].categoryName}</a></td>
+			<c:choose>
+				<c:when test="${categorya == 0 }">
+				<td>
+					<input type="butten" value="${category[i].categoryName}" class="btn waves-effect waves-light btn-outline-dark"
+					onclick="document.location.href='/projectB/petition/ing_list.aa'">
+				</td>
+				</c:when >
+			<c:when test="${categorya != 0 }">
+			<td>
+					<input type="butten" value="${category[i].categoryName}" class="btn waves-effect waves-light btn-outline-dark"
+					onclick="document.location.href='/projectB/petition/ing_listcategory.aa?category=${categorya}'">
+			</td>
+			</c:when>
+			</c:choose>
 			<c:if test="${i%j == j-1 }">
 			</tr>
 			</c:if>
 			<c:set var="i" value="${i+1}" />
 	</c:forEach>
 </tbody>
-</table>
+</div>
 
 
 
@@ -79,7 +94,7 @@
    </tr>
 
    <tr>
-   <td colspan ="5" align="lift" border=1>청원 목록</td>
+   <td colspan ="5" align="left" >청원 목록</td>
    </tr>
     <tr>
    		<th scope="col">글번호</th>
@@ -114,12 +129,13 @@
         	${article.title}</a>
         	</td>
             <td>${article.endDate}</td>
-            <td>${artilcle.petition}</td>
+            <td>${article.petition}</td>
     </tr>
     </c:forEach>
+    </c:if>
    </tbody>
   </table>
-</c:if>
+
 
 
 <c:if test="${count > 0}">

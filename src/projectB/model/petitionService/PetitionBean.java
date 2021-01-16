@@ -184,7 +184,7 @@ public class PetitionBean {
 		model.addAttribute("articleList", articleList);
 		model.addAttribute("pageNum", new Integer(pageNum));
 		model.addAttribute("sort", new Integer(sort));
-		
+	
 		return "board/ing_list";
 	}
 	
