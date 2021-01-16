@@ -11,7 +11,7 @@ public class PetitionDTO implements BaseDTO{
 	private String title;
 	private String content;
 	private int category;
-	private Timestamp stateDate;
+	private Timestamp startDate;
 	private Timestamp endDate;
 	private String writer;
 	private int petition;
@@ -28,7 +28,7 @@ public class PetitionDTO implements BaseDTO{
 			setTitle(rs.getString("title"));
 			setContent(rs.getString("content"));
 			setCategory(rs.getInt("category"));
-			setStateDate(rs.getTimestamp("stateDate"));
+			setStartDate(rs.getTimestamp("startDate"));
 			setEndDate(rs.getTimestamp("endDate"));
 			setWriter(rs.getString("writer"));
 			setPetition(rs.getInt("petition"));
@@ -52,8 +52,8 @@ public class PetitionDTO implements BaseDTO{
 	public void setContent(String content) { this.content = content; }
 	public int getCategory() { return category; }
 	public void setCategory(int category) { this.category = category; }
-	public Timestamp getStateDate() { return stateDate; }
-	public void setStateDate(Timestamp stateDate) { this.stateDate = stateDate; }
+	public Timestamp getStartDate() { return startDate; }
+	public void setStartDate(Timestamp startDate) { this.startDate = startDate; }
 	public Timestamp getEndDate() { return endDate; }
 	public void setEndDate(Timestamp endDate) { this.endDate = endDate; }
 	public String getWriter() { return writer; }
