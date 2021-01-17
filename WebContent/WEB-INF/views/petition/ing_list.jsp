@@ -7,13 +7,22 @@
 <html>
 <head>
 <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" type="image/png" sizes="16x16" href="/projectB/resource/bootstrap/assets/images/favicon.png">
-    <link href="/projectB/resource/bootstrap/css/style.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/projectB/resource/bootstrap/assets/extra-libs/prism/prism.css">
+<!-- Custom CSS -->
+<link href="/projectB/resource/bootstrap/css/style.css" rel="stylesheet">
+<!-- This Page CSS -->
+<link href="/projectB/resource/assets/libs/morris.js/morris.css" rel="stylesheet">
+<script>
+function inputCheck(){ 
+	if($("#keyword").val() == ""){
+		$("#keyword").addClass(" is-invalid");
+		$("#keyword").focus(); 
+		return;
+	}else{
+		$("#search").submit();
+	}
+}
+</script>
+
 <title>청원진행중인 게시판</title>
 </head>
 
@@ -21,21 +30,22 @@
 
 <br />
 <br />
-<form name="form" method="post">
+
 <div align="center">
+
 <input type="button" value="							진행중인 청원							" class="btn waves-effect waves-light btn-outline-dark"
-	onclick="document.location.href='/projectB/petition/ing_list.aa'" >
+	onclick="document.location.href='/projectB/petition/afootPetition.aa'" >
 <input type="button" value="							완료된 청원								" class="btn waves-effect waves-light btn-outline-dark"
 	onclick="document.location.href='/projectB/petition/finish_list.aa'" >
 </div>
 
+
 <br />
 <div align="center">
+
 <c:set var="i" value="0" />
 <c:set var="j" value="6" />
-
-
-<tbody>
+<table>
 	<c:forEach items="${category}" varStatus="list" >
 		<c:if test="${i%j == 0 }">
 		<tr>
@@ -44,36 +54,48 @@
 			<c:choose>
 				<c:when test="${categorya == 0 }">
 				<td>
-					<input type="butten" value="${category[i].categoryName}" class="btn waves-effect waves-light btn-outline-dark"
-					onclick="document.location.href='/projectB/petition/ing_list.aa'">
+					<input type="button" style="width:180pt;" value="${category[i].categoryName}" class="btn waves-effect waves-light btn-outline-dark"
+					onclick="document.location.href='/projectB/petition/afootPetition.aa'">
 				</td>
 				</c:when >
 			<c:when test="${categorya != 0 }">
 			<td>
-					<input type="butten" value="${category[i].categoryName}" class="btn waves-effect waves-light btn-outline-dark"
-					onclick="document.location.href='/projectB/petition/ing_listcategory.aa?category=${categorya}'">
+					<input type="button" style="width:180pt;" value="${category[i].categoryName}" class="btn waves-effect waves-light btn-outline-dark"
+					onclick="document.location.href='/projectB/petition/afootPetitioncategory.aa?category=${categorya}'">
 			</td>
 			</c:when>
 			</c:choose>
 			
-			<c:if test="${i%j == j-1 }">
-			</tr>
-			</c:if>
+		<c:if test="${i%j == j-1 }">
+		</tr>
+		</c:if>
 			<c:set var="i" value="${i+1}" />
 	</c:forEach>
-</tbody>
+	</table>
 </div>
 
 
+<form name="form" method="post" action="/projectB/petition/afootPetitionSearch.aa" id="search">
  <table class="table" width="1200">
-   <thead>
 
+   <thead>
+ <tr>
+ 	<td>
+ 		<input type="text" class="form-control" name="keyword" id="keyword" placeholder="검색어를 입력해주세요.">
+ 		<div class="invalid-feedback">
+ 		검색어가 입력되지 않았습니다.
+ 		</div>
+ 	</td>
+ 	<td>
+ 		<button type="button" class="btn waves-effect waves-light btn-outline-dark"  onClick="inputCheck()" >검색</button>
+ 	</td>
+ </tr>
    <tr>
    <td >
         <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" >
                                             <option selected="">정렬</option>
-                                            <option value="1" onclick="document.location.href='/projectB/petition/ing_list.aa?pageNum=1'">최신순</option>
-                                            <option value="2" onclick="document.location.href='/projectB/petition/ing_listSort.aa?pageNum=1&sort=1'">동의순</option>
+                                            <option value="1" onclick="document.location.href='/projectB/petition/afootPetition.aa?pageNum=1'">최신순</option>
+                                            <option value="2" onclick="document.location.href='/projectB/petition/afootPetitionSort.aa?pageNum=1&sort=1'">동의순</option>
         </select>
 	</td>
    <td colspan ="5" align="right">
@@ -93,16 +115,26 @@
     	<th scope="col" >참여인원</th>
     </tr>
   </thead>
-  <tbody >
-<c:if test="${count == 0}">
-<table class="table">
- 	<tr align ="center">
- 		<td>
- 		진행중인 청원이 없습니다.
- 		</td>
- 	</tr>
-</table>
-</c:if>
+
+
+<c:choose>
+	<c:when test="${count == 0 && empty keyword}">
+		<table class="table">
+		  <tr>
+		    <td align="center">진행중인 청원이 없습니다.</td>
+		  </tr>
+		</table>
+	</c:when>
+	<c:when test="${count == 0 && not empty keyword }">
+		<table class="table">
+			<tr>
+		    <td align="center">검색하신 청원이 없습니다.</td>
+			</tr>
+		</table>
+	</c:when>
+</c:choose>
+
+
 
 <c:if test="${count > 0}">
   <c:forEach var="article" items="${ articleList }"> 
@@ -120,11 +152,12 @@
             <td>${article.endDate}</td>
             <td>${article.petition}</td>
     </tr>
-    </c:forEach>
-    </c:if>
-   </tbody>
-  </table>
+   </c:forEach>
+</c:if>
 
+
+</table>
+</form>
 
 
 <c:if test="${count > 0}">
@@ -142,28 +175,36 @@
 
    <c:if test="${startPage > 10}">
 	 <li class="page-item">
-      	<a class="page-link" href="/projectB/petition/ing_list.aa?pageNum=${startPage - 10}" aria-label="Previous">
+      	<a class="page-link" href="/projectB/petition/afootPetition.aa?pageNum=${startPage - 10}" aria-label="Previous">
      	<span aria-hidden="true">«</span>
       	<span class="sr-only">Previous</span>
         	</a>
     	</li>
 </c:if>
 <c:choose>
-<c:when test="${sort == null }">
-	<c:forEach var="i" begin="${ startPage }" end="${ endPage }">
-	<li class="page-item"><a class="page-link" href="/projectB/petition/ing_list.aa?pageNum=${i}">${i}</a></li>
-	</c:forEach>
-</c:when>
-<c:when test="${sort != null }">
-	<c:forEach var="i" begin="${ startPage }" end="${ endPage }">
-	<li class="page-item"><a class="page-link" href="/projectB/petition/ing_listSort.aa?pageNum=${i}&sort=${sort}">${i}</a></li>
-	</c:forEach>
-</c:when>
-</c:choose>	
-
+	<c:when test="${empty keyword && empty sort}">
+		<c:forEach var="i" begin="${startPage}" end="${endPage}">
+			<li class="page-item"><a class="page-link"  href="/projectB/petition/afootPetition.aa?pageNum=${i}">${i}</a>
+			</li>
+		</c:forEach>
+	</c:when>
+	<c:when test="${empty keyword && not empty sort}">
+		<c:forEach var="i" begin="${startPage}" end="${endPage}">
+			<li class="page-item"><a class="page-link"  href="/projectB/petition/afootPetitionSort.aa?pageNum=${i}&sort=${sort}">${i}</a>
+			</li>
+		</c:forEach>
+	</c:when>
+	<c:otherwise>
+		<c:forEach var="i" begin="${startPage}" end="${endPage}">
+			<li class="page-item"><a class="page-link"
+  		      href="/projectB/petition/afootPetitionSearch?keyword=${keyword}&pageNum=${i}">${i}</a>
+			</li>
+		</c:forEach>
+	</c:otherwise>
+</c:choose>
 	<c:if test="${endPage < pageCount}">
 	<li class="page-item">
-	  <a class="page-link" href="/projectB/petition/ing_list.aa?pageNum=${startPage + 10}" aria-label="Next">
+	  <a class="page-link" href="/projectB/petition/afootPetition.aa?pageNum=${startPage + 10}" aria-label="Next">
 	  <span aria-hidden="true">»</span>
 	  <span class="sr-only">Next</span>
 	  </a>
@@ -171,19 +212,21 @@
 	</c:if>
 	</ul>
 </c:if>
-</form>
 
 
-	<script src="/projectB/resource/bootstrap/assets/libs/jquery/dist/jquery.min.js"></script>
-    <script src="/projectB/resource/bootstrap/assets/libs/popper.js/dist/umd/popper.min.js"></script>
-    <script src="/projectB/resource/bootstrap/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="/projectB/resource/bootstrap/js/app-style-switcher.js"></script>
-    <script src="/projectB/resource/bootstrap/js/feather.min.js"></script>
-    <script src="/projectB/resource/bootstrap/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
-    <script src="/projectB/resource/bootstrap/assets/extra-libs/sparkline/sparkline.js"></script>
-    <script src="/projectB/resource/bootstrap/js/sidebarmenu.js"></script>
-    <script src="/projectB/resource/bootstrap/js/custom.min.js"></script>
-    <script src="/projectB/resource/bootstrap/assets/extra-libs/prism/prism.js"></script>      
+
+<script src="/projectB/resource/bootstrap/assets/libs/jquery/dist/jquery.min.js"></script>
+<script src="/projectB/resource/bootstrap/assets/libs/popper.js/dist/umd/popper.min.js"></script>
+<script src="/projectB/resource/bootstrap/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/projectB/resource/bootstrap/js/app-style-switcher.js"></script>
+<script src="/projectB/resource/bootstrap/js/feather.min.js"></script>
+<script src="/projectB/resource/bootstrap/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+<script src="/projectB/resource/bootstrap/assets/extra-libs/sparkline/sparkline.js"></script>
+<script src="/projectB/resource/bootstrap/js/sidebarmenu.js"></script>
+<script src="/projectB/resource/bootstrap/js/custom.min.js"></script>
+<script src="/projectB/resource/bootstrap/assets/libs/raphael/raphael.min.js"></script>
+<script src="/projectB/resource/bootstrap/assets/libs/morris.js/morris.min.js"></script>
+<script src="/projectB/resource/bootstrap/js/pages/morris/morris-data.js"></script>
 
 </body>
 </html>

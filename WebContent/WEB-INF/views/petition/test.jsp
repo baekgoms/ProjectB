@@ -123,11 +123,93 @@ function inputCheck(){
 			<td>
 				${ category[article.category].categoryName }
 			</td>
+			<td>
+        		<a href ="projectB/petition/content.aa?num=${article.num}&pageNum=${currentPage}">${article.title}
+        		</a>
+        	</td>
+			<td>${article.endDate}</td>
+			<td>${article.petition}</td>
 	</tr>
 	</c:forEach>
 	</c:if>
 </table>
+
+<c:if test="${count > 0}">
+	<c:set var="pageCount" value="${count / pageSize +(count % pageSize == 0 ? 0: 1)}" />
+	<c:set var="pageBlock" value="${10}" />
+	<fmt:parseNumber var="result" value="${ currentPage/10 }" integerOnly="true" />
+	<c:set var ="startPage" value="${ result * 10 + 1 }" />
+	<c:set var="endPage" value="${startPage + pageBlock-1 }" />
+	<c:if test="${ endPage > pageCount }">
+		<c:set var="endPage" value="${ pageCount }" />
+	</c:if>
+	
+<ul class="pagination justify-content-center">
+	<c:if test="${startPage > 10 }">
+		<li class="page-item">
+		<a class="page-link" href="/projectB/petition/afootPetition.aa?pageNum=${startPage - 10}" aria-label="Previous">
+			<span aria-hidden = "true">«</span>
+			<span class="sr-only">Previous</span>
+		</a>
+		</li>
+	</c:if>
+<c:choose>
+	<c:when test="${empty keyword && empty sort}">
+		<c:forEach var="i" begin="${startPage}" end="${endPage}">
+			<li class="page-item">
+				<a class="page-link"  href="/projectB/petition/afootPetition.aa?pageNum=${i}">${i}</a>
+			</li>
+		</c:forEach>
+	</c:when>
+	<c:when test="${empty keyword && not empty sort}">
+		<c:forEach var="i" begin="${startPage}" end="${endPage}">
+			<li class="page-item">
+				<a class="page-link"  href="/projectB/petition/afootPetitionSort.aa?pageNum=${i}&sort=${sort}">${i}</a>
+			</li>
+		</c:forEach>
+	</c:when>
+	<c:otherwise>
+		<c:forEach var="i" begin="${startPage}" end="${endPage}">
+			<li class="page-item">
+				<a class="page-link" href="/projectB/petition/afootPetitionSearch?keyword=${keyword}&pageNum=${i}">${i}</a>
+			</li>
+		</c:forEach>
+	</c:otherwise>
+</c:choose>
+<c:if test="${endPage < pageCount}">
+	<li class="page-item">
+		<a class="page-link" href="/projectB/petition/afootPetition.aa?pageNum=${startPage + 10}" aria-label="Next">
+	  		<span aria-hidden="true">»</span>
+	 		 <span class="sr-only">Next</span>
+	 	</a>
+	</li>
+</c:if>
+</ul>
+</c:if>
 </form>
+
+
+<script src="/projectB/resource/bootstrap/assets/libs/jquery/dist/jquery.min.js"></script>
+<script src="/projectB/resource/bootstrap/assets/libs/popper.js/dist/umd/popper.min.js"></script>
+<script src="/projectB/resource/bootstrap/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/projectB/resource/bootstrap/js/app-style-switcher.js"></script>
+<script src="/projectB/resource/bootstrap/js/feather.min.js"></script>
+<script src="/projectB/resource/bootstrap/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+<script src="/projectB/resource/bootstrap/assets/extra-libs/sparkline/sparkline.js"></script>
+<script src="/projectB/resource/bootstrap/js/sidebarmenu.js"></script>
+<script src="/projectB/resource/bootstrap/js/custom.min.js"></script>
+<script src="/projectB/resource/bootstrap/assets/libs/raphael/raphael.min.js"></script>
+<script src="/projectB/resource/bootstrap/assets/libs/morris.js/morris.min.js"></script>
+<script src="/projectB/resource/bootstrap/js/pages/morris/morris-data.js"></script>
+
+
+
+
+
+
+
+
+
 
 </body>
 </html>
