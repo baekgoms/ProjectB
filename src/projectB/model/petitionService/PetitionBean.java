@@ -105,7 +105,7 @@ public class PetitionBean {
 		return "petition/afootPetition";
 	}
 	
-	@RequestMapping("afootPetitioncategory.aa")
+	@RequestMapping("afootPetitionCategory.aa")
 	public String ing_listbyCategory(@RequestParam(defaultValue="1")int pageNum, Model model, int category) throws Exception {
 		
 		System.out.println("viewTest");
