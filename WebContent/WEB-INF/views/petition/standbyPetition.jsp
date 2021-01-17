@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
@@ -26,7 +26,7 @@
 
 <div align="center">
 <input type="button" value="							진행중인 청원							" class="btn waves-effect waves-light btn-outline-dark"
-	onclick="document.location.href='/projectB/petition/ing_list.aa'" >
+	onclick="document.location.href='/projectB/petition/afootPetition.aa'" >
 <input type="button" value="							완료된 청원								" class="btn waves-effect waves-light btn-outline-dark"
 	onclick="document.location.href='/projectB/petition/finish_list.aa'" >
 </div>
@@ -37,9 +37,9 @@
 <input type="button" value="				답변된 청원				" class="btn waves-effect waves-light btn-outline-dark"
 	onclick="document.location.href='/projectB/petition/finish_list.aa'" >
 <input type="button" value="				답변 대기중인 청원				" class="btn waves-effect waves-light btn-outline-dark"
-	onclick="document.location.href='/projectB/petition/waiting_list.aa'" >
+	onclick="document.location.href='/projectB/petition/standbyPetition.aa'" >
 <input type="button" value="			기간이 만료된 청원				" class="btn waves-effect waves-light btn-outline-dark"
-	onclick="document.location.href='/projectB/petition/timeout_list.aa'" >
+	onclick="document.location.href='/projectB/petition/terminationPetition.aa'" >
 </div>
 
 <br />
@@ -88,7 +88,7 @@
         	${article.title}</a>
         	</td>
             <td>${article.endDate}</td>
-            <td>${artilcle.petition}</td>
+            <td>${article.petition}</td>
     </tr>
     </c:forEach>
     </c:if>
@@ -111,7 +111,7 @@
 
    <c:if test="${startPage > 10}">
 	 <li class="page-item">
-      	<a class="page-link" href="/projectB/petition/waiting_list?pageNum=${startPage - 10}" aria-label="Previous">
+      	<a class="page-link" href="/projectB/petition/standbyPetition?pageNum=${startPage - 10}" aria-label="Previous">
      	<span aria-hidden="true">«</span>
       	<span class="sr-only">Previous</span>
         	</a>
@@ -119,12 +119,12 @@
 	</c:if>
 
 	<c:forEach var="i" begin="${ startPage }" end="${ endPage }">    
-		<li class="page-item"><a class="page-link" href="/projectB/petition/waiting_list.aa?pageNum=${i}">${i}</a></li>
+		<li class="page-item"><a class="page-link" href="/projectB/petition/standbyPetition.aa?pageNum=${i}">${i}</a></li>
 	</c:forEach>
 	
 	<c:if test="${endPage < pageCount}">
 		<li class="page-item">
-		<a class="page-link" href="/projectB/petition/waiting_list.aa?pageNum=${startPage + 10}" aria-label="Next">
+		<a class="page-link" href="/projectB/petition/standbyPetition.aa?pageNum=${startPage + 10}" aria-label="Next">
 	  	<span aria-hidden="true">»</span>
 	  	<span class="sr-only">Next</span>
 	  	</a>

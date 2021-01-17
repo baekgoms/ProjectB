@@ -130,6 +130,22 @@ public class PetitionServiceImpl implements PetitionService {
 		return dao.selectList("petition.getCategoryList");
 	}
 
+	@Override
+	public List<PetitionDTO> getArticlesSearch(int startRow, int endRow, String keyword) throws Exception {
+		Map map = new HashMap();
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		map.put("keyword", keyword);
+		List<PetitionDTO> articleList = dao.selectList("petition.getArticleAll", map);
+		return articleList;
+	}
+
+	@Override
+	public int getArticleCount(String keyword) throws Exception {
+		int count = dao.selectOne("petition.getArticleCount",keyword);
+		return count;
+	}
+
 
 
 

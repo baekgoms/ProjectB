@@ -14,16 +14,14 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/projectB/resource/bootstrap/assets/images/favicon.png">
     <link href="/projectB/resource/bootstrap/css/style.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/projectB/resource/bootstrap/assets/extra-libs/prism/prism.css">
-
 <title>청원진행중인 게시판</title>
-
 </head>
+
 <body>
 
 <br />
 <br />
 <form name="form" method="post">
-
 <div align="center">
 <input type="button" value="							진행중인 청원							" class="btn waves-effect waves-light btn-outline-dark"
 	onclick="document.location.href='/projectB/petition/ing_list.aa'" >
@@ -32,11 +30,11 @@
 </div>
 
 <br />
-
+<div align="center">
 <c:set var="i" value="0" />
 <c:set var="j" value="6" />
 
-<div align="center">
+
 <tbody>
 	<c:forEach items="${category}" varStatus="list" >
 		<c:if test="${i%j == 0 }">
@@ -57,6 +55,7 @@
 			</td>
 			</c:when>
 			</c:choose>
+			
 			<c:if test="${i%j == j-1 }">
 			</tr>
 			</c:if>
@@ -66,27 +65,17 @@
 </div>
 
 
-
-
-<br />
-<br />
-
-
-</form>
-
-
  <table class="table" width="1200">
    <thead>
-   <tr >
-   <td align="right">
-        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+
+   <tr>
+   <td >
+        <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" >
                                             <option selected="">정렬</option>
                                             <option value="1" onclick="document.location.href='/projectB/petition/ing_list.aa?pageNum=1'">최신순</option>
                                             <option value="2" onclick="document.location.href='/projectB/petition/ing_listSort.aa?pageNum=1&sort=1'">동의순</option>
-                                        </select>
+        </select>
 	</td>
-   </tr>
-   <tr>
    <td colspan ="5" align="right">
    
         <button type="button" class="btn waves-effect waves-light btn-outline-dark">지금 청원하기</button>
@@ -182,10 +171,10 @@
 	</c:if>
 	</ul>
 </c:if>
+</form>
 
 
-
-<script src="/projectB/resource/bootstrap/assets/libs/jquery/dist/jquery.min.js"></script>
+	<script src="/projectB/resource/bootstrap/assets/libs/jquery/dist/jquery.min.js"></script>
     <script src="/projectB/resource/bootstrap/assets/libs/popper.js/dist/umd/popper.min.js"></script>
     <script src="/projectB/resource/bootstrap/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="/projectB/resource/bootstrap/js/app-style-switcher.js"></script>

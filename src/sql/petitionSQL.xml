@@ -36,12 +36,18 @@
 	
 	<select id ="getArticleCount" resultType="int">
 		select count(*) from petition
+		<if test="keyword != null">
+			where title like '%' || #{keyword} || '%' or content like '%' || #{keyword} || '%' or tag like '%' || #{keyword} || '%'
+		</if>
 	</select>
 	
 	<select id="getArticleAll" resultType="petitionDTO" parameterType="map">
 		select * from (select num, title, content, category, startDate, endDate, writer,
 		petition, petitionState, link, indicatorNum, tag, report, open, rownum r 
 		from(select * from petition 
+		<if test="keyword != null">
+			where title like '%' || #{keyword} || '%' or content like '%' || #{keyword} || '%' or tag like '%' || #{keyword} || '%'
+		</if>
 		<if test="sort == null">
 		order by num desc) order by num desc) 
 		</if>

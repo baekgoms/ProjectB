@@ -23,7 +23,7 @@
 
 <div align="center">
 <input type="button" value="							진행중인 청원							" class="btn waves-effect waves-light btn-outline-dark"
-	onclick="document.location.href='/projectB/petition/ing_list.aa'" >
+	onclick="document.location.href='/projectB/petition/afootPetition.aa'" >
 <input type="button" value="							완료된 청원								" class="btn waves-effect waves-light btn-outline-dark"
 	onclick="document.location.href='/projectB/petition/finish_list.aa'" >
 </div>
@@ -34,9 +34,9 @@
 <input type="button" value="				답변된 청원				" class="btn waves-effect waves-light btn-outline-dark"
 	onclick="document.location.href='/projectB/petition/finish_list.aa'" >
 <input type="button" value="				답변 대기중인 청원				" class="btn waves-effect waves-light btn-outline-dark"
-	onclick="document.location.href='/projectB/petition/waiting_list.aa'" >
+	onclick="document.location.href='/projectB/petition/standbyPetition.aa'" >
 <input type="button" value="			기간이 만료된 청원				" class="btn waves-effect waves-light btn-outline-dark"
-	onclick="document.location.href='/projectB/petition/timeout_list.aa'" >
+	onclick="document.location.href='/projectB/petition/terminationPetition.aa'" >
 </div>
 <br />
 <br />

@@ -62,7 +62,7 @@ public class PetitionBean {
 	   return "wooch/uploadPro";
    }
 	
-	@RequestMapping("ing_list.aa")
+	@RequestMapping("afootPetition.aa")
 	public String ing_list(@RequestParam(defaultValue="1")int pageNum, Model model) throws Exception {
 		
 		System.out.println("viewTest");
@@ -102,10 +102,10 @@ public class PetitionBean {
 		model.addAttribute("pageNum", new Integer(pageNum));
 		
 		
-		return "board/ing_list";
+		return "petition/afootPetition";
 	}
 	
-	@RequestMapping("ing_listcategory.aa")
+	@RequestMapping("afootPetitioncategory.aa")
 	public String ing_listbyCategory(@RequestParam(defaultValue="1")int pageNum, Model model, int category) throws Exception {
 		
 		System.out.println("viewTest");
@@ -143,10 +143,10 @@ public class PetitionBean {
 		model.addAttribute("pageNum", new Integer(pageNum));
 		model.addAttribute("categorya", new Integer(category));
 		
-		return "board/ing_list";
+		return "petition/afootPetition";
 	}
 	
-	@RequestMapping("ing_listSort.aa")
+	@RequestMapping("afootPetitionSort.aa")
 	public String ing_listSort(@RequestParam(defaultValue="1")int pageNum, Model model, int sort) throws Exception {
 		
 		System.out.println("viewTest");
@@ -185,7 +185,49 @@ public class PetitionBean {
 		model.addAttribute("pageNum", new Integer(pageNum));
 		model.addAttribute("sort", new Integer(sort));
 	
-		return "board/ing_list";
+		return "petition/afootPetition";
+	}
+	
+	@RequestMapping("afootPetitionSearch.aa")
+	public String ing_listSearch(@RequestParam(defaultValue="1")int pageNum, Model model, String keyword) throws Exception {
+		
+		System.out.println("viewTest");
+		int pageSize = 10;
+		int currentPage = pageNum;
+		int startRow = (currentPage - 1) * pageSize +1;
+		int endRow = currentPage * pageSize;
+		int count = 0;
+		int number = 0;
+		
+		List<PetitionDTO> articleList = null;
+		count = petitionDAO.getArticleCount(keyword);
+		if(count > 0) {
+			articleList = petitionDAO.getArticlesSearch(startRow, endRow, keyword);
+		} else {
+			articleList = Collections.emptyList();
+		}
+		number = count-(currentPage-1)*pageSize;
+		
+		 System.out.println(count + "//count");
+		 System.out.println(articleList.size() + "//size");
+	   
+	     List<CategoryDTO> getCategory = petitionDAO.getCategoryList();
+	     System.out.println(getCategory + "//category");
+	     model.addAttribute("category", getCategory);
+	
+	 
+		
+		model.addAttribute("currentPage", new Integer(currentPage));
+		model.addAttribute("startRow", new Integer(startRow));
+		model.addAttribute("endRow", new Integer(endRow));
+		model.addAttribute("count", new Integer(count));
+		model.addAttribute("pageSize", new Integer(pageSize));
+		model.addAttribute("number", new Integer(number));
+		model.addAttribute("articleList", articleList);
+		model.addAttribute("pageNum", new Integer(pageNum));
+		model.addAttribute("keyword", keyword);
+	
+		return "petition/afootPetition";
 	}
 	
 	
@@ -194,10 +236,10 @@ public class PetitionBean {
 		System.out.println("finish Test");
 		
 		System.out.println("ddd");
-		return "board/finish_list";
+		return "petition/finish_list";
 	}
 
-	@RequestMapping("timeout_list.aa")
+	@RequestMapping("terminationPetition.aa")
 	public String timeout_list(@RequestParam(defaultValue="1")int pageNum, Model model) throws Exception {
 		
 		System.out.println("timeout Test");
@@ -229,10 +271,10 @@ public class PetitionBean {
 		model.addAttribute("number", new Integer(number));
 		model.addAttribute("articleList", articleList);
 		
-		return "board/timeout_list";
+		return "petition/terminationPetition";
 	}
 
-	@RequestMapping("waiting_list.aa")
+	@RequestMapping("standbyPetition.aa")
 	public String watiting_list(@RequestParam(defaultValue="1")int pageNum, Model model) throws Exception{
 		
 		System.out.println("waiting Test");
@@ -265,14 +307,14 @@ public class PetitionBean {
 		model.addAttribute("number", new Integer(number));
 		model.addAttribute("articleList", articleList);
 		
-		return "board/waiting_list";
+		return "petition/standbyPetition";
 	}
 	//청원보기
 	@RequestMapping("petContent.aa")
 	public String petContent(int num, Model model) throws Exception{
 		PetitionDTO petDTO = petitionDAO.getArticle(num);
 		model.addAttribute("petDTO",petDTO);
-		return "board/petitionContent";
+		return "petition/petitionContent";
 	}
 	
 	//청원댓글
@@ -303,13 +345,13 @@ public class PetitionBean {
 		model.addAttribute("petitionNum", new Integer(petitionNum));
 		model.addAttribute("petCmtList", petCmtList);
 		
-		return "board/petitionComment";
+		return "petition/petitionComment";
 	}
 	
 	@RequestMapping("petCommentPro.aa")
 	public String insertCmt(PetCommentDTO dto)throws Exception{
 		petitionDAO.insertPetCmt(dto);
-		return "board/petitionCommentPro";
+		return "petition/petitionCommentPro";
 	}
 
 }

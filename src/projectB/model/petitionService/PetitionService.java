@@ -11,15 +11,16 @@ public interface PetitionService {
 	public void insertArticle(PetitionDTO petition) throws Exception;
 	public List<PetitionDTO> getCategory() throws Exception;
 	public int getArticleCount() throws Exception;
+	public int getArticleCount(String keyword) throws Exception;
 	public List<PetitionDTO> getArticles(int start, int end) throws Exception;
 	
 	public int getArticleCountbyCategory(int category) throws Exception;
-	public List<PetitionDTO> getArticles(int start, int end, int category) throws Exception;
-	public List<PetitionDTO> getArticlesSort(int start, int end, int sort) throws Exception;
-	
+	public List<PetitionDTO> getArticles(int startRow, int endRow, int category) throws Exception;
+	public List<PetitionDTO> getArticlesSort(int startRow, int endRow, int sort) throws Exception;
+	public List<PetitionDTO> getArticlesSearch(int startRow, int endRow, String keyword) throws Exception;
 	public PetitionDTO updateGetArticle(int num) throws Exception;
 	public int getArticleCountbyState(int state) throws Exception;
-	public List<PetitionDTO> getArtilclebyState(int state, int start, int end) throws Exception;
+	public List<PetitionDTO> getArtilclebyState(int state, int startRow, int endRow) throws Exception;
 	public List<CategoryDTO> getCategoryList() throws Exception;
 	
 	public PetitionDTO getArticle(int num) throws Exception;
