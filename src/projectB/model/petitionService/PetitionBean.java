@@ -47,7 +47,7 @@ public class PetitionBean {
 			System.out.println("category size:"+category.size()+"\n"+category);
 		}	
 		
-		return "wooch/uploadForm";
+		return "petition/uploadForm";
 	}
 	
    @RequestMapping("uploadPro.aa")
@@ -59,9 +59,46 @@ public class PetitionBean {
 	   petitionDAO.insertArticle(dto);
 	   System.out.println("uploadPro run");
 	   
-	   return "wooch/uploadPro";
+	   return "petition/uploadPro";
    }
+   
+   @RequestMapping("discussionUpload.aa")
+	public String discussionUpload(PetitionDTO dto, Model model,HttpSession session) throws Exception {
+		
+		//임시 세션 아이디 입력
+		session.setAttribute("memId", "홍우찬테스트");
+		
+		String id = (String) session.getAttribute("memId");
+		System.out.println("session id:"+id);
+		
+		if(id != null) {
+			
+			List category = null;
+			System.out.println("wooch uploadForm run");
+			
+			model.addAttribute("dto", dto);
+			dto.setWriter((String)session.getAttribute("memId"));
+			System.out.println("Writer:"+dto.getWriter());
+			category = petitionDAO.getCategory();
+			model.addAttribute("category", category);
+			System.out.println("category size:"+category.size()+"\n"+category);
+		}	
+		
+		return "wooch/discussionUploadForm";
+	}
 	
+   @RequestMapping("uploadPro.aa")
+   public String discussionUploadPro(PetitionDTO dto, HttpServletRequest request, HttpSession session) throws Exception{
+	   	   
+	   
+	   dto.setWriter((String)session.getAttribute("memId"));
+	   System.out.println("Writer:"+dto.getWriter());
+	   petitionDAO.insertArticle(dto);
+	   System.out.println("discussion uploadPro run");
+	   
+	   return "wooch/discussionUploadPro";
+   }
+   
 	@RequestMapping("afootPetition.aa")
 	public String ing_list(@RequestParam(defaultValue="1")int pageNum, Model model) throws Exception {
 		

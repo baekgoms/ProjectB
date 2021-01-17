@@ -20,6 +20,7 @@
  	<!-- typeAliases는 해도되고, 안해도됨 -->
 	<typeAliases>
 		<typeAlias alias="disDTO" type="projectB.test.hj.DisBoardDTO" />
+		<typeAlias alias="discussionDTO" type="projectB.model.petition.DiscussionDTO" />
 		<typeAlias alias="petitionDTO" type="projectB.model.petition.PetitionDTO" />
 		<typeAlias alias="petCommentDTO" type="projectB.model.petition.PetCommentDTO" />
 		<typeAlias alias="petitionerDTO" type="projectB.model.petitioner.PetitionerDTO" />

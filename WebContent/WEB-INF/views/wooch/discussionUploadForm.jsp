@@ -33,17 +33,8 @@
 <![endif]-->
 </head>
 
-
-
-
-
-
 <body>
-   
-   
-        
-
-        
+ 
 <!-- ============================================================================================================= -->
 <!-- Page wrapper -->
 <!-- ============================================================================================================== -->
@@ -54,12 +45,12 @@
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-7 align-self-center">
-                        <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">청원 작성 </h4>
+                        <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">토론 작성 </h4>
                         <div class="d-flex align-items-center">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb m-0 p-0">
                                     <li class="breadcrumb-item"><a href="index.html" class="text-muted">Home</a></li>
-                                    <li class="breadcrumb-item text-muted active" aria-current="page"> Upload Petition</li>
+                                    <li class="breadcrumb-item text-muted active" aria-current="page"> Upload Discussion</li>
                                 </ol>
                             </nav>
                         </div>
@@ -80,9 +71,7 @@
             
             <!-- ============================================================== -->
             <!-- End Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            
-  
+            <!-- ============================================================== -->  
             
             <!-- ============================================================== -->
             <!-- Container fluid 첫번째꺼  -->
@@ -97,12 +86,11 @@
                 <div class="card">
                     <div class="card-body">
                     
-                    
 		                <div class="row">
 		                    <div class="col-12">
 		                        <div class="card">
 		                            <div class="card-body">
-		                                <h4 class="card-title">청원제목 </h4>    
+		                                <h4 class="card-title">토론제목 </h4>    
 		                                  
 <!-- 			<form>				 --> <form method="post" id="tag-form" name="uploadForm" onsubmit="return checkIt()" action="/projectB/petition/uploadPro.aa" >
 			                                <div class="form-group">
@@ -119,24 +107,10 @@
 		                                              <div class="col-12">
 		                                                <div class="row">
 		                                            
-				                                            <div class=" col-md-3 ">
-										                    
-										                               
-										                                    <div class="form-group mb-1">
-										                                        <label class="mr-sm-1" for="inlineFormCustomSelect">청원 분류 </label>
-										                                        <select class="custom-select mr-sm-2" id="inputGroupSelect01" name="category" >
-										                                           <!-- DB 컬럼 개수만큼 반복  -->
-										                                           <c:forEach var="name" items="${category}" varStatus="status">
-																						<option value="${status.count}"><c:out value="${name}" /></option>
-																					</c:forEach>
-										                                        </select>
-										                                    </div>
-										                        
-										                    </div>
+				                                            
 		                                            
 		                                                    <div class="col-md-9">
 		                                                   		
-		                                                    
 			                                                        <div class="form-group">
 			                                                        <label class="mr-sm-1" for="inlineFormCustomSelect">해시태그 </label>
 			                                                            <input type="text" class="form-control col-6 " id="tag" name="tag2"
@@ -144,7 +118,6 @@
 			                                                                <ul class="col-sm-12" id="tag-list"> </ul>
 			                                                        </div>
 		                                                        
-		                                                       
 		                                                       <input type="hidden" value="" name="tag" id="rdTag" />
 		                                                    </div>
 		                                      
@@ -153,11 +126,11 @@
 		                                        </div>
 		                                        
 		                                        <hr>
-		                                        <h4 class="card-title">청원내용  </h4>
+		                                        <h4 class="card-title">토론내용  </h4>
 		                                         <div data-spy="scroll" data-target="#navbar-example2" data-offset="0"
 						                            class="position-relative mt-2" style="height: 700px; overflow: auto;">	
 						                            
-						                            <textarea class="form-control" rows="3" placeholder="청원내용 작성 " name="content" id="content"
+						                            <textarea class="form-control" rows="3" placeholder="토론내용 작성 " name="content" id="content"
 						                            				style="height: 700px; overflow: auto;"></textarea>
 						                            					                          
 						                        </div>
@@ -206,9 +179,6 @@
                 </div>
                 <!-- ============================================================== -->
                
-                
-                
-                
                 <!-- ============================================================== -->
                 <!-- End PAge Content -->
                 <!-- ============================================================== -->
@@ -267,8 +237,6 @@
     <script src="/projectB/resource/bootstrap/js/sidebarmenu.js"></script>
     <script src="/projectB/resource/bootstrap/js/custom.min.js"></script>
     <script src="/projectB/resource/bootstrap/assets/extra-libs/prism/prism.js"></script>  
-    
-
 	
 	<script>
 	    $(document).ready(function () {
@@ -324,7 +292,6 @@
 		                        $("#tag-list").append("<b class='tag-item'>"+tagValue+"<span class='del-btn' style='color:blue' idx='"+counter+"'>(X)&nbsp; </span></b>");
 		                        addTag(tagValue);
 		                        self.val("");
-	
 		                        
 		                    } else {
 		                        alert("태그값이 중복됩니다.");
@@ -423,7 +390,6 @@
      
     return true;
     }
-     
      
 	</script>
 	
