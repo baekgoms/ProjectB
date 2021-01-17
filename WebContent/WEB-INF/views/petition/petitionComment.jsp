@@ -30,10 +30,10 @@
         <table align="center" width = "500" border="1">
 		
 			<tr>
-				<td width ="50" >댓글번호${petCmtList.num}</td>
+				<td width ="50" >댓글번호</td>
                 <td width="100">${sessionId}
                 <input type="hidden" name="writer" value="${sessionId}"></td>
-                <td width="350" align="center"> 동의합니다.</td>
+                <td width="350"> 동의합니다.</td>
                 <td width = "50">
 				<input type="submit" VALUE="동의" onclick="Confirm()"/></td>					
 			</tr>
@@ -43,16 +43,25 @@
 		
 		<c:forEach var="x" items="${petCmtList}">  
 		<tr>
-			<td width ="50" >댓글번호${x.num}</td>
-            <td width ="100">작성자${x.writer}</td>
-            <td width ="350">내용${x.content}</td>
-            <td width ="100">작성날짜${x.reg}</td>
+            <td width ="50" >${x.num}</td>
+            <td width ="100">${x.writer}</td>
+            <td width ="350">${x.content}</td>
+            <td width ="100">${x.reg}</td>
 		</tr>
 		</c:forEach>  
 	</table>
     <tbody>
     </tbody>
      
+<c:if test="${count > 0}">
+    <c:set var="pageCount" value="${count / pageSize +(count % pageSize == 0 ? 0: 1)}" />
+    <c:set var="pageBlock" value="${10}" />
+    <fmt:parseNumber var="result" value="${ currentPage/10 }" integerOnly="true" />
+    <c:set var ="startPage" value="${ result * 10 + 1 }" />
+    <c:set var="endPage" value="${startPage + pageBlock-1 }" />
+    <c:if test="${ endPage > pageCount }">
+        <c:set var="endPage" value="${ pageCount }" />
+</c:if>   
      
 <div class="col-lg-4 mb-4">
 <nav aria-label="Page navigation example">
@@ -60,18 +69,18 @@
    <ul class="pagination">
    <c:if test="${startPage > 10}">
      <li class="page-item">
-          <a class="page-link" href="/projectB/petition/petitionComment.aa?pageNum=${startPage - 10}" aria-label="Previous">
+          <a class="page-link" href="/projectB/petition/petComment.aa?pageNum=${startPage - 10}&petitionNum=${petitionNum}" aria-label="Previous">
          <span aria-hidden="true">«</span>
           <span class="sr-only">Previous</span>
             </a>
         </li>
     </c:if>
-    <c:forEach var="i" begin="${startRow}" end="${endRow}">    
-        <li class="page-item"><a class="page-link" href="/projectB/petition/petitionComment.aa?pageNum=${i}">${i}</a></li>
+    <c:forEach var="i" begin="${startPage}" end="${endPage}">    
+        <li class="page-item"><a class="page-link" href="/projectB/petition/petComment.aa?pageNum=${i}&petitionNum=${petitionNum}">${i}</a></li>
     </c:forEach>
     <c:if test="${endPage < pageCount}">
         <li class="page-item">
-        <a class="page-link" href="/projectB/petition/petitionComment.aa?pageNum=${startPage + 10}" aria-label="Next">
+        <a class="page-link" href="/projectB/petition/petComment.aa?pageNum=${startPage + 10}&petitionNum=${petitionNum}" aria-label="Next">
           <span aria-hidden="true">»</span>
           <span class="sr-only">Next</span>
           </a>
@@ -79,6 +88,7 @@
     </c:if>
     </ul>
 </ul>
+</c:if>
 </nav>
 </div>
 </form>   

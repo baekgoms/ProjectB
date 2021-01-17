@@ -120,6 +120,9 @@
         ]]>
 	</select>
 	
+	<select id="getPetitionIndicator" resultType="petitionIndicatorDTO" parameterType="int">
+        select * from petitionIndicator where num = #{num}
+    </select>
 	
 </mapper>
 

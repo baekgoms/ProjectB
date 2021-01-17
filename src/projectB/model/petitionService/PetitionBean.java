@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import projectB.model.petition.CategoryDTO;
 import projectB.model.petition.PetCommentDTO;
 import projectB.model.petition.PetitionDTO;
-
+import projectB.model.petition.PetitionIndicatorDTO;
 
 @Controller
 @RequestMapping("petition")
@@ -313,13 +313,26 @@ public class PetitionBean {
 	@RequestMapping("petContent.aa")
 	public String petContent(int num, Model model) throws Exception{
 		PetitionDTO petDTO = petitionDAO.getArticle(num);
+        List<CategoryDTO> categoryDTO = petitionDAO.getCategoryList();
+        String categoryName = "";
+        
+        for (int i=0; i<categoryDTO.size(); i++) {
+            if (petDTO.getCategory() == categoryDTO.get(i).getNum()) {
+                categoryName = categoryDTO.get(i).getCategoryName();
+            }
+        }
+        
+        PetitionIndicatorDTO petitionIndicatorDTO = petitionDAO.getPetitionIndicator(num);
+        
+        model.addAttribute("categoryName", categoryName);		
 		model.addAttribute("petDTO",petDTO);
+        model.addAttribute("petitionIndicatorDTO",petitionIndicatorDTO);
 		return "petition/petitionContent";
 	}
 	
 	//청원댓글
 	@RequestMapping("petComment.aa")
-	public String petCmtListAll(int petitionNum,@RequestParam(defaultValue="1")int pageNum, Model model) throws Exception{
+    public String petCmtListAll(@RequestParam("petitionNum")int petitionNum,@RequestParam(defaultValue="1")int pageNum, Model model) throws Exception{
 		int pageSize = 10;
 		int currentPage = pageNum;
 		int startRow = (currentPage - 1) * pageSize +1;
@@ -348,8 +361,11 @@ public class PetitionBean {
 		return "petition/petitionComment";
 	}
 	
-	@RequestMapping("petCommentPro.aa")
+	@RequestMapping
 	public String insertCmt(PetCommentDTO dto)throws Exception{
+		
+		
+		
 		petitionDAO.insertPetCmt(dto);
 		return "petition/petitionCommentPro";
 	}

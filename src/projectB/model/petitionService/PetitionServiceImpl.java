@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import projectB.model.petition.CategoryDTO;
 import projectB.model.petition.PetCommentDTO;
 import projectB.model.petition.PetitionDTO;
+import projectB.model.petition.PetitionIndicatorDTO;
 
 @Service("petitionDAO")
 public class PetitionServiceImpl implements PetitionService {
@@ -146,10 +147,9 @@ public class PetitionServiceImpl implements PetitionService {
 		return count;
 	}
 
-
-
-
-
-
+	@Override
+	public PetitionIndicatorDTO getPetitionIndicator(int num) throws Exception {
+        return dao.selectOne("petition.getPetitionIndicator", num);
+	}
 
 }
