@@ -23,7 +23,7 @@
 <body>  
 
 <script>
-	window.location="projectB/board/petitionContent.aa"
+window.location="/projectB/petition/petContent.aa?num=${num}";
 </script>
 
 <script src="/projectB/resource/bootstrap/assets/libs/jquery/dist/jquery.min.js"></script>
