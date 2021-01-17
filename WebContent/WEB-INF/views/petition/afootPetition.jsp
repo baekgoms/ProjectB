@@ -122,7 +122,6 @@ function inputCheck(){
 	<c:if test="${count > 0 }">
 	<c:forEach var="article" items="${ articleList }">
 	<tr>
-		<c:out value="${ number }" />
 		<c:set var="number" value="${number-1}" />
 		<th scope="row">${article.num}</th>
 			<td>
