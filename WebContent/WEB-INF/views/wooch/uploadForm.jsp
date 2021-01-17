@@ -64,6 +64,7 @@
                             </nav>
                         </div>
                     </div>
+                    <!--  
                     <div class="col-5 align-self-center">
                         <div class="customize-input float-right">
                             <select class="custom-select custom-select-set form-control bg-white border-0 custom-shadow custom-radius">
@@ -75,6 +76,8 @@
                     </div>
                 </div>
             </div>
+            -->
+            
             <!-- ============================================================== -->
             <!-- End Bread crumb and right sidebar toggle -->
             <!-- ============================================================== -->
@@ -113,42 +116,38 @@
 		                                        <div class="form-group row">
 		                                            <!-- 분류 카테고리 영역  -->
 		                   
-		                                              <div class="col-md-10">
+		                                              <div class="col-12">
 		                                                <div class="row">
 		                                            
-				                                            <div class="col-sm-12 col-md-6 col-lg-4">
-										                        <div class="card">
-										                            <div class="card-body">
+				                                            <div class=" col-md-3 ">
+										                    
 										                               
 										                                    <div class="form-group mb-1">
-										                                        <label class="mr-sm-2" for="inlineFormCustomSelect">청원 분류 </label>
+										                                        <label class="mr-sm-1" for="inlineFormCustomSelect">청원 분류 </label>
 										                                        <select class="custom-select mr-sm-2" id="inputGroupSelect01" name="category" >
-										                                            <option selected>선택하기</option>
-										                                            
 										                                           <!-- DB 컬럼 개수만큼 반복  -->
 										                                           <c:forEach var="name" items="${category}" varStatus="status">
 																						<option value="${status.count}"><c:out value="${name}" /></option>
 																					</c:forEach>
-
 										                                        </select>
 										                                    </div>
-										                               
-										                            </div>
-										                        </div>
+										                        
 										                    </div>
 		                                            
-		                                                    <div class="col-md-8">
-		                                                        <div class="form-group">
-		                                                            <input type="text" class="form-control" id="tag" name="tag2"
-		                                                                placeholder="해시태그 입력(최대 5개)" />
-		                                                                
-		                                                                <ul id="tag-list"> </ul>
-		                                                                
-		                                                                
-		                                                        </div>
-		                                                        <input type="hidden" value="" name="tag" id="rdTag" />
-		                                                    </div>
+		                                                    <div class="col-md-9">
+		                                                   		
 		                                                    
+			                                                        <div class="form-group">
+			                                                        <label class="mr-sm-1" for="inlineFormCustomSelect">해시태그 </label>
+			                                                            <input type="text" class="form-control col-6 " id="tag" name="tag2"
+			                                                                placeholder="입력 후 enter 또는 space를 누르세요. (최대 5개)" />
+			                                                                <ul class="col-sm-12" id="tag-list"> </ul>
+			                                                        </div>
+		                                                        
+		                                                       
+		                                                       <input type="hidden" value="" name="tag" id="rdTag" />
+		                                                    </div>
+		                                      
 		                                                </div>
 		                                            </div>
 		                                        </div>
@@ -174,37 +173,19 @@
 		                                                        <div class="form-group">
 		                                                            <input type="text" class="form-control" name="link"
 		                                                                placeholder="First Input &amp; First Row">
-		                                                                <!-- 링크 텍스트 박스 추가  -->	
-		                                                                
 		                                                        </div>
 		                                                    </div>
 		                                                    <div class="col-md-4">
 		                                                        <div class="form-group">
-		                                                             <input type="button" class="btnAdd btn btn-info" value="추가" /><br>
-		                                                           
+		                                                             <input type="button" class="btnAdd btn btn-info" value="추가" />
 		                                                        </div>
 		                                                    </div>
 		                                                </div>
 		                                                
-		                                                <div class="row addInput"> </div>
-		                                                <!--  
-		                                                <div class="row">
-		                                                    <div class="col-md-10">
-		                                                        <div class="form-group">
-		                                                            <input type="text" class="form-control"
-		                                                                placeholder="First Input &amp; Second Row">
-		                                                        </div>
-		                                                    </div>
-		                                                    <div class="col-md-4">
-		                                                        <div class="form-group">
-		                                                            <input type="text" class="form-control"
-		                                                                placeholder="Second Input &amp; Second Row">
-		                                                        </div>
-		                                                    </div>
+		                                                <div class="row addInput"> 
 		                                                </div>
-		                                                -->
 		                                                
-		                                            </div>
+
 		                                        </div>
 		                                    </div>
 		                                    
@@ -246,10 +227,13 @@
             <!-- End footer -->
             <!-- ============================================================== -->
         </div>
+        
+        
+   </body>
         <!-- ============================================================== -->
         <!-- End Page wrapper  -->
         <!-- ============================================================== -->
-    </div>
+
     <!-- ============================================================== -->
     <!-- End Wrapper -->
     <!-- ============================================================== -->
@@ -258,15 +242,11 @@
     <!-- All Jquery -->
     <!-- ============================================================== -->
     <!-- Bootstrap tether Core JavaScript -->
-    <script src="/projectB/resource/bootstrap/assets/libs/popper.js/dist/umd/popper.min.js"></script>
-    <script src="/projectB/resource/bootstrap/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- apps -->
     <!-- apps -->
     <script src="/projectB/resource/bootstrap/dist/js/app-style-switcher.js"></script>
     <script src="/projectB/resource/bootstrap/dist/js/feather.min.js"></script>
     <!-- slimscrollbar scrollbar JavaScript -->
-    <script src="/projectB/resource/bootstrap/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
-    <script src="/projectB/resource/bootstrap/assets/extra-libs/sparkline/sparkline.js"></script>
     <!--Wave Effects -->
     <!-- themejs -->
     <!--Menu sidebar -->
@@ -288,15 +268,16 @@
     <script src="/projectB/resource/bootstrap/js/custom.min.js"></script>
     <script src="/projectB/resource/bootstrap/assets/extra-libs/prism/prism.js"></script>  
     
-	</body>
-	</html>
+
 	
 	<script>
 	    $(document).ready(function () {
 	
 	        var tag = {};
 	        var counter = 0;
-	
+	        var count = 0;
+
+	        
 	        // 태그를 추가한다.
 	        function addTag (value) {
 	            tag[counter] = value; // 태그를 Object 안에 추가
@@ -340,7 +321,7 @@
 	                     if (counter <= 4) { //5개 제
 	                    
 		                    if (result.length == 0) { 
-		                        $("#tag-list").append("<li class='tag-item'>"+tagValue+"<span class='del-btn' style='color:blue' idx='"+counter+"'>(X)</span></li>");
+		                        $("#tag-list").append("<b class='tag-item'>"+tagValue+"<span class='del-btn' style='color:blue' idx='"+counter+"'>(X)&nbsp; </span></b>");
 		                        addTag(tagValue);
 		                        self.val("");
 	
@@ -369,37 +350,46 @@
 	
 	<script>
 		$(document).ready(function () {
-			var counter = 0;
+			var count = 0;
 				
 			$('.btnAdd').click(function(){
-				if (counter <= 1 || counter > 2 ) {
-					counter++;
+				if (count == 0 || count == 1 ) {
+					count++;
 				$('.addInput').append(
 						
-					'<div class="col-md-8">\
-	                	<div class="form-group">\
-							<input type="text" name="link" class="form-control counter" value=""\
-	                    	   	 placeholder="First Input &amp; First Row">\
+					'<div class="col-md-8" id="'+count+'+">\
+	                	<div class="form-group" id="'+count+'" >\
+							<input type="text" name="link" id="'+count+'" class="form-control" value=""\
+	                    	   	 placeholder="First Input First Row">\
 		                </div>\
 		            </div>\
-		            <div class="col-md-4">\
-		                <div class="form-group">\
-		                    <button type="button" class="btnRemove btn btn-info">삭제</button>\
+		            <div class="col-md-4" id="'+count+'">\
+		                <div class="form-group" id="'+count+'" >\
+		                    <button id="btnRemove'+count+'" class=" btn btn-info">삭제</button>\
 		                </div>\
 		            </div>'
 			
 				);
 		
-				
-				
-				$('.btnRemove').on('click', function(){
-					$( 'input' ).remove( '.counter' );
+				$('#btnRemove1').on('click', function(){
+					$( 'input' ).remove( '#1' );
+					$( 'div' ).remove( '#1' );
 					$(this).remove();
-					if(counter >= 1){
-						counter--;
+					if(count == 1 || count == 2){
+						count--;
 					}
 				});
-				}
+				
+				$('#btnRemove2').on('click', function(){
+					$( 'input' ).remove( '#2' );
+					$( 'div' ).remove( '#2' );
+					$(this).remove();
+					if(count == 2){
+						count--;
+					}
+				});
+				
+				}else {return;}
 			});		
 			
 		});
