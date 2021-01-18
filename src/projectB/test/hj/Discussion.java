@@ -47,32 +47,25 @@ public class Discussion {
         
 		return "discussion/main";
 	}
-	@RequestMapping("mainSort.aa")
-	public String main(int pageNum, Model model,int sort) throws Exception {
-		int pageSize = 12;
-        int currentPage = pageNum;
-        int startRow = (currentPage - 1) * pageSize + 1;
-        int endRow = currentPage * pageSize;
+	@RequestMapping("mainBest.aa")
+	public String mainBest(@RequestParam(defaultValue="1" , required = true)int sort, Model model) throws Exception {
+		int listSize = 5;
         int count = 0;
         
         List<DiscussionDTO> articleList = null;
         
         count = disBoardDAO.getArticleCount();
         if (count > 0) {
-            articleList = disBoardDAO.getArticles(startRow, endRow, sort);
+            articleList = disBoardDAO.getBestArticles(1,listSize);
         } else {
             articleList = Collections.emptyList();
         }
-        model.addAttribute("currentPage", new Integer(currentPage));
-        model.addAttribute("startRow", new Integer(startRow));
-        model.addAttribute("endRow", new Integer(endRow));
         model.addAttribute("count", new Integer(count));
-        model.addAttribute("pageSize", new Integer(pageSize));
+        model.addAttribute("listSize", new Integer(listSize));
         model.addAttribute("articleList", articleList);
-        model.addAttribute("pageNum", new Integer(pageNum));
         model.addAttribute("sort", new Integer(sort));
         
-		return "discussion/main";
+		return "discussion/mainBest";
 	}
 	@RequestMapping("mainSearch.aa")
 	public String mainSearch(
@@ -136,7 +129,7 @@ public class Discussion {
 	}
 	
 	@RequestMapping("content.aa")
-    public String content(int num, int pageNum, Model model) throws Exception{
+    public String content(int num, @RequestParam(defaultValue="1" , required = true)int pageNum, Model model) throws Exception{
 		DiscussionDTO article = disBoardDAO.getArticle(num);
 		model.addAttribute("num", new Integer(num));
         model.addAttribute("pageNum", new Integer(pageNum));

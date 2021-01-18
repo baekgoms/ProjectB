@@ -37,6 +37,13 @@
 		</if>
 		<![CDATA[where r >= #{start} and r <= #{end}]]>
 	</select>
+	
+	<select id="getBestArticles" parameterType="map" resultType="discussionDTO">
+		<![CDATA[select * from (select num, write, content, reg, agreement, opposition, tag, report, open, subject, link, rownum as r from(select * from discussion 
+		where to_char(reg, 'yyyymmdd') <= to_char(sysdate,'yyyymmdd') and to_char(reg, 'yyyymmdd') >= to_char(sysdate-7,'yyyymmdd')
+		order by agreement desc) order by agreement desc)
+		where r >= #{start} and r <= #{end}]]>
+	</select>
 
 	<select id="getArticle" parameterType="int" resultType="discussionDTO">
 		select * from discussion where num = #{num}

@@ -27,23 +27,17 @@ function inputCheck(){
 <br><br>
 </div>
 <c:choose>
-<c:when test="${empty keyword && empty sort}">
+<c:when test="${empty keyword}">
 	<input type="button" value="                           최신순                              " class="btn waves-effect waves-light btn-dark" 
 		onclick="document.location.href='/projectB/discussion/main.aa?pageNum=1'">
 	<input type="button" value="                           베스트순                           " class="btn waves-effect waves-light btn-outline-dark" 
-		onclick="document.location.href='/projectB/discussion/mainSort.aa?pageNum=1&sort=1'">
+		onclick="document.location.href='/projectB/discussion/mainBest.aa?pageNum=1'">
 	</c:when>
-<c:when test="${empty keyword && not empty sort}">
-	<input type="button" value="                           최신순                              " class="btn waves-effect waves-light btn-outline-dark" 
-		onclick="document.location.href='/projectB/discussion/main.aa?pageNum=1'">
-	<input type="button" value="                           베스트순                           " class="btn waves-effect waves-light btn-dark" 
-		onclick="document.location.href='/projectB/discussion/mainSort.aa?pageNum=1&sort=1'">
-</c:when>
 <c:otherwise>
 	<input type="button" value="                           최신순                              " class="btn waves-effect waves-light btn-outline-dark" 
 		onclick="document.location.href='/projectB/discussion/main.aa?pageNum=1'">
 	<input type="button" value="                           베스트순                           " class="btn waves-effect waves-light btn-outline-dark" 
-		onclick="document.location.href='/projectB/discussion/mainSort.aa?pageNum=1&sort=1'">
+		onclick="document.location.href='/projectB/discussion/mainBest.aa?pageNum=1'">
 </c:otherwise>
 </c:choose>
 
@@ -137,17 +131,10 @@ function inputCheck(){
 </li>
 </c:if>
 <c:choose>
-	<c:when test="${empty keyword && empty sort}">
+	<c:when test="${empty keyword}">
 		<c:forEach var="i" begin="${startPage}" end="${endPage}">
 			<li class="page-item"><a class="page-link"
   	 	     href="/projectB/discussion/main.aa?pageNum=${i}">${i}</a>
-			</li>
-		</c:forEach>
-	</c:when>
-	<c:when test="${empty keyword && not empty sort}">
-		<c:forEach var="i" begin="${startPage}" end="${endPage}">
-			<li class="page-item"><a class="page-link"
-  		      href="/projectB/discussion/mainSort.aa?pageNum=${i}&sort=${sort}">${i}</a>
 			</li>
 		</c:forEach>
 	</c:when>

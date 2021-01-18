@@ -22,4 +22,6 @@ public interface DisBoardService {
 	public void openStateOpen (int num) throws Exception;
 	public void openStateClose (int num) throws Exception;
 	
+	public List<DiscussionDTO> getBestArticles(int start, int end);
+	public List<DiscussionDTO> getBestCArticles(int start, int end);
 }
