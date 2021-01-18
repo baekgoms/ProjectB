@@ -23,35 +23,26 @@
 
 <body>  
 
-
-
-<form method="post" action="petitionCommentPro.aa" onsubmit="return formCheck(this)">
-		<input type="hidden" name="petitionNum" value="${petitionNum}" />
-        <table align="center" width = "500" border="1">
+<form method="post" action="petitionCommentPro.aa" onsubmit="return formCheck(this)">	
+	<input type="submit" VALUE="청원동의" class="btn btn-block btn-primary"onclick="Confirm()"/>
 		
-			<tr>
-				<td width ="50" >댓글번호</td>
-                <td width="100">${sessionId}
-                <input type="hidden" name="writer" value="${sessionId}"></td>
-                <td width="350"> 동의합니다.</td>
-                <td width = "50">
-				<input type="submit" VALUE="동의" onclick="Confirm()"/></td>					
-			</tr>
-		</table>
-  
-         <table align="center" width = "500" border="1">
 		
-		<c:forEach var="x" items="${petCmtList}">  
-		<tr>
-            <td width ="50" >${x.num}</td>
-            <td width ="100">${x.writer}</td>
-            <td width ="350">${x.content}</td>
-            <td width ="100">${x.reg}</td>
-		</tr>
-		</c:forEach>  
-	</table>
-    <tbody>
-    </tbody>
+     <div class="card-body">
+            	<div class="table-responsive">
+                	<table class="table" align="center">
+                        <tbody>
+                        <c:forEach var="x" items="${petCmtList}">
+                            <tr>
+                                <td align="center">${x.writer}"memId"</td>
+                                <td align="center">${x.content}</td>
+                                <td align="center"> <fmt:formatDate value="${x.reg}" pattern="yy-MM-dd HH:mm"/></td>
+                            </tr>
+                        </c:forEach>            
+                        </tbody>
+                   	</table>
+                </div>
+		</div>
+     
      
 <c:if test="${count > 0}">
     <c:set var="pageCount" value="${count / pageSize +(count % pageSize == 0 ? 0: 1)}" />

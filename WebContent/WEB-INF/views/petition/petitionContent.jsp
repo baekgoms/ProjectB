@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ page import = "java.text.SimpleDateFormat" %>
+<%@ page import = "java.util.Date" %>
 
 
 
@@ -25,15 +26,21 @@
       }
 
       iframe {
-         width: 500px;
+         width: 1000px;
          border: none;
-         height: 500px;
+         height: 1000px;
          margin: 20px auto;
       }
    </style>
 
    <title>청원 보기</title>
 </head>
+
+
+
+
+
+
 
 <body>
 <br>
@@ -47,9 +54,9 @@
       </tr>
       <tr>
          <td align="center"  colspan="4" width="800">
-            달성도
+           	 달성도
 
-            <input type="hidden" id="achive" value="${petitionDTO.petition}" />
+            <input type="hidden" id="achive" value="${petDTO.petition / 200000}" />
 
             <div>
                <div class="chartjs-size-monitor">
@@ -63,8 +70,6 @@
                <canvas id="barr-chart" height="382" width="766" class="chartjs-render-monitor"
                      style="display: block; height: 255px; width: 511px;"></canvas>
             </div>
-
-
 
 
          </td>
@@ -85,8 +90,9 @@
          </td>
          <td align="center" width="100">
             청원마감
-            <fmt:formatDate value="${petDTO.endDate}"
-                        pattern = "yyyy-MM-dd" />
+
+
+            
             </c:otherwise>
             </c:choose>
          </td>
@@ -96,6 +102,7 @@
       <tr height="30">
          <td align="center">청원진행도</td>
       </tr>
+
 
       <tr height="30">
          <td align="center" width="100">내용 </td>
@@ -236,7 +243,7 @@
       var achive = $('#achive').val();
 
       new Chart(document.getElementById("barr-chart"), {
-         type: 'bar',
+         type: 'horizontalBar',
          data: {
             labels: ["달성도"],
             datasets: [{
