@@ -1,4 +1,4 @@
-package projectB.model.petitioner;
+package projectB.model.mail;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSenderImpl;

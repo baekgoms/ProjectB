@@ -20,6 +20,7 @@ public class PetitionerDTO implements BaseDTO{
 	private Timestamp reg;
 	private Timestamp blockReg;
 	private int authKey;
+	private String birthday;
 
 	public void setInfo(ResultSet rs) {
 		try {
@@ -67,4 +68,6 @@ public class PetitionerDTO implements BaseDTO{
 	public void setBlockReg(Timestamp blockReg) { this.blockReg = blockReg; }
 	public int getAuthKey() { return authKey; }
 	public void setAuthKey(int authKey) { this.authKey = authKey; }
+	public String getBirthday() { return birthday; }
+	public void setBirthday(String birthday) { this.birthday = birthday; }
 }

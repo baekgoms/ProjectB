@@ -8,6 +8,8 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import projectB.model.petition.DiscussionDTO;
+
 @Service("disBoardDAO")
 public class DisBoardDAO implements DisBoardService{
 	
@@ -15,7 +17,7 @@ public class DisBoardDAO implements DisBoardService{
 	private SqlSessionTemplate bDao = null;
 	
 	@Override
-	public void insertArticle(DisBoardDTO article) throws Exception {
+	public void insertArticle(DiscussionDTO article) throws Exception {
 	}
 
 	@Override
@@ -31,42 +33,42 @@ public class DisBoardDAO implements DisBoardService{
 	}
 
 	@Override
-	public List<DisBoardDTO> getArticles(int start, int end) throws Exception {
+	public List<DiscussionDTO> getArticles(int start, int end) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("start",start);
 		map.put("end",end);
-		List<DisBoardDTO> articleList = bDao.selectList("disBoard.getArticles", map);
+		List<DiscussionDTO> articleList = bDao.selectList("disBoard.getArticles", map);
 		return articleList;
 	}
 
 	@Override
-	public List<DisBoardDTO> getArticles(int start, int end, String keyword) throws Exception {
+	public List<DiscussionDTO> getArticles(int start, int end, String keyword) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("start",start);
 		map.put("end",end);
 		map.put("keyword",keyword);
-		List<DisBoardDTO> articleList = bDao.selectList("disBoard.getArticles", map);
+		List<DiscussionDTO> articleList = bDao.selectList("disBoard.getArticles", map);
 		return articleList;
 	}
 
 	@Override
-	public List<DisBoardDTO> getArticles(int start, int end, int sort) throws Exception {
+	public List<DiscussionDTO> getArticles(int start, int end, int sort) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("start",start);
 		map.put("end",end);
 		map.put("sort",sort);
-		List<DisBoardDTO> articleList = bDao.selectList("disBoard.getArticles", map);
+		List<DiscussionDTO> articleList = bDao.selectList("disBoard.getArticles", map);
 		return articleList;
 	}
 
 
 	@Override
-	public DisBoardDTO getArticle(int num) throws Exception {
+	public DiscussionDTO getArticle(int num) throws Exception {
 		return null;
 	}
 
 	@Override
-	public int updateArticle(DisBoardDTO article) throws Exception {
+	public int updateArticle(DiscussionDTO article) throws Exception {
 		return 0;
 	}
 
@@ -107,6 +109,25 @@ public class DisBoardDAO implements DisBoardService{
 	public void openStateClose(int num) throws Exception {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public List<DiscussionDTO> getBestArticles(int start, int end) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("start",start);
+		map.put("end",end);
+		List<DiscussionDTO> articleList = bDao.selectList("disBoard.getBestArticles", map);
+		return articleList;
+	}
+
+	@Override
+	public List<DiscussionDTO> getBestCArticles(int start, int end) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		int c = bDao.selectOne("disBoard.getBestC");
+		map.put("start",start);
+		map.put("end",end);
+		List<DiscussionDTO> articleCList = bDao.selectList("disBoard.getBestCArticles", map);
+		return articleCList;
 	}
 
 

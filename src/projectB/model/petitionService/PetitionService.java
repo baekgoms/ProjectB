@@ -3,6 +3,7 @@ package projectB.model.petitionService;
 import java.util.List;
 
 import projectB.model.petition.CategoryDTO;
+import projectB.model.petition.DiscussionDTO;
 import projectB.model.petition.PetCommentDTO;
 import projectB.model.petition.PetitionDTO;
 import projectB.model.petition.PetitionIndicatorDTO;
@@ -10,6 +11,7 @@ import projectB.model.petition.PetitionIndicatorDTO;
 public interface PetitionService {
 	
 	public void insertArticle(PetitionDTO petition) throws Exception;
+	public void insertDiscussion(DiscussionDTO dto) throws Exception;
 	public List<PetitionDTO> getCategory() throws Exception;
 	public int getArticleCount() throws Exception;
 	public int getArticleCount(String keyword) throws Exception;

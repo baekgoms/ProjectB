@@ -17,7 +17,10 @@ public class DiscussionDTO implements BaseDTO{
 	private int report;
 	private int open;
 	private String subject;
+	private String link;
+	private int commentcount;
 	
+
 	@Override
 	public void setInfo(ResultSet rs) {
 		try {
@@ -31,11 +34,13 @@ public class DiscussionDTO implements BaseDTO{
 			setReport(rs.getInt("report"));
 			setOpen(rs.getInt("open"));
 			setSubject(rs.getString("subject"));
+			setLink(rs.getString("link"));
+			setCommentcount(rs.getInt("commentcount"));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public String getSubject() { return subject; }
 	public int getNum() { return num; }
 	public String getWrite() { return write; }
@@ -46,6 +51,8 @@ public class DiscussionDTO implements BaseDTO{
 	public String getTag() { return tag; }
 	public int getReport() { return report; }
 	public int getOpen() { return open; }
+	public String getLink() { return link; }
+	public int getCommentcount() { return commentcount;	}
 	
 	public void setNum(int num) { this.num = num; }
 	public void setWrite(String write) { this.write = write; }
@@ -57,6 +64,8 @@ public class DiscussionDTO implements BaseDTO{
 	public void setReport(int report) { this.report = report; }
 	public void setOpen(int open) { this.open = open; }
 	public void setSubject(String subject) { this.subject = subject; } 
+	public void setLink(String link) { this.link = link; }
+	public void setCommentcount(int commentcount) { this.commentcount = commentcount; }
 	
 	
 }

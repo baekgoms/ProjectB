@@ -32,6 +32,7 @@
 		<mapper resource="/sql/petitionerSQL.xml" />
 		<mapper resource="/sql/petitionSQL.xml" />
 		<mapper resource="/sql/discussionSQL.xml" />
+		<mapper resource="/sql/loginSQL.xml" />
 	</mappers>
   
 </configuration>

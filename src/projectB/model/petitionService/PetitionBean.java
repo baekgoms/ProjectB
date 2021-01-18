@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import projectB.model.petition.CategoryDTO;
+import projectB.model.petition.DiscussionDTO;
 import projectB.model.petition.PetCommentDTO;
 import projectB.model.petition.PetitionDTO;
 import projectB.model.petition.PetitionIndicatorDTO;
@@ -63,7 +64,7 @@ public class PetitionBean {
    }
    
    @RequestMapping("discussionUpload.aa")
-	public String discussionUpload(PetitionDTO dto, Model model,HttpSession session) throws Exception {
+	public String discussionUpload(DiscussionDTO dto, Model model,HttpSession session) throws Exception {
 		
 		//임시 세션 아이디 입력
 		session.setAttribute("memId", "홍우찬테스트");
@@ -74,26 +75,22 @@ public class PetitionBean {
 		if(id != null) {
 			
 			List category = null;
-			System.out.println("wooch uploadForm run");
+			System.out.println("wooch discussionUploadForm run");
 			
 			model.addAttribute("dto", dto);
-			dto.setWriter((String)session.getAttribute("memId"));
-			System.out.println("Writer:"+dto.getWriter());
-			category = petitionDAO.getCategory();
-			model.addAttribute("category", category);
-			System.out.println("category size:"+category.size()+"\n"+category);
+			dto.setWrite((String)session.getAttribute("memId"));
+			System.out.println("Write:"+dto.getWrite());
 		}	
 		
 		return "wooch/discussionUploadForm";
 	}
 	
-   @RequestMapping("uploadPro.aa")
-   public String discussionUploadPro(PetitionDTO dto, HttpServletRequest request, HttpSession session) throws Exception{
+   @RequestMapping("discussionuploadPro.aa")
+   public String discussionUploadPro(DiscussionDTO dto, HttpServletRequest request, HttpSession session) throws Exception{
 	   	   
-	   
-	   dto.setWriter((String)session.getAttribute("memId"));
-	   System.out.println("Writer:"+dto.getWriter());
-	   petitionDAO.insertArticle(dto);
+	   dto.setWrite((String)session.getAttribute("memId"));
+	   System.out.println("Write:"+dto.getWrite());
+	   petitionDAO.insertDiscussion(dto);
 	   System.out.println("discussion uploadPro run");
 	   
 	   return "wooch/discussionUploadPro";

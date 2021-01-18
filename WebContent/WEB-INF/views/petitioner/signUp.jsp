@@ -93,7 +93,7 @@ $(function() {
 
 function signUpCheck(){
 	if(!$('#id').val() || !$('#pw').val()){
-		alert("id / password를 확인 해주세요");
+		alert("id / password를 확인 해주세요!");
 		return false;
 	}
 	var inputRadio = $("input[name='gender']:checked").val();
@@ -101,12 +101,18 @@ function signUpCheck(){
 		alert("성별을 선택하세요!");
 		return false;
 	}
-	if(!$('#email').val()){
-		alert("email을 확인 해주세요");
+	
+	if(!$('#birthday').val() || $('#birthday').val().length < 6){
+		alert("생년월일을 입력하세요!");
 		return false;
 	}
+	if(!$('#email').val()){
+		alert("email을 확인 해주세요!");
+		return false;
+	}
+	
 	if(!$('#confirmId').text() || $('#confirmId').text() != 'O'){
-		alert("아이디 중복 검사를 해주세요.");
+		alert("아이디 중복 검사를 해주세요!");
 		return false;
 	}
 	
@@ -190,7 +196,8 @@ $(document).ready(function(){
 										<input id="contact" name = "contact" class="form-control" type="text"	placeholder="연락처 -를 제외하고 입력하세요.">
 									</div>
 								</div>
-
+								
+								<!-- Gender -->
 								<div class="col-lg-12">									
 									<div class="card-body">
 										<div class="form-check form-check-inline">
@@ -203,6 +210,13 @@ $(document).ready(function(){
 										</div>
 									</div>
 								</div>
+								
+								<!-- Birthday -->
+								<div class="col-lg-12">
+									<div class="form-group">
+										<input id="birthday" name = "birthday" class="form-control" type="text"	placeholder="010101">
+									</div>
+								</div>
 
 								<!-- Email -->                                
 	                            <div class="col-lg-12">
@@ -210,7 +224,6 @@ $(document).ready(function(){
 	                                	<input id = "email" name = "email" class="form-control" type="email" placeholder="email address">
 	                                </div>
 	                            </div>
-                                
                                 
                                 <div class="col-lg-12 text-center">
                                     <button type="submit" class="btn btn-block btn-dark">가입</button>
