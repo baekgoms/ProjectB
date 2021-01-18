@@ -406,10 +406,11 @@ public class PetitionBean {
 	
 	@RequestMapping("declareArticle.aa")
 	public String declareArticle(int num, Model model)throws Exception{
+		
 		PetitionDTO report = petitionDAO.forReport(num);
 		
 		model.addAttribute("num",new Integer(num));
-		
+		model.addAttribute("report", report);
 		return "petition/declareArticle";
 	}
 	

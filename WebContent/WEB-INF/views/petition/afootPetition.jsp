@@ -22,7 +22,6 @@ function inputCheck(){
 	}
 }
 
-
 </script>
 
 <title>청원진행중인 게시판</title>
@@ -142,6 +141,8 @@ function inputCheck(){
 					<td width=300 align="center">
 	        			<a href ="projectB/petition/petContent.aa?num=${article.num}&pageNum=${currentPage}">${article.title}
 	        			</a>
+	        			
+	        			<input type="button" name="report" value="신고하기" onClick="openReport(${article.num});">
 	        		</td>
 					<td width=100 align="center">${article.endDate}</td>
 					<td width=100 align="center">${article.petition}</td>
@@ -217,7 +218,17 @@ function inputCheck(){
 <script src="/projectB/resource/bootstrap/assets/libs/raphael/raphael.min.js"></script>
 <script src="/projectB/resource/bootstrap/assets/libs/morris.js/morris.min.js"></script>
 <script src="/projectB/resource/bootstrap/js/pages/morris/morris-data.js"></script>
+<script style="text/javascript">
+function openReport(num){
+	
+	
+	url = "/projectB/petition/declareArticle.aa?num=" + num;
+	
+	window.open(url, "confirm", 
+    "toolbar=no, location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=600, height=400");
+}
 
+</script>
 
 
 </body>

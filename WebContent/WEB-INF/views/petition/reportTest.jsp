@@ -17,7 +17,7 @@ function openReport(form){
 </script>
 </head>
 <body>
-<form id="form" name="form" >
+<form id="form" name="dd" >
 <input type="hidden" id="id" name="id" value="846">
 <input type="button" name="report" value="신고하기" Onclick="openReport(this.form)"> 
 

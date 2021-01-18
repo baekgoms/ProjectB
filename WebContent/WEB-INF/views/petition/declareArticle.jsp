@@ -58,7 +58,7 @@ ${report.content}
                                 <div class="form-check form-check-inline">
                                     <div class="custom-control custom-radio">
                                         <input type="radio" class="custom-control-input" id="customControlValidation2" name="radio-stacked">
-                                        <label class="custom-control-label" for="customControlValidation2">부적벌한 홍보 게시물</label>
+                                        <label class="custom-control-label" for="customControlValidation2">부적절한 홍보 게시물</label>
                                     </div>
                                 </div>
                                 <br />
@@ -90,11 +90,8 @@ ${report.content}
 <input type="button" value=" 취소   " class="btn waves-effect waves-light btn-outline-dark">
 </div>
 </form>
-</body>
-</html>
 
-
-	<script src="/projectB/resource/bootstrap/assets/libs/jquery/dist/jquery.min.js"></script>
+<script src="/projectB/resource/bootstrap/assets/libs/jquery/dist/jquery.min.js"></script>
     <script src="/projectB/resource/bootstrap/assets/libs/popper.js/dist/umd/popper.min.js"></script>
     <script src="/projectB/resource/bootstrap/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="/projectB/resource/bootstrap/js/app-style-switcher.js"></script>
@@ -104,3 +101,8 @@ ${report.content}
     <script src="/projectB/resource/bootstrap/js/sidebarmenu.js"></script>
     <script src="/projectB/resource/bootstrap/js/custom.min.js"></script>
     <script src="/projectB/resource/bootstrap/assets/extra-libs/prism/prism.js"></script>      
+</body>
+</html>
+
+
+	
