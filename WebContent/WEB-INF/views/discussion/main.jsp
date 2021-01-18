@@ -49,7 +49,7 @@ function inputCheck(){
 <tr>
 <td width="30"></td>
 <td>
-<input type="text" class="form-control" name="keyword" id="keyword" placeholder="검색어를 입력해주세요"><div class="invalid-feedback">
+<input type="text" class="form-control" name="keyword" id="keyword" value="${keyword}" placeholder="검색어를 입력해주세요"><div class="invalid-feedback">
 검색어가 입력되지 않았습니다.
 </div>
 </td>

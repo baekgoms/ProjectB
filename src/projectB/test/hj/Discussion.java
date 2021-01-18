@@ -50,20 +50,23 @@ public class Discussion {
 	@RequestMapping("mainBest.aa")
 	public String mainBest(@RequestParam(defaultValue="1" , required = true)int sort, Model model) throws Exception {
 		int listSize = 5;
-        int count = 0;
+		int number = 1;
         
         List<DiscussionDTO> articleList = null;
-        
-        count = disBoardDAO.getArticleCount();
-        if (count > 0) {
-            articleList = disBoardDAO.getBestArticles(1,listSize);
+        List<DiscussionDTO> articleCList = null;
+        if(sort == 1) {
+	        articleList = disBoardDAO.getBestArticles(1,listSize, sort);
+	        articleCList = disBoardDAO.getBestCArticles(1, listSize, sort);
         } else {
-            articleList = Collections.emptyList();
+        	articleList = disBoardDAO.getBestArticles(1,listSize, sort);
+	        articleCList = disBoardDAO.getBestCArticles(1, listSize, sort);
         }
-        model.addAttribute("count", new Integer(count));
+        
         model.addAttribute("listSize", new Integer(listSize));
         model.addAttribute("articleList", articleList);
+        model.addAttribute("articleCList", articleCList);
         model.addAttribute("sort", new Integer(sort));
+        model.addAttribute("number", new Integer(number));
         
 		return "discussion/mainBest";
 	}
@@ -83,6 +86,7 @@ public class Discussion {
         } else {
             articleList = Collections.emptyList();
         }
+        
         model.addAttribute("currentPage", new Integer(currentPage));
         model.addAttribute("startRow", new Integer(startRow));
         model.addAttribute("endRow", new Integer(endRow));

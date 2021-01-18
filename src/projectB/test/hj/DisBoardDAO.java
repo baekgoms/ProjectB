@@ -112,20 +112,21 @@ public class DisBoardDAO implements DisBoardService{
 	}
 
 	@Override
-	public List<DiscussionDTO> getBestArticles(int start, int end) {
+	public List<DiscussionDTO> getBestArticles(int start, int end, int sort) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("start",start);
 		map.put("end",end);
+		map.put("sort",sort);
 		List<DiscussionDTO> articleList = bDao.selectList("disBoard.getBestArticles", map);
 		return articleList;
 	}
 
 	@Override
-	public List<DiscussionDTO> getBestCArticles(int start, int end) {
+	public List<DiscussionDTO> getBestCArticles(int start, int end, int sort) {
 		Map<String, Object> map = new HashMap<String, Object>();
-		int c = bDao.selectOne("disBoard.getBestC");
 		map.put("start",start);
 		map.put("end",end);
+		map.put("sort",sort);
 		List<DiscussionDTO> articleCList = bDao.selectList("disBoard.getBestCArticles", map);
 		return articleCList;
 	}

@@ -25,7 +25,7 @@
 	</select>
 	
 	<select id="getArticles" parameterType="map" resultType="discussionDTO">
-		select * from (select num, write, content, reg, agreement, opposition, tag, report, open, subject, link, rownum as r from(select * from discussion 
+		select * from (select num, write, content, reg, agreement, opposition, tag, report, open, subject, link, commentcount, rownum as r from(select * from discussion 
 		<if test="keyword != null">
 			where subject like '%' || #{keyword} || '%' or content like '%' || #{keyword} || '%' or tag like '%' || #{keyword} || '%' 
 		</if>
@@ -39,12 +39,29 @@
 	</select>
 	
 	<select id="getBestArticles" parameterType="map" resultType="discussionDTO">
-		<![CDATA[select * from (select num, write, content, reg, agreement, opposition, tag, report, open, subject, link, rownum as r from(select * from discussion 
-		where to_char(reg, 'yyyymmdd') <= to_char(sysdate,'yyyymmdd') and to_char(reg, 'yyyymmdd') >= to_char(sysdate-7,'yyyymmdd')
-		order by agreement desc) order by agreement desc)
-		where r >= #{start} and r <= #{end}]]>
+		select * from (select num, write, content, reg, agreement, opposition, tag, report, open, subject, link, commentcount, rownum as r from(select * from discussion 
+		<![CDATA[where to_char(reg, 'yyyymmdd') <= to_char(sysdate,'yyyymmdd') and to_char(reg, 'yyyymmdd') >= ]]>
+		<if test="sort == 1">
+		<![CDATA[to_char(sysdate-7,'yyyymmdd') ]]>
+		</if>
+		<if test="sort == 2">
+		<![CDATA[to_char(sysdate-30,'yyyymmdd') ]]>
+		</if>
+		<![CDATA[order by agreement+opposition desc) order by agreement+opposition desc) where r >= #{start} and r <= #{end} ]]>
 	</select>
 
+	<select id="getBestCArticles" parameterType="map" resultType="discussionDTO">
+		<![CDATA[select * from (select num, write, content, reg, agreement, opposition, tag, report, open, subject, link, commentcount, rownum as r from(select * from discussion 
+		where to_char(reg, 'yyyymmdd') <= to_char(sysdate,'yyyymmdd') and to_char(reg, 'yyyymmdd') >= ]]>
+		<if test="sort == 1">
+		<![CDATA[to_char(sysdate-7,'yyyymmdd') ]]>
+		</if>
+		<if test="sort == 2">
+		<![CDATA[to_char(sysdate-30,'yyyymmdd') ]]>
+		</if>
+		<![CDATA[order by commentcount desc) order by commentcount desc) where r >= #{start} and r <= #{end}]]>
+	</select>
+	
 	<select id="getArticle" parameterType="int" resultType="discussionDTO">
 		select * from discussion where num = #{num}
 	</select>
