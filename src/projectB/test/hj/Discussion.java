@@ -1,5 +1,7 @@
 package projectB.test.hj;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -133,11 +135,25 @@ public class Discussion {
 	}
 	
 	@RequestMapping("content.aa")
-    public String content(int num, @RequestParam(defaultValue="1" , required = true)int pageNum, Model model) throws Exception{
+    public String content(@RequestParam(defaultValue="356" , required = true)int num, 
+    		@RequestParam(defaultValue="1" , required = true)int pageNum, Model model) throws Exception {
+		System.out.println("content run/" + num);
+		
 		DiscussionDTO article = disBoardDAO.getArticle(num);
-		model.addAttribute("num", new Integer(num));
-        model.addAttribute("pageNum", new Integer(pageNum));
+		if (article == null) {
+			return "redriect:dadasd.aa"; // 게시물이 없다는 오류 페이지로 보여주기!
+		}
+		
+		List<String> tags = new ArrayList<>(
+				Arrays.asList(article.getTag().split(","))
+		);	
+		// System.out.println(tags);
+		
+		model.addAttribute("num", num);
+        model.addAttribute("pageNum", pageNum);
         model.addAttribute("article", article);
+        model.addAttribute("tags", tags);
+        
 		return "discussion/content";
 	}
 

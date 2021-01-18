@@ -64,7 +64,7 @@ public class DisBoardDAO implements DisBoardService{
 
 	@Override
 	public DiscussionDTO getArticle(int num) throws Exception {
-		return null;
+		return bDao.selectOne("disBoard.getArticle", num);
 	}
 
 	@Override
