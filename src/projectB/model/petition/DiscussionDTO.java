@@ -17,6 +17,7 @@ public class DiscussionDTO implements BaseDTO{
 	private int report;
 	private int open;
 	private String subject;
+	private String link;
 	
 	@Override
 	public void setInfo(ResultSet rs) {
@@ -31,11 +32,12 @@ public class DiscussionDTO implements BaseDTO{
 			setReport(rs.getInt("report"));
 			setOpen(rs.getInt("open"));
 			setSubject(rs.getString("subject"));
+			setLink(rs.getString("link"));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public String getSubject() { return subject; }
 	public int getNum() { return num; }
 	public String getWrite() { return write; }
@@ -46,6 +48,7 @@ public class DiscussionDTO implements BaseDTO{
 	public String getTag() { return tag; }
 	public int getReport() { return report; }
 	public int getOpen() { return open; }
+	public String getLink() { return link; }
 	
 	public void setNum(int num) { this.num = num; }
 	public void setWrite(String write) { this.write = write; }
@@ -57,6 +60,7 @@ public class DiscussionDTO implements BaseDTO{
 	public void setReport(int report) { this.report = report; }
 	public void setOpen(int open) { this.open = open; }
 	public void setSubject(String subject) { this.subject = subject; } 
+	public void setLink(String link) { this.link = link; }
 	
 	
 }
