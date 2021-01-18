@@ -152,4 +152,14 @@ public class PetitionServiceImpl implements PetitionService {
         return dao.selectOne("petition.getPetitionIndicator", num);
 	}
 
+	//Test중
+	@Override
+	public PetitionDTO forReport(int num) throws Exception {
+		
+
+		
+		return dao.selectOne("petition.forReport",num);
+	
+	}
+
 }

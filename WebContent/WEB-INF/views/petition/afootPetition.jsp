@@ -21,6 +21,8 @@ function inputCheck(){
 		$("#search").submit();
 	}
 }
+
+
 </script>
 
 <title>청원진행중인 게시판</title>

@@ -406,6 +406,24 @@ public class PetitionBean {
 		petitionDAO.insertPetCmt(dto);
 		return "petition/petitionCommentPro";
 	}
+	
+	@RequestMapping("declareArticle.aa")
+	public String declareArticle(int num, Model model)throws Exception{
+		PetitionDTO report = petitionDAO.forReport(num);
+		
+		model.addAttribute("num",new Integer(num));
+		
+		return "petition/declareArticle";
+	}
+	
+	//test중
+	@RequestMapping("reportTest.aa")
+	public String reportTest()throws Exception{
+		
+		
+		
+		return "petition/reportTest";
+	}
 
 }
 

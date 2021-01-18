@@ -23,6 +23,8 @@ public interface PetitionService {
 	public int getArticleCountbyState(int state) throws Exception;
 	public List<PetitionDTO> getArtilclebyState(int state, int startRow, int endRow) throws Exception;
 	public List<CategoryDTO> getCategoryList() throws Exception;
+	//test중
+	public PetitionDTO forReport(int num) throws Exception;
 	
 	public PetitionDTO getArticle(int num) throws Exception;
 	public void insertPetCmt(PetCommentDTO dto) throws Exception;
@@ -30,4 +32,5 @@ public interface PetitionService {
 	public List<PetitionDTO> petCmtList(int petitionNum, int start, int end) throws Exception;
 	public int petCmtCount(int petitionNum) throws Exception;
     public PetitionIndicatorDTO getPetitionIndicator(int num) throws Exception;
+	
 }
