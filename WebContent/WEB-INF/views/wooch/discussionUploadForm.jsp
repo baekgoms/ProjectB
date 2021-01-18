@@ -21,7 +21,7 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="/projectB/resource/bootstrap/assets/images/favicon.png">
-    <title>청원 올리기 </title>
+    <title>토론 올리기 </title>
     <link href="/projectB/resource/bootstrap/css/style.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link rel="stylesheet" type="text/css" href="/projectB/resource/bootstrap/assets/extra-libs/prism/prism.css">
@@ -92,11 +92,11 @@
 		                            <div class="card-body">
 		                                <h4 class="card-title">토론제목 </h4>    
 		                                  
-<!-- 			<form>				 --> <form method="post" id="tag-form" name="uploadForm" onsubmit="return checkIt()" action="/projectB/petition/uploadPro.aa" >
+<!-- 			<form>				 --> <form method="post" id="tag-form" name="uploadForm" onsubmit="return checkIt()" action="/projectB/petition/discussionuploadPro.aa" >
 			                                <div class="form-group">
 	                                            
 	                                            <input type="text" class="form-control"
-	                                                placeholder="제목 입력" id="title" name="title">
+	                                                placeholder="제목 입력" id="subject" name="subject">
 	                                        </div>
 		                                <hr>
 		                              
@@ -366,28 +366,21 @@
     function checkIt()
     {
     	
-        var title = document.getElementById("title");
+        var subject = document.getElementById("subject");
         var content = document.getElementById("content");
-        var category = document.getElementById("inputGroupSelect01");
-        
-       if(title.value=="") {
-           alert("제목을 입력해주세요");
+
+       if(subject.value=="") {
+           alert("토론 주제를 입력해주세요");
            title.focus();
            return false;
        }
        
        else if(content.value=="") {
-           alert("청원 내용을 입력해주세요");
+           alert(토론 내용을 입력해주세요");
            content.focus();
            return false;
        }
-       
-       else if(category.value=="선택하기") {
-           alert("청원 분류를 선택해주세요");
-           category.focus();
-           return false;
-       }
-     
+
     return true;
     }
      
