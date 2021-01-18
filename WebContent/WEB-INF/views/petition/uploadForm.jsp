@@ -110,6 +110,7 @@
 				                                            <div class=" col-md-3 ">
 										                    
 										                               
+<<<<<<< Updated upstream:WebContent/WEB-INF/views/petition/uploadForm.jsp
 							                                    <div class="form-group mb-1">
 							                                        <label class="mr-sm-1" for="inlineFormCustomSelect">청원 분류 </label>
 							                                        <select class="custom-select mr-sm-2" id="inputGroupSelect01" name="category" >
@@ -120,10 +121,26 @@
 							                                        </select>
 							                                    </div>
 							                        
+=======
+										                                    <div class="form-group mb-1">
+										                                        <label class="mr-sm-1" for="inlineFormCustomSelect">청원 분류 </label>
+										                                        <select class="custom-select mr-sm-2" id="inputGroupSelect01" name="category" >
+										                                           <!-- DB 컬럼 개수만큼 반복  -->
+										                                           <c:forEach var="name" items="${category}" varStatus="status">
+																						<option value="${status.count}"><c:out value="${name}" /></option>
+																					</c:forEach>
+										                                        </select>
+										                                    </div>
+										                        
+>>>>>>> Stashed changes:WebContent/WEB-INF/views/wooch/uploadForm.jsp
 										                    </div>
 		                                            
 		                                                    <div class="col-md-9">
 		                                                   		
+<<<<<<< Updated upstream:WebContent/WEB-INF/views/petition/uploadForm.jsp
+=======
+		                                                    
+>>>>>>> Stashed changes:WebContent/WEB-INF/views/wooch/uploadForm.jsp
 			                                                        <div class="form-group">
 			                                                        <label class="mr-sm-1" for="inlineFormCustomSelect">해시태그 </label>
 			                                                            <input type="text" class="form-control col-6 " id="tag" name="tag2"
@@ -131,6 +148,10 @@
 			                                                                <ul class="col-sm-12" id="tag-list"> </ul>
 			                                                        </div>
 		                                                        
+<<<<<<< Updated upstream:WebContent/WEB-INF/views/petition/uploadForm.jsp
+=======
+		                                                       
+>>>>>>> Stashed changes:WebContent/WEB-INF/views/wooch/uploadForm.jsp
 		                                                       <input type="hidden" value="" name="tag" id="rdTag" />
 		                                                    </div>
 		                                      
@@ -250,6 +271,11 @@
     <script src="/projectB/resource/bootstrap/js/sidebarmenu.js"></script>
     <script src="/projectB/resource/bootstrap/js/custom.min.js"></script>
     <script src="/projectB/resource/bootstrap/assets/extra-libs/prism/prism.js"></script>  
+<<<<<<< Updated upstream:WebContent/WEB-INF/views/petition/uploadForm.jsp
+=======
+    
+
+>>>>>>> Stashed changes:WebContent/WEB-INF/views/wooch/uploadForm.jsp
 	
 	<script>
 	    $(document).ready(function () {
