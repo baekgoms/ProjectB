@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import projectB.model.petition.DiscussionDTO;
+
 @Controller
 @RequestMapping("discussion")
 public class Discussion {
@@ -28,7 +30,7 @@ public class Discussion {
         int endRow = currentPage * pageSize;
         int count = 0;
         
-        List<DisBoardDTO> articleList = null;
+        List<DiscussionDTO> articleList = null;
         count = disBoardDAO.getArticleCount();
         if (count > 0) {
             articleList = disBoardDAO.getArticles(startRow, endRow);
@@ -53,7 +55,7 @@ public class Discussion {
         int endRow = currentPage * pageSize;
         int count = 0;
         
-        List<DisBoardDTO> articleList = null;
+        List<DiscussionDTO> articleList = null;
         
         count = disBoardDAO.getArticleCount();
         if (count > 0) {
@@ -81,7 +83,7 @@ public class Discussion {
         int endRow = currentPage * pageSize;
         int count = 0;
         
-        List<DisBoardDTO> articleList = null;
+        List<DiscussionDTO> articleList = null;
         count = disBoardDAO.getArticleCount(keyword);
         if (count > 0) {
             articleList = disBoardDAO.getArticles(startRow, endRow, keyword);
@@ -101,14 +103,14 @@ public class Discussion {
 	}
 	
 	@RequestMapping("writeForm.aa")
-    public String writeForm(Model model, DisBoardDTO dto, int pageNum){
+    public String writeForm(Model model, DiscussionDTO dto, int pageNum){
 		model.addAttribute("dto", dto);
         model.addAttribute("pageNum", new Integer(pageNum));
 		return "discussion/writeForm";
 	}
 	
 	@RequestMapping("writePro.aa")
-    public String writePro(DisBoardDTO dto, int pageNum, Model model) throws Exception{
+    public String writePro(DiscussionDTO dto, int pageNum, Model model) throws Exception{
 		disBoardDAO.insertArticle(dto);
         model.addAttribute("pageNum", new Integer(pageNum));
 		return "discussion/writePro";
@@ -121,7 +123,7 @@ public class Discussion {
 
 	@RequestMapping("updateForm.aa")
     public String updateForm(int num, Model model) throws Exception{
-		DisBoardDTO article = disBoardDAO.getArticle(num);
+		DiscussionDTO article = disBoardDAO.getArticle(num);
 		model.addAttribute("article", article);
 		return "discussion/updateForm";
 	}
@@ -135,7 +137,7 @@ public class Discussion {
 	
 	@RequestMapping("content.aa")
     public String content(int num, int pageNum, Model model) throws Exception{
-		DisBoardDTO article = disBoardDAO.getArticle(num);
+		DiscussionDTO article = disBoardDAO.getArticle(num);
 		model.addAttribute("num", new Integer(num));
         model.addAttribute("pageNum", new Integer(pageNum));
         model.addAttribute("article", article);

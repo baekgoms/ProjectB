@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="disBoard">
 	<!--  CRUD (Create, Read, Update, Delete) -> DB구축  -->
-	<insert id="insertArticle" parameterType="disDTO">
+	<insert id="insertArticle" parameterType="discussionDTO">
 		insert into discussion values(discussion_seq.nextval, 
 									  #{write},
 									  #{content},
@@ -24,8 +24,8 @@
 		</if>
 	</select>
 	
-	<select id="getArticles" parameterType="map" resultType="disDTO">
-		select * from (select num, write, content, reg, agreement, opposition, tag, report, open, subject, rownum as r from(select * from discussion 
+	<select id="getArticles" parameterType="map" resultType="discussionDTO">
+		select * from (select num, write, content, reg, agreement, opposition, tag, report, open, subject, link, rownum as r from(select * from discussion 
 		<if test="keyword != null">
 			where subject like '%' || #{keyword} || '%' or content like '%' || #{keyword} || '%' or tag like '%' || #{keyword} || '%' 
 		</if>
@@ -38,11 +38,11 @@
 		<![CDATA[where r >= #{start} and r <= #{end}]]>
 	</select>
 
-	<select id="getArticle" parameterType="int" resultType="disDTO">
+	<select id="getArticle" parameterType="int" resultType="discussionDTO">
 		select * from discussion where num = #{num}
 	</select>
 	
-	<update id="updateArticle" parameterType="disDTO">
+	<update id="updateArticle" parameterType="discussionDTO">
 	 	update discussion set subject=#{subject},content=#{content} where num=#{num}
 	</update>
 	
