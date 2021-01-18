@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import projectB.model.petition.CategoryDTO;
+import projectB.model.petition.DiscussionDTO;
 import projectB.model.petition.PetCommentDTO;
 import projectB.model.petition.PetitionDTO;
 import projectB.model.petition.PetitionIndicatorDTO;
@@ -24,6 +25,11 @@ public class PetitionServiceImpl implements PetitionService {
 		dao.insert("petition.insertArticle", petition);
 	}
 
+	@Override
+	public void insertDiscussion(DiscussionDTO dto) throws Exception {
+		dao.insert("petition.insertDiscussion", dto);
+	}
+	
 	@Override
 	public List<PetitionDTO> getCategory() throws Exception {
 		Map map = new HashMap();
@@ -151,5 +157,7 @@ public class PetitionServiceImpl implements PetitionService {
 	public PetitionIndicatorDTO getPetitionIndicator(int num) throws Exception {
         return dao.selectOne("petition.getPetitionIndicator", num);
 	}
+
+	
 
 }

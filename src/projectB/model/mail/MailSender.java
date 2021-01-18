@@ -1,4 +1,4 @@
-package projectB.model.petitioner;
+package projectB.model.mail;
 
 import java.io.UnsupportedEncodingException;
 

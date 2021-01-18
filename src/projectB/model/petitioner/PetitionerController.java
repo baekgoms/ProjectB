@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import projectB.model.mail.MailSendService;
 import projectB.model.petitionerService.PetitionerService;
 
 @Controller
@@ -37,7 +38,7 @@ public class PetitionerController {
 	@RequestMapping("mailSend.aa")
 	public String mailSend(PetitionerDTO dto) {
 		System.out.println("mailSend run");
-
+		
 		mailSendService.createAuthKey();
 		int authKey = mailSendService.getEncodingKey();
 
