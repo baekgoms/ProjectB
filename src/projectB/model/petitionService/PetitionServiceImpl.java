@@ -13,6 +13,7 @@ import projectB.model.petition.DiscussionDTO;
 import projectB.model.petition.PetCommentDTO;
 import projectB.model.petition.PetitionDTO;
 import projectB.model.petition.PetitionIndicatorDTO;
+import projectB.model.petitioner.PetitionerDTO;
 
 @Service("petitionDAO")
 public class PetitionServiceImpl implements PetitionService {
@@ -165,15 +166,32 @@ public class PetitionServiceImpl implements PetitionService {
 	}
 
 
-	//Test중
+	//신고하기 Test중
 	@Override
 	public PetitionDTO forReport(int num) throws Exception {
-		
 
-		
 		return dao.selectOne("petition.forReport",num);
-	
 	}
+
+	@Override
+	public PetitionDTO reportCount(int num) throws Exception {
+		dao.update("petition.reportCount",num);
+		return dao.selectOne("petition.forReport",num);
+	}
+
+	@Override
+	public int getreportCount(int num) throws Exception {
+		
+		return dao.selectOne("petition.reportCountBynum", num);
+	}
+
+	@Override
+	public int updateReport(String id) throws Exception {
+		
+		return dao.update("petition.reportCountId", id);
+	}
+
+
 
 
 

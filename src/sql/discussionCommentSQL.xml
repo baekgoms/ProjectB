@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="disBoardComment">
+	<!--  CRUD (Create, Read, Update, Delete) -> DB구축  -->
+	<insert id="insertComment" parameterType="disBoardCommDTO">
+		insert into discussionComment values( discussionComment_seq.nextval, 
+		#{ discussionNum }, #{ write }, #{ content }, #{ imgState },
+		#{ up }, #{ down }, #{ report }, #{ publicState }, sysdate )
+	</insert>
+	
+	<select id="selectCommentByDiscussionNum" parameterType="int" resultType="disBoardCommDTO">
+		select * from discussionComment where discussionNum = #{ value }
+	</select>
+</mapper>

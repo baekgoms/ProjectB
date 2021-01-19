@@ -1,10 +1,12 @@
-package projectB.test.hj;
+package projectB.model.discussionCommService;
 
 import java.util.List;
 
+import projectB.model.discussion.DisBoardCommDTO;
+
 public interface DisBoardCommService {
 	public int getCommentCount(int bnum) throws Exception;
-	public List<DisBoardCommDTO> getCommentList(int bnum) throws Exception;
+	public List<DisBoardCommDTO> getCommentListByDiscussionNum(int discussionNum) throws Exception;
 	public void insertComment(DisBoardCommDTO comment) throws Exception;
 	int deleteComment(int num) throws Exception;
 	public void up(int num) throws Exception;

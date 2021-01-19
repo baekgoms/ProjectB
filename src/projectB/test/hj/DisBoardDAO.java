@@ -110,7 +110,7 @@ public class DisBoardDAO implements DisBoardService{
 		List<DiscussionDTO> articleCList = bDao.selectList("disBoard.getBestCArticles", map);
 		return articleCList;
 	}
-
+	
 	@Override
 	public void insertVote(Map<String, Object> voteMap) {
 		Map<String, Object> map = new HashMap<>(voteMap);
@@ -140,6 +140,7 @@ public class DisBoardDAO implements DisBoardService{
 	public void updateVoteByDown(int discussionNum) {
 		bDao.update("disBoard.opposition", discussionNum);
 	}
+
 	// 일요일을 한 주의 기준으로 했을 때 이번주가 이번달의 몇째주인지 구함
 	public int getWeek(){
  		Calendar c = Calendar.getInstance();
@@ -187,6 +188,4 @@ public class DisBoardDAO implements DisBoardService{
  		c.add(c.DATE,7);
  		return formatter.format(c.getTime());
 	}
-
-
 }

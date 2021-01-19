@@ -16,6 +16,10 @@ public class LoginUtils {
 		return session.getAttribute("memId") != null;
 	}
 	
+	public static String getLoginID(HttpSession session) {
+		return (String)session.getAttribute("memId");
+	}
+	
 	public static void logout(HttpSession session) {
 		session.invalidate();
 	}

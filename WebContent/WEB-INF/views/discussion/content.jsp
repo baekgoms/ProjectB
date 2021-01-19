@@ -45,15 +45,97 @@ ul {
     left: -13px;
     position: relative;
 }
-.layer {
+/* .layer {
   position: absolute;
   top: 25%;
   left: 25%;
   width: 1200px;
   margin: -50px 0 0 -50px;
-}
+} */
 </style>
 
+<script>
+function voteCheck(discussionNum, voter, voteResult){
+	if(!discussionNum){
+		alert("게시물이 없습니다.");
+		return false;
+	}
+	
+	if(!voter){
+		alert("로그인이 필요합니다.");
+		return false;
+	}
+	if(voteResult != 0){
+		alert("투표는 한번만 가능합니다.");
+		return;
+	}
+	return true;
+}
+
+function btn_y(discussionNum, voter, voteResult){
+	if(!voteCheck(discussionNum, voter, voteResult)){
+		return;
+	}
+	
+	update_y(discussionNum, voter);
+}
+
+function update_y(discussionNum, voter){
+	//alert("찬성 투표 업데이트");
+	$.ajax({
+		 url : "vote_y.aa",       
+         dataType : "json",   
+         data : "discussionNum=" + discussionNum + "&writer="+voter,
+         error: function(jqXHR, textStatus, errorThrown) {
+             //alert(jqXHR.responseText);
+        	 alert("오류");
+         },
+         success : function(data) {
+        	 //alert(data);
+              if(data == -1){
+            	  alert("찬성 투표  오류 다시 시도해주세요.");
+            	  location.reload();
+             }
+             else if(data == 1){                  
+               	alert("찬성 투표  완료");               
+               	location.reload();
+             }
+         }
+	});
+}
+
+function btn_n(discussionNum, voter, voteResult){
+	if(!voteCheck(discussionNum, voter, voteResult)){
+		return;
+	}
+	
+	update_n(discussionNum, voter);
+}
+
+function update_n(discussionNum, voter){
+	//alert("반대 투표 업데이트");
+	$.ajax({
+		 url : "vote_n.aa",       
+         dataType : "json",   
+         data : "discussionNum=" + discussionNum + "&writer="+voter,
+         error: function(jqXHR, textStatus, errorThrown) {
+             //alert(jqXHR.responseText);
+        	 alert("오류");
+         },
+         success : function(data) {
+        	 //alert(data);
+              if(data == -1){
+            	  alert("반대 투표  오류 다시 시도해주세요.");
+            	  location.reload();
+             }
+             else if(data == 1){                  
+               	alert("반대 투표  완료");               
+               	location.reload();
+             }
+         }
+	});
+}
+</script>
 </head>
 
 <body>
@@ -116,14 +198,18 @@ ul {
 					<div class="btn_yn" style="position: sticky;">
 						<div id="graph" style= "height: 200px"></div>
 						
-						<button type="button" class="btn btn-info btn-circle-lg"
+						<button id = "btn_y" type="button" class="btn btn-info btn-circle-lg" 
+						onclick="btn_y('${article.num}', '${ memId }', '${ voteResult }')"
 							style="position: relative; left: 210px; top: -200;">
 							<i class="fa fa-check"></i>
 						</button>
-						<button type="button" class="btn btn-danger btn-circle-lg"
+						<button type="button" class="btn btn-danger btn-circle-lg" 
+						onclick="btn_n('${article.num}', '${ memId }', '${ voteResult }')"
 							style="position: relative; left: 125px; top: -80;">
 							<i class="fa fa-times"></i>
 						</button>
+						
+
 					</div>					
 					<br>				
 	
@@ -135,12 +221,12 @@ ul {
 							<div class="cw_wrap">
 								<div class="form-check form-check-inline">
 									<input class="form-check-input" type="radio"
-										name="inlineRadioOptions" id="radio_y" value="option1">
+										name="inlineRadioOptions" id="radio_y" value="1">
 									<label class="form-check-label" for="inlineRadio1">찬성</label>
 								</div>
 								<div class="form-check form-check-inline">
 									<input class="form-check-input" type="radio"
-										name="inlineRadioOptions" id="radio_n" value="option2">
+										name="inlineRadioOptions" id="radio_n" value="2">
 									<label class="form-check-label" for="inlineRadio2">반대</label>
 								</div>
 								<textarea name="commentbody" id="cwd_comentBody"
@@ -153,20 +239,20 @@ ul {
 						
 						<div>
 							<label>댓글 목록</label>
-							<c:forEach var="i" begin="0" end="3">								
+							<c:forEach var = "comment" items = "${ comments }">							
 								<div class="co_view co_v1">
 									<span class="">
-										백승환님은
-										<c:if test="${ true }">
+										${ comment.write }
+										<c:if test="${ comment.imgState == 0 }">
 											<img src="/projectB/resource/bootstrap/assets/images/custom-select.png">
 										</c:if>
 										
-										<c:if test="${ false }">
+										<c:if test="${ comment.imgState == 1 }">
 											<img src="/projectB/resource/bootstrap/assets/images/logo-light-text.png">
 										</c:if>										
 									</span>
 									<div class="co_text display-idle">
-										의견 내용 샬라샬라샬라샤랄라라라라라라
+										${ comment.content }
 									</div>									
 									<span class="btn small display-idle re_com">
 										<button type="button" class="btn waves-effect waves-light btn-outline-dark">
