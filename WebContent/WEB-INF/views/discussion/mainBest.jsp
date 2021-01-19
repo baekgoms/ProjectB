@@ -32,9 +32,9 @@ function inputCheck(){
 	}
 }
 </script>
-
 <title>토론게시판</title>
 <center>
+${sunday}
 <div class="col-12">
 <br><br>
 </div>
@@ -79,6 +79,9 @@ function inputCheck(){
 	<input type="button" value="                           월간베스트 토론                        " class="btn waves-effect waves-light btn-dark" 
 		onclick="document.location.href='/projectB/discussion/mainBest.aa?sort=2'">
 </c:otherwise></c:choose>
+<div class="col-12">
+<br><br>
+</div>
 <c:choose>
 <c:when test="${sort == 1 }">
 <h3>주간베스트</h3>
@@ -90,56 +93,11 @@ function inputCheck(){
 </c:otherwise>
 </c:choose>
 
-<div>
-추천 TOP5 <br />
-1월 2주차 1월 1주차 12월 
-<table class="table">
-<tr align="center">
-<td>순위</td>
-<td>제목</td>
-<td>작성자</td>
-<td>찬성수/반대수</td>
-<td>작성일</td>
-<td>댓글수</td>
-</tr>
-<c:forEach items="${articleList}" var="article">
-<tr align="center">
-<td><c:out value="${number}"/>
-	<c:set var="number" value="${number + 1}"/></td>
-<td width="500"><a href="/projectB/discussion/content.aa?num=${article.num}">${article.subject}</a></td>
-<td>${article.write}</td>
-<td>${article.agreement} / ${article.opposition}</td>
-<td>${article.reg}</td>
-<td>${article.commentcount}</td>
-</tr>
-</c:forEach>
-</table>
-</div>
-
-<c:set var="number" value="1"/>
-
-<div>
-댓글 TOP5<br />
-<table class="table">
-<tr align="center">
-<td>순위</td>
-<td>제목</td>
-<td>작성자</td>
-<td>찬성수/반대수</td>
-<td>작성일</td>
-<td>댓글수</td></tr>
-<c:forEach items="${articleCList}" var="articleC">
-<tr align="center">
-<td><c:out value="${number}"/>
-	<c:set var="number" value="${number + 1}"/></td>
-<td width="500"><a href="/projectB/discussion/content.aa?num=${articleC.num}">${articleC.subject}</a></td>
-<td>${articleC.write}</td>
-<td>${articleC.agreement} / ${articleC.opposition}</td>
-<td>${articleC.reg}</td>
-<td>${articleC.commentcount}</td>
-</tr>
-</c:forEach>
-</table>
-</div>
+<c:import url="discussionTopList.jsp?so=${something}" charEncoding="UTF8">
+<c:param name="sort" value="${sort}"></c:param>
+<c:param name="articleList" value="${articleList}"></c:param>
+<c:param name="articleCList" value="${articleCList}"></c:param>
+<c:param name="weekList" value="${weekList}"></c:param>
+</c:import>
 
 </center>

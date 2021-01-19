@@ -1,6 +1,7 @@
 package projectB.test.hj;
 
 import java.util.List;
+import java.util.Map;
 
 import projectB.model.petition.DiscussionDTO;
 
@@ -11,12 +12,9 @@ public interface DisBoardService {
 	public int getArticleCount(String keyword) throws Exception;
 	public List<DiscussionDTO> getArticles(int start, int end) throws Exception;
 	public List<DiscussionDTO> getArticles(int start, int end, String keyword) throws Exception;
-	public List<DiscussionDTO> getArticles(int start, int end, int sort) throws Exception;
 	public DiscussionDTO getArticle(int num) throws Exception;
 	public int updateArticle(DiscussionDTO article) throws Exception;
 	int deleteArticle(int num) throws Exception;
-	public void agreement(int num) throws Exception;
-	public void opposition (int num) throws Exception;
 	public void report (int num) throws Exception;
 	public void openStateCheck (int num) throws Exception;
 	public void openStateOpen (int num) throws Exception;
@@ -24,4 +22,14 @@ public interface DisBoardService {
 	
 	public List<DiscussionDTO> getBestArticles(int start, int end, int sort);
 	public List<DiscussionDTO> getBestCArticles(int start, int end, int sort);
+
+	public void insertVote(Map<String, Object> voteMap);
+	public int CheckVote(int discussionNum, String writer);
+	public void updateVoteByUp(int discussionNum);
+	public void updateVoteByDown(int discussionNum);
+	
+	public int getWeek();
+	public int getMonth();
+	public int getPreWeek(int month);
+	public String getSunday(int week, int month);
 }
