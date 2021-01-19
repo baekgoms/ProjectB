@@ -164,9 +164,6 @@ public class Discussion {
     		@RequestParam(defaultValue="1" , required = true)int pageNum,
     		@RequestParam(defaultValue="1" , required = true)int commentPageNum,
     		HttpSession session, Model model) throws Exception {
-		System.out.println("content run/" + pageNum);
-		System.out.println("content run/" + commentPageNum);
-		System.out.println("content run/" + discussionNum);
 		
 		String id = LoginUtils.getLoginID(session);
 		int voteResult = disBoardDAO.CheckVote(discussionNum, id);
@@ -177,14 +174,15 @@ public class Discussion {
 			return "redriect:dadasd.aa"; // 게시물이 없다는 오류 페이지로 보여주기!
 		}
 		
+		//태그 생성
 		List<String> tags = new ArrayList<>( Arrays.asList(article.getTag().split(",")) );
-		//List<DisBoardCommDTO> comments = disBoardCommService.getCommentListByDiscussionNum(discussionNum);
 		
 		//페이징 계산
 		int commentTotalCount = disBoardCommService.getCommentCount(discussionNum);
 		int startRow = (commentPageNum - 1) * COMMENT_LENGTH + 1;
 		int endRow = (commentPageNum) * COMMENT_LENGTH;
 		
+		//댓글 얻기
 		List<DisBoardCommDTO> comments = disBoardCommService.getComments(discussionNum, startRow, endRow);
 		int pageTotalCount = commentTotalCount / COMMENT_LENGTH;
 		
@@ -198,14 +196,6 @@ public class Discussion {
 		// 페이지 마지막 값이 총 페이지를 넘어가지 않도록 처리
 		if(endPageIndex > pageTotalCount)
 			endPageIndex = pageTotalCount;
-		
-		System.out.println("commentTotalCount - " + commentTotalCount);
-		System.out.println("startRow - " + startRow);
-		System.out.println("endRow - " + endRow);
-		System.out.println("pageTotalCount - " + pageTotalCount);
-		System.out.println("startPageIndex - " + startPageIndex);
-		System.out.println("endPageIndex - " + endPageIndex);
-		System.out.println("comments - " + comments.size());
 		
 		// 페이징용 변수
 		model.addAttribute("pageTotalCount", pageTotalCount);
@@ -222,7 +212,6 @@ public class Discussion {
         model.addAttribute("article", article);
         model.addAttribute("tags", tags);
         model.addAttribute("comments", comments);
-        
         
 		return "discussion/content";
 	}
@@ -275,11 +264,5 @@ public class Discussion {
 			e.printStackTrace();
 		}
 		return result;
-	}
-
-	@RequestMapping("commentWritePro.aa")
-    public String writePro(DisBoardCommDTO dto, Model model) throws Exception{
-		disBoardCommService.insertComment(dto);
-		return "discussion/commentWritePro";
 	}
 }
