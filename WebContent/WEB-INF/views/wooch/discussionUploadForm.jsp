@@ -382,7 +382,7 @@
     	
     	function backCheck() {
 	   		 if (confirm("작성하신 내용을 삭제하고 토론게시판으로 이동합니다.") == true){    //확인
-	   			window.location = '/projectB/petition/discussion.aa';	
+	   			window.location = '/projectB/discussion/main.aa';	
 	   		 }else{ return false; }
 	   	}
     	

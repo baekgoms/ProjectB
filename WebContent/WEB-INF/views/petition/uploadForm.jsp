@@ -411,7 +411,7 @@
     
 	    function backCheck() {
 	   		 if (confirm("작성하신 내용을 삭제하고 청원게시판으로 이동합니다.") == true){    //확인
-	   			window.location = '/projectB/petition/discussion.aa';	
+	   			window.location = '/projectB/petition/afootPetition.aa';	
 	   		 }else{ return false; }
 	   	}
 	    
