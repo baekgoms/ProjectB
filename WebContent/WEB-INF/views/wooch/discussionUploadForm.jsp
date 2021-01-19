@@ -90,37 +90,29 @@
 		                    <div class="col-12">
 		                        <div class="card">
 		                            <div class="card-body">
-		                                <h4 class="card-title">토론제목 </h4>    
+		                                <h4 class="card-title">토론주제 </h4>    
 		                                  
 <!-- 			<form>				 --> <form method="post" id="tag-form" name="uploadForm" onsubmit="return checkIt()" action="/projectB/petition/discussionuploadPro.aa" >
 			                                <div class="form-group">
 	                                            
 	                                            <input type="text" class="form-control"
-	                                                placeholder="제목 입력" id="subject" name="subject">
+	                                                placeholder="주제 입력" id="subject" name="subject">
 	                                        </div>
 		                                <hr>
 		                              
 		                                    <div class="form-body">
-		                                        <div class="form-group row">
-		                                            <!-- 분류 카테고리 영역  -->
-		                   
+		                                        <div class="form-group row">		                   
 		                                              <div class="col-12">
 		                                                <div class="row">
-		                                            
-				                                            
-		                                            
 		                                                    <div class="col-md-9">
-		                                                   		
 			                                                        <div class="form-group">
 			                                                        <label class="mr-sm-1" for="inlineFormCustomSelect">해시태그 </label>
 			                                                            <input type="text" class="form-control col-6 " id="tag" name="tag2"
 			                                                                placeholder="입력 후 enter 또는 space를 누르세요. (최대 5개)" />
 			                                                                <ul class="col-sm-12" id="tag-list"> </ul>
 			                                                        </div>
-		                                                        
 		                                                       <input type="hidden" value="" name="tag" id="rdTag" />
 		                                                    </div>
-		                                      
 		                                                </div>
 		                                            </div>
 		                                        </div>
@@ -129,8 +121,7 @@
 		                                        <h4 class="card-title">토론내용  </h4>
 		                                         <div data-spy="scroll" data-target="#navbar-example2" data-offset="0"
 						                            class="position-relative mt-2" style="height: 700px; overflow: auto;">	
-						                            
-						                            <textarea class="form-control" rows="3" placeholder="토론내용 작성 " name="content" id="content"
+						                            <textarea class="form-control content" rows="3" placeholder="토론내용 작성 " name="content" id="content"
 						                            				style="height: 700px; overflow: auto;"></textarea>
 						                            					                          
 						                        </div>
@@ -156,16 +147,15 @@
 		                                                </div>
 		                                                
 		                                                <div class="row addInput"> 
-		                                                </div>
-		                                                
-
+		                                            </div>
 		                                        </div>
 		                                    </div>
 		                                    
 		                                    <div class="form-actions">
 		                                        <div class="text-right">
 		                                            <button type="submit" class="btn btn-info">등록 </button>
-		                                            <button type="reset" class="btn btn-dark">취소 </button>
+		                                            <input id="tblbutton" class="btn btn-dark" type="button" value="내용지우기" onclick="removeCheck()">
+		                                            <input id="backButton" class="btn btn-dark" type="button" value="취소" onclick="backCheck()">
 		                                        </div>
 		                                    </div>
 <!-- 				<form>			 --></form>
@@ -173,8 +163,6 @@
 		                        </div>
 		                    </div>
 		                </div>
-                    
-                       
                     </div>
                 </div>
                 <!-- ============================================================== -->
@@ -363,27 +351,41 @@
 	</script>
 	
 	<script type="text/javascript">
-    function checkIt()
-    {
+    	function checkIt()
+	    {
+	    	
+	        var subject = document.getElementById("subject");
+	        var content = document.getElementById("content");
+	
+	       if(subject.value=="") {
+	           alert("토론 주제를 입력해주세요");
+	           subject.focus();
+	           return false;
+	       }
+	       
+	       else if(content.value=="") {
+	           alert("토론 내용을 입력해주세요");
+	           content.focus();
+	           return false;
+	       }
+	
+	    return true;
+	    }
     	
-        var subject = document.getElementById("subject");
-        var content = document.getElementById("content");
+    	function removeCheck() {
+    		 if (confirm("작성하신 내용을 삭제하시겠습니까?") == true){    //확인
+    		     var el = document.getElementsByClassName('content');
 
-       if(subject.value=="") {
-           alert("토론 주제를 입력해주세요");
-           title.focus();
-           return false;
-       }
-       
-       else if(content.value=="") {
-           alert(토론 내용을 입력해주세요");
-           content.focus();
-           return false;
-       }
-
-    return true;
-    }
-     
+    		     for(var i=0; i<el.length; i++){ el[i].value = ''; }
+    		 }else{ return false; }
+    	}
+    	
+    	function backCheck() {
+	   		 if (confirm("작성하신 내용을 삭제하고 토론게시판으로 이동합니다.") == true){    //확인
+	   			window.location = '/projectB/petition/discussion.aa';	
+	   		 }else{ return false; }
+	   	}
+    	
 	</script>
 	
 

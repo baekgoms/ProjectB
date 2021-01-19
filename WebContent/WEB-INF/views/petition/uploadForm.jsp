@@ -143,7 +143,7 @@
 		                                         <div data-spy="scroll" data-target="#navbar-example2" data-offset="0"
 						                            class="position-relative mt-2" style="height: 700px; overflow: auto;">	
 						                            
-						                            <textarea class="form-control" rows="3" placeholder="청원내용 작성 " name="content" id="content"
+						                            <textarea class="form-control content" rows="3" placeholder="청원내용 작성 " name="content" id="content"
 						                            				style="height: 700px; overflow: auto;"></textarea>
 						                            					                          
 						                        </div>
@@ -178,7 +178,8 @@
 		                                    <div class="form-actions">
 		                                        <div class="text-right">
 		                                            <button type="submit" class="btn btn-info">등록 </button>
-		                                            <button type="reset" class="btn btn-dark">취소 </button>
+		                                            <input id="tblbutton" class="btn btn-dark" type="button" value="내용지우기" onclick="removeCheck()">
+		                                            <input id="backButton" class="btn btn-dark" type="button" value="취소" onclick="backCheck()">
 		                                        </div>
 		                                    </div>
 <!-- 				<form>			 --></form>
@@ -376,34 +377,44 @@
 	</script>
 	
 	<script type="text/javascript">
-    function checkIt()
-    {
-    	
-        var title = document.getElementById("title");
-        var content = document.getElementById("content");
-        var category = document.getElementById("inputGroupSelect01");
-        
-       if(title.value=="") {
-           alert("제목을 입력해주세요");
-           title.focus();
-           return false;
-       }
-       
-       else if(content.value=="") {
-           alert("청원 내용을 입력해주세요");
-           content.focus();
-           return false;
-       }
-       
-       else if(category.value=="선택하기") {
-           alert("청원 분류를 선택해주세요");
-           category.focus();
-           return false;
-       }
-     
-    return true;
-    }
-     
+	    
+		function checkIt()
+	    {
+	        var title = document.getElementById("title");
+	        var content = document.getElementById("content");
+	        var category = document.getElementById("inputGroupSelect01");
+	        
+	       	if(title.value=="") {
+	           	alert("제목을 입력해주세요");
+	           	title.focus();
+	           	return false;
+	       	}
+	       	else if(content.value=="") {
+	           	alert("청원 내용을 입력해주세요");
+	           	content.focus();
+	           	return false;
+	       	}
+	       	else if(category.value=="선택하기") {
+	           	alert("청원 분류를 선택해주세요");
+	           	category.focus();
+	           	return false;
+	       	}
+	    	return true;
+	    }
+	     
+	    function removeCheck() {
+			 if (confirm("작성한 내용을 삭제하시겠습니까?") == true){    //확인
+			     var el = document.getElementsByClassName('content');
+			     for(var i=0; i<el.length; i++){ el[i].value = ''; }
+			 }else{ return false; }
+		}
+    
+	    function backCheck() {
+	   		 if (confirm("작성하신 내용을 삭제하고 청원게시판으로 이동합니다.") == true){    //확인
+	   			window.location = '/projectB/petition/discussion.aa';	
+	   		 }else{ return false; }
+	   	}
+	    
 	</script>
 	
 
