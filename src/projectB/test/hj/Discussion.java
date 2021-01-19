@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import projectB.model.discussion.DisBoardCommDTO;
+import projectB.model.discussionCommService.DisBoardCommService;
 import projectB.model.login.LoginUtils;
 import projectB.model.petition.DiscussionDTO;
 
@@ -167,7 +169,6 @@ public class Discussion {
 		List<DisBoardCommDTO> comments = disBoardCommService.getCommentListByDiscussionNum(discussionNum);
 //		System.out.println(comments);
 
-		
 		//System.out.println("id//" + LoginUtils.getLoginID(session));
 		String id = LoginUtils.getLoginID(session);		
 		int voteResult = disBoardDAO.CheckVote(discussionNum, id);
@@ -181,6 +182,16 @@ public class Discussion {
 		return "discussion/content";
 	}
 	
+    @RequestMapping("commentInsert.aa")
+    public String commentInsert(DisBoardCommDTO dto) {
+        try {
+        	disBoardCommService.insertComment(dto);
+        } catch (Exception e) {
+        	e.printStackTrace();
+		}
+        return "redirect:content.aa";
+    }
+    
 	@RequestMapping("vote_y.aa")
 	@ResponseBody
 	public String clickVoteY(@RequestParam Map<String, Object> voteMap) {

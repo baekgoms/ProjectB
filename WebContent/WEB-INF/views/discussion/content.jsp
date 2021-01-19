@@ -55,6 +55,20 @@ ul {
 </style>
 
 <script>
+
+function commentInsertCheck(writer){
+	var inputRadio = $("input[name='imgState']:checked").val();
+	if(!inputRadio){
+		alert("의견을 선택해주세요.");
+		return false;
+	}	
+	
+	if(!writer){
+		alert("로그인이 필요합니다.");
+		return false;
+	}
+}
+
 function voteCheck(discussionNum, voter, voteResult){
 	if(!discussionNum){
 		alert("게시물이 없습니다.");
@@ -216,27 +230,30 @@ function update_n(discussionNum, voter){
 					
 					<div class="cs_comment">
 						<!-- comment input -->
+						<c:if test="${ memId != null}">						
 						<form method="post" id="co_write" class="co_write"
-							action="" onsubmit="return false">
+							action="commentInsert.aa" onsubmit="return commentInsertCheck('${ memId }')">
 							<div class="cw_wrap">
 								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio"
-										name="inlineRadioOptions" id="radio_y" value="1">
+									<input class="form-check-input" type="radio" name="imgState"
+										name="inlineRadioOptions" id="radio_y" value="0">
 									<label class="form-check-label" for="inlineRadio1">찬성</label>
 								</div>
 								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio"
-										name="inlineRadioOptions" id="radio_n" value="2">
+									<input class="form-check-input" type="radio"  name="imgState"
+										name="inlineRadioOptions" id="radio_n" value="1">
 									<label class="form-check-label" for="inlineRadio2">반대</label>
 								</div>
-								<textarea name="commentbody" id="cwd_comentBody"
+								<textarea name="content" id="cwd_comentBody"
 									placeholder="댓글을 입력해 주세요." required=""></textarea>
 							</div>
+							<input type ="hidden" name = "discussionNum" value="${ article.num }"/>
+							<input type ="hidden" name = "write" value="${ memId }"/>
 							<button type="submit" id="comment_add" style="top: 45px; position: absolute;">
 								등록
 							</button>
 						</form>
-						
+						</c:if>
 						<div>
 							<label>댓글 목록</label>
 							<c:forEach var = "comment" items = "${ comments }">							
@@ -253,12 +270,14 @@ function update_n(discussionNum, voter){
 									</span>
 									<div class="co_text display-idle">
 										${ comment.content }
-									</div>									
+									</div>			
+									<c:if test="${ memId == comment.write }">						
 									<span class="btn small display-idle re_com">
 										<button type="button" class="btn waves-effect waves-light btn-outline-dark">
 											삭제
 										</button>
 									</span>
+									</c:if>
 									<%-- <span class="btn small display-idle re_com">
 										<button type="button" class="btn waves-effect waves-light btn-outline-dark" data-toggle="collapse" data-target="#collapseExample${ i }" aria-expanded="false" aria-controls="collapseExample">
 											댓글 달기
