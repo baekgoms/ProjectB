@@ -1,4 +1,4 @@
-package projectB.test.hj;
+package projectB.model.discussionCommService;
 
 import java.util.List;
 
@@ -6,8 +6,13 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service("disBoardCommDAO")
-public class DisBoardCommDAO implements DisBoardCommService {
+import projectB.model.discussion.DisBoardCommDTO;
+
+@Service("disBoardCommService")
+public class DisBoardCommServiceImpl implements DisBoardCommService {
+	
+	@Autowired
+	private SqlSessionTemplate dao;
 	
 	@Override
 	public int getCommentCount(int bnum) throws Exception {
@@ -15,13 +20,13 @@ public class DisBoardCommDAO implements DisBoardCommService {
 	}
 
 	@Override
-	public List<DisBoardCommDTO> getCommentList(int bnum) throws Exception {
-		return null;
+	public List<DisBoardCommDTO> getCommentListByDiscussionNum(int discussionNum) throws Exception {
+		return dao.selectList("disBoardComment.selectCommentByDiscussionNum", discussionNum);
 	}
 
 	@Override
 	public void insertComment(DisBoardCommDTO comment) throws Exception {
-		
+		dao.insert("disBoardComment.insertComment", comment);
 	}
 
 	@Override

@@ -78,16 +78,6 @@ public class DisBoardDAO implements DisBoardService{
 	}
 
 	@Override
-	public void agreement(int num) throws Exception {
-		
-	}
-
-	@Override
-	public void opposition(int num) throws Exception {
-		
-	}
-
-	@Override
 	public void report(int num) throws Exception {
 		// TODO Auto-generated method stub
 		
@@ -130,6 +120,34 @@ public class DisBoardDAO implements DisBoardService{
 		List<DiscussionDTO> articleCList = bDao.selectList("disBoard.getBestCArticles", map);
 		return articleCList;
 	}
+	
+	@Override
+	public void insertVote(Map<String, Object> voteMap) {
+		Map<String, Object> map = new HashMap<>(voteMap);
+		//map.put("discussionNum",discussionNum);
+		//map.put("writer",writer);
+		
+		bDao.insert("disBoardVote.insertVote", map);
+	}
+	
+	@Override
+	public int CheckVote(int discussionNum, String writer) {
+		if(writer == null || discussionNum <= 0)
+			return -1;
+		Map<String, Object> map = new HashMap<>();
+		map.put("discussionNum",discussionNum);
+		map.put("writer",writer);
+		
+		return bDao.selectOne("disBoardVote.votecheck", map);
+	}
 
-
+	@Override
+	public void updateVoteByUp(int discussionNum) {
+		bDao.update("disBoard.agreement", discussionNum);
+	}
+	
+	@Override
+	public void updateVoteByDown(int discussionNum) {
+		bDao.update("disBoard.opposition", discussionNum);
+	}
 }
