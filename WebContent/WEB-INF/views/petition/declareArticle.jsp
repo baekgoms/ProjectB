@@ -19,9 +19,9 @@
 </head>
 <body>
 
-<form>
+<form >
 <div class="card-body">
-
+<c:set var="id" value="${report.writer}" />
 
 
 
@@ -52,6 +52,7 @@ ${report.content}
 <td >
 	사유선택	:	
 </td>
+
 <td>	
 여러 사유에 해당될 경우, 대표적인 사유 1개를 선택해 주세요.<br />
 <br />	
@@ -86,8 +87,9 @@ ${report.content}
 </td>
 </tr>
 <div align="center">
-<c:set var="id" value="${report.writer}" />
-<input type="button" value="신고하기" class="btn waves-effect waves-light btn-outline-dark" onclick="document.location.href='/projectB/petition/reportMs.aa?num=${report.num}'">
+
+
+<input type="button" value="신고하기" class="btn waves-effect waves-light btn-outline-dark" onclick="document.location.href='/projectB/petition/reportMs.aa?num=${report.num}&id=${id}'">
 <input type="button" value=" 취소   " class="btn waves-effect waves-light btn-outline-dark" onclick="self.close();">
 </div>
 </form>

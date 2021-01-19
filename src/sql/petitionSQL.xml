@@ -84,7 +84,12 @@
 	<update id="reportCount" parameterType="int">
 	update petition set report = report+1 where num=#{num}
 	</update>
-	<update id ="repoerCountId" parameterType="String">
+	
+	<select id="reportCountBynum" resultType="int" parameterType="int">
+		select report from petition where num=#{num}
+	</select>
+	
+	<update id ="reportCountId" parameterType="String">
 	update petitioner set report = report+1 where id=#{id}
 	</update>
 

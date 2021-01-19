@@ -7,6 +7,7 @@ import projectB.model.petition.DiscussionDTO;
 import projectB.model.petition.PetCommentDTO;
 import projectB.model.petition.PetitionDTO;
 import projectB.model.petition.PetitionIndicatorDTO;
+import projectB.model.petitioner.PetitionerDTO;
 
 public interface PetitionService {
 	
@@ -28,6 +29,8 @@ public interface PetitionService {
 	//신고하기 test중
 	public PetitionDTO forReport(int num) throws Exception;
 	public PetitionDTO reportCount(int num) throws Exception;
+	public int getreportCount(int num) throws Exception;
+	public int updateReport(String id) throws Exception;
 	
 	public PetitionDTO getArticle(int num) throws Exception;
 	public void insertPetCmt(PetCommentDTO dto) throws Exception;

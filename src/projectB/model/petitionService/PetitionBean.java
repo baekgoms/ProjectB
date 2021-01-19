@@ -358,12 +358,21 @@ public class PetitionBean {
     
     //신고하기
     @RequestMapping("reportMs.aa")
-	public String report(int num, Model model)throws Exception{
+	public String report(int num,String id, Model model)throws Exception{
 		
+    	int count = 0;
+    	
 		PetitionDTO report = petitionDAO.reportCount(num);
 		
+		count = petitionDAO.getreportCount(num);
+		System.out.println(id + "//id");
+		if(count == 10) {
+			petitionDAO.updateReport(id);
+			//추후 신고횟수 조절예정
+		}
 		model.addAttribute("num",new Integer(num));
-	
+		model.addAttribute("id",id);
+		model.addAttribute("report", report);
 		return "petition/reportMs";
 	}
     
