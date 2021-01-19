@@ -175,7 +175,10 @@ public class Discussion {
 		}
 		
 		//태그 생성
-		List<String> tags = new ArrayList<>( Arrays.asList(article.getTag().split(",")) );
+		List<String> tags = Collections.emptyList();
+		if(article.getTag() != null) {
+			tags = new ArrayList<>( Arrays.asList(article.getTag().split(",")) );
+		}
 		
 		//페이징 계산
 		int commentTotalCount = disBoardCommService.getCommentCount(discussionNum);
@@ -203,7 +206,6 @@ public class Discussion {
 		model.addAttribute("endPageIndex", endPageIndex);
 		model.addAttribute("commentCount", comments.size());
 		
-		// 
 		model.addAttribute("pageNum", pageNum);
         model.addAttribute("commentPageNum", commentPageNum);
         
@@ -218,12 +220,16 @@ public class Discussion {
 	
     @RequestMapping("commentInsert.aa")
     public String commentInsert(DisBoardCommDTO dto) {
+    	String text = dto.getContent().replaceAll("[\r\n]","<br>");
+    	text = text.replace(" ","&nbsp");
+    	dto.setContent(text);    	
+    	
         try {
         	disBoardCommService.insertComment(dto);
         } catch (Exception e) {
         	e.printStackTrace();
 		}
-        return "redirect:content.aa";
+        return "redirect:content.aa?discussionNum=" + dto.getDiscussionNum();
     }
     
 	@RequestMapping("vote_y.aa")
