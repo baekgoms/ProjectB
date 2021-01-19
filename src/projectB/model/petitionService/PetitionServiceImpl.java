@@ -165,15 +165,20 @@ public class PetitionServiceImpl implements PetitionService {
 	}
 
 
-	//Test중
+	//신고하기 Test중
 	@Override
 	public PetitionDTO forReport(int num) throws Exception {
-		
 
-		
 		return dao.selectOne("petition.forReport",num);
-	
 	}
+
+	@Override
+	public PetitionDTO reportCount(int num) throws Exception {
+		dao.selectOne("petition.reportCount",num);
+		return dao.selectOne("petition.forReport",num);
+	}
+
+
 
 
 

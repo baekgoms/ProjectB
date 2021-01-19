@@ -86,8 +86,9 @@ ${report.content}
 </td>
 </tr>
 <div align="center">
-<input type="button" value="신고하기" class="btn waves-effect waves-light btn-outline-dark">
-<input type="button" value=" 취소   " class="btn waves-effect waves-light btn-outline-dark">
+<c:set var="id" value="${report.writer}" />
+<input type="button" value="신고하기" class="btn waves-effect waves-light btn-outline-dark" onclick="document.location.href='/projectB/petition/reportMs.aa?num=${report.num}'">
+<input type="button" value=" 취소   " class="btn waves-effect waves-light btn-outline-dark" onclick="self.close();">
 </div>
 </form>
 
@@ -101,6 +102,7 @@ ${report.content}
     <script src="/projectB/resource/bootstrap/js/sidebarmenu.js"></script>
     <script src="/projectB/resource/bootstrap/js/custom.min.js"></script>
     <script src="/projectB/resource/bootstrap/assets/extra-libs/prism/prism.js"></script>      
+
 </body>
 </html>
 

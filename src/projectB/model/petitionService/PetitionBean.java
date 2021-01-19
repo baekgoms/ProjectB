@@ -345,6 +345,31 @@ public class PetitionBean {
         
         return "petition/standbyPetition";
     }
+    //신고하기
+    @RequestMapping("declareArticle.aa")
+	public String declareArticle(int num, Model model)throws Exception{
+		
+		PetitionDTO report = petitionDAO.forReport(num);
+		
+		model.addAttribute("num",new Integer(num));
+		model.addAttribute("report", report);
+		return "petition/declareArticle";
+	}
+    
+    //신고하기
+    @RequestMapping("reportMs.aa")
+	public String report(int num, Model model)throws Exception{
+		
+		PetitionDTO report = petitionDAO.reportCount(num);
+		
+		model.addAttribute("num",new Integer(num));
+	
+		return "petition/reportMs";
+	}
+    
+    
+    
+    
     //청원보기
     @RequestMapping("petContent.aa")
     public String petContent(int num, Model model) throws Exception{
@@ -405,23 +430,7 @@ public class PetitionBean {
         return "petition/petitionCommentPro";
     }
     
-    @RequestMapping("declareArticle.aa")
-    public String declareArticle(int num, Model model)throws Exception{
-        PetitionDTO report = petitionDAO.forReport(num);
-        
-        model.addAttribute("num",new Integer(num));
-        
-        return "petition/declareArticle";
-    }
-    
-    //test중
-    @RequestMapping("reportTest.aa")
-    public String reportTest()throws Exception{
-        
-        
-        
-        return "petition/reportTest";
-    }
+	
 
 }
 
