@@ -27,7 +27,6 @@ public class DisBoardCommServiceImpl implements DisBoardCommService {
 		map.put("discussionNum", discussionNum);
 		map.put("startRow", startRow);
 		map.put("endRow", endRow);
-		System.out.println("getComments / " + map);
 		return dao.selectList("disBoardComment.getCommentsByStartAndEnd", map);
 	}
 

@@ -92,7 +92,7 @@ function inputCheck(){
 </c:if>
 <td width="450">
 <div id="${article.num}" style= "height: 200px"></div>
-	<a href="/projectB/discussion/content.aa?pageNum=${pageNum}&num=${article.num}">${article.subject}<br />
+	<a href="/projectB/discussion/content.aa?pageNum=${pageNum}&discussionNum=${article.num}">${article.subject}<br />
 	${article.write}<br />
 	${article.reg}<br />
 	</a>
