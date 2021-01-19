@@ -34,5 +34,7 @@ public interface PetitionService {
 	public List<PetitionDTO> petCmtList(int petitionNum, int start, int end) throws Exception;
 	public int petCmtCount(int petitionNum) throws Exception;
     public PetitionIndicatorDTO getPetitionIndicator(int num) throws Exception;
-	
+
+	// 청원 동의자수 +1
+	int updatePetitionCount(int petitionNum);
 }

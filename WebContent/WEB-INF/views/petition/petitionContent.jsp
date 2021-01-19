@@ -25,6 +25,10 @@
          text-align: center;
       }
 
+		div {
+			border: 1px solid;
+		}
+		
       iframe {
          width: 1000px;
          border: none;
@@ -36,13 +40,8 @@
    <title>청원 보기</title>
 </head>
 
-
-
-
-
-
-
 <body>
+<div>
 <br>
 <form>
    <table cellspacing="0" cellpadding="0" align="center" width="800">
@@ -59,7 +58,7 @@
             <input type="hidden" id="achive" value="${petDTO.petition / 200000}" />
 
             <div>
-               <div class="chartjs-size-monitor">
+               <div class="chartjs-size-monitor" >
                   <div class="chartjs-size-monitor-expand">
                      <div class=""></div>
                   </div>
@@ -67,8 +66,8 @@
                      <div class=""></div>
                   </div>
                </div>
-               <canvas id="barr-chart" height="382" width="766" class="chartjs-render-monitor"
-                     style="display: block; height: 255px; width: 511px;"></canvas>
+               <canvas id="barr-chart" class="chartjs-render-monitor"
+                     style="display: block; height: 100px; width: 511px;"></canvas>
             </div>
 
 
@@ -80,7 +79,6 @@
          <c:choose>
          <c:when test="${1!=1 }">
          <td align="center" >
-            D-Day 3
             </c:when>
             <c:otherwise>
          <td align="center" width="100" >
@@ -110,73 +108,56 @@
       </tr>
       <tr height="30">
          <td align="center" width="100"> 태그 </td>
-         <td width="700">
+         <td width="700" align="left">
             <c:forEach items="${fn:split(petDTO.tag, ',') }" var="item">
-               <a href="/projectB/petition/tag?tag=${item}">#${item}</a>
+               <a href="/projectB/petition/tag?tag=${item}" class="btn btn-light dropdown-toggle"
+                aria-haspopup="true">#${item}</a>
             </c:forEach>
          </td>
       </tr>
+  
       <tr height="30">
          <td align="center" width="100">관련 링크</td>
-         <td width="700">
+         <td width="700" >
             <c:forEach items="${fn:split(petDTO.link, ',') }" var="item">
                <a href="${item}" target="_blank">${item}</a>
                <br/>
             </c:forEach>
          </td>
       </tr>
-      <tr height="100">
-         <td align="center"style="padding: 20px 0;">
-            지표
-            <input type="hidden" id="manCount" value="${petitionIndicatorDTO.manCount}" />
-            <input type="hidden" id="womanCount" value="${petitionIndicatorDTO.womanCount}" />
-            <input type="hidden" id="teens" value="${petitionIndicatorDTO.teens}" />
-            <input type="hidden" id="twenties" value="${petitionIndicatorDTO.twenties}" />
-            <input type="hidden" id="thirties" value="${petitionIndicatorDTO.thirties}" />
-            <input type="hidden" id="forties" value="${petitionIndicatorDTO.forties}" />
-            <input type="hidden" id="fifties" value="${petitionIndicatorDTO.fifties}" />
-            <input type="hidden" id="sixties" value="${petitionIndicatorDTO.sixties}" />
-
-            <div>
-               <div class="chartjs-size-monitor">
-                  <div class="chartjs-size-monitor-expand">
-                     <div class=""></div>
-                  </div>
-                  <div class="chartjs-size-monitor-shrink">
-                     <div class=""></div>
-                  </div>
-               </div>
-               <canvas id="pie-chart" height="382" width="766" class="chartjs-render-monitor"
-                     style="display: block; height: 255px; width: 511px;"></canvas>
-            </div>
-
-            <div>
-               <div class="chartjs-size-monitor">
-                  <div class="chartjs-size-monitor-expand">
-                     <div class=""></div>
-                  </div>
-                  <div class="chartjs-size-monitor-shrink">
-                     <div class=""></div>
-                  </div>
-               </div>
-               <canvas id="bar-chart" height="361" style="display: block; height: 241px; width: 483px;" width="724"
-                     class="chartjs-render-monitor"></canvas>
-            </div>
-         </td>
-
-      </tr>
-      <tr height="30">
-         <td colspan="4" align="center" >
-
-            <input  type="button" align="right" value="신고"
-                  onclick="document.location.href='신고창 url'">
-            &nbsp;&nbsp;&nbsp;&nbsp;
-         </td>
-      </tr>
-
    </table>
 </form>
-
+	<div>
+		 <input type="hidden" id="manCount" value="${petitionIndicatorDTO.manCount}" />
+	     <input type="hidden" id="womanCount" value="${petitionIndicatorDTO.womanCount}" />
+	     <input type="hidden" id="teens" value="${petitionIndicatorDTO.teens}" />
+	            <input type="hidden" id="twenties" value="${petitionIndicatorDTO.twenties}" />
+	            <input type="hidden" id="thirties" value="${petitionIndicatorDTO.thirties}" />
+	            <input type="hidden" id="forties" value="${petitionIndicatorDTO.forties}" />
+	            <input type="hidden" id="fifties" value="${petitionIndicatorDTO.fifties}" />
+	            <input type="hidden" id="sixties" value="${petitionIndicatorDTO.sixties}" />
+	
+	            	<div style="display: inline-block; height: 100px; width: 200px;">
+	               <canvas id="pie-chart"  class="chartjs-render-monitor"
+	                     style="display: inline; height: 100px; width: 200px;"></canvas>
+	      			</div>
+	
+	            
+	    				
+	            <div style="display: inline-block; height: 100px; width: 200px;">
+	               <canvas id="bar-chart"  style="display: inline; height: 100px; width: 200px;" 
+	                     class="chartjs-render-monitor"></canvas>
+	     		</div>
+	
+	</div>
+	<div>
+				<input  type="button" class="btn waves-effect waves-light btn-outline-dark" align="right" value="신고"
+	                  onclick="document.location.href='신고창 url'">
+	
+	            <input  type="button" class="btn waves-effect waves-light btn-outline-dark" align="right" value="삭제"
+	                  onclick="document.location.href='삭제창 url'">
+	</div>
+</div>
 <iframe src="/projectB/petition/petComment.aa?petitionNum=${petDTO.num }"></iframe>
 
 
@@ -245,21 +226,51 @@
       new Chart(document.getElementById("barr-chart"), {
          type: 'horizontalBar',
          data: {
-            labels: ["달성도"],
+        	labels: ['달성도'],
             datasets: [{
-               label: "Population (millions)",
+               label: "달성도(%)",
                backgroundColor: ["#5a6be6"],
-               data: [achive]
+               data: [90]
             }]
          },
          options: {
+        	 scales: { 
+        		 xAxes: [{ 
+        			 offset: false,
+        			gridLines: { 
+        				 display: false
+        				},
+        				display: true,
+        	            ticks: {
+        	                suggestedMin: 0,    // minimum will be 0, unless there is a lower value.
+        	                // OR //
+        	                beginAtZero: true ,  // minimum value will be 0.
+        	                max: 100
+        	            }
+        		 	}], 
+        		 yAxes: [{
+        			 offset: false,
+        			 gridLines: { 
+        				 display: false//축과 데이터의 경계선 표시 여부 
+        		     }, 
+        		 ticks: { 
+        			 display: false,//축의 값 표시 여부 
+        			 max: 100, 
+        			 min: 0 
+        	     } 
+        		}] 
+         	},
+
+        		 
             title: {
                display: false
             }
          }
       })
    });
-
+		
+   
+   
 </script>
 </body>
 </html>      

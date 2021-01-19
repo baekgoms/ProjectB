@@ -4,7 +4,10 @@
 
 <%@ page import = "java.text.SimpleDateFormat" %>
 
-
+<%
+	// TODO : Delete ME!!
+	session.setAttribute("memId", "123");
+%>
 
 <!DOCTYPE html>
 <html>
@@ -23,8 +26,13 @@
 
 <body>  
 
-<form method="post" action="petitionCommentPro.aa" onsubmit="return formCheck(this)">	
-	<input type="submit" VALUE="청원동의" class="btn btn-block btn-primary"onclick="Confirm()"/>
+<div>1Sesion ${memId}  <c:out value="${petitionNum }" />
+	<c:if test="${memId == null}">
+	not login
+	</c:if> 
+</div>
+<form id="agreeForm">
+	<input type="button" VALUE="청원동의" class="btn btn-block btn-primary"onclick="Confirm()"/>
 		
 		
      <div class="card-body">
@@ -54,12 +62,14 @@
         <c:set var="endPage" value="${ pageCount }" />
 </c:if>   
      
+     
+<div align="center">  
 <div class="col-lg-4 mb-4">
 <nav aria-label="Page navigation example">
-<ul class="pagination justify-content-center">
-   <ul class="pagination">
+<ul class="pagination justify-content-center" align="center">
+   <ul class="pagination" align="center">
    <c:if test="${startPage > 10}">
-     <li class="page-item">
+     <li class="page-item" align="center">
           <a class="page-link" href="/projectB/petition/petComment.aa?pageNum=${startPage - 10}&petitionNum=${petitionNum}" aria-label="Previous">
          <span aria-hidden="true">«</span>
           <span class="sr-only">Previous</span>
@@ -67,7 +77,7 @@
         </li>
     </c:if>
     <c:forEach var="i" begin="${startPage}" end="${endPage}">    
-        <li class="page-item"><a class="page-link" href="/projectB/petition/petComment.aa?pageNum=${i}&petitionNum=${petitionNum}">${i}</a></li>
+        <li class="page-item" align="center"><a class="page-link" href="/projectB/petition/petComment.aa?pageNum=${i}&petitionNum=${petitionNum}">${i}</a></li>
     </c:forEach>
     <c:if test="${endPage < pageCount}">
         <li class="page-item">
@@ -82,6 +92,7 @@
 </c:if>
 </nav>
 </div>
+</div>   
 </form>   
 
 <script src="/projectB/resource/bootstrap/assets/libs/jquery/dist/jquery.min.js"></script>
@@ -94,5 +105,42 @@
     <script src="/projectB/resource/bootstrap/js/sidebarmenu.js"></script>
     <script src="/projectB/resource/bootstrap/js/custom.min.js"></script>
     <script src="/projectB/resource/bootstrap/assets/extra-libs/prism/prism.js"></script>         
+
+	<script type="text/javascript">
+	$("#agreeForm").submit(function(e){
+	    e.preventDefault();
+	  });
+
+	
+		function Confirm() {
+			<c:choose>
+				<c:when test="${memId == null}">
+					alert("로그인 해주세요");
+					window.location = ""
+				</c:when>
+				<c:when test="${petitionPetitionerService.isAgreed(petitionNum,memId)}">
+					alert("이미 동의한 청원입니다");
+				</c:when>
+				<c:otherwise>
+                    $.ajax({
+                        url: "/projectB/petition/petitionCommentPro.aa",
+                        method: "post",
+                        data: {
+                            "writer" : "${memId}",
+                            "content" : "",
+                            "petitionNum" : "${petitionNum}"
+                        },
+                        success: function(e) {
+                            alert("등록됐습니다");
+                            location.reload();
+                        },
+                        error : function(e) {
+                            alert("오류가 발생했습니다");
+                        }
+                    });
+				</c:otherwise>
+			</c:choose>
+		}
+	</script>
 </body>
 </html>      

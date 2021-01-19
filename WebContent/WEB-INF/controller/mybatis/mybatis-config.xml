@@ -26,6 +26,7 @@
 		<typeAlias alias="petitionerDTO" type="projectB.model.petitioner.PetitionerDTO" />
 		<typeAlias alias="CategoryDTO" type="projectB.model.petition.CategoryDTO" />
 		<typeAlias alias="petitionIndicatorDTO" type="projectB.model.petition.PetitionIndicatorDTO" />
+		<typeAlias alias="petitionPetitionerMapDTO" type="projectB.model.petition.PetitionPetitionerMapDTO" />
 	</typeAliases>
 	
 	<mappers>

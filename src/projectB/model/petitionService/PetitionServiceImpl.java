@@ -19,6 +19,7 @@ public class PetitionServiceImpl implements PetitionService {
 
 	@Autowired
 	private SqlSessionTemplate dao = null;
+	
 
 	@Override
 	public void insertArticle(PetitionDTO petition) throws Exception {
@@ -158,6 +159,11 @@ public class PetitionServiceImpl implements PetitionService {
         return dao.selectOne("petition.getPetitionIndicator", num);
 	}
 
+	@Override
+	public int updatePetitionCount(int petitionNum) {
+		return dao.update("petition.updatePetitionCount", petitionNum);
+	}
+
 
 	//Test중
 	@Override
@@ -168,6 +174,8 @@ public class PetitionServiceImpl implements PetitionService {
 		return dao.selectOne("petition.forReport",num);
 	
 	}
+
+
 
 
 }

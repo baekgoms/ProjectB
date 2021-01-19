@@ -121,5 +121,23 @@
         select * from petitionIndicator where num = #{num}
     </select>
 	
+	
+	<insert id="insertPetitionPetitionerMap" parameterType="HashMap">
+		insert into petitionPetitionerMap values ( #{petitionNum}, #{petionerNum} ) 
+	</insert>
+	
+	<select id="getPetitionPetitionerByPetitionNum" resultType="petitionPetitionerMapDTO" parameterType="int">
+		select * from petitionPetitionerMap where petitionNum = #{petitionNum}
+	</select>
+	
+	<select id="getPetitionPetitionerByPetitionNumPetitionerId" resultType="petitionPetitionerMapDTO" parameterType="HashMap">
+		select * from petitionPetitionerMap where petitionNum = #{petitionNum} and petitionerId = #{petitionerId}
+	</select>
+	
+	
+	
+	
+	
+	
 </mapper>
 
