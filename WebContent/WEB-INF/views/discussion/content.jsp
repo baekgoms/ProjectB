@@ -57,14 +57,14 @@ ul {
 <script>
 
 function commentInsertCheck(writer){
+	if(!writer){
+		alert("로그인이 필요합니다.");
+		return false;
+	}
+	
 	var inputRadio = $("input[name='imgState']:checked").val();
 	if(!inputRadio){
 		alert("의견을 선택해주세요.");
-		return false;
-	}	
-	
-	if(!writer){
-		alert("로그인이 필요합니다.");
 		return false;
 	}
 }
@@ -260,15 +260,20 @@ function SetPosition()
 							style="position: relative; left: 125px; top: -80;">
 							<i class="fa fa-times"></i>
 						</button>
-						
-
-					</div>					
-					<br>				
-	
+					</div>		
 					
-					<div class="cs_comment">
+					<div id ="reportBtm"
+					style="float: right; top: -25px; position: relative;">
+						<button type="button" class="btn waves-effect waves-light btn-outline-dark">
+							신고하기
+						</button>
+					</div>
+								
+					<br>
+									
+					<div class="cs_comment";>
 						<!-- comment input -->
-						<c:if test="${ memId != null}">						
+						<%-- <c:if test="${ memId != null}"> --%>						
 						<form method="post" id="co_write" class="co_write"
 							action="commentInsert.aa" onsubmit="return commentInsertCheck('${ memId }')">
 							<div class="cw_wrap">
@@ -282,7 +287,7 @@ function SetPosition()
 										name="inlineRadioOptions" id="radio_n" value="1">
 									<label class="form-check-label" for="inlineRadio2">반대</label>
 								</div>
-								<textarea name="content" id="cwd_comentBody"
+								<textarea name="content" id="cwd_comentBody"								 	
 									placeholder="댓글을 입력해 주세요." required=""></textarea>
 							</div>
 							<input type ="hidden" name = "discussionNum" value="${ article.num }"/>
@@ -291,7 +296,7 @@ function SetPosition()
 								등록
 							</button>
 						</form>
-						</c:if>
+						<%-- </c:if> --%>
 						<div id = "comment_start">
 							<label>댓글 목록</label>
 							<c:forEach var = "comment" items = "${ comments }">							
@@ -308,7 +313,15 @@ function SetPosition()
 									</span>
 									<div class="co_text display-idle">
 										${ comment.content }
-									</div>			
+									</div>
+									
+									<div id ="reportBtm">
+										<button type="button" class="btn waves-effect waves-light btn-outline-dark"								
+										style="position: relative; top: 15px; width: 80px; height: 25px;font-size: 5px;">
+											신고하기
+										</button>
+									</div>	
+									
 									<c:if test="${ memId == comment.write }">						
 									<span class="btn small display-idle re_com">
 										<button type="button" class="btn waves-effect waves-light btn-outline-dark">
