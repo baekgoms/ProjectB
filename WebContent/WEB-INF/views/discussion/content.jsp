@@ -111,7 +111,9 @@ function update_y(discussionNum, voter){
             	  location.reload();
              }
              else if(data == 1){                  
-               	alert("찬성 투표  완료");               
+               	alert("찬성 투표  완료");
+                //var intY = document.body.scrollTop;
+                //setCookie('yPos',intY, 1);
                	location.reload();
              }
          }
@@ -143,16 +145,52 @@ function update_n(discussionNum, voter){
             	  location.reload();
              }
              else if(data == 1){                  
-               	alert("반대 투표  완료");               
+               	alert("반대 투표  완료");
+               	//var intY = document.body.scrollTop;
+               	//setCookie('yPos',intY, 1);
                	location.reload();
              }
          }
 	});
 }
+
+function btn_movePage(discussionNum, pageIndex, commentPageNum){
+	var url = "content.aa?pageNum=" + pageIndex+ "&discussionNum="+ discussionNum
+			+ "&commentPageNum=" + commentPageNum;
+
+	//댓글 이동 위치바꿀려면, 원하는 태그 ID 넣자
+	//var offset = $('#commentPage').offset(); //선택한 태그의 위치를 반환
+	var offset = $('#comment_start').offset(); //선택한 태그의 위치를 반환
+	setCookie('yPos',offset.top, 1);
+	
+	$(location).attr('href',url);
+}
+
+function setCookie(name, value, exp) {
+	  var date = new Date();
+	  date.setTime(date.getTime() + exp*24*60*60*1000);
+	  document.cookie = name + '=' + value + ';expires=' + date.toUTCString() + ';path=/';
+}
+
+function getCookie(name) {
+	  var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+	  return value? value[2] : null;
+}
+
+
+function SetPosition()
+{
+	var strCook = getCookie('yPos');
+	if(strCook) {		
+		console.log(strCook);
+		setCookie('yPos',0, 0);
+		$('html, body').animate({scrollTop : strCook}, 00);	
+	}
+}
 </script>
 </head>
 
-<body>
+<body onload="SetPosition()">
 	<div class="layer">
 	<c:if test = "${ article == null }">
 		<div class="text left cb text_wrap motion agenda-body display-idle fadeIn visible"
@@ -254,7 +292,7 @@ function update_n(discussionNum, voter){
 							</button>
 						</form>
 						</c:if>
-						<div>
+						<div id = "comment_start">
 							<label>댓글 목록</label>
 							<c:forEach var = "comment" items = "${ comments }">							
 								<div class="co_view co_v1">
@@ -297,17 +335,43 @@ function update_n(discussionNum, voter){
 												</button>
 											</form>
 										</div>
-									</div> --%>
-									<!-- <br>
-									<div class="co_text display-idle">
-										1의견 내용 샬라샬라샬라샤랄라라라라라라
-									</div>		
-									<div class="co_text display-idle">
-										2의견 내용 샬라샬라샬라샤랄라라라라라라
-									</div>		 -->
+									</div> --%>								
 								</div>
 							</c:forEach>
-						</div>				
+						</div>
+						<c:if test="${ commentCount > 0 }">						
+							<ul id = "commentPage" class="pagination justify-content-center">
+								<!-- << -->
+								<c:if test="${ startPageIndex > 10 }">
+									<li class="page-item">
+										<button class="page-link" onclick="btn_movePage('${ article.num }', '${ pageNum }', '${ startPageIndex - 10 }')">
+											«
+										</button>
+									</li>
+								</c:if>
+								
+								<c:forEach var="i" begin="${ startPageIndex }" end="${ endPageIndex }">
+									<li class="page-item">
+										<%-- <a class="page-link"  href="/projectB/discussion/content.aa?pageNum=${i}&discussionNum=${ article.num }">
+											${i}
+										</a> --%>
+										<button class="page-link"
+										onclick="btn_movePage('${ article.num }', '${ pageNum }', '${ i }')">
+											${i}
+										</button>
+									</li>
+								</c:forEach>
+								
+								<!-- >> -->								
+								<c:if test="${ endPageIndex < pageTotalCount }">
+									<li class="page-item">
+										<button class="page-link" onclick="btn_movePage('${ article.num }', '${ pageNum }', '${ startPageIndex + 10 }')">
+											»
+										</button>
+									</li>
+								</c:if>
+							</ul>
+						</c:if>
 					</div>
 				</div>
 			</div>

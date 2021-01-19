@@ -1,6 +1,8 @@
 package projectB.model.discussionCommService;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +17,22 @@ public class DisBoardCommServiceImpl implements DisBoardCommService {
 	private SqlSessionTemplate dao;
 	
 	@Override
-	public int getCommentCount(int bnum) throws Exception {
-		return 0;
+	public int getCommentCount(int discussionNum) throws Exception {
+		return dao.selectOne("disBoardComment.getCommentCountByDiscussionNum", discussionNum);
+	}
+	
+	@Override
+	public List<DisBoardCommDTO> getComments(int discussionNum, int startRow, int endRow) throws Exception {
+		Map<String, Integer> map = new HashMap<>();
+		map.put("discussionNum", discussionNum);
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		System.out.println("getComments / " + map);
+		return dao.selectList("disBoardComment.getCommentsByStartAndEnd", map);
 	}
 
 	@Override
-	public List<DisBoardCommDTO> getCommentListByDiscussionNum(int discussionNum) throws Exception {
+	public List<DisBoardCommDTO> getCommentsByDiscussionNum(int discussionNum) throws Exception {
 		return dao.selectList("disBoardComment.selectCommentByDiscussionNum", discussionNum);
 	}
 

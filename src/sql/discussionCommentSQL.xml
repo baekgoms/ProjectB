@@ -13,4 +13,18 @@
 	<select id="selectCommentByDiscussionNum" parameterType="int" resultType="disBoardCommDTO">
 		select * from discussionComment where discussionNum = #{ value }
 	</select>
+	
+	<select id="getCommentCountByDiscussionNum" parameterType="int" resultType="int">
+		select count(*) from discussionComment where discussionNum = #{ value }
+	</select>
+	
+	<select id = "getCommentsByStartAndEnd" resultType = "disBoardCommDTO" parameterType = "map">
+		select * from (select num, discussionNum, write, content, imgState, up,
+		down, report, publicState, reg, rownum r
+		from (select * from discussionComment order by reg desc) 
+		order by reg desc)
+				where discussionNum = #{ discussionNum } 
+				and r <![CDATA[>=]]> #{ startRow } 
+				and r <![CDATA[<=]]> #{ endRow }  
+	</select>
 </mapper>

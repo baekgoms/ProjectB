@@ -19,12 +19,17 @@ import projectB.model.petition.DiscussionDTO;
 @Controller
 @RequestMapping("discussion")
 public class Discussion {
-	
 	@Autowired
 	private DisBoardService disBoardDAO = null;
 	
 	@Autowired
 	private DisBoardCommService disBoardCommService = null;
+	
+	//토론 상세보기 댓글 표현 개수
+	private static final int COMMENT_LENGTH = 10;
+	
+	//토론 댓글창에 표시할 최대 페이지 개수
+	private static final int COMMENT_PAGE_LENGTH = 10;
 	
 	@RequestMapping("main.aa")
 	public String main(
@@ -155,29 +160,69 @@ public class Discussion {
 	}
 
 	@RequestMapping("content.aa")
-    public String content(@RequestParam(defaultValue="356" , required = true)int discussionNum, 
+    public String content(int discussionNum,
     		@RequestParam(defaultValue="1" , required = true)int pageNum,
+    		@RequestParam(defaultValue="1" , required = true)int commentPageNum,
     		HttpSession session, Model model) throws Exception {
+		System.out.println("content run/" + pageNum);
+		System.out.println("content run/" + commentPageNum);
 		System.out.println("content run/" + discussionNum);
 		
+		String id = LoginUtils.getLoginID(session);
+		int voteResult = disBoardDAO.CheckVote(discussionNum, id);
+		
 		DiscussionDTO article = disBoardDAO.getArticle(discussionNum);
+		
 		if (article == null) {
 			return "redriect:dadasd.aa"; // 게시물이 없다는 오류 페이지로 보여주기!
 		}
 		
 		List<String> tags = new ArrayList<>( Arrays.asList(article.getTag().split(",")) );
-		List<DisBoardCommDTO> comments = disBoardCommService.getCommentListByDiscussionNum(discussionNum);
-//		System.out.println(comments);
-
-		//System.out.println("id//" + LoginUtils.getLoginID(session));
-		String id = LoginUtils.getLoginID(session);		
-		int voteResult = disBoardDAO.CheckVote(discussionNum, id);
-//		System.out.println("checkVote - " + checkVote);
+		//List<DisBoardCommDTO> comments = disBoardCommService.getCommentListByDiscussionNum(discussionNum);
+		
+		//페이징 계산
+		int commentTotalCount = disBoardCommService.getCommentCount(discussionNum);
+		int startRow = (commentPageNum - 1) * COMMENT_LENGTH + 1;
+		int endRow = (commentPageNum) * COMMENT_LENGTH;
+		
+		List<DisBoardCommDTO> comments = disBoardCommService.getComments(discussionNum, startRow, endRow);
+		int pageTotalCount = commentTotalCount / COMMENT_LENGTH;
+		
+		//다음 페이지에 게시물이 하나라도 있다면 페이지 처리
+		if(commentTotalCount % COMMENT_LENGTH > 0)
+			pageTotalCount++;
+		// 페이징 처리 시작 값
+		int startPageIndex = (((commentPageNum - 1) / COMMENT_PAGE_LENGTH) * COMMENT_LENGTH) + 1;
+		// 페이징 처리 종료 값
+		int endPageIndex = startPageIndex + COMMENT_PAGE_LENGTH - 1;
+		// 페이지 마지막 값이 총 페이지를 넘어가지 않도록 처리
+		if(endPageIndex > pageTotalCount)
+			endPageIndex = pageTotalCount;
+		
+		System.out.println("commentTotalCount - " + commentTotalCount);
+		System.out.println("startRow - " + startRow);
+		System.out.println("endRow - " + endRow);
+		System.out.println("pageTotalCount - " + pageTotalCount);
+		System.out.println("startPageIndex - " + startPageIndex);
+		System.out.println("endPageIndex - " + endPageIndex);
+		System.out.println("comments - " + comments.size());
+		
+		// 페이징용 변수
+		model.addAttribute("pageTotalCount", pageTotalCount);
+		model.addAttribute("startPageIndex", startPageIndex);
+		model.addAttribute("endPageIndex", endPageIndex);
+		model.addAttribute("commentCount", comments.size());
+		
+		// 
+		model.addAttribute("pageNum", pageNum);
+        model.addAttribute("commentPageNum", commentPageNum);
+        
 		model.addAttribute("voteResult", voteResult);
 		model.addAttribute("memId", id);
         model.addAttribute("article", article);
         model.addAttribute("tags", tags);
         model.addAttribute("comments", comments);
+        
         
 		return "discussion/content";
 	}
