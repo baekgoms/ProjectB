@@ -1,7 +1,5 @@
 package projectB.test.hj;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -31,6 +29,7 @@ public interface DisBoardService {
 	public void updateVoteByDown(int discussionNum);
 
 	public Map<String, Integer> getToday();
+	public String getFirstDay(int month, int year);
 	public Map<String, Integer> getPreWeek(Map<String, Integer> date);
 	public String getSunday(Map<String, Integer> date) throws Exception;
 	public List<DiscussionDTO> getBestArticles(int start, int end, int sort, String date1, String date2) throws Exception;

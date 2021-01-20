@@ -83,14 +83,14 @@ function inputCheck(){
 <br><br>
 </div>
 <c:choose>
-<c:when test="${sort == 1 }">
+<c:when test="${sort == 1}">
 <h2>주간베스트</h2>
 <h5>지난 한주간 추천과 댓글이 많았던 토론입니다.</h5><br />
 </c:when>
-<c:otherwise>
+<c:when test="${sort == 2}">
 <h2>월간베스트</h2>
 <h5>지난 한달간 추천과 댓글이 많았던 토론입니다.</h5><br />
-</c:otherwise>
+</c:when>
 </c:choose>
 
 <ul class="nav nav-tabs nav-justified nav-bordered mb-3">
@@ -100,6 +100,8 @@ function inputCheck(){
             <span class="d-none d-lg-block">오늘기준</span>
         </a>
     </li>
+    <c:choose>
+    <c:when test="${sort == 1}">
     <c:forEach items="${weekList}" var="week" varStatus="status">
     <li class="nav-item">
         <a href="#week-${status.count}" data-toggle="tab" aria-expanded="false"
@@ -109,7 +111,21 @@ function inputCheck(){
 		</a>
     </li>
     </c:forEach>
+    </c:when>
+    <c:when test="${sort == 2}">
+    <c:forEach items="${monthList}" var="month" varStatus="status">
+    <li class="nav-item">
+        <a href="#week-${status.count}" data-toggle="tab" aria-expanded="false"
+            class="nav-link">
+            <i class="mdi mdi-account-circle d-lg-none d-block mr-1"></i>
+            <span class="d-none d-lg-block"><c:out value="${month}" /></span>
+		</a>
+    </li>
+    </c:forEach>
+    </c:when>
+    </c:choose>
 </ul>
+
 <div class="tab-content">
 	<div class="tab-pane show active" id="thisweek">
         <div>
@@ -201,6 +217,10 @@ function inputCheck(){
 			<td>작성일</td>
 			<td>댓글수</td></tr>
 			<c:forEach items="${weekArticleCList[s.index]}" var="articleC">
+				<c:choose>
+				<c:when test="${empty weekArticleCList[s.index]}">
+				</c:when>
+				<c:otherwise>
 			<tr align="center">
 			<td><c:out value="${number}"/>
 				<c:set var="number" value="${number + 1}"/></td>
@@ -210,6 +230,8 @@ function inputCheck(){
 			<td>${articleC.reg}</td>
 			<td>${articleC.commentcount}</td>
 			</tr>
+			</c:otherwise>
+			</c:choose>
 			</c:forEach>
 			</table>
 		</div>

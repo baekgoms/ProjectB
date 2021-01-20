@@ -1,7 +1,6 @@
 package projectB.test.hj;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -159,7 +158,7 @@ public class DisBoardDAO implements DisBoardService{
  		todayDate.put("day", day);
 		return todayDate;
 	}
-	// 저번주는 몇년, 몇월, 몇째주인지
+	// 달이 바뀌는 경우, 저번주는 몇년, 몇월, 몇째주인지
 	@Override
 	public Map<String, Integer> getPreWeek(Map<String, Integer> lastweek) {
 		Calendar c = Calendar.getInstance();
@@ -233,6 +232,17 @@ public class DisBoardDAO implements DisBoardService{
 		map.put("date2", date2);
 		List<DiscussionDTO> articleCList = bDao.selectList("disBoard.getBestCArticles", map);
 		return articleCList;
+	}
+
+	@Override
+	public String getFirstDay(int month, int year) {
+		String pattern = "yyyy-MM-dd";
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+		Calendar c = Calendar.getInstance();
+		c.set(Calendar.YEAR,year);
+		c.set(Calendar.MONTH,month-1);
+		c.set(Calendar.DAY_OF_MONTH, 1);
+		return simpleDateFormat.format(c.getTime());
 	}
 
 }

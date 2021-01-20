@@ -91,7 +91,8 @@ function inputCheck(){
 <tr align="center">
 </c:if>
 <td width="450">
-<div id="${article.num}" style= "height: 200px"></div>
+	<div id="${article.num}" style= "height: 200px"></div>
+	
 	<a href="/projectB/discussion/content.aa?pageNum=${pageNum}&discussionNum=${article.num}">${article.subject}<br />
 	${article.write}<br />
 	${article.reg}<br />
@@ -106,10 +107,13 @@ function inputCheck(){
 </c:if>
 
 <c:if test="${count > 0}">
-   <c:set var="pageCount" value="${count / pageSize + ( count % pageSize == 0 ? 0 : 1)}"/>
+	<fmt:parseNumber var="pageCount" value="${count / pageSize + ( count % pageSize == 0 ? 0 : 1)}" integerOnly="true" />
    <c:set var="pageBlock" value="${10}"/>
-   <fmt:parseNumber var="result" value="${currentPage / 10}" integerOnly="true" />
-   <c:set var="startPage" value="${result * 10 + 1}" />
+   <fmt:parseNumber var="result" value="${currentPage/10}" integerOnly="true" />
+   <c:if test="${currentPage % 10 == 0}">
+   <c:set var="result" value="${result-1}" />
+   </c:if>
+   <c:set var="startPage" value="${(result * 10) + 1 }" />
    <c:set var="endPage" value="${startPage + pageBlock-1}"/>
    <c:if test="${endPage > pageCount}">
         <c:set var="endPage" value="${pageCount}"/>
@@ -182,5 +186,6 @@ function inputCheck(){
 });
 </c:forEach>
 </script>
+
 
 </center>

@@ -50,15 +50,15 @@
 	<select id="getBestCArticles" parameterType="map" resultType="discussionDTO">
 		select * from (select num, write, content, reg, agreement, opposition, tag, report, open, subject, link, commentcount, rownum as r from(select * from discussion 
 		<if test="date1 == null and sort == 1">
-			<![CDATA[where to_char(reg, 'yyyy-mm-dd') <= to_char(sysdate,'yyyy-mm-dd') and to_char(reg,'yyyy-mm-dd') >= to_char(sysdate-7, 'yyyy-mm-dd')]]>
+			<![CDATA[where reg >= sysdate-7 and reg < sysdate]]>
 		</if>
 		<if test="date1 == null and sort == 2">
-			<![CDATA[where to_char(reg, 'yyyy-mm-dd') <= to_char(sysdate,'yyyy-mm-dd') and to_char(reg, 'yyyy-mm-dd') >= to_char(sysdate-30, 'yyyy-mm-dd') ]]>
+			<![CDATA[where reg >= sysdate-30 and reg < sysdate]]>
 		</if>
 		<if test="date1 != null and date2 != null">
-			<![CDATA[where reg between to_date(#{date1}) and to_date(#{date2})]]>
+			<![CDATA[where reg >= #{date1} and reg < #{date2}]]>
 		</if>
-		<![CDATA[order by commentcount desc) order by commentcount desc) where r >= #{start} and r <= #{end}]]>
+		order by commentcount desc) order by commentcount desc) <![CDATA[where r >= #{start} and r <= #{end}]]>
 	</select>
 	
 	<select id="getWeekBestArticles" parameterType="map" resultType="discussionDTO">
