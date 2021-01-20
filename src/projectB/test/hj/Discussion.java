@@ -19,12 +19,17 @@ import projectB.model.petition.DiscussionDTO;
 @Controller
 @RequestMapping("discussion")
 public class Discussion {
-	
 	@Autowired
 	private DisBoardService disBoardDAO = null;
 	
 	@Autowired
 	private DisBoardCommService disBoardCommService = null;
+	
+	//토론 상세보기 댓글 표현 개수
+	private static final int COMMENT_LENGTH = 10;
+	
+	//토론 댓글창에 표시할 최대 페이지 개수
+	private static final int COMMENT_PAGE_LENGTH = 10;
 	
 	@RequestMapping("main.aa")
 	public String main(

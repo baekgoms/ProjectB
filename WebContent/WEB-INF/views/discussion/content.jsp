@@ -55,6 +55,20 @@ ul {
 </style>
 
 <script>
+
+function commentInsertCheck(writer){
+	if(!writer){
+		alert("로그인이 필요합니다.");
+		return false;
+	}
+	
+	var inputRadio = $("input[name='imgState']:checked").val();
+	if(!inputRadio){
+		alert("의견을 선택해주세요.");
+		return false;
+	}
+}
+
 function voteCheck(discussionNum, voter, voteResult){
 	if(!discussionNum){
 		alert("게시물이 없습니다.");
@@ -97,7 +111,9 @@ function update_y(discussionNum, voter){
             	  location.reload();
              }
              else if(data == 1){                  
-               	alert("찬성 투표  완료");               
+               	alert("찬성 투표  완료");
+                //var intY = document.body.scrollTop;
+                //setCookie('yPos',intY, 1);
                	location.reload();
              }
          }
@@ -129,16 +145,52 @@ function update_n(discussionNum, voter){
             	  location.reload();
              }
              else if(data == 1){                  
-               	alert("반대 투표  완료");               
+               	alert("반대 투표  완료");
+               	//var intY = document.body.scrollTop;
+               	//setCookie('yPos',intY, 1);
                	location.reload();
              }
          }
 	});
 }
+
+function btn_movePage(discussionNum, pageIndex, commentPageNum){
+	var url = "content.aa?pageNum=" + pageIndex+ "&discussionNum="+ discussionNum
+			+ "&commentPageNum=" + commentPageNum;
+
+	//댓글 이동 위치바꿀려면, 원하는 태그 ID 넣자
+	//var offset = $('#commentPage').offset(); //선택한 태그의 위치를 반환
+	var offset = $('#comment_start').offset(); //선택한 태그의 위치를 반환
+	setCookie('yPos',offset.top, 1);
+	
+	$(location).attr('href',url);
+}
+
+function setCookie(name, value, exp) {
+	  var date = new Date();
+	  date.setTime(date.getTime() + exp*24*60*60*1000);
+	  document.cookie = name + '=' + value + ';expires=' + date.toUTCString() + ';path=/';
+}
+
+function getCookie(name) {
+	  var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+	  return value? value[2] : null;
+}
+
+
+function SetPosition()
+{
+	var strCook = getCookie('yPos');
+	if(strCook) {		
+		console.log(strCook);
+		setCookie('yPos',0, 0);
+		$('html, body').animate({scrollTop : strCook}, 00);	
+	}
+}
 </script>
 </head>
 
-<body>
+<body onload="SetPosition()">
 	<div class="layer">
 	<c:if test = "${ article == null }">
 		<div class="text left cb text_wrap motion agenda-body display-idle fadeIn visible"
@@ -208,36 +260,44 @@ function update_n(discussionNum, voter){
 							style="position: relative; left: 125px; top: -80;">
 							<i class="fa fa-times"></i>
 						</button>
-						
-
-					</div>					
-					<br>				
-	
+					</div>		
 					
-					<div class="cs_comment">
+					<div id ="reportBtm"
+					style="float: right; top: -25px; position: relative;">
+						<button type="button" class="btn waves-effect waves-light btn-outline-dark">
+							신고하기
+						</button>
+					</div>
+								
+					<br>
+									
+					<div class="cs_comment";>
 						<!-- comment input -->
+						<%-- <c:if test="${ memId != null}"> --%>						
 						<form method="post" id="co_write" class="co_write"
-							action="" onsubmit="return false">
+							action="commentInsert.aa" onsubmit="return commentInsertCheck('${ memId }')">
 							<div class="cw_wrap">
 								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio"
-										name="inlineRadioOptions" id="radio_y" value="1">
+									<input class="form-check-input" type="radio" name="imgState"
+										name="inlineRadioOptions" id="radio_y" value="0">
 									<label class="form-check-label" for="inlineRadio1">찬성</label>
 								</div>
 								<div class="form-check form-check-inline">
-									<input class="form-check-input" type="radio"
-										name="inlineRadioOptions" id="radio_n" value="2">
+									<input class="form-check-input" type="radio"  name="imgState"
+										name="inlineRadioOptions" id="radio_n" value="1">
 									<label class="form-check-label" for="inlineRadio2">반대</label>
 								</div>
-								<textarea name="commentbody" id="cwd_comentBody"
+								<textarea name="content" id="cwd_comentBody"								 	
 									placeholder="댓글을 입력해 주세요." required=""></textarea>
 							</div>
+							<input type ="hidden" name = "discussionNum" value="${ article.num }"/>
+							<input type ="hidden" name = "write" value="${ memId }"/>
 							<button type="submit" id="comment_add" style="top: 45px; position: absolute;">
 								등록
 							</button>
 						</form>
-						
-						<div>
+						<%-- </c:if> --%>
+						<div id = "comment_start">
 							<label>댓글 목록</label>
 							<c:forEach var = "comment" items = "${ comments }">							
 								<div class="co_view co_v1">
@@ -253,12 +313,22 @@ function update_n(discussionNum, voter){
 									</span>
 									<div class="co_text display-idle">
 										${ comment.content }
-									</div>									
+									</div>
+									
+									<div id ="reportBtm">
+										<button type="button" class="btn waves-effect waves-light btn-outline-dark"								
+										style="position: relative; top: 15px; width: 80px; height: 25px;font-size: 5px;">
+											신고하기
+										</button>
+									</div>	
+									
+									<c:if test="${ memId == comment.write }">						
 									<span class="btn small display-idle re_com">
 										<button type="button" class="btn waves-effect waves-light btn-outline-dark">
 											삭제
 										</button>
 									</span>
+									</c:if>
 									<%-- <span class="btn small display-idle re_com">
 										<button type="button" class="btn waves-effect waves-light btn-outline-dark" data-toggle="collapse" data-target="#collapseExample${ i }" aria-expanded="false" aria-controls="collapseExample">
 											댓글 달기
@@ -278,17 +348,43 @@ function update_n(discussionNum, voter){
 												</button>
 											</form>
 										</div>
-									</div> --%>
-									<!-- <br>
-									<div class="co_text display-idle">
-										1의견 내용 샬라샬라샬라샤랄라라라라라라
-									</div>		
-									<div class="co_text display-idle">
-										2의견 내용 샬라샬라샬라샤랄라라라라라라
-									</div>		 -->
+									</div> --%>								
 								</div>
 							</c:forEach>
-						</div>				
+						</div>
+						<c:if test="${ commentCount > 0 }">						
+							<ul id = "commentPage" class="pagination justify-content-center">
+								<!-- << -->
+								<c:if test="${ startPageIndex > 10 }">
+									<li class="page-item">
+										<button class="page-link" onclick="btn_movePage('${ article.num }', '${ pageNum }', '${ startPageIndex - 10 }')">
+											«
+										</button>
+									</li>
+								</c:if>
+								
+								<c:forEach var="i" begin="${ startPageIndex }" end="${ endPageIndex }">
+									<li class="page-item">
+										<%-- <a class="page-link"  href="/projectB/discussion/content.aa?pageNum=${i}&discussionNum=${ article.num }">
+											${i}
+										</a> --%>
+										<button class="page-link"
+										onclick="btn_movePage('${ article.num }', '${ pageNum }', '${ i }')">
+											${i}
+										</button>
+									</li>
+								</c:forEach>
+								
+								<!-- >> -->								
+								<c:if test="${ endPageIndex < pageTotalCount }">
+									<li class="page-item">
+										<button class="page-link" onclick="btn_movePage('${ article.num }', '${ pageNum }', '${ startPageIndex + 10 }')">
+											»
+										</button>
+									</li>
+								</c:if>
+							</ul>
+						</c:if>
 					</div>
 				</div>
 			</div>

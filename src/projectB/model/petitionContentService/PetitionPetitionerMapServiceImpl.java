@@ -1,4 +1,4 @@
-package projectB.model.petitionService;
+package projectB.model.petitionContentService;
 
 import java.util.HashMap;
 import java.util.Map;

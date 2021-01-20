@@ -1,4 +1,4 @@
-package projectB.model.petitionService;
+package projectB.model.petitionListService;
 
 import java.util.HashMap;
 import java.util.List;
@@ -9,38 +9,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import projectB.model.petition.CategoryDTO;
-import projectB.model.petition.DiscussionDTO;
-import projectB.model.petition.PetCommentDTO;
 import projectB.model.petition.PetitionDTO;
-import projectB.model.petition.PetitionIndicatorDTO;
-import projectB.model.petitioner.PetitionerDTO;
 
-@Service("petitionDAO")
-public class PetitionServiceImpl implements PetitionService {
 
+@Service("petitionListService")
+public class PetitionListServiceImpl implements PetitionListService{
+	
 	@Autowired
 	private SqlSessionTemplate dao = null;
 	
-	//==============================우찬===================================
-	@Override
-	public void insertArticle(PetitionDTO petition) throws Exception {
-		dao.insert("petition.insertArticle", petition);
-	}
-
-	@Override
-	public void insertDiscussion(DiscussionDTO dto) throws Exception {
-		dao.insert("petition.insertDiscussion", dto);
-	}
 	
-	@Override
-	public List<PetitionDTO> getCategory() throws Exception {
-		Map map = new HashMap();
-
-		return dao.selectList("petition.getCategory");
-	}
-
-	//==============================보배===================================
-	/*
 	@Override
 	public int getArticleCount() throws Exception {
 
@@ -102,7 +80,11 @@ public class PetitionServiceImpl implements PetitionService {
 		return stateList;
 	}
 
-	
+	@Override
+    public List<CategoryDTO> getCategoryList() throws Exception {
+        return dao.selectList("petition.getCategoryList");
+    }
+
     @Override
     public List<PetitionDTO> getArticlesSearch(int startRow, int endRow, String keyword) throws Exception {
         Map map = new HashMap();
@@ -147,66 +129,5 @@ public class PetitionServiceImpl implements PetitionService {
         return dao.update("petition.reportCountId", id);
 
     }
-
-	
-	
-	*/
-	@Override
-    public List<CategoryDTO> getCategoryList() throws Exception {
-        return dao.selectList("petition.getCategoryList");
-    }
-
-	//=====================================민희======================================
-	
-	@Override
-	public PetitionDTO getArticle(int num) throws Exception {
-		return dao.selectOne("petition.getArticle", num);
-	}
-
-	@Override
-	public void insertPetCmt(PetCommentDTO dto) throws Exception {
-		dao.insert("petition.insertPetCmt", dto);
-	}
-
-	@Override
-    public int petCmtCount(int petitionNum) throws Exception {
-        return dao.selectOne("petition.petCmtCount", petitionNum);
-    }
-	
-	@Override
-	public List<PetitionDTO> petCmtListAll(int petitionNum) throws Exception {
-		return dao.selectList("petition.petCmtListAll", petitionNum);
-	}
-
-	@Override
-	public List<PetitionDTO> petCmtList(int petitionNum, int start, int end) throws Exception {
-		Map map = new HashMap();
-		map.put("petitionNum", petitionNum);
-		map.put("start", start);
-		map.put("end", end);
-		List<PetitionDTO> petCmtList = dao.selectList("petition.petCmtList", map);
-		return petCmtList;
-	}
-
-	@Override
-    public int updatePetitionCount(int petitionNum) {
-        return dao.update("petition.updatePetitionCount", petitionNum);
-    }
-    
-	@Override
-    public PetitionIndicatorDTO getPetitionIndicator(int num) throws Exception {
-        return dao.selectOne("petition.getPetitionIndicator", num);
-    }
-	
-	
-	 @Override
-	 public void updateIndicator(int num, String gender, int age) {
-	     Map<String, Object> map = new HashMap<>();
-	     map.put("petitionNum", num);
-	     map.put("gender", "남자".equals(gender));
-	     map.put("age", age);
-	     dao.update("petition.updateIndicator", map);
-	  }
-	
 
 }
