@@ -22,6 +22,8 @@ function inputCheck(){
 	}
 }
 
+
+
 </script>
 
 <title>청원진행중인 게시판</title>
@@ -40,7 +42,7 @@ function inputCheck(){
 	<input type="button" value="							진행중인 청원							" class="btn waves-effect waves-light btn-outline-dark"
 		onclick="document.location.href='/projectB/petition/afootPetition.aa'">
 	<input type="button" value="							완료된 청원								" class="btn waves-effect waves-light btn-outline-dark"	
-		onclick="document.location.href='/projectB/petition/finidh_list.aa'">
+		onclick="document.location.href='/projectB/petition/finish_list.aa'">
 </div>
 <br />
 <div align="center">
@@ -90,9 +92,9 @@ function inputCheck(){
 		<tr>
 			<td>
 				<c:if test="${keyword == null }">
-		  			<select class="custom-select mr-sm-2" id="inlineFormCustomSelect" onchange="if(this.value) location.href=(this.value);" >
-						<option selected="">정렬</option>
-						<option value="http://localhost:8080/projectB/petition/afootPetition.aa?pageNum=1" >최신순</option>
+		  			<select class="custom-select mr-sm-2"  id="select" name="select" onchange="if(this.value) location.href=(this.value);" >
+						<option value="http://localhost:8080/projectB/petition/afootPetition.aa" selected>정렬</option>
+						<option value="http://localhost:8080/projectB/petition/afootPetition.aa?pageNum=1">최신순</option>
 						<option value="http://localhost:8080/projectB/petition/afootPetitionSort.aa?pageNum=1&sort=1" >동의순</option>
 					</select>
 				</c:if>
@@ -218,6 +220,7 @@ function inputCheck(){
 <script src="/projectB/resource/bootstrap/assets/libs/raphael/raphael.min.js"></script>
 <script src="/projectB/resource/bootstrap/assets/libs/morris.js/morris.min.js"></script>
 <script src="/projectB/resource/bootstrap/js/pages/morris/morris-data.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
 <script style="text/javascript">
 function openReport(num){
 	
@@ -227,6 +230,11 @@ function openReport(num){
 	window.open(url, "confirm", 
     "toolbar=no, location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=600, height=400");
 }
+
+$('#select').on('change', function() {
+    location.href= this.value;
+});
+$('#select').val(location.href);
 
 </script>
 

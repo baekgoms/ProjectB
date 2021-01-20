@@ -20,6 +20,7 @@ public interface PetitionService {
 	
 	
 	//====================================보배==========================================
+	/*
 	public int getArticleCount() throws Exception;
 	public List<PetitionDTO> getArticles(int startRow, int endRow) throws Exception;
 	public List<PetitionDTO> getArticles(int startRow, int endRow, int category) throws Exception;
@@ -27,7 +28,7 @@ public interface PetitionService {
 	public int getArticleCountbyCategory(int category) throws Exception;
 	public int getArticleCountbyState(int state) throws Exception;
 	public List<PetitionDTO> getArtilclebyState(int state, int startRow, int endRow) throws Exception;
-	public List<CategoryDTO> getCategoryList() throws Exception;
+	
 	public List<PetitionDTO> getArticlesSearch(int startRow, int endRow, String keyword) throws Exception;
 	public int getArticleCount(String keyword) throws Exception;
 	
@@ -36,7 +37,8 @@ public interface PetitionService {
 	public int getreportCount(int num) throws Exception;
 	public int updateReport(String id) throws Exception;
 
-	
+	*/
+	public List<CategoryDTO> getCategoryList() throws Exception;
 	//=====================================민희========================================
 	
 	public PetitionDTO getArticle(int num) throws Exception;
