@@ -44,9 +44,5 @@ public class PetitionerServiceImpl implements PetitionerService {
 		connection.update("petitioner.updatePetitionerState", id);
 	}
 
-	 @Override
-	  public PetitionerDTO getPetitionerById(String writerId) {
-	    
-	    return connection.selectOne("petitioner.getPetitionerById", writerId);
-	  }
+
 }

@@ -31,8 +31,7 @@ public class PetitionBean {
     @Autowired
     private PetitionerService petitionerDAO = null;
     
-    @Autowired
-    private PetitionPetitionerMapService petitionPetitionerService = null;
+    
     
     
     //====================================우찬=================================

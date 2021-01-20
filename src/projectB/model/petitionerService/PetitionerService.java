@@ -12,5 +12,5 @@ public interface PetitionerService {
 	PetitionerDTO getPetitionerByEmailAndAuthKey(String email, int authKey)  throws SQLException;
 	void insertPetitioner(PetitionerDTO dto) throws SQLException;
 	void updatePetitionerState(String id)  throws SQLException;
-	PetitionerDTO getPetitionerById(String writerId);
+
 }
