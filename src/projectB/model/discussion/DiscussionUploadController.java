@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import projectB.model.petition.DiscussionDTO;
-import projectB.model.petitionService.PetitionPetitionerMapService;
 import projectB.model.petitionService.PetitionService;
 import projectB.model.petitionerService.PetitionerService;
 
