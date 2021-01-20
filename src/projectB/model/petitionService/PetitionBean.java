@@ -34,6 +34,8 @@ public class PetitionBean {
     @Autowired
     private PetitionPetitionerMapService petitionPetitionerService = null;
     
+    
+    //====================================우찬=================================
     @RequestMapping("uploadForm.aa")
     public String upload(PetitionDTO dto, Model model,HttpSession session) throws Exception {
         
@@ -104,6 +106,8 @@ public class PetitionBean {
        return "wooch/discussionUploadPro";
    }
    
+   
+   //===================================보배=================================================
     @RequestMapping("afootPetition.aa")
     public String ing_list(@RequestParam(defaultValue="1")int pageNum, Model model) throws Exception {
         
@@ -383,14 +387,7 @@ public class PetitionBean {
 		return "petition/reportMs";
 	}
     
-    //test중
-    @RequestMapping("reportTest.aa")
-    public String reportTest()throws Exception{
-        
-        
-        
-        return "petition/reportTest";
-    }
+
 
 
     

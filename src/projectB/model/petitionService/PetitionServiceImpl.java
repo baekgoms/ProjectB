@@ -21,7 +21,7 @@ public class PetitionServiceImpl implements PetitionService {
 	@Autowired
 	private SqlSessionTemplate dao = null;
 	
-
+	//==============================우찬===================================
 	@Override
 	public void insertArticle(PetitionDTO petition) throws Exception {
 		dao.insert("petition.insertArticle", petition);
@@ -39,6 +39,7 @@ public class PetitionServiceImpl implements PetitionService {
 		return dao.selectList("petition.getCategory");
 	}
 
+	//==============================보배===================================
 	@Override
 	public int getArticleCount() throws Exception {
 
@@ -83,11 +84,7 @@ public class PetitionServiceImpl implements PetitionService {
 	}
 	
 
-	@Override
-	public PetitionDTO updateGetArticle(int num) throws Exception {
 
-		return null;
-	}
 
 	@Override
 	public int getArticleCountbyState(int state) throws Exception {
