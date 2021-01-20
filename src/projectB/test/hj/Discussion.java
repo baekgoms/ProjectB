@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import projectB.model.discussion.DisBoardCommDTO;
+import projectB.model.discussionCommService.DisBoardCommService;
 import projectB.model.login.LoginUtils;
 import projectB.model.petition.DiscussionDTO;
 
@@ -60,25 +62,58 @@ public class Discussion {
         List<DiscussionDTO> articleCList = null;
         articleList = disBoardDAO.getBestArticles(1,listSize, sort);
         articleCList = disBoardDAO.getBestCArticles(1, listSize, sort);
-        int week = disBoardDAO.getWeek();
-        int month = disBoardDAO.getMonth() +1;
-        String today = month+"월 "+week+"주차";
-        String sunday = disBoardDAO.getSunday(week, month);
         
+        Map<String, Integer> todayDate = new HashMap<>();
+        todayDate = disBoardDAO.getToday();
+        int month = todayDate.get("month");
+        int year = todayDate.get("year");
+        int week = todayDate.get("week");
+        int day = todayDate.get("day");
+        String today = month+"월 "+week+"주차";
+        String sunday = null;
+        String nextSunday = null;
+        Map<String, Integer> lastweek = new HashMap<>();
         ArrayList<String> weekList = new ArrayList<String>();
+        ArrayList<String> sundayList = new ArrayList<String>();
+        ArrayList<String> nextSundayList = new ArrayList<String>();
+
+        ArrayList<List<DiscussionDTO>> weekArticleList = new ArrayList<List<DiscussionDTO>>();
+        ArrayList<List<DiscussionDTO>> weekArticleCList = new ArrayList<List<DiscussionDTO>>();
+        
         for(int i = 0; i < 5;i++) {
         	if(week == 1) {
-        		week = disBoardDAO.getPreWeek(month);
-        		if(month == 1) {
-        			month = 12;
-        		}else {
-        			month--;
-        		}
-        	}else{
-        		week--;
+        		lastweek = disBoardDAO.getPreWeek(lastweek);
+                sunday = disBoardDAO.getSunday(lastweek);
+                week = lastweek.get("week");
+                month = lastweek.get("month");  
+                year = lastweek.get("year");
+        	}else {
+        		week = week-1;
+        		day = day-7;
+        		lastweek.put("week", week);
+    			lastweek.put("year", year);
+    			lastweek.put("month",month);
+    			lastweek.put("day", day);
+        		sunday = disBoardDAO.getSunday(lastweek);
         	}
         	weekList.add(i,month+"월 "+week+"주차");
+        	sundayList.add(sunday);
         }
+        nextSunday = disBoardDAO.getSunday(todayDate);
+		nextSundayList.add(nextSunday);
+        for(int a = 0; a < 4 ;a++) {
+    		nextSunday = sundayList.get(a);
+    		nextSundayList.add(nextSunday);
+    	}
+        System.out.println(sundayList);
+        System.out.println(nextSundayList);
+        for(int i = 0; i < sundayList.size(); i++) {
+        	List<DiscussionDTO> list = disBoardDAO.getBestArticles(1, listSize, sort, sundayList.get(i), nextSundayList.get(i));
+        	List<DiscussionDTO> list2 = disBoardDAO.getBestCArticles(1, listSize, sort, sundayList.get(i), nextSundayList.get(i));
+        	weekArticleList.add(i, list);
+        	weekArticleCList.add(i, list2);
+        }
+        System.out.println(weekArticleList);
         
         model.addAttribute("listSize", new Integer(listSize));
         model.addAttribute("articleList", articleList);
@@ -86,8 +121,10 @@ public class Discussion {
         model.addAttribute("sort", new Integer(sort));
         model.addAttribute("number", new Integer(number));
         model.addAttribute("today", today);
-        model.addAttribute("weekList", weekList);
         model.addAttribute("sunday", sunday);
+        model.addAttribute("weekList", weekList);
+        model.addAttribute("weekArticleList",weekArticleList);
+        model.addAttribute("weekArticleCList",weekArticleCList);
 		return "discussion/mainBest";
 	}
 	@RequestMapping("mainSearch.aa")
@@ -153,25 +190,55 @@ public class Discussion {
 	}
 
 	@RequestMapping("content.aa")
-    public String content(@RequestParam(defaultValue="356" , required = true)int discussionNum, 
+    public String content(int discussionNum,
     		@RequestParam(defaultValue="1" , required = true)int pageNum,
+    		@RequestParam(defaultValue="1" , required = true)int commentPageNum,
     		HttpSession session, Model model) throws Exception {
-		System.out.println("content run/" + discussionNum);
+		
+		String id = LoginUtils.getLoginID(session);
+		int voteResult = disBoardDAO.CheckVote(discussionNum, id);
 		
 		DiscussionDTO article = disBoardDAO.getArticle(discussionNum);
+		
 		if (article == null) {
 			return "redriect:dadasd.aa"; // 게시물이 없다는 오류 페이지로 보여주기!
 		}
 		
-		List<String> tags = new ArrayList<>( Arrays.asList(article.getTag().split(",")) );
-		List<DisBoardCommDTO> comments = disBoardCommService.getCommentListByDiscussionNum(discussionNum);
-//		System.out.println(comments);
-
+		//태그 생성
+		List<String> tags = Collections.emptyList();
+		if(article.getTag() != null) {
+			tags = new ArrayList<>( Arrays.asList(article.getTag().split(",")) );
+		}
 		
-		//System.out.println("id//" + LoginUtils.getLoginID(session));
-		String id = LoginUtils.getLoginID(session);		
-		int voteResult = disBoardDAO.CheckVote(discussionNum, id);
-//		System.out.println("checkVote - " + checkVote);
+		//페이징 계산
+		int commentTotalCount = disBoardCommService.getCommentCount(discussionNum);
+		int startRow = (commentPageNum - 1) * COMMENT_LENGTH + 1;
+		int endRow = (commentPageNum) * COMMENT_LENGTH;
+		
+		//댓글 얻기
+		List<DisBoardCommDTO> comments = disBoardCommService.getComments(discussionNum, startRow, endRow);
+		int pageTotalCount = commentTotalCount / COMMENT_LENGTH;
+		
+		//다음 페이지에 게시물이 하나라도 있다면 페이지 처리
+		if(commentTotalCount % COMMENT_LENGTH > 0)
+			pageTotalCount++;
+		// 페이징 처리 시작 값
+		int startPageIndex = (((commentPageNum - 1) / COMMENT_PAGE_LENGTH) * COMMENT_LENGTH) + 1;
+		// 페이징 처리 종료 값
+		int endPageIndex = startPageIndex + COMMENT_PAGE_LENGTH - 1;
+		// 페이지 마지막 값이 총 페이지를 넘어가지 않도록 처리
+		if(endPageIndex > pageTotalCount)
+			endPageIndex = pageTotalCount;
+		
+		// 페이징용 변수
+		model.addAttribute("pageTotalCount", pageTotalCount);
+		model.addAttribute("startPageIndex", startPageIndex);
+		model.addAttribute("endPageIndex", endPageIndex);
+		model.addAttribute("commentCount", comments.size());
+		
+		model.addAttribute("pageNum", pageNum);
+        model.addAttribute("commentPageNum", commentPageNum);
+        
 		model.addAttribute("voteResult", voteResult);
 		model.addAttribute("memId", id);
         model.addAttribute("article", article);
@@ -181,6 +248,20 @@ public class Discussion {
 		return "discussion/content";
 	}
 	
+    @RequestMapping("commentInsert.aa")
+    public String commentInsert(DisBoardCommDTO dto) {
+    	String text = dto.getContent().replaceAll("[\r\n]","<br>");
+    	text = text.replace(" ","&nbsp");
+    	dto.setContent(text);    	
+    	
+        try {
+        	disBoardCommService.insertComment(dto);
+        } catch (Exception e) {
+        	e.printStackTrace();
+		}
+        return "redirect:content.aa?discussionNum=" + dto.getDiscussionNum();
+    }
+    
 	@RequestMapping("vote_y.aa")
 	@ResponseBody
 	public String clickVoteY(@RequestParam Map<String, Object> voteMap) {
@@ -219,11 +300,5 @@ public class Discussion {
 			e.printStackTrace();
 		}
 		return result;
-	}
-
-	@RequestMapping("commentWritePro.aa")
-    public String writePro(DisBoardCommDTO dto, Model model) throws Exception{
-		disBoardCommService.insertComment(dto);
-		return "discussion/commentWritePro";
 	}
 }

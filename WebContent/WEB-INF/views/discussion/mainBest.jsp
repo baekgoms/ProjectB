@@ -32,9 +32,9 @@ function inputCheck(){
 	}
 }
 </script>
+
 <title>토론게시판</title>
 <center>
-${sunday}
 <div class="col-12">
 <br><br>
 </div>
@@ -84,20 +84,140 @@ ${sunday}
 </div>
 <c:choose>
 <c:when test="${sort == 1 }">
-<h3>주간베스트</h3>
-<h5>지난 한주간 추천과 댓글이 많았던 토론입니다.</h5>
+<h2>주간베스트</h2>
+<h5>지난 한주간 추천과 댓글이 많았던 토론입니다.</h5><br />
 </c:when>
 <c:otherwise>
-<h3>월간베스트</h3>
-<h5>지난 한달간 추천과 댓글이 많았던 토론입니다.</h5>
+<h2>월간베스트</h2>
+<h5>지난 한달간 추천과 댓글이 많았던 토론입니다.</h5><br />
 </c:otherwise>
 </c:choose>
 
-<c:import url="discussionTopList.jsp?so=${something}" charEncoding="UTF8">
-<c:param name="sort" value="${sort}"></c:param>
-<c:param name="articleList" value="${articleList}"></c:param>
-<c:param name="articleCList" value="${articleCList}"></c:param>
-<c:param name="weekList" value="${weekList}"></c:param>
-</c:import>
+<ul class="nav nav-tabs nav-justified nav-bordered mb-3">
+    <li class="nav-item">
+        <a href="#thisweek" data-toggle="tab" aria-expanded="true" class="nav-link active">
+            <i class="mdi mdi-home-variant d-lg-none d-block mr-1"></i>
+            <span class="d-none d-lg-block">오늘기준</span>
+        </a>
+    </li>
+    <c:forEach items="${weekList}" var="week" varStatus="status">
+    <li class="nav-item">
+        <a href="#week-${status.count}" data-toggle="tab" aria-expanded="false"
+            class="nav-link">
+            <i class="mdi mdi-account-circle d-lg-none d-block mr-1"></i>
+            <span class="d-none d-lg-block"><c:out value="${week}" /></span>
+		</a>
+    </li>
+    </c:forEach>
+</ul>
+<div class="tab-content">
+	<div class="tab-pane show active" id="thisweek">
+        <div>
+			<h3>추천 TOP5</h3> <br />
+			
+			<table class="table">
+			<tr align="center">
+			<td>순위</td>
+			<td>제목</td>
+			<td>작성자</td>
+			<td>찬성수/반대수</td>
+			<td>작성일</td>
+			<td>댓글수</td>
+			</tr>
+			<c:forEach items="${articleList}" var="article">
+			<tr align="center">
+			<td><c:out value="${number}"/>
+				<c:set var="number" value="${number + 1}"/></td>
+			<td width="500"><a href="/projectB/discussion/content.aa?num=${article.num}">${article.subject}</a></td>
+			<td>${article.write}</td>
+			<td>${article.agreement} / ${article.opposition}</td>
+			<td>${article.reg}</td>
+			<td>${article.commentcount}</td>
+			</tr>
+			</c:forEach>
+			<tr height="30"><td colspan="6"></td></tr>
+			</table>
+		</div>
+	<c:set var="number" value="1"/>
+		<div>
+			<h4>댓글 TOP5</h4><br />
+			<table class="table">
+			<tr align="center">
+			<td>순위</td>
+			<td>제목</td>
+			<td>작성자</td>
+			<td>찬성수/반대수</td>
+			<td>작성일</td>
+			<td>댓글수</td></tr>
+			<c:forEach items="${articleCList}" var="articleC">
+			<tr align="center">
+			<td><c:out value="${number}"/>
+				<c:set var="number" value="${number + 1}"/></td>
+			<td width="500"><a href="/projectB/discussion/content.aa?num=${articleC.num}">${articleC.subject}</a></td>
+			<td>${articleC.write}</td>
+			<td>${articleC.agreement} / ${articleC.opposition}</td>
+			<td>${articleC.reg}</td>
+			<td>${articleC.commentcount}</td>
+			</tr>
+			</c:forEach>
+			</table>
+		</div>
+    </div>
+    <c:forEach var="articles" items="${weekArticleList}" varStatus="s">
+    <div class="tab-pane" id="week-${s.count}">
+		 <c:set var="number" value="1"/>
+			<h3>추천 TOP5</h3> <br />
+			<table class="table">
+			<tr align="center">
+			<td>순위</td>
+			<td>제목</td>
+			<td>작성자</td>
+			<td>찬성수/반대수</td>
+			<td>작성일</td>
+			<td>댓글수</td>
+			</tr>
+			<c:forEach items="${articles}" var="article">
+			<tr align="center">
+			<td><c:out value="${number}"/>
+				<c:set var="number" value="${number + 1}"/></td>
+			<td width="500"><a href="/projectB/discussion/content.aa?num=${article.num}">${article.subject}</a></td>
+			<td><p>${article.write}</p></td>
+			<td>${article.agreement} / ${article.opposition}</td>
+			<td>${article.reg}</td>
+			<td>${article.commentcount}</td>
+			</tr>
+			</c:forEach>
+			<tr height="30"><td colspan="6"></td></tr>
+			</table>
+		
+		<c:set var="number" value="1"/>
+			<h4>댓글 TOP5</h4><br />
+			<table class="table">
+			<tr align="center">
+			<td>순위</td>
+			<td>제목</td>
+			<td>작성자</td>
+			<td>찬성수/반대수</td>
+			<td>작성일</td>
+			<td>댓글수</td></tr>
+			<c:forEach items="${weekArticleCList[s.index]}" var="articleC">
+			<tr align="center">
+			<td><c:out value="${number}"/>
+				<c:set var="number" value="${number + 1}"/></td>
+			<td width="500"><a href="/projectB/discussion/content.aa?num=${articleC.num}">${articleC.subject}</a></td>
+			<td>${articleC.write}</td>
+			<td>${articleC.agreement} / ${articleC.opposition}</td>
+			<td>${articleC.reg}</td>
+			<td>${articleC.commentcount}</td>
+			</tr>
+			</c:forEach>
+			</table>
+		</div>
+	</c:forEach>
+</div>
+
+<div>
+<br /><br />
+</div>
 
 </center>

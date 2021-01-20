@@ -35,26 +35,34 @@
 	
 	<select id="getBestArticles" parameterType="map" resultType="discussionDTO">
 		select * from (select num, write, content, reg, agreement, opposition, tag, report, open, subject, link, commentcount, rownum as r from(select * from discussion 
-		<![CDATA[where to_char(reg, 'yyyymmdd') <= to_char(sysdate,'yyyymmdd') and to_char(reg, 'yyyymmdd') >= ]]>
-		<if test="sort == 1">
-		<![CDATA[to_char(sysdate-7,'yyyymmdd') ]]>
+		<if test="date1 == null and sort == 1">
+			<![CDATA[where to_char(reg, 'yyyy-mm-dd') <= to_char(sysdate, 'yyyy-mm-dd') and to_char(reg, 'yyyy-mm-dd') >= to_char(sysdate-7, 'yyyy-mm-dd')]]>
 		</if>
-		<if test="sort == 2">
-		<![CDATA[to_char(sysdate-30,'yyyymmdd') ]]>
+		<if test="date1 == null and sort == 2">
+			<![CDATA[where to_char(reg, 'yyyy-mm-dd') <= to_char(sysdate, 'yyyy-mm-dd') and to_char(reg, 'yyyy-mm-dd') >= to_char(sysdate-30, 'yyyy-mm-dd') ]]>
+		</if>
+		<if test="date1 != null and date2 != null">
+			<![CDATA[where reg between to_date(#{date1}) and to_date(#{date2})]]>
 		</if>
 		<![CDATA[order by agreement+opposition desc) order by agreement+opposition desc) where r >= #{start} and r <= #{end} ]]>
 	</select>
 
 	<select id="getBestCArticles" parameterType="map" resultType="discussionDTO">
-		<![CDATA[select * from (select num, write, content, reg, agreement, opposition, tag, report, open, subject, link, commentcount, rownum as r from(select * from discussion 
-		where to_char(reg, 'yyyymmdd') <= to_char(sysdate,'yyyymmdd') and to_char(reg, 'yyyymmdd') >= ]]>
-		<if test="sort == 1">
-		<![CDATA[to_char(sysdate-7,'yyyymmdd') ]]>
+		select * from (select num, write, content, reg, agreement, opposition, tag, report, open, subject, link, commentcount, rownum as r from(select * from discussion 
+		<if test="date1 == null and sort == 1">
+			<![CDATA[where to_char(reg, 'yyyy-mm-dd') <= to_char(sysdate,'yyyy-mm-dd') and to_char(reg,'yyyy-mm-dd') >= to_char(sysdate-7, 'yyyy-mm-dd')]]>
 		</if>
-		<if test="sort == 2">
-		<![CDATA[to_char(sysdate-30,'yyyymmdd') ]]>
+		<if test="date1 == null and sort == 2">
+			<![CDATA[where to_char(reg, 'yyyy-mm-dd') <= to_char(sysdate,'yyyy-mm-dd') and to_char(reg, 'yyyy-mm-dd') >= to_char(sysdate-30, 'yyyy-mm-dd') ]]>
+		</if>
+		<if test="date1 != null and date2 != null">
+			<![CDATA[where reg between to_date(#{date1}) and to_date(#{date2})]]>
 		</if>
 		<![CDATA[order by commentcount desc) order by commentcount desc) where r >= #{start} and r <= #{end}]]>
+	</select>
+	
+	<select id="getWeekBestArticles" parameterType="map" resultType="discussionDTO">
+	select * from (select num, write, content, reg, agreement, opposition, tag, report, open, subject, link, commentcount, rownum as r from(select * from discussion <![CDATA[where reg >= #{date1} and reg < #{date2}]]> order by agreement+opposition desc) order by agreement+opposition desc) <![CDATA[where r >= #{start} and r <= #{end}]]> 
 	</select>
 	
 	<select id="getArticle" parameterType="int" resultType="discussionDTO">

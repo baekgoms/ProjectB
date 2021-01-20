@@ -3,6 +3,7 @@ package projectB.model.petition;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.List;
 
 import projectB.model.BaseDTO;
 
@@ -19,7 +20,6 @@ public class DiscussionDTO implements BaseDTO{
 	private String subject;
 	private String link;
 	private int commentcount;
-	
 
 	@Override
 	public void setInfo(ResultSet rs) {

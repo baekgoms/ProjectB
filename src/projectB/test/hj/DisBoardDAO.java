@@ -1,5 +1,7 @@
 package projectB.test.hj;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -141,51 +143,96 @@ public class DisBoardDAO implements DisBoardService{
 		bDao.update("disBoard.opposition", discussionNum);
 	}
 
-	// 일요일을 한 주의 기준으로 했을 때 이번주가 이번달의 몇째주인지 구함
-	public int getWeek(){
- 		Calendar c = Calendar.getInstance();
- 		c.setFirstDayOfWeek(Calendar.SUNDAY);
- 		c.setMinimalDaysInFirstWeek(4);
- 		int week = c.get(Calendar.WEEK_OF_MONTH);
- 		return week;
- 	}
-	// 오늘이 몇월인지 구함
-	public int getMonth(){
- 		Calendar c = Calendar.getInstance();
- 		int month = c.get(Calendar.MONTH);
- 		return month;
- 	}
-	// 저번주가 몇번째주인지 구함
-	public int getPreWeek(int month) {
+	@Override
+	public Map<String, Integer> getToday(){
 		Calendar c = Calendar.getInstance();
+		int month = c.get(Calendar.MONTH)+1;
+		int year = c.get(Calendar.YEAR);
 		c.setFirstDayOfWeek(Calendar.SUNDAY);
  		c.setMinimalDaysInFirstWeek(4);
-		int week = 0;
-		int year = c.get(Calendar.YEAR);
-		int pmonth = month -2;
+ 		int week = c.get(Calendar.WEEK_OF_MONTH);
+ 		int day = c.get(Calendar.DAY_OF_MONTH);
+ 		Map<String, Integer> todayDate = new HashMap<>();
+ 		todayDate.put("week", week);
+ 		todayDate.put("year", year);
+ 		todayDate.put("month", month);
+ 		todayDate.put("day", day);
+		return todayDate;
+	}
+	// 저번주는 몇년, 몇월, 몇째주인지
+	@Override
+	public Map<String, Integer> getPreWeek(Map<String, Integer> lastweek) {
+		Calendar c = Calendar.getInstance();
+		c.setFirstDayOfWeek(Calendar.SUNDAY);
+ 		c.setMinimalDaysInFirstWeek(7);
+ 		int year = lastweek.get("year");
+ 		int month = lastweek.get("month");
+ 		int week = lastweek.get("week");
+ 		
 		if(month == 1) {
-			year =-1 ;
+			int years = year-1;
+			month = 11;
+			c.set(Calendar.MONTH,month);
 			int day = c.getActualMaximum(Calendar.DAY_OF_MONTH);
-			c.set(year, 12, day);
+			c.set(years, month, day);
 			week = c.get(Calendar.WEEK_OF_MONTH);
+			lastweek.put("week", week);
+			lastweek.put("year", years);
+			lastweek.put("month",12);
+			lastweek.put("day", day);
 		}else {
-			c.set(year, pmonth, 1);
+			month = month-2;
+			c.set(year, month, 1);
 			int day = c.getActualMaximum(Calendar.DAY_OF_MONTH);
-			c.set(year, pmonth, day);
+			c.set(year, month, day);
 			week = c.get(Calendar.WEEK_OF_MONTH);
+			lastweek.put("week", week);
+			lastweek.put("year", year);
+			lastweek.put("month",month+1);
+			lastweek.put("day", day);
 		}
-		return week;
+		
+		return lastweek;
+	}
+	// 그 날의 일요일 구하기
+	@Override
+	public String getSunday(Map<String, Integer> lastweek) throws Exception {
+	String pattern = "yyyy-MM-dd";
+	SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+	int year = lastweek.get("year");
+	int month = lastweek.get("month")-1;
+	int week = lastweek.get("week");
+	Calendar c = Calendar.getInstance();
+	c.set(Calendar.YEAR,year);
+	c.set(Calendar.MONTH,month);
+	c.set(Calendar.WEEK_OF_MONTH,week);
+	c.set(Calendar.DAY_OF_WEEK,Calendar.SUNDAY);
+	c.add(c.DATE,7);
+		return simpleDateFormat.format(c.getTime());
+	}
+	
+	@Override
+	public List<DiscussionDTO> getBestArticles(int start, int end, int sort, String date1, String date2) throws Exception{
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("start",start);
+		map.put("end",end);
+		map.put("sort",sort);
+		map.put("date1", date1);
+		map.put("date2", date2);
+		List<DiscussionDTO> articleList = bDao.selectList("disBoard.getWeekBestArticles", map);
+		return articleList;
+	}
+	
+	@Override
+	public List<DiscussionDTO> getBestCArticles(int start, int end, int sort, String date1, String date2) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("start",start);
+		map.put("end",end);
+		map.put("sort",sort);
+		map.put("date1", date1);
+		map.put("date2", date2);
+		List<DiscussionDTO> articleCList = bDao.selectList("disBoard.getBestCArticles", map);
+		return articleCList;
 	}
 
-	@Override
-	public String getSunday(int week, int month) {
-		Calendar c = Calendar.getInstance();
-		java.text.SimpleDateFormat formatter = new java.text.SimpleDateFormat("yyyymmdd");
-		int pmonth = month -2;
- 		c.set(Calendar.MONTH,pmonth);
- 		c.set(Calendar.WEEK_OF_MONTH,week);
- 		c.set(Calendar.DAY_OF_WEEK,Calendar.SUNDAY);
- 		c.add(c.DATE,7);
- 		return formatter.format(c.getTime());
-	}
 }
