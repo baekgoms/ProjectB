@@ -28,5 +28,13 @@
 	</update>
 	
 	
+	
+	<!-- ================================민희====================================== -->
+	<select id="getPetitionerById" resultType="petitionerDTO" parameterType="String">
+		select * from petitioner where id = #{id}
+	</select>
+	
+	
+	
 </mapper>
 

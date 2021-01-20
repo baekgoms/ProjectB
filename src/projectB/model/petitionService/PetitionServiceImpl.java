@@ -105,6 +105,61 @@ public class PetitionServiceImpl implements PetitionService {
 	}
 
 	@Override
+    public List<CategoryDTO> getCategoryList() throws Exception {
+        return dao.selectList("petition.getCategoryList");
+    }
+
+    @Override
+    public List<PetitionDTO> getArticlesSearch(int startRow, int endRow, String keyword) throws Exception {
+        Map map = new HashMap();
+        map.put("startRow", startRow);
+        map.put("endRow", endRow);
+        map.put("keyword", keyword);
+        List<PetitionDTO> articleList = dao.selectList("petition.getArticleAll", map);
+        return articleList;
+    }
+
+    @Override
+    public int getArticleCount(String keyword) throws Exception {
+        int count = dao.selectOne("petition.getArticleCount",keyword);
+        return count;
+    }
+
+
+
+
+    //신고하기 Test중
+    @Override
+    public PetitionDTO forReport(int num) throws Exception {
+
+        return dao.selectOne("petition.forReport",num);
+    }
+
+    @Override
+    public PetitionDTO reportCount(int num) throws Exception {
+        dao.update("petition.reportCount",num);
+        return dao.selectOne("petition.forReport",num);
+    }
+
+    @Override
+    public int getreportCount(int num) throws Exception {
+        
+        return dao.selectOne("petition.reportCountBynum", num);
+    }
+
+    @Override
+    public int updateReport(String id) throws Exception {
+        
+        return dao.update("petition.reportCountId", id);
+
+    }
+
+	
+	
+	
+	//=====================================민희======================================
+	
+	@Override
 	public PetitionDTO getArticle(int num) throws Exception {
 		return dao.selectOne("petition.getArticle", num);
 	}
@@ -115,13 +170,13 @@ public class PetitionServiceImpl implements PetitionService {
 	}
 
 	@Override
+    public int petCmtCount(int petitionNum) throws Exception {
+        return dao.selectOne("petition.petCmtCount", petitionNum);
+    }
+	
+	@Override
 	public List<PetitionDTO> petCmtListAll(int petitionNum) throws Exception {
 		return dao.selectList("petition.petCmtListAll", petitionNum);
-	}
-
-	@Override
-	public int petCmtCount(int petitionNum) throws Exception {
-		return dao.selectOne("petition.petCmtCount", petitionNum);
 	}
 
 	@Override
@@ -135,65 +190,24 @@ public class PetitionServiceImpl implements PetitionService {
 	}
 
 	@Override
-	public List<CategoryDTO> getCategoryList() throws Exception {
-		return dao.selectList("petition.getCategoryList");
-	}
-
+    public int updatePetitionCount(int petitionNum) {
+        return dao.update("petition.updatePetitionCount", petitionNum);
+    }
+    
 	@Override
-	public List<PetitionDTO> getArticlesSearch(int startRow, int endRow, String keyword) throws Exception {
-		Map map = new HashMap();
-		map.put("startRow", startRow);
-		map.put("endRow", endRow);
-		map.put("keyword", keyword);
-		List<PetitionDTO> articleList = dao.selectList("petition.getArticleAll", map);
-		return articleList;
-	}
-
-	@Override
-	public int getArticleCount(String keyword) throws Exception {
-		int count = dao.selectOne("petition.getArticleCount",keyword);
-		return count;
-	}
-
-	@Override
-	public PetitionIndicatorDTO getPetitionIndicator(int num) throws Exception {
+    public PetitionIndicatorDTO getPetitionIndicator(int num) throws Exception {
         return dao.selectOne("petition.getPetitionIndicator", num);
-	}
-
-	@Override
-	public int updatePetitionCount(int petitionNum) {
-		return dao.update("petition.updatePetitionCount", petitionNum);
-	}
-
-
-	//신고하기 Test중
-	@Override
-	public PetitionDTO forReport(int num) throws Exception {
-
-		return dao.selectOne("petition.forReport",num);
-	}
-
-	@Override
-	public PetitionDTO reportCount(int num) throws Exception {
-		dao.update("petition.reportCount",num);
-		return dao.selectOne("petition.forReport",num);
-	}
-
-	@Override
-	public int getreportCount(int num) throws Exception {
-		
-		return dao.selectOne("petition.reportCountBynum", num);
-	}
-
-	@Override
-	public int updateReport(String id) throws Exception {
-		
-		return dao.update("petition.reportCountId", id);
-	}
-
-
-
-
-
+    }
+	
+	
+	 @Override
+	 public void updateIndicator(int num, String gender, int age) {
+	     Map<String, Object> map = new HashMap<>();
+	     map.put("petitionNum", num);
+	     map.put("gender", "남자".equals(gender));
+	     map.put("age", age);
+	     dao.update("petition.updateIndicator", map);
+	  }
+	
 
 }

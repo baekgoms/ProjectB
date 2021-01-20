@@ -1,5 +1,6 @@
 package projectB.model.petitionService;
 
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 
@@ -17,6 +18,8 @@ import projectB.model.petition.DiscussionDTO;
 import projectB.model.petition.PetCommentDTO;
 import projectB.model.petition.PetitionDTO;
 import projectB.model.petition.PetitionIndicatorDTO;
+import projectB.model.petitioner.PetitionerDTO;
+import projectB.model.petitionerService.PetitionerService;
 
 @Controller
 @RequestMapping("petition")
@@ -24,6 +27,9 @@ public class PetitionBean {
     
     @Autowired
     private PetitionService petitionDAO = null;
+    
+    @Autowired
+    private PetitionerService petitionerDAO = null;
     
     @Autowired
     private PetitionPetitionerMapService petitionPetitionerService = null;
@@ -345,6 +351,7 @@ public class PetitionBean {
         
         return "petition/standbyPetition";
     }
+
     //신고하기
     @RequestMapping("declareArticle.aa")
 	public String declareArticle(int num, Model model)throws Exception{
@@ -376,8 +383,18 @@ public class PetitionBean {
 		return "petition/reportMs";
 	}
     
+    //test중
+    @RequestMapping("reportTest.aa")
+    public String reportTest()throws Exception{
+        
+        
+        
+        return "petition/reportTest";
+    }
+
+
     
-    
+    //===========================================민희==================================================
     
     //청원보기
     @RequestMapping("petContent.aa")
@@ -400,7 +417,7 @@ public class PetitionBean {
         return "petition/petitionContent";
     }
     
-    //청원댓글
+
     @RequestMapping("petComment.aa")
     public String petCmtListAll(@RequestParam("petitionNum")int petitionNum,@RequestParam(defaultValue="1")int pageNum, Model model) throws Exception{
         int pageSize = 10;
@@ -433,13 +450,28 @@ public class PetitionBean {
     
     @RequestMapping("petitionCommentPro.aa")
     public String insertCmt(PetCommentDTO dto)throws Exception{
+        String writerId = dto.getWriter();
+        PetitionerDTO petitionerDTO = petitionerDAO.getPetitionerById(writerId);
+        String gender = petitionerDTO.getGender();
+        String birthday = petitionerDTO.getBirthday();
+        
+        if(Integer.parseInt(birthday) > 21) birthday = "19" + birthday;
+        else birthday = "20" + birthday;
+        
+        int birthYear = Integer.parseInt(birthday.substring(0, 4));
+        int age = LocalDate.now().getYear() - birthYear + 1;
+          
+        System.out.println("gender : " + gender + ", age : " + age + ", birthYear : " + birthYear);
+        
+        petitionDAO.updateIndicator(dto.getPetitionNum(), gender, age);
+        
         petitionDAO.insertPetCmt(dto);
         petitionDAO.updatePetitionCount(dto.getPetitionNum());
         petitionPetitionerService.insertMap(dto.getPetitionNum(), dto.getWriter());
         return "petition/petitionCommentPro";
     }
     
-	
+
 
 }
 

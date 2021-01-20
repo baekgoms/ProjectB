@@ -32,7 +32,7 @@
 	</c:if> 
 </div>
 <form id="agreeForm">
-	<input type="button" VALUE="청원동의" class="btn btn-block btn-primary"onclick="Confirm()"/>
+	<input type="button" VALUE="청원동의" class="btn btn-block btn-primary" onclick="Confirm()"/>
 		
 		
      <div class="card-body">
@@ -115,11 +115,11 @@
 		function Confirm() {
 			<c:choose>
 				<c:when test="${memId == null}">
-					alert("로그인 해주세요");
-					window.location = ""
+					alert("로그인이 필요한 서비스 입니다.");
+					window.location = "";
 				</c:when>
 				<c:when test="${petitionPetitionerService.isAgreed(petitionNum,memId)}">
-					alert("이미 동의한 청원입니다");
+					alert("이미 동의한 청원입니다.");
 				</c:when>
 				<c:otherwise>
                     $.ajax({
@@ -131,11 +131,11 @@
                             "petitionNum" : "${petitionNum}"
                         },
                         success: function(e) {
-                            alert("등록됐습니다");
+                            alert("동의가 완료되었습니다.");
                             location.reload();
                         },
                         error : function(e) {
-                            alert("오류가 발생했습니다");
+                            alert("오류가 발생했습니다.");
                         }
                     });
 				</c:otherwise>

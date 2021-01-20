@@ -10,7 +10,8 @@ import projectB.model.petition.PetitionIndicatorDTO;
 import projectB.model.petitioner.PetitionerDTO;
 
 public interface PetitionService {
-	
+	 
+    //=====================================우찬========================================
 	public void insertArticle(PetitionDTO petition) throws Exception;
 	public void insertDiscussion(DiscussionDTO dto) throws Exception;
 	public List<PetitionDTO> getCategory() throws Exception;
@@ -32,13 +33,21 @@ public interface PetitionService {
 	public int getreportCount(int num) throws Exception;
 	public int updateReport(String id) throws Exception;
 	
+	
+	
+	//=====================================민희========================================
+	
 	public PetitionDTO getArticle(int num) throws Exception;
+	
 	public void insertPetCmt(PetCommentDTO dto) throws Exception;
+	
+	public int petCmtCount(int petitionNum) throws Exception;
 	public List<PetitionDTO> petCmtListAll(int petitionNum) throws Exception;
 	public List<PetitionDTO> petCmtList(int petitionNum, int start, int end) throws Exception;
-	public int petCmtCount(int petitionNum) throws Exception;
+	
+	public int updatePetitionCount(int petitionNum)throws Exception;
     public PetitionIndicatorDTO getPetitionIndicator(int num) throws Exception;
+    public void updateIndicator(int num, String gender, int age);
 
-	// 청원 동의자수 +1
-	int updatePetitionCount(int petitionNum);
+	
 }

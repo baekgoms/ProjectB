@@ -35,6 +35,8 @@
          height: 1000px;
          margin: 20px auto;
       }
+      
+      
    </style>
 
    <title>청원 보기</title>
@@ -45,13 +47,14 @@
 <br>
 <form>
    <table cellspacing="0" cellpadding="0" align="center" width="800">
-      <tr height="30">
+      <tr height="70">
          <td align="center"  colspan="4" width="800">청원제목 ${petDTO.title}</td>
       </tr>
-      <tr height="30">
+ 
+      <tr height="70">
          <td align="center" colspan="4" width="800">참여인원 : [ ${petDTO.petition} 명]</td>
       </tr>
-      <tr>
+      <tr height="70">
          <td align="center"  colspan="4" width="800">
            	 달성도
 
@@ -67,13 +70,13 @@
                   </div>
                </div>
                <canvas id="barr-chart" class="chartjs-render-monitor"
-                     style="display: block; height: 100px; width: 511px;"></canvas>
+                     style="display: block; height: 100px; width: 300px;"></canvas>
             </div>
 
 
          </td>
       </tr>
-      <tr height="30">
+      <tr height="70">
          <td align="center" width="100">카테고리 ${categoryName}</td>
 
          <c:choose>
@@ -83,11 +86,13 @@
             <c:otherwise>
          <td align="center" width="100" >
             청원시작
-            <fmt:formatDate value="${petDTO.startDate}"
+         <br/><fmt:formatDate value="${petDTO.startDate}"
                         pattern = "yyyy-MM-dd" />
          </td>
          <td align="center" width="100">
             청원마감
+         <br/><fmt:formatDate value="${petDTO.endDate}"
+                        pattern = "yyyy-MM-dd" />
 
 
             
@@ -97,18 +102,18 @@
          <td align="center" width="200">청원인 : ${petDTO.writer}</td>
       </tr>
 
-      <tr height="30">
+      <tr height="70">
          <td align="center">청원진행도</td>
       </tr>
 
 
-      <tr height="30">
-         <td align="center" width="100">내용 </td>
-         <td align="left">${petDTO.content}</td>
+      <tr >
+         <td align="center" width="200" colspan="1">내용 </td>
+         <td align="left" width="600" colspan="3">${petDTO.content}</td>
       </tr>
-      <tr height="30">
-         <td align="center" width="100"> 태그 </td>
-         <td width="700" align="left">
+      <tr height="70">
+         <td align="center" width="200" colspan="1"> 태그 </td>
+         <td width="600" align="left" width="600" colspan="3">
             <c:forEach items="${fn:split(petDTO.tag, ',') }" var="item">
                <a href="/projectB/petition/tag?tag=${item}" class="btn btn-light dropdown-toggle"
                 aria-haspopup="true">#${item}</a>
@@ -116,9 +121,9 @@
          </td>
       </tr>
   
-      <tr height="30">
-         <td align="center" width="100">관련 링크</td>
-         <td width="700" >
+      <tr height="70">
+         <td align="center" width="200" colspan="1">관련 링크</td>
+         <td width="600" align="left" width="600" colspan="3" >
             <c:forEach items="${fn:split(petDTO.link, ',') }" var="item">
                <a href="${item}" target="_blank">${item}</a>
                <br/>
