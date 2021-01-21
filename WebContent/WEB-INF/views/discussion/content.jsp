@@ -62,9 +62,76 @@ iframe {
 </style>
 
 <script>
+	function sendCommentVote(voteState, cmNum, cmvote_state) {
+		var writer = '${memId}';
+		if (!writer) {
+			alert("로그인이 필요합니다.");
+			return false;
+		}
+		//console.log("cmvote_state / " + cmvote_state);
+		//console.log("voteState / " + voteState);
+		//이건 반대가있을때사용
+		if ((cmvote_state > -1) && (cmvote_state != voteState)) {
+			alert("이미 공감하셨습니다.");
+			return false;			
+		}
+		
+		var intY = document.body.scrollTop;
+		setCookie('yPos',intY, 1);
+		
+		params = new Object();
+		params.pageNum = '${pageNum}';
+		params.commentPageNum = '${commentPageNum}';
+		params.discussionNum = '${article.num}';
+		params.commentNum = cmNum;
+		params.writer = writer;
+		params.state = voteState;
+		
+		var form = document.createElement('form');
+		form.setAttribute('method', 'post');
+		form.setAttribute('action', 'commentVote.aa');
+		document.charset = "utf-8";
+	
+		for (var key in params) {
+			//console.log("key - " + key + " / val - " + params[key]);
+			var hiddenField = document.createElement('input');
+			hiddenField.setAttribute('type', 'hidden');
+			hiddenField.setAttribute('name', key);
+			hiddenField.setAttribute('value', params[key]);
+			form.appendChild(hiddenField);
+		}
+		
+		document.body.appendChild(form);
+	    form.submit();
+	}
+	
+	
+	function replyInsertCheck() {
+		var writer = '${memId}';
+		if (!writer) {
+			alert("로그인이 필요합니다.");
+			return false;
+		}
+		
+		//console.log("memId/" + '${memId}');
+		//console.log($("#reply_write_content").val());
+		if (!$("#reply_write_content").val()  || $("#reply_write_content").val() == "") {
+			alert("내용을 입력하세요.");
+			return false;
+		}
+		
+		var intY = document.body.scrollTop;
+		setCookie('yPos',intY, 1);
+		return true;
+	}
 	function commentInsertCheck(writer) {
 		if (!writer) {
 			alert("로그인이 필요합니다.");
+			return false;
+		}
+		
+		if (!$('#reply_content').val()) {
+			alert("내용을 입력하세요.");
 			return false;
 		}
 
@@ -73,6 +140,11 @@ iframe {
 			alert("의견을 선택해주세요.");
 			return false;
 		}
+		
+		var intY = document.body.scrollTop;
+		setCookie('yPos',intY, 1);
+		
+		return true;
 	}
 
 	function voteCheck(discussionNum, voter, voteResult) {
@@ -192,14 +264,31 @@ iframe {
 			}, 00);
 		}
 	}
+
+$(document).ready(function(){
+	$(document).on("click","button[name='reply_up']",function(){
+		alert("추천");
+	});
 	
+	$(document).on("click","button[name='reply_down']",function(){
+		alert("반대");
+	});
+})
 $(document).ready(function(){
 	var status = false; //수정과 대댓글을 동시에 적용 못하도록
 		
 	 $(document).on("click","button[name='reply_reply']",function(){
+		var writer = '${memId}';
+		if (!writer) {
+			alert("로그인이 필요합니다.");
+			return false;
+		}
+			
 		 if(status){
-	        alert("수정과 대댓글은 동시에 불가합니다.");
-	        return false;
+			 $("#reply_add").remove();
+	         status = false;
+	         
+	         return false;
 	     }
 	
 		 status = true;
@@ -207,20 +296,23 @@ $(document).ready(function(){
 		 $("#reply_add").remove();
 		 var reply_id = $(this).attr("reply_id");
 		 var last_check = false;//마지막 tr 체크
-		 
+		 //var memId = '${memId}';
 		 //console.log("reply_id/" + reply_id);
-		 //console.log("memId/" + '${memId}');
+		 //console.log("memId/" + memId);
 		 
 	        // console.log("discussionNum/" + '${discussionNum}');
 	         var replyEditor = 
 	        	 "<tr id='reply_add'>" +
-		        	 "<td colsapn = '5'>" +
-		        	 	"<form method='post' id='reply_write1537116' class='co_write reply_write' action='/projectB/discussion/commentInsert.aa'>" +
-		        	 	"<textarea name='content' rows='3' cols='50'></textarea>" +
+	        	 	"<td></td>" + 
+		        	 "<td>" +
+		        	 	"<form method = 'post' id='reply_write' class='co_write reply_write' action='commentInsert.aa' onsubmit='return replyInsertCheck()'>" +
+		        	 	"<textarea id = 'reply_write_content' name='content' rows='3' cols='50'></textarea>" +
 		        	 	"<br>" +
 		        	 	"<input type ='hidden' name = 'num' value='" + reply_id + "'/>" +
 		        	 	"<input type ='hidden' name = 'discussionNum' value='${ discussionNum }'/>" + 
-						"<input type ='hidden' name = 'writer' value='${ memId }'/>" +					
+						"<input type ='hidden' name = 'writer' value='${ memId }'/>" +
+						"<input type ='hidden' name = 'pageNum' value='${ pageNum }'/>" +
+						"<input type ='hidden' name = 'commentPageNum' value='${ commentPageNum }'/>" +
 		        	 	"<button type='submit' class='btn waves-effect waves-light btn-outline-dark' id='reply_reply_save' name='reply_reply_save'>" +
 		        	 	"등록 </button>" +	        	 	 
 		        	 	"<button type='button' class='btn waves-effect waves-light btn-outline-dark' id='reply_reply_cancel' name='reply_reply_cancel'>" +
@@ -259,8 +351,6 @@ $(document).ready(function(){
 		 //대댓글 입력창 취소
 	     $(document).on("click","button[name='reply_reply_cancel']",function(){
 	         $("#reply_add").remove();
-	         console.log(123123);
-	         
 	         status = false;
 	     });
 });
@@ -354,12 +444,32 @@ $(document).ready(function(){
 							<tr>
 								<td>
 									<form method="post" id="reply_write1537116" class="co_write reply_write"
-										action="commentInsert.aa">
+										action="commentInsert.aa" onsubmit="return commentInsertCheck('${ memId }')">
+										<input class="form-check-input" type="radio" name="imgState"
+										name="inlineRadioOptions" id="radio_y" value="0"
+										style="position: relative; left: 25px">
+										<label class="form-check-label" for="inlineRadio1"
+										style="position: relative; left: 25px">
+											찬성
+										</label>
+										
+										<input class="form-check-input" type="radio"  name="imgState"
+										name="inlineRadioOptions" id="radio_n" value="1"
+										style="position: relative; left: 50px">
+										<label class="form-check-label" for="inlineRadio2"
+										style="position: relative; left: 50px">
+											반대
+										</label>
+									
 										<textarea id="reply_content" name="content"
 											style="width: 100%;" rows="3" cols="50"
 											placeholder="댓글을 입력하세요."></textarea>
-										<br> 
+										
+										<br>
+										 
 										<input type="hidden" name="discussionNum" value="${ discussionNum }" />
+										<input type="hidden" name="commentPageNum" value="${ commentPageNum }" />
+										<input type="hidden" name="pageNum" value="${ pageNum }" />
 										<input type="hidden" name="writer" value="${ memId }" />
 										<button type="submit"
 											class="btn waves-effect waves-light btn-outline-dark"
@@ -373,23 +483,83 @@ $(document).ready(function(){
 
 						<!-- comments -->
 						<table class="table" id="reply_area">
-							<c:forEach varStatus="status" var="comment"
-								items="${ comments }">
+							<c:forEach varStatus="status" var="comment" items="${ comments }">
 								<tr>
+									<td style="text-align: left; width: 10%">
+										<c:if test="${ comment.depth == 0 }">
+											${ comment.writer }
+										</c:if>
+										
+										<c:if test="${ comment.depth != 0 }">
+											└> ${ comment.writer }
+										</c:if>
+										
+										<c:if test="${ comment.imgState != -1 }">
+											<c:if test="${ comment.imgState == 0 }">
+												<img src="/projectB/resource/bootstrap/assets/images/custom-select.png">
+											</c:if>
+												
+											<c:if test="${ comment.imgState == 1 }">
+												<img src="/projectB/resource/bootstrap/assets/images/logo-light-text.png">
+											</c:if>
+										</c:if>
+										<%-- <br>
+										<button type="button"
+											class="btn waves-effect waves-light btn-outline-dark"
+											id="reply_save" name="reply_up" style="font-size: 10px;">
+											추천 ${ comment.up }
+										</button>
+											
+										<button type="button"
+											class="btn waves-effect waves-light btn-outline-dark"
+											id="reply_save" name="reply_down" style="font-size: 10px;">
+											반대 ${ comment.down }
+										</button> --%>
+									</td>
+											
+									<td style="text-align: left; width: 50%">${ comment.content }</td>
+									
 									<c:if test="${ comment.depth == 0 }">
-										<td style="text-align: left;">${ comment.writer }</td>
-									</c:if>
-									<c:if test="${ comment.depth != 0 }">
-										<td style="text-align: left;">└ ${ comment.writer }</td>
-									</c:if>
-									<td style="text-align: left;">${ comment.content }</td>
-									<c:if test="${ comment.depth == 0 }">
-										<td>
+										<td style= "width: 10%">
 											<button type="button"
 												class="btn waves-effect waves-light btn-outline-dark"
 												id="reply_reply" name="reply_reply"
 												reply_id="${ comment.num }">댓글 등록</button>
-										</td>
+										<br>
+										<c:set var="cmvote_check" value="0"/>
+										<c:set var="cmvote_state" value="-1"/>
+										<c:set var="cmvote_up" value="♡"/>
+										<c:set var="cmvote_down" value="♡"/>
+										<c:forEach var="cmv" items="${ cmvs }">
+											<c:if test="${ comment.num == cmv.commentNum }">
+												<c:if test="${ cmv.state == 0 }">
+													<c:set var="cmvote_up" value="♥"/>
+													<c:set var="cmvote_state" value="0"/>
+												</c:if>
+												
+												<c:if test="${ cmv.state == 1 }">
+													<c:set var="cmvote_down" value="♥"/>
+													<c:set var="cmvote_state" value="1"/>
+												</c:if>
+												
+												<c:set var="cmvote_check" value="1"/>							
+											</c:if>								
+										</c:forEach>
+										
+										<button type="button" id="comment_up" name="comment_up"
+											class="btn waves-effect waves-light btn-outline-dark"
+											style="font-size: 10px; border: 0; outline: 0"
+											onclick="sendCommentVote(0, '${comment.num}', '${cmvote_state}')">
+												추천 ${ comment.up } ${ cmvote_up }
+										</button>
+											
+										<button type="button" id="comment_down" name="comment_down"
+											class="btn waves-effect waves-light btn-outline-dark"
+											style="font-size: 10px; border: 0; outline: 0"
+											onclick="sendCommentVote(1, '${comment.num}', '${cmvote_state}')">
+												반대 ${ comment.down } ${ cmvote_down }
+										</button>
+										</td>										
 									</c:if>
 									<c:if test="${ comment.depth != 0 }">
 										<td></td>

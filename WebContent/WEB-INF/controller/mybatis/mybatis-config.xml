@@ -27,6 +27,7 @@
 		<typeAlias alias="CategoryDTO" type="projectB.model.petition.CategoryDTO" />
 		<typeAlias alias="petitionIndicatorDTO" type="projectB.model.petition.PetitionIndicatorDTO" />
 		<typeAlias alias="petitionPetitionerMapDTO" type="projectB.model.petition.PetitionPetitionerMapDTO" />
+		<typeAlias alias="commentVoteDTO" type="projectB.model.discussion.CommentVoteDTO" />
 	</typeAliases>
 	
 	<mappers>
@@ -34,7 +35,7 @@
 		<mapper resource="/sql/petitionSQL.xml" />
 		<mapper resource="/sql/discussionSQL.xml" />
 		<mapper resource="/sql/discussionCommentSQL.xml" />
-	<!--  	<mapper resource="/sql/discussionVoteSQL.xml" />-->
+		<mapper resource="/sql/discussionVoteSQL.xml" />
 		<mapper resource="/sql/loginSQL.xml" />
 	</mappers>
   
