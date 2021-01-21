@@ -19,7 +19,7 @@ import projectB.model.petitionerService.PetitionerService;
 @RequestMapping("petition")
 public class PetitionUploadController {
 	
-	@Autowired
+/*	@Autowired
     private PetitionService petitionDAO = null;
     
     //====================================우찬=================================
@@ -61,6 +61,6 @@ public class PetitionUploadController {
    }
    
    
-   
+*/   
 
 }

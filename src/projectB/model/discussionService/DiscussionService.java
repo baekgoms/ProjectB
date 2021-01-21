@@ -1,11 +1,11 @@
-package projectB.test.hj;
+package projectB.model.discussionService;
 
 import java.util.List;
 import java.util.Map;
 
 import projectB.model.petition.DiscussionDTO;
 
-public interface DisBoardService {
+public interface DiscussionService {
 
 	public void insertArticle(DiscussionDTO article) throws Exception;
 	public int getArticleCount() throws Exception;

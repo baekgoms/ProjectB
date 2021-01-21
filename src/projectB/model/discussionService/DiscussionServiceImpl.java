@@ -1,4 +1,4 @@
-package projectB.test.hj;
+package projectB.model.discussionService;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import projectB.model.petition.DiscussionDTO;
 
 @Service("disBoardDAO")
-public class DisBoardDAO implements DisBoardService{
+public class DiscussionServiceImpl implements DiscussionService{
 	
 	@Autowired
 	private SqlSessionTemplate bDao = null;

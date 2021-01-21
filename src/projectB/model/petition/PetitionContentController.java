@@ -15,7 +15,7 @@ import projectB.model.petitioner.PetitionerDTO;
 @Controller
 @RequestMapping("petition")
 public class PetitionContentController {
-  
+/*  
     @Autowired
     private PetitionContentService petitionDAO = null;
     
@@ -98,5 +98,5 @@ public class PetitionContentController {
     }
   
 
-
+*/
 }

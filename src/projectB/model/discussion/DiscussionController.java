@@ -1,4 +1,4 @@
-package projectB.test.hj;
+package projectB.model.discussion;
 
 import java.util.*;
 
@@ -11,16 +11,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import projectB.model.discussion.DisBoardCommDTO;
 import projectB.model.discussionCommService.DisBoardCommService;
+import projectB.model.discussionService.DiscussionService;
 import projectB.model.login.LoginUtils;
 import projectB.model.petition.DiscussionDTO;
 
 @Controller
 @RequestMapping("discussion")
-public class Discussion {
+public class DiscussionController {
 	@Autowired
-	private DisBoardService disBoardDAO = null;
+	private DiscussionService disBoardDAO = null;
 	
 	@Autowired
 	private DisBoardCommService disBoardCommService = null;
@@ -200,20 +200,6 @@ public class Discussion {
         model.addAttribute("keyword", keyword);
         
 		return "discussion/main";
-	}
-	
-	@RequestMapping("writeForm.aa")
-    public String writeForm(Model model, DiscussionDTO dto, int pageNum){
-		model.addAttribute("dto", dto);
-        model.addAttribute("pageNum", new Integer(pageNum));
-		return "discussion/writeForm";
-	}
-	
-	@RequestMapping("writePro.aa")
-    public String writePro(DiscussionDTO dto, int pageNum, Model model) throws Exception{
-		disBoardDAO.insertArticle(dto);
-        model.addAttribute("pageNum", new Integer(pageNum));
-		return "discussion/writePro";
 	}
 	
 	@RequestMapping("updatePro.aa")
