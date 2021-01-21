@@ -5,7 +5,7 @@
 <mapper namespace="disBoardVote">
 	<!--  CRUD (Create, Read, Update, Delete) -> DB구축  -->
 	<insert id="insertVote" parameterType="map">
-		insert into discussionVote values( #{ discussionNum }, #{ writer }, 1 )	
+		insert into discussionVote values( #{ writer }, #{ discussionNum }, 1 )	
 	</insert>
 	
 	<select id="votecheck" parameterType="map" resultType="int">

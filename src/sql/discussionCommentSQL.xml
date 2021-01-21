@@ -6,23 +6,44 @@
 	<!--  CRUD (Create, Read, Update, Delete) -> DB구축  -->
 	<insert id="insertComment" parameterType="disBoardCommDTO">
 		insert into discussionComment values( discussionComment_seq.nextval, 
-		#{ discussionNum }, #{ write }, #{ content }, #{ imgState },
-		#{ up }, #{ down }, #{ report }, #{ publicState }, sysdate )
+		#{ discussionNum }, #{ writer }, #{ content }, #{ imgState },
+		#{ up }, #{ down }, #{ report }, #{ open },
+		#{ grouping }, #{ depth }, sysdate )
 	</insert>
 	
 	<select id="selectCommentByDiscussionNum" parameterType="int" resultType="disBoardCommDTO">
 		select * from discussionComment where discussionNum = #{ value }
 	</select>
 	
+	<update id = "updateDepth" parameterType = "map">
+		update discussionComment set depth = depth + 1 where grouping = #{ grouping } and depth <![CDATA[>]]> #{ depth }
+	</update>
+	
+	<select id="getNextDepth" resultType="int" parameterType = "map">
+		select max(depth) + 1 from discussionComment where discussionNum = #{ discussionNum } and grouping = #{ grouping }
+	</select>
+	
+	<select id="getNextNumber" parameterType="int" resultType="int">
+		select max(num) + 1 from discussionComment where discussionNum = #{ value }
+	</select>
+	
+	<select id="getMaxNumber" parameterType="int" resultType="int">
+		select max(num) from discussionComment where discussionNum = #{ value }
+	</select>
+	
+	<update id="updateGrouping" parameterType = "int">
+		update discussionComment set grouping= #{ value } where num = #{ value }
+	</update>
+	
 	<select id="getCommentCountByDiscussionNum" parameterType="int" resultType="int">
 		select count(*) from discussionComment where discussionNum = #{ value }
 	</select>
 	
 	<select id = "getCommentsByStartAndEnd" resultType = "disBoardCommDTO" parameterType = "map">
-		select * from (select num, discussionNum, write, content, imgState, up,
-		down, report, publicState, reg, rownum r
-		from (select * from discussionComment order by reg desc) 
-		order by reg desc)
+		select * from (select num, discussionNum, writer, content, imgState, up,
+		down, report, open, grouping, depth, reg, rownum r
+		from (select * from discussionComment order by grouping desc, depth asc) 
+		order by grouping desc, depth asc)
 				where discussionNum = #{ discussionNum } 
 				and r <![CDATA[>=]]> #{ startRow } 
 				and r <![CDATA[<=]]> #{ endRow }  

@@ -34,7 +34,7 @@
 		<mapper resource="/sql/petitionSQL.xml" />
 		<mapper resource="/sql/discussionSQL.xml" />
 		<mapper resource="/sql/discussionCommentSQL.xml" />
-		<mapper resource="/sql/discussionVote.xml" />
+		<mapper resource="/sql/discussionVoteSQL.xml" />
 		<mapper resource="/sql/loginSQL.xml" />
 	</mappers>
   

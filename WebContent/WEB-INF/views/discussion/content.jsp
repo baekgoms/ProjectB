@@ -18,7 +18,7 @@
 <!-- This Page CSS -->
 <link href="/projectB/resource/bootstrap/assets/libs/morris.js/morris.css" rel="stylesheet">
 <link href="/projectB/resource/bootstrap/css/discussion.css" rel="stylesheet">
-
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <title>discussion content</title>
 
 <style type="text/css">
@@ -37,13 +37,14 @@
 ul {
 	list-style: none;
 }
+
 .cs_view.cs_vc .cs_comment .co_view .btn.re_com button {
-    line-height: 51px;
-    letter-spacing: -1px;
-    width: 95px;
-    top: -6px;
-    left: -13px;
-    position: relative;
+	line-height: 51px;
+	letter-spacing: -1px;
+	width: 95px;
+	top: -6px;
+	left: -13px;
+	position: relative;
 }
 /* .layer {
   position: absolute;
@@ -52,142 +53,219 @@ ul {
   width: 1200px;
   margin: -50px 0 0 -50px;
 } */
+iframe {
+	width: 1000px;
+	border: none;
+	height: 1000px;
+	margin: 20px auto;
+}
 </style>
 
 <script>
+	function commentInsertCheck(writer) {
+		if (!writer) {
+			alert("로그인이 필요합니다.");
+			return false;
+		}
 
-function commentInsertCheck(writer){
-	if(!writer){
-		alert("로그인이 필요합니다.");
-		return false;
+		var inputRadio = $("input[name='imgState']:checked").val();
+		if (!inputRadio) {
+			alert("의견을 선택해주세요.");
+			return false;
+		}
+	}
+
+	function voteCheck(discussionNum, voter, voteResult) {
+		if (!discussionNum) {
+			alert("게시물이 없습니다.");
+			return false;
+		}
+
+		if (!voter) {
+			alert("로그인이 필요합니다.");
+			return false;
+		}
+		if (voteResult != 0) {
+			alert("투표는 한번만 가능합니다.");
+			return;
+		}
+		return true;
+	}
+
+	function btn_y(discussionNum, voter, voteResult) {
+		if (!voteCheck(discussionNum, voter, voteResult)) {
+			return;
+		}
+
+		update_y(discussionNum, voter);
+	}
+
+	function update_y(discussionNum, voter) {
+		//alert("찬성 투표 업데이트");
+		$.ajax({
+			url : "vote_y.aa",
+			dataType : "json",
+			data : "discussionNum=" + discussionNum + "&writer=" + voter,
+			error : function(jqXHR, textStatus, errorThrown) {
+				//alert(jqXHR.responseText);
+				alert("오류");
+			},
+			success : function(data) {
+				//alert(data);
+				if (data == -1) {
+					alert("찬성 투표  오류 다시 시도해주세요.");
+					location.reload();
+				} else if (data == 1) {
+					alert("찬성 투표  완료");
+					//var intY = document.body.scrollTop;
+					//setCookie('yPos',intY, 1);
+					location.reload();
+				}
+			}
+		});
+	}
+
+	function btn_n(discussionNum, voter, voteResult) {
+		if (!voteCheck(discussionNum, voter, voteResult)) {
+			return;
+		}
+
+		update_n(discussionNum, voter);
+	}
+
+	function update_n(discussionNum, voter) {
+		//alert("반대 투표 업데이트");
+		$.ajax({
+			url : "vote_n.aa",
+			dataType : "json",
+			data : "discussionNum=" + discussionNum + "&writer=" + voter,
+			error : function(jqXHR, textStatus, errorThrown) {
+				//alert(jqXHR.responseText);
+				alert("오류");
+			},
+			success : function(data) {
+				//alert(data);
+				if (data == -1) {
+					alert("반대 투표  오류 다시 시도해주세요.");
+					location.reload();
+				} else if (data == 1) {
+					alert("반대 투표  완료");
+					//var intY = document.body.scrollTop;
+					//setCookie('yPos',intY, 1);
+					location.reload();
+				}
+			}
+		});
+	}
+
+	function btn_movePage(discussionNum, pageIndex, commentPageNum) {
+		var url = "content.aa?pageNum=" + pageIndex + "&discussionNum="
+				+ discussionNum + "&commentPageNum=" + commentPageNum;
+
+		//댓글 이동 위치바꿀려면, 원하는 태그 ID 넣자
+		//var offset = $('#commentPage').offset(); //선택한 태그의 위치를 반환
+		var offset = $('#comment_start').offset(); //선택한 태그의 위치를 반환
+		setCookie('yPos', offset.top, 1);
+
+		$(location).attr('href', url);
+	}
+
+	function setCookie(name, value, exp) {
+		var date = new Date();
+		date.setTime(date.getTime() + exp * 24 * 60 * 60 * 1000);
+		document.cookie = name + '=' + value + ';expires=' + date.toUTCString()
+				+ ';path=/';
+	}
+
+	function getCookie(name) {
+		var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+		return value ? value[2] : null;
+	}
+
+	function SetPosition() {
+		var strCook = getCookie('yPos');
+		if (strCook) {
+			console.log(strCook);
+			setCookie('yPos', 0, 0);
+			$('html, body').animate({
+				scrollTop : strCook
+			}, 00);
+		}
 	}
 	
-	var inputRadio = $("input[name='imgState']:checked").val();
-	if(!inputRadio){
-		alert("의견을 선택해주세요.");
-		return false;
-	}
-}
-
-function voteCheck(discussionNum, voter, voteResult){
-	if(!discussionNum){
-		alert("게시물이 없습니다.");
-		return false;
-	}
+$(document).ready(function(){
+	var status = false; //수정과 대댓글을 동시에 적용 못하도록
+		
+	 $(document).on("click","button[name='reply_reply']",function(){
+		 if(status){
+	        alert("수정과 대댓글은 동시에 불가합니다.");
+	        return false;
+	     }
 	
-	if(!voter){
-		alert("로그인이 필요합니다.");
-		return false;
-	}
-	if(voteResult != 0){
-		alert("투표는 한번만 가능합니다.");
-		return;
-	}
-	return true;
-}
-
-function btn_y(discussionNum, voter, voteResult){
-	if(!voteCheck(discussionNum, voter, voteResult)){
-		return;
-	}
-	
-	update_y(discussionNum, voter);
-}
-
-function update_y(discussionNum, voter){
-	//alert("찬성 투표 업데이트");
-	$.ajax({
-		 url : "vote_y.aa",       
-         dataType : "json",   
-         data : "discussionNum=" + discussionNum + "&writer="+voter,
-         error: function(jqXHR, textStatus, errorThrown) {
-             //alert(jqXHR.responseText);
-        	 alert("오류");
-         },
-         success : function(data) {
-        	 //alert(data);
-              if(data == -1){
-            	  alert("찬성 투표  오류 다시 시도해주세요.");
-            	  location.reload();
-             }
-             else if(data == 1){                  
-               	alert("찬성 투표  완료");
-                //var intY = document.body.scrollTop;
-                //setCookie('yPos',intY, 1);
-               	location.reload();
-             }
-         }
-	});
-}
-
-function btn_n(discussionNum, voter, voteResult){
-	if(!voteCheck(discussionNum, voter, voteResult)){
-		return;
-	}
-	
-	update_n(discussionNum, voter);
-}
-
-function update_n(discussionNum, voter){
-	//alert("반대 투표 업데이트");
-	$.ajax({
-		 url : "vote_n.aa",       
-         dataType : "json",   
-         data : "discussionNum=" + discussionNum + "&writer="+voter,
-         error: function(jqXHR, textStatus, errorThrown) {
-             //alert(jqXHR.responseText);
-        	 alert("오류");
-         },
-         success : function(data) {
-        	 //alert(data);
-              if(data == -1){
-            	  alert("반대 투표  오류 다시 시도해주세요.");
-            	  location.reload();
-             }
-             else if(data == 1){                  
-               	alert("반대 투표  완료");
-               	//var intY = document.body.scrollTop;
-               	//setCookie('yPos',intY, 1);
-               	location.reload();
-             }
-         }
-	});
-}
-
-function btn_movePage(discussionNum, pageIndex, commentPageNum){
-	var url = "content.aa?pageNum=" + pageIndex+ "&discussionNum="+ discussionNum
-			+ "&commentPageNum=" + commentPageNum;
-
-	//댓글 이동 위치바꿀려면, 원하는 태그 ID 넣자
-	//var offset = $('#commentPage').offset(); //선택한 태그의 위치를 반환
-	var offset = $('#comment_start').offset(); //선택한 태그의 위치를 반환
-	setCookie('yPos',offset.top, 1);
-	
-	$(location).attr('href',url);
-}
-
-function setCookie(name, value, exp) {
-	  var date = new Date();
-	  date.setTime(date.getTime() + exp*24*60*60*1000);
-	  document.cookie = name + '=' + value + ';expires=' + date.toUTCString() + ';path=/';
-}
-
-function getCookie(name) {
-	  var value = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
-	  return value? value[2] : null;
-}
-
-
-function SetPosition()
-{
-	var strCook = getCookie('yPos');
-	if(strCook) {		
-		console.log(strCook);
-		setCookie('yPos',0, 0);
-		$('html, body').animate({scrollTop : strCook}, 00);	
-	}
-}
+		 status = true;
+	   
+		 $("#reply_add").remove();
+		 var reply_id = $(this).attr("reply_id");
+		 var last_check = false;//마지막 tr 체크
+		 
+		 //console.log("reply_id/" + reply_id);
+		 //console.log("memId/" + '${memId}');
+		 
+	        // console.log("discussionNum/" + '${discussionNum}');
+	         var replyEditor = 
+	        	 "<tr id='reply_add'>" +
+		        	 "<td colsapn = '5'>" +
+		        	 	"<form method='post' id='reply_write1537116' class='co_write reply_write' action='/projectB/discussion/commentInsert.aa'>" +
+		        	 	"<textarea name='content' rows='3' cols='50'></textarea>" +
+		        	 	"<br>" +
+		        	 	"<input type ='hidden' name = 'num' value='" + reply_id + "'/>" +
+		        	 	"<input type ='hidden' name = 'discussionNum' value='${ discussionNum }'/>" + 
+						"<input type ='hidden' name = 'writer' value='${ memId }'/>" +					
+		        	 	"<button type='submit' class='btn waves-effect waves-light btn-outline-dark' id='reply_reply_save' name='reply_reply_save'>" +
+		        	 	"등록 </button>" +	        	 	 
+		        	 	"<button type='button' class='btn waves-effect waves-light btn-outline-dark' id='reply_reply_cancel' name='reply_reply_cancel'>" +
+		        	 	"취소 </button>" +
+		        	 	"</form>" + 
+		        	 "</td>" +
+	        	 "</tr>";        	 
+	        	 //console.log(replyEditor);
+	        	 
+	        	 var prevTr = $(this).parent().parent().next();
+	        	 
+	        	//부모의 부모 다음이 sub이면 마지막 sub 뒤에 붙인다.
+	            //마지막 리플 처리
+	            if(prevTr.attr("reply_type") == undefined) {
+	            	prevTr = $(this).parent().parent();
+	            } else {
+	            	while(prevTr.attr("reply_type")=="sub") {//댓글의 다음이 sub면 계속 넘어감
+	                    prevTr = prevTr.next();
+	                }
+	            	
+	            	//next뒤에 tr이 없다면 마지막이라는 표시를 해주자
+	            	if(prevTr.attr("reply_type") == undefined) {
+	                    last_check = true;
+	                } else {
+	                    prevTr = prevTr.prev();
+	                }
+	            }
+	        	
+	            if(last_check){//마지막이라면 제일 마지막 tr 뒤에 댓글 입력을 붙인다.
+	                $('#reply_area tr:last').after(replyEditor);    
+	            }else{
+	                prevTr.after(replyEditor);
+	            }
+		 });
+		 
+		 //대댓글 입력창 취소
+	     $(document).on("click","button[name='reply_reply_cancel']",function(){
+	         $("#reply_add").remove();
+	         console.log(123123);
+	         
+	         status = false;
+	     });
+});
 </script>
+
 </head>
 
 <body onload="SetPosition()">
@@ -268,12 +346,69 @@ function SetPosition()
 							신고하기
 						</button>
 					</div>
-								
-					<br>
-									
-					<div class="cs_comment";>
+
+					<!-- <table class="table"> -->
+					<div align="center">
 						<!-- comment input -->
-						<%-- <c:if test="${ memId != null}"> --%>						
+						<table class="table" id = "comment_start">
+							<tr>
+								<td>
+									<form method="post" id="reply_write1537116" class="co_write reply_write"
+										action="commentInsert.aa">
+										<textarea id="reply_content" name="content"
+											style="width: 100%;" rows="3" cols="50"
+											placeholder="댓글을 입력하세요."></textarea>
+										<br> 
+										<input type="hidden" name="discussionNum" value="${ discussionNum }" />
+										<input type="hidden" name="writer" value="${ memId }" />
+										<button type="submit"
+											class="btn waves-effect waves-light btn-outline-dark"
+											id="reply_save" name="reply_save">
+											댓글 등록
+										</button>
+									</form>
+								</td>
+							</tr>
+						</table>
+
+						<!-- comments -->
+						<table class="table" id="reply_area">
+							<c:forEach varStatus="status" var="comment"
+								items="${ comments }">
+								<tr>
+									<c:if test="${ comment.depth == 0 }">
+										<td style="text-align: left;">${ comment.writer }</td>
+									</c:if>
+									<c:if test="${ comment.depth != 0 }">
+										<td style="text-align: left;">└ ${ comment.writer }</td>
+									</c:if>
+									<td style="text-align: left;">${ comment.content }</td>
+									<c:if test="${ comment.depth == 0 }">
+										<td>
+											<button type="button"
+												class="btn waves-effect waves-light btn-outline-dark"
+												id="reply_reply" name="reply_reply"
+												reply_id="${ comment.num }">댓글 등록</button>
+										</td>
+									</c:if>
+									<c:if test="${ comment.depth != 0 }">
+										<td></td>
+									</c:if>
+								</tr>
+							 </c:forEach>
+							<tr>
+								<!-- 뒤에 댓글 붙이기 쉽게 선언 -->
+								<td colspan="4"></td>
+							</tr>
+							<!-- 댓글이 들어갈 공간 -->
+						</table>
+					</div>
+							<!-- </table> -->
+
+							<!-- <iframe src="/projectB/discussion/discussionComment.aa"></iframe> -->	
+					<%-- <div class="cs_comment">
+						<!-- comment input -->
+						<c:if test="${ memId != null}">						
 						<form method="post" id="co_write" class="co_write"
 							action="commentInsert.aa" onsubmit="return commentInsertCheck('${ memId }')">
 							<div class="cw_wrap">
@@ -291,18 +426,76 @@ function SetPosition()
 									placeholder="댓글을 입력해 주세요." required=""></textarea>
 							</div>
 							<input type ="hidden" name = "discussionNum" value="${ article.num }"/>
-							<input type ="hidden" name = "write" value="${ memId }"/>
+							<input type ="hidden" name = "writer" value="${ memId }"/>
 							<button type="submit" id="comment_add" style="top: 45px; position: absolute;">
 								등록
 							</button>
 						</form>
-						<%-- </c:if> --%>
+						<iframe src="/projectB/petition/petComment.aa?petitionNum=${petDTO.num }"></iframe>
+						</c:if>
 						<div id = "comment_start">
+						
+						<table class="table">
+							<!-- <tr>
+								<th scope="col" style="width: 80px; text-align: left;">작성자</th>
+								<th scope="col" style="width: 300px; text-align: left;">내용</th>
+							</tr> -->
+							<c:forEach varStatus="status" var = "comment" items = "${ comments }">
+								<tr>
+									<td style="width: 80px; text-align: left;"
+									data-toggle="collapse" data-target="#collapseExample${ status.index }" aria-expanded="false" aria-controls="collapseExample">
+										${ comment.writer }
+									</td>
+									
+									<td style="width: 80px;"
+									data-toggle="collapse" data-target="#collapseExample${ status.index }" aria-expanded="false" aria-controls="collapseExample">
+										<c:if test="${ comment.imgState == 0 }">
+											<img src="/projectB/resource/bootstrap/assets/images/custom-select.png">
+										</c:if>
+										
+										<c:if test="${ comment.imgState == 1 }">
+											<img src="/projectB/resource/bootstrap/assets/images/logo-light-text.png">
+										</c:if>		
+									</td>
+									
+									<td style="text-align: left;"
+									data-toggle="collapse" data-target="#collapseExample${ status.index }" aria-expanded="false" aria-controls="collapseExample">
+										${ comment.content }
+									</td>
+									
+									<td>
+										<button type="button" class="btn waves-effect waves-light btn-outline-dark"
+										data-toggle="collapse" data-target="#collapseExample${ status.index }" aria-expanded="false" aria-controls="collapseExample">
+											댓글 달기
+										</button>
+										<div class="collapse" id="collapseExample${ status.index }" style="">
+										<div class="co_r_reply" style="display: block; top: 20px; position: relative;">
+											<form method="post" id="reply_write1537116" class="co_write reply_write"
+												action="commentInsert.aa">
+												<div class="cw_wrap">
+													<label class="hide" for="cwd_comentBody571854">댓글입력</label>
+													<textarea name="content" id="cwd_comentBody571854"
+														placeholder="댓글을 입력해 주세요." required=""></textarea>
+												</div>
+												<input type ="hidden" name = "discussionNum" value="${ article.num }"/>
+												<input type ="hidden" name = "num" value="${ comment.num }"/>
+												<input type ="hidden" name = "writer" value="${ memId }"/>
+												<button type="submit" class="reply_btn" data-id="" style="top: 52px; position: absolute;">
+													등록
+												</button>
+											</form>
+										</div>
+									</div>
+									</td>									
+								</tr>								
+							</c:forEach>
+						</table>
 							<label>댓글 목록</label>
-							<c:forEach var = "comment" items = "${ comments }">							
-								<div class="co_view co_v1">
+							<c:forEach varStatus="status" var = "comment" items = "${ comments }">
+							<c:if test="${ comment.grouping == 0 }">									
+								<div id = "comment_${ comment.num }" class="co_view co_v1${ comment.num }">
 									<span class="">
-										${ comment.write }
+										${ comment.writer }
 										<c:if test="${ comment.imgState == 0 }">
 											<img src="/projectB/resource/bootstrap/assets/images/custom-select.png">
 										</c:if>
@@ -315,43 +508,69 @@ function SetPosition()
 										${ comment.content }
 									</div>
 									
-									<div id ="reportBtm">
-										<button type="button" class="btn waves-effect waves-light btn-outline-dark"								
-										style="position: relative; top: 15px; width: 80px; height: 25px;font-size: 5px;">
-											신고하기
-										</button>
+									<div id ="reportBtn">
+										<c:if test="${ memId != comment.writer }">
+											<button type="button" class="btn waves-effect waves-light btn-outline-dark"								
+											style="position: relative; top: 15px; width: 80px; height: 25px;font-size: 5px;">
+												신고하기
+											</button>
+										</c:if>
+										
+										<c:if test="${ memId == comment.writer }">		
+											<button type="button" class="btn waves-effect waves-light btn-outline-dark"
+												style="position: relative; top: 15px; width: 80px; height: 25px;font-size: 5px;">
+													삭제
+											</button>
+										</c:if>
+										
+										
 									</div>	
 									
-									<c:if test="${ memId == comment.write }">						
 									<span class="btn small display-idle re_com">
-										<button type="button" class="btn waves-effect waves-light btn-outline-dark">
-											삭제
-										</button>
-									</span>
-									</c:if>
-									<%-- <span class="btn small display-idle re_com">
-										<button type="button" class="btn waves-effect waves-light btn-outline-dark" data-toggle="collapse" data-target="#collapseExample${ i }" aria-expanded="false" aria-controls="collapseExample">
+										<button type="button" class="btn waves-effect waves-light btn-outline-dark"
+										data-toggle="collapse" data-target="#collapseExample${ status.index }" aria-expanded="false" aria-controls="collapseExample">
 											댓글 달기
 										</button>
 									</span>
-									<div class="collapse" id="collapseExample${ i }" style="">
+									<div class="collapse" id="collapseExample${ status.index }" style="">
 										<div id="co_r_reply1537116" class="co_r_reply" style="display: block; top: 20px; position: relative;">
-											<form method="post" id="reply_write1537116"
-												class="co_write reply_write" action="" onsubmit="return false">
+											<form method="post" id="reply_write1537116" class="co_write reply_write"
+												action="commentInsert.aa">
 												<div class="cw_wrap">
 													<label class="hide" for="cwd_comentBody571854">댓글입력</label>
-													<textarea name="body" id="cwd_comentBody571854"
+													<textarea name="content" id="cwd_comentBody571854"
 														placeholder="댓글을 입력해 주세요." required=""></textarea>
 												</div>
+												<input type ="hidden" name = "discussionNum" value="${ article.num }"/>
+												<input type ="hidden" name = "num" value="${ comment.num }"/>
+												<input type ="hidden" name = "writer" value="${ memId }"/>
 												<button type="submit" class="reply_btn" data-id="" style="top: 52px; position: absolute;">
 													등록
 												</button>
 											</form>
 										</div>
-									</div> --%>								
+									</div>
+																		
+ 									<div id="co_r_reply1537116" class="co_r_reply" style="display: block; top: 20px; position: relative;">
+											<span class="">
+												${ comment.writer }
+												<c:if test="${ comment.imgState == 0 }">
+													<img src="/projectB/resource/bootstrap/assets/images/custom-select.png">
+												</c:if>
+												
+												<c:if test="${ comment.imgState == 1 }">
+													<img src="/projectB/resource/bootstrap/assets/images/logo-light-text.png">
+												</c:if>										
+											</span>
+											<div class="co_text display-idle">
+												${ comment.content }
+											</div>
+										</div>	
+														
 								</div>
+								</c:if>
 							</c:forEach>
-						</div>
+						</div>--%>
 						<c:if test="${ commentCount > 0 }">						
 							<ul id = "commentPage" class="pagination justify-content-center">
 								<!-- << -->
@@ -385,13 +604,13 @@ function SetPosition()
 								</c:if>
 							</ul>
 						</c:if>
-					</div>
+					</div> 
 				</div>
 			</div>
 		</div>
+		</c:if>
 	</div>
-	</c:if>
-	</div>
+	
 	
 	<script src="/projectB/resource/bootstrap/assets/libs/jquery/dist/jquery.min.js"></script>
 	<script src="/projectB/resource/bootstrap/assets/libs/popper.js/dist/umd/popper.min.js"></script>
@@ -418,6 +637,18 @@ function SetPosition()
 			resize : true,
 			colors : [ '#5f76e8', '#e04643' ]
 		});
+
+		/* <c:forEach items='${comments}' var='comment'>
+			if(${comment.grouping > 0}){
+				var parent = $('#comment_${ comment.grouping }');
+				parent.append("<div id='co_r_reply1537116' class='co_r_reply' style='display: block; top: 20px; position: relative;'>");
+				parent.append("<span class=''>");
+				parent.append(${ comment.writer });
+				parent.append("</span>");
+				parent.append("</div>");
+			}	
+		</c:forEach> */
+		
 	</script>
 
 </body>

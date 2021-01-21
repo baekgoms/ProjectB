@@ -5,6 +5,7 @@ import java.util.List;
 import projectB.model.discussion.DisBoardCommDTO;
 
 public interface DisBoardCommService {
+	public int getMaxNumber(int discussionNum) throws Exception;
 	public int getCommentCount(int discussionNum) throws Exception;
 	public List<DisBoardCommDTO> getComments(int discussionNum, int startRow, int endRow) throws Exception;
 	public List<DisBoardCommDTO> getCommentsByDiscussionNum(int discussionNum) throws Exception;
@@ -18,7 +19,10 @@ public interface DisBoardCommService {
 	public void openStateClose (int num) throws Exception;
 	
 	public int grouping() throws Exception;
-	public void depth(DisBoardCommDTO comment) throws Exception;
+	public int getNextDepth(int discussionNum, int grouping) throws Exception;
+	
+	public void updateDepth(int grouping, int depth);
+	public void updateGrouping(int num);
 	
 
 }

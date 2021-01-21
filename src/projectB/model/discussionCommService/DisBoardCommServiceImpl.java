@@ -12,9 +12,22 @@ import projectB.model.discussion.DisBoardCommDTO;
 
 @Service("disBoardCommService")
 public class DisBoardCommServiceImpl implements DisBoardCommService {
-	
 	@Autowired
 	private SqlSessionTemplate dao;
+	
+	@Override
+	public int getMaxNumber(int discussionNum) throws Exception {
+		return dao.selectOne("disBoardComment.getMaxNumber", discussionNum);
+	}
+	
+	@Override
+	public int getNextDepth(int discussionNum, int grouping) throws Exception{
+		Map<String, Integer> map = new HashMap<>();
+		map.put("discussionNum", discussionNum);
+		map.put("grouping", grouping);
+		System.out.println(map);
+		return dao.selectOne("disBoardComment.getNextDepth", map);
+	}
 	
 	@Override
 	public int getCommentCount(int discussionNum) throws Exception {
@@ -38,6 +51,20 @@ public class DisBoardCommServiceImpl implements DisBoardCommService {
 	@Override
 	public void insertComment(DisBoardCommDTO comment) throws Exception {
 		dao.insert("disBoardComment.insertComment", comment);
+	}
+	
+	@Override
+	public void updateDepth(int grouping, int depth) {
+		Map<String, Integer> map = new HashMap<>();
+		map.put("grouping", grouping);
+		map.put("depth", depth);
+		
+		dao.insert("disBoardComment.updateDepth", map);
+	}
+	
+	@Override
+	public void updateGrouping(int num) {
+		dao.insert("disBoardComment.updateGrouping", num);
 	}
 
 	@Override
@@ -80,9 +107,6 @@ public class DisBoardCommServiceImpl implements DisBoardCommService {
 		return 0;
 	}
 
-	@Override
-	public void depth(DisBoardCommDTO comment) throws Exception {
-		
-	}
+
 
 }
