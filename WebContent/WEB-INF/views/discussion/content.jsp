@@ -496,57 +496,44 @@ $(document).ready(function(){
 										
 										<c:if test="${ comment.imgState != -1 }">
 											<c:if test="${ comment.imgState == 0 }">
-												<img src="/projectB/resource/bootstrap/assets/images/custom-select.png">
+												<label style="color: blue;">[찬성]</label>												
 											</c:if>
 												
 											<c:if test="${ comment.imgState == 1 }">
-												<img src="/projectB/resource/bootstrap/assets/images/logo-light-text.png">
+												<label style="color: red;">[반대]</label>
 											</c:if>
-										</c:if>
-										<%-- <br>
-										<button type="button"
-											class="btn waves-effect waves-light btn-outline-dark"
-											id="reply_save" name="reply_up" style="font-size: 10px;">
-											추천 ${ comment.up }
-										</button>
-											
-										<button type="button"
-											class="btn waves-effect waves-light btn-outline-dark"
-											id="reply_save" name="reply_down" style="font-size: 10px;">
-											반대 ${ comment.down }
-										</button> --%>
+										</c:if>									
 									</td>
 											
 									<td style="text-align: left; width: 50%">${ comment.content }</td>
+																		
+									<c:set var="cmvote_state" value="-1"/>
+									<c:set var="cmvote_up" value="♡"/>
+									<c:set var="cmvote_down" value="♡"/>
+									<td style= "width: 10%">
+									<c:if test="${ comment.depth == 0 }">										
+										<button type="button"
+											class="btn waves-effect waves-light btn-outline-dark"
+											id="reply_reply" name="reply_reply" reply_id="${ comment.num }">
+											댓글 등록
+										</button>
+									<br>									
+									</c:if>
 									
-									<c:if test="${ comment.depth == 0 }">
-										<td style= "width: 10%">
-											<button type="button"
-												class="btn waves-effect waves-light btn-outline-dark"
-												id="reply_reply" name="reply_reply"
-												reply_id="${ comment.num }">댓글 등록</button>
-										<br>
-										<c:set var="cmvote_check" value="0"/>
-										<c:set var="cmvote_state" value="-1"/>
-										<c:set var="cmvote_up" value="♡"/>
-										<c:set var="cmvote_down" value="♡"/>
-										<c:forEach var="cmv" items="${ cmvs }">
-											<c:if test="${ comment.num == cmv.commentNum }">
-												<c:if test="${ cmv.state == 0 }">
-													<c:set var="cmvote_up" value="♥"/>
-													<c:set var="cmvote_state" value="0"/>
-												</c:if>
-												
-												<c:if test="${ cmv.state == 1 }">
-													<c:set var="cmvote_down" value="♥"/>
-													<c:set var="cmvote_state" value="1"/>
-												</c:if>
-												
-												<c:set var="cmvote_check" value="1"/>							
-											</c:if>								
-										</c:forEach>
-										
-										<button type="button" id="comment_up" name="comment_up"
+									<c:forEach var="cmv" items="${ cmvs }">
+										<c:if test="${ comment.num == cmv.commentNum }">
+											<c:if test="${ cmv.state == 0 }">
+												<c:set var="cmvote_up" value="♥"/>
+												<c:set var="cmvote_state" value="0"/>
+											</c:if>
+											
+											<c:if test="${ cmv.state == 1 }">
+												<c:set var="cmvote_down" value="♥"/>
+												<c:set var="cmvote_state" value="1"/>
+											</c:if>					
+										</c:if>								
+									</c:forEach>
+									<button type="button" id="comment_up" name="comment_up"
 											class="btn waves-effect waves-light btn-outline-dark"
 											style="font-size: 10px; border: 0; outline: 0"
 											onclick="sendCommentVote(0, '${comment.num}', '${cmvote_state}')">
@@ -559,11 +546,12 @@ $(document).ready(function(){
 											onclick="sendCommentVote(1, '${comment.num}', '${cmvote_state}')">
 												반대 ${ comment.down } ${ cmvote_down }
 										</button>
-										</td>										
-									</c:if>
-									<c:if test="${ comment.depth != 0 }">
+									</td>
+									<!-- <td></td>
+									<td></td> -->
+									<%-- <c:if test="${ comment.depth != 0 }">
 										<td></td>
-									</c:if>
+									</c:if> --%>
 								</tr>
 							 </c:forEach>
 							<tr>
