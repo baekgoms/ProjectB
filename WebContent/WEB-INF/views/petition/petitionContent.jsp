@@ -6,7 +6,7 @@
 <%@ page import = "java.util.Date" %>
 
 
-
+ 
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,30 +48,24 @@
 <form>
    <table cellspacing="0" cellpadding="0" align="center" width="800">
       <tr height="70">
-         <td align="center"  colspan="4" width="800">청원제목 ${petDTO.title}</td>
+         <td align="center"  colspan="4" width="800">청원제목 ${PetitionDTO.title}</td>
       </tr>
  
       <tr height="70">
-         <td align="center" colspan="4" width="800">참여인원 : [ ${petDTO.petition} 명]</td>
+         <td align="center" colspan="4" width="800">참여인원 : [ ${PetitionDTO.petition} 명]</td>
       </tr>
+      
       <tr height="70">
          <td align="center"  colspan="4" width="800">
-           	 달성도
+            <input type="hidden" id="achive" value="${PetitionDTO.petition / 2000}" />
+            <div style="display: inline-block; height: 200px; width: 400px;">
+	        	<canvas id="barr-chart" class="chartjs-render-monitor"
+	                    style="display: inline; height: 200px; width: 400px;">
+	            </canvas>
+	        </div>
 
-            <input type="hidden" id="achive" value="${petDTO.petition / 200000}" />
 
-            <div>
-               <div class="chartjs-size-monitor" >
-                  <div class="chartjs-size-monitor-expand">
-                     <div class=""></div>
-                  </div>
-                  <div class="chartjs-size-monitor-shrink">
-                     <div class=""></div>
-                  </div>
-               </div>
-               <canvas id="barr-chart" class="chartjs-render-monitor"
-                     style="display: block; height: 100px; width: 300px;"></canvas>
-            </div>
+
 
 
          </td>
@@ -86,12 +80,12 @@
             <c:otherwise>
          <td align="center" width="100" >
             청원시작
-         <br/><fmt:formatDate value="${petDTO.startDate}"
+         <br/><fmt:formatDate value="${PetitionDTO.startDate}"
                         pattern = "yyyy-MM-dd" />
          </td>
          <td align="center" width="100">
             청원마감
-         <br/><fmt:formatDate value="${petDTO.endDate}"
+         <br/><fmt:formatDate value="${PetitionDTO.endDate}"
                         pattern = "yyyy-MM-dd" />
 
 
@@ -99,22 +93,25 @@
             </c:otherwise>
             </c:choose>
          </td>
-         <td align="center" width="200">청원인 : ${petDTO.writer}</td>
+         <td align="center" width="200">청원인 : ${PetitionDTO.writer}</td>
       </tr>
 
       <tr height="70">
-         <td align="center">청원진행도</td>
+         <td align="center">청원상태</td>
       </tr>
-
+	   <tr height="70">
+         <td align="center">${petitionState}</td>
+      </tr>
+	
 
       <tr >
          <td align="center" width="200" colspan="1">내용 </td>
-         <td align="left" width="600" colspan="3">${petDTO.content}</td>
+         <td align="left" width="600" colspan="3">${PetitionDTO.content}</td>
       </tr>
       <tr height="70">
          <td align="center" width="200" colspan="1"> 태그 </td>
          <td width="600" align="left" width="600" colspan="3">
-            <c:forEach items="${fn:split(petDTO.tag, ',') }" var="item">
+            <c:forEach items="${fn:split(PetitionDTO.tag, ',') }" var="item">
                <a href="/projectB/petition/tag?tag=${item}" class="btn btn-light dropdown-toggle"
                 aria-haspopup="true">#${item}</a>
             </c:forEach>
@@ -124,7 +121,7 @@
       <tr height="70">
          <td align="center" width="200" colspan="1">관련 링크</td>
          <td width="600" align="left" width="600" colspan="3" >
-            <c:forEach items="${fn:split(petDTO.link, ',') }" var="item">
+            <c:forEach items="${fn:split(PetitionDTO.link, ',') }" var="item">
                <a href="${item}" target="_blank">${item}</a>
                <br/>
             </c:forEach>
@@ -136,34 +133,45 @@
 		 <input type="hidden" id="manCount" value="${petitionIndicatorDTO.manCount}" />
 	     <input type="hidden" id="womanCount" value="${petitionIndicatorDTO.womanCount}" />
 	     <input type="hidden" id="teens" value="${petitionIndicatorDTO.teens}" />
-	            <input type="hidden" id="twenties" value="${petitionIndicatorDTO.twenties}" />
-	            <input type="hidden" id="thirties" value="${petitionIndicatorDTO.thirties}" />
-	            <input type="hidden" id="forties" value="${petitionIndicatorDTO.forties}" />
-	            <input type="hidden" id="fifties" value="${petitionIndicatorDTO.fifties}" />
-	            <input type="hidden" id="sixties" value="${petitionIndicatorDTO.sixties}" />
+	     <input type="hidden" id="twenties" value="${petitionIndicatorDTO.twenties}" />
+	     <input type="hidden" id="thirties" value="${petitionIndicatorDTO.thirties}" />
+	     <input type="hidden" id="forties" value="${petitionIndicatorDTO.forties}" />
+	     <input type="hidden" id="fifties" value="${petitionIndicatorDTO.fifties}" />
+	     <input type="hidden" id="sixties" value="${petitionIndicatorDTO.sixties}" />
 	
-	            	<div style="display: inline-block; height: 100px; width: 200px;">
-	               <canvas id="pie-chart"  class="chartjs-render-monitor"
-	                     style="display: inline; height: 100px; width: 200px;"></canvas>
-	      			</div>
+	     	<div style="display: inline-block; height: 200px; width: 300px;">
+	        	<canvas id="pie-chart"  class="chartjs-render-monitor"
+	                    style="display: inline; height: 200px; width: 300px;">
+	            </canvas>
+	        </div>
 	
 	            
 	    				
-	            <div style="display: inline-block; height: 100px; width: 200px;">
-	               <canvas id="bar-chart"  style="display: inline; height: 100px; width: 200px;" 
-	                     class="chartjs-render-monitor"></canvas>
-	     		</div>
+	        <div style="display: inline-block; height: 200px; width: 300px;">
+	           <canvas id="bar-chart"  style="display: inline; height: 200px; width: 300px;" 
+	                   class="chartjs-render-monitor">
+	           </canvas>
+	     	</div>
 	
 	</div>
-	<div>
-				<input  type="button" class="btn waves-effect waves-light btn-outline-dark" align="right" value="신고"
-	                  onclick="document.location.href='신고창 url'">
 	
-	            <input  type="button" class="btn waves-effect waves-light btn-outline-dark" align="right" value="삭제"
-	                  onclick="document.location.href='삭제창 url'">
+			<div>
+				<input  type="button" class="btn waves-effect waves-light btn-outline-dark" align="left" value="신고"
+	                  	onclick="document.location.href='신고창 url'">
+				
+				<input  type="button" class="btn waves-effect waves-light btn-outline-dark" align="center" value="목록보기"
+	                  	onclick="document.location.href='목록url'">
+
+	          
+				<i class="far fa-trash-alt" align="right" onclick="document.location.href='삭제창 url'"></i>
+
+			</div>	
 	</div>
-</div>
-<iframe src="/projectB/petition/petComment.aa?petitionNum=${petDTO.num }"></iframe>
+	
+	
+	
+	
+<iframe src="/projectB/petition/petComment.aa?petitionNum=${PetitionDTO.num}"></iframe>
 
 
 <script src="/projectB/resource/bootstrap/assets/libs/jquery/dist/jquery.min.js"></script>
@@ -235,7 +243,7 @@
             datasets: [{
                label: "달성도(%)",
                backgroundColor: ["#5a6be6"],
-               data: [90]
+               data: [achive]
             }]
          },
          options: {

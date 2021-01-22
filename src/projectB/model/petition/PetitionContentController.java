@@ -1,7 +1,10 @@
 package projectB.model.petition;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,34 +14,57 @@ import org.springframework.web.bind.annotation.RequestParam;
 import projectB.model.petitionContentService.PetitionContentService;
 import projectB.model.petitionContentService.PetitionPetitionerMapService;
 import projectB.model.petitioner.PetitionerDTO;
+import projectB.model.petition.PetitionDTO;
 
 @Controller
 @RequestMapping("petition")
 public class PetitionContentController {
-/*  
+  
     @Autowired
-    private PetitionContentService petitionDAO = null;
+    private PetitionContentService PetitionContentService = null;
     
     @Autowired
     private PetitionPetitionerMapService petitionPetitionerService = null;
   
    
     @RequestMapping("petContent.aa")
-    public String petContent(int num, Model model) throws Exception{
-        PetitionDTO petDTO = petitionDAO.getArticle(num);
-        List<CategoryDTO> categoryDTO = petitionDAO.getCategoryList();
+    public String petContent(@RequestParam("num")int num, Model model) throws Exception{
+        PetitionDTO petitionDTO = PetitionContentService.getArticle(num);
+        List<CategoryDTO> categoryDTO = PetitionContentService.getCategoryList();
         String categoryName = "";
         
         for (int i=0; i<categoryDTO.size(); i++) {
-            if (petDTO.getCategory() == categoryDTO.get(i).getNum()) {
+            if (petitionDTO.getCategory() == categoryDTO.get(i).getNum()) {
                 categoryName = categoryDTO.get(i).getCategoryName();
             }
         }
         
-        PetitionIndicatorDTO petitionIndicatorDTO = petitionDAO.getPetitionIndicator(num);
+        PetitionIndicatorDTO petitionIndicatorDTO = PetitionContentService.getPetitionIndicator(num);
+        
+        int pState = 1;
+        java.util.Date date = new Date();
+        long time = date.getTime();
+        Timestamp ts = new Timestamp(time);
+
+        if(petitionDTO.getPetition() > 100) {
+            pState = 2;
+            
+        }else if(ts.equals(petitionDTO.getEndDate()) && petitionDTO.getPetition() < 200000){
+            pState = 3;
+        }else if(ts.equals(petitionDTO.getEndDate()) && petitionDTO.getPetition() > 200000){
+            pState = 4;
+        }
+        
+        String petitionState = PetitionContentService.getPetitionState(pState);
+        System.out.println(petitionState);
+        
+        
+        
+        
         
         model.addAttribute("categoryName", categoryName);       
-        model.addAttribute("petDTO",petDTO);
+        model.addAttribute("PetitionDTO",petitionDTO);
+        model.addAttribute("petitionState",petitionState);
         model.addAttribute("petitionIndicatorDTO",petitionIndicatorDTO);
         return "petition/petitionContent";
     }
@@ -54,9 +80,9 @@ public class PetitionContentController {
         int number = 0;
         
         List<PetitionDTO> petCmtList = null;
-        count = petitionDAO.petCmtCount(petitionNum);
+        count = PetitionContentService.petCmtCount(petitionNum);
         if(count > 0) {
-            petCmtList = petitionDAO.petCmtList(petitionNum,startRow, endRow);
+            petCmtList = PetitionContentService.petCmtList(petitionNum,startRow, endRow);
         } else {
             petCmtList = Collections.emptyList();
         }
@@ -77,7 +103,7 @@ public class PetitionContentController {
     @RequestMapping("petitionCommentPro.aa")
     public String insertCmt(PetCommentDTO dto)throws Exception{
         String writerId = dto.getWriter();
-        PetitionerDTO petitionerDTO = petitionDAO.getPetitionerById(writerId);
+        PetitionerDTO petitionerDTO = PetitionContentService.getPetitionerById(writerId);
         String gender = petitionerDTO.getGender();
         String birthday = petitionerDTO.getBirthday(); 
         
@@ -89,14 +115,14 @@ public class PetitionContentController {
           
         System.out.println("gender : " + gender + ", age : " + age + ", birthYear : " + birthYear);
         
-        petitionDAO.updateIndicator(dto.getPetitionNum(), gender, age);
+        PetitionContentService.updateIndicator(dto.getPetitionNum(), gender, age);
         
-        petitionDAO.insertPetCmt(dto);
-        petitionDAO.updatePetitionCount(dto.getPetitionNum());
+        PetitionContentService.insertPetCmt(dto);
+        PetitionContentService.updatePetitionCount(dto.getPetitionNum());
         petitionPetitionerService.insertMap(dto.getPetitionNum(), dto.getWriter());
         return "petition/petitionCommentPro";
     }
   
 
-*/
+
 }

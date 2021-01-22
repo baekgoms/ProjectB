@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import projectB.model.petition.CategoryDTO;
 import projectB.model.petition.PetitionDTO;
 import projectB.model.petitionListService.PetitionListService;
-import projectB.model.petitionService.PetitionService;
+
 
 @Controller
 @RequestMapping("petition")

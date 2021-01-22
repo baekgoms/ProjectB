@@ -9,9 +9,8 @@ import projectB.model.petitioner.PetitionerDTO;
 
 public interface PetitionContentService {
   public PetitionDTO getArticle(int num) throws Exception;
-  
+
   public void insertPetCmt(PetCommentDTO dto) throws Exception;
-  
   public int petCmtCount(int petitionNum) throws Exception;
   public List<PetitionDTO> petCmtListAll(int petitionNum) throws Exception;
   public List<PetitionDTO> petCmtList(int petitionNum, int start, int end) throws Exception;
@@ -25,4 +24,7 @@ public interface PetitionContentService {
 
   public List<CategoryDTO> getCategoryList() throws Exception;
 
+  public String getPetitionState(int petitionState)throws Exception;
+
+  
 }

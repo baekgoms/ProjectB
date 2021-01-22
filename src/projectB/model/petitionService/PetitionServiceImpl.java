@@ -150,7 +150,7 @@ public class PetitionServiceImpl implements PetitionService {
 
 	
 	
-	*/
+	
 	@Override
     public List<CategoryDTO> getCategoryList() throws Exception {
         return dao.selectList("petition.getCategoryList");
@@ -207,6 +207,6 @@ public class PetitionServiceImpl implements PetitionService {
 	     map.put("age", age);
 	     dao.update("petition.updateIndicator", map);
 	  }
-	
+	*/
 
 }

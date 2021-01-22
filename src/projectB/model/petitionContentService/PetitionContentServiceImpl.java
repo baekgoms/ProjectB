@@ -22,7 +22,7 @@ public class PetitionContentServiceImpl implements PetitionContentService{
   public PetitionDTO getArticle(int num) throws Exception {
       return dao.selectOne("petition.getArticle", num);
   }
-
+  
   @Override
   public void insertPetCmt(PetCommentDTO dto) throws Exception {
       dao.insert("petition.insertPetCmt", dto);
@@ -74,6 +74,12 @@ public class PetitionContentServiceImpl implements PetitionContentService{
      return dao.selectOne("petitioner.getPetitionerById", writerId);
    }
 
+   @Override
+   public String getPetitionState(int petitionState) {
+     
+     return dao.selectOne("petition.getPetitionState", petitionState);
+   }
+    
   @Override
   public List<CategoryDTO> getCategoryList() throws Exception {
     return dao.selectList("petition.getCategoryList");
