@@ -354,12 +354,12 @@
 	           	return false;
 	       	}
 	       	else if(content.value=="") {
-	           	alert("청원 내용을 입력해주세요");
+	           	alert("내용을 입력해주세요");
 	           	content.focus();
 	           	return false;
 	       	}
 	       	else if(category.value=="선택하기") {
-	           	alert("청원 분류를 선택해주세요");
+	           	alert("분류를 선택해주세요");
 	           	category.focus();
 	           	return false;
 	       	}
@@ -374,7 +374,7 @@
 		}
     
 	    function backCheck() {
-	   		 if (confirm("작성하신 내용을 삭제하고 청원게시판으로 이동합니다.") == true){    //확인
+	   		 if (confirm("작성하신 내용을 삭제하고 게시판으로 이동합니다.") == true){    //확인
 	   			window.location = '/projectB/petition/afootPetition.aa';	
 	   		 }else{ return false; }
 	   	}
