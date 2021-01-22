@@ -40,7 +40,7 @@ public class DiscussionUploadController {
             System.out.println("Write:"+dto.getWrite());
         }   
         
-        return "wooch/discussionUploadForm";
+        return "discussion/discussionUploadForm";
     }
     
    @RequestMapping("uploadPro.aa")
@@ -51,7 +51,7 @@ public class DiscussionUploadController {
        petitionDAO.insertDiscussion(dto);
        System.out.println("discussion uploadPro run");
        
-       return "wooch/discussionUploadPro";
+       return "discussion/discussionUploadPro";
    }
 	
 }

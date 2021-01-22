@@ -24,7 +24,7 @@ import projectB.model.petitionerService.PetitionerService;
 @Controller
 @RequestMapping("petition")
 public class PetitionBean {
-    
+	/*
     @Autowired
     private PetitionService petitionDAO = null;
     
@@ -104,7 +104,7 @@ public class PetitionBean {
        
        return "wooch/discussionUploadPro";
    }
-   
+   */
    
    //===================================보배=================================================
   /*
@@ -389,7 +389,7 @@ public class PetitionBean {
     
 
 
-*/
+
     
     //===========================================민희==================================================
     
@@ -467,7 +467,7 @@ public class PetitionBean {
         petitionPetitionerService.insertMap(dto.getPetitionNum(), dto.getWriter());
         return "petition/petitionCommentPro";
     }
-    
+    */
 
 
 }
