@@ -92,36 +92,52 @@
 		                            <div class="card-body">
 		                                <h4 class="card-title">문의제목 </h4>    
 		                                  
-<!-- 			<form>				 --> <form method="post" id="tag-form" name="uploadForm" onsubmit="return checkIt()" action="/projectB/petition/uploadPro.aa" >
+<!-- 			<form>				 --> <form method="post" id="tag-form" name="uploadForm" onsubmit="return checkIt()" action="/projectB/question/uploadPro.aa" >
 			                                <div class="form-group">
 	                                            
 	                                            <input type="text" class="form-control"
 	                                                placeholder="제목 입력" id="title" name="title">
 	                                        </div>
 		                                <hr>
-		                              
 		                                    <div class="form-body">
 		                                        <div class="form-group row">
 		                                            <!-- 분류 카테고리 영역  -->
-		                   
 		                                              <div class="col-12">
 		                                                <div class="row">
-		                                            
 				                                            <div class=" col-md-3 ">
-										                    
-										                               
 							                                    <div class="form-group mb-1">
 							                                        <label class="mr-sm-1" for="inlineFormCustomSelect">분류 </label>
 							                                        <select class="custom-select mr-sm-2" id="inputGroupSelect01" name="category" >
-							                                           <!-- DB 컬럼 개수만큼 반복  -->
+							                                           <option value="선택">선택</option>	
 							                                           <c:forEach var="name" items="${category}" varStatus="status">
 																			<option value="${status.count}"><c:out value="${name}" /></option>
 																		</c:forEach>
 							                                        </select>
 							                                    </div>
-							                        
 										                    </div>
 		                                            
+		                                            		 <div class="col-md-3">
+										                        <div class="form-group mb-1">
+										                            <div class="card-body">
+										                                <div class="form-check form-check-inline">
+										                                    <div class="custom-control custom-radio">
+										                                        <input type="radio" class="custom-control-input" id="customControlValidation2"
+										                                            name="open" value="1" >
+										                                        <label class="custom-control-label" for="customControlValidation2">공개</label>
+										                                    </div>
+										                                </div>
+										                                <div class="form-check form-check-inline">
+										                                    <div class="custom-control custom-radio">
+										                                        <input type="radio" class="custom-control-input" id="customControlValidation3"
+										                                            name="open" value="0" checked>
+										                                        <label class="custom-control-label" for="customControlValidation3">비공개</label>
+										                                    </div>
+										                                </div>
+										                            </div>
+										                        </div>
+                 											 </div>  
+                 											 
+                 										   </div>
 		                                                </div>
 		                                            </div>
 		                                        </div>
@@ -358,7 +374,7 @@
 	           	content.focus();
 	           	return false;
 	       	}
-	       	else if(category.value=="선택하기") {
+	       	else if(category.value=="선택") {
 	           	alert("분류를 선택해주세요");
 	           	category.focus();
 	           	return false;
@@ -381,5 +397,8 @@
 	    
 	</script>
 	
+
+
+
 
 

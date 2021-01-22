@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="question">
+
+<!-- ==============================우찬=========================== -->
+	<insert id ="insertArticle" parameterType="questionDTO">
+		insert into question(
+		num,category,title,content,writer,open,reg) 
+		values(question_seq.nextval, #{category}, #{title}, #{content}, #{writer}, #{open}, sysdate)
+	</insert>
+	 
+	<select id ="getCategory" resultType="String">
+		select name from question_category
+	</select>
+	
+</mapper>
+
