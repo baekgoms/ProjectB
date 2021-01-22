@@ -19,11 +19,11 @@ import projectB.model.petitionerService.PetitionerService;
 @RequestMapping("petition")
 public class PetitionUploadController {
 	
-/*	@Autowired
+	@Autowired
     private PetitionService petitionDAO = null;
     
     //====================================우찬=================================
-    @RequestMapping("uploadForm.aa")
+    @RequestMapping("upload.aa")
     public String upload(PetitionDTO dto, Model model,HttpSession session) throws Exception {
         
         //임시 세션 아이디 입력
@@ -61,6 +61,6 @@ public class PetitionUploadController {
    }
    
    
-*/   
+ 
 
 }
