@@ -86,18 +86,18 @@ function inputCheck(){
 
 <table class="table">
 <c:forEach items="${articleList}" var="article">
-
 <c:if test="${i%j == 0 }">
 <tr align="center">
 </c:if>
 <td width="450">
-	<div id="${article.num}" style= "height: 200px"></div>
-	
-	<a href="/projectB/discussion/content.aa?pageNum=${pageNum}&discussionNum=${article.num}">${article.subject}<br />
+<div id="${article.num}"></div>
+	<img src="" id="noimg" height=""> <br />
+	<a href="/projectB/discussion/content.aa?pageNum=${pageNum}&discussionNum=${article.num}">
+	${article.subject}<br />
 	${article.write}<br />
-	${article.reg}<br />
-	</a>
-	</td>
+	<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${article.reg}" /><br />
+	</a></td>
+	
 <c:if test="${i%j == j-1}">
 </tr>
 </c:if>
@@ -177,13 +177,25 @@ function inputCheck(){
 <script src="/projectB/resource/bootstrap/js/pages/morris/morris-data.js"></script>
 <script>
 <c:forEach items="${articleList}" var="chart">
+
+var a = parseInt('${chart.opposition}');
+var b = parseInt('${chart.agreement}');
+
+if (a+b == 0){
+	var id = document.getElementById("noimg");
+	id.src = "/projectB/resource/images/nochart.jpg";
+	id.height = "200";
+}else{
 	new Morris.Donut({
 		element: '${chart.num}',
 		data: [{ label: "찬성", value: '${chart.agreement}' }, 
 			   { label: "반대", value: '${chart.opposition}'}],
 		resize: true,
 		colors:['#5f76e8','#e04643']
-});
+})
+	var id = document.getElementById("${chart.num}");
+	id.style.height = "200px";
+};
 </c:forEach>
 </script>
 

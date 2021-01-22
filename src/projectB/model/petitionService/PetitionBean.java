@@ -24,7 +24,7 @@ import projectB.model.petitionerService.PetitionerService;
 @Controller
 @RequestMapping("petition")
 public class PetitionBean {
-    
+	/*
     @Autowired
     private PetitionService petitionDAO = null;
     
@@ -104,7 +104,7 @@ public class PetitionBean {
        
        return "wooch/discussionUploadPro";
    }
-   
+   */
    
    //===================================보배=================================================
   /*
@@ -284,7 +284,6 @@ public class PetitionBean {
         System.out.println("ddd");
         return "petition/finish_list";
     }
-
     @RequestMapping("terminationPetition.aa")
     public String timeout_list(@RequestParam(defaultValue="1")int pageNum, Model model) throws Exception {
         
@@ -319,12 +318,10 @@ public class PetitionBean {
         
         return "petition/terminationPetition";
     }
-
     @RequestMapping("standbyPetition.aa")
     public String watiting_list(@RequestParam(defaultValue="1")int pageNum, Model model) throws Exception{
         
         System.out.println("waiting Test");
-
         int pageSize = 10;
         int currentPage = pageNum;
         int startRow = (currentPage - 1) * pageSize +1;
@@ -355,7 +352,6 @@ public class PetitionBean {
         
         return "petition/standbyPetition";
     }
-
     //신고하기
     @RequestMapping("declareArticle.aa")
 	public String declareArticle(int num, Model model)throws Exception{
@@ -387,9 +383,6 @@ public class PetitionBean {
 		return "petition/reportMs";
 	}
     
-
-
-*/
     
     //===========================================민희==================================================
     
@@ -414,7 +407,6 @@ public class PetitionBean {
         return "petition/petitionContent";
     }
     
-
     @RequestMapping("petComment.aa")
     public String petCmtListAll(@RequestParam("petitionNum")int petitionNum,@RequestParam(defaultValue="1")int pageNum, Model model) throws Exception{
         int pageSize = 10;
@@ -467,8 +459,7 @@ public class PetitionBean {
         petitionPetitionerService.insertMap(dto.getPetitionNum(), dto.getWriter());
         return "petition/petitionCommentPro";
     }
-    
+    */
 
 
 }
-
