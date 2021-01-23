@@ -35,7 +35,7 @@
       iframe {
          width: 100%;
          border: none;
-         height: 1000px;
+         height: 700px;
          margin: 20px auto;
       }
    </style>
@@ -47,37 +47,40 @@
 
 <input type="hidden" id="achive" value="${petitionDTO.petition / 2000}" />
 <input type="hidden" id="petitionState" value="${petitionDTO.petitionState}" />
+<input type="hidden" id="endDate" value="<fmt:formatDate value="${petitionDTO.endDate}"
+                        pattern = "yyyy-MM-dd" />"/>
 
 <section class="petition-container">
+	<div class="petition-area-wrap">
+		<div class="petition-title-area">
+			<span class="petition-category">${categoryName}</span>
+			<br/>
+			<span class="petition-title">${petitionDTO.title}</span>
+		</div>
+		<span class="petition-dday" style="visibility: hidden;" id="dDay"></span>
+	</div>
 	<div class="petition-header">
 		<div class="petition-header-left">
-			<div class="petition-title-area">
-				<span class="petition-category">${categoryName}</span>
-				<span class="petition-title">${petitionDTO.title}</span>
-			</div>
-			<div class="petition-writer" align="right">
-				<span>청원인</span>
-				<span>${petitionDTO.writer}</span>
+			<div class="petition-people-area">
+				<span class="petition-people">참여인원</span>
+				<span class="petition-people-cnt">${petitionDTO.petition}명</span>
 			</div>
 			<div class="petition-calendar">
 				<div>
+					<div class="petition-calendar-separator" style="font-size: 21px">청원기간 : </div>
 					<div class="petition-calendar-date"><fmt:formatDate value="${petitionDTO.startDate}"
                         pattern = "yyyy-MM-dd" /></div>
 					<div class="petition-calendar-separator">~</div>
 					<div class="petition-calendar-date"><fmt:formatDate value="${petitionDTO.endDate}"
                         pattern = "yyyy-MM-dd" /></div>
 				</div>
-				<div>
-					<p class="petition-end-text">청원 종료까지 <span>3</span>일 남았습니다.</p>
-				</div>
 			</div>
 		</div>
 		<div class="petition-header-right">
-			<div id="percentageChart">
-			</div>
-			<div class="petition-people-area">
-				<span class="petition-people">참여인원</span>
-				<span class="petition-people-cnt">${petitionDTO.petition}명</span>
+			<div id="percentageChart"></div>
+			<div style="margin-top: 50px; font-size: 21px">
+				<span>청원인 : </span>
+				<span>${petitionDTO.writer}</span>
 			</div>
 		</div>
 	</div>
@@ -85,33 +88,32 @@
 	<div class="petition-state-area">
 		<ul class="petition-state-list">
 			<li <c:if test="${petitionDTO.petitionState == 1}">class="on"</c:if> >
-				<div class="line-box">청원시작</div>
+				<div class="line-box">청원 시작</div>
 				<div class="line"></div>
 			</li>
 			<li <c:if test="${petitionDTO.petitionState == 2}">class="on"</c:if> >
-				<div class="line-box">청원진행중</div>
+				<div class="line-box">청원 진행중</div>
 				<div class="line"></div>
 			</li>
 			<li <c:if test="${petitionDTO.petitionState == 3}">class="on"</c:if> >
-				<div class="line-box">청원3</div>
+				<div class="line-box">청원 종료</div>
 				<div class="line"></div>
 			</li>
 			<li <c:if test="${petitionDTO.petitionState == 4}">class="on"</c:if> >
-				<div class="line-box">청원종료</div>
+				<div class="line-box">답변 대기중</div>
 			</li>
 		</ul>
 	</div>
 
 	<div class="petition-body">
-		<pre>${petitionDTO.content}</pre>
-	</div>
-	
-	<div class="petition-tag-area">
+		<pre style="font-size:18px; font-family: Ubuntu Mono">${petitionDTO.content}</pre>
+		<br/>
 		<a href="#">#안녕</a>
 		<c:forEach items="${fn:split(petitionDTO.tag, ',') }" var="item">
            <a href="/projectB/petition/tag?tag=${item}">#${item}</a>
         </c:forEach>
 	</div>
+
 	
 	<div class="petition-link-area">
 		<h3>관련 링크</h3>
@@ -120,24 +122,7 @@
         </c:forEach>
 	</div>
 	
-	<div class="petition-link-area">
-		<h3>URL</h3>
-		<a id="copy_url" target="_blank"></a>
-		<button type="button" class="btn waves-effect waves-light btn-outline-dark" onclick="copyToClipboard('#copy_url')">복사하기</button>
-	</div>
-	
-	<div class="button-area">
-		<button type="button" class="btn waves-effect waves-light btn-outline-dark">신고</button>
-		<c:if test="${petitionDTO.petitionState != 1}">
-			<button type="button" onclick="goPetitionList()" class="btn waves-effect waves-light btn-outline-dark">목록</button>
-			<c:if test="${memId != null and memId == petitionDTO.writer}">
-				<button type="button" class="btn waves-effect waves-light btn-outline-dark">삭제</button>
-			</c:if>
-		</c:if>
-	</div>
-	
-	
-	<div style="margin-top: 30px;">
+	<div style="margin-top: 30px;" id="chartArea">
 		 <input type="hidden" id="manCount" value="${petitionIndicatorDTO.manCount}" />
 	     <input type="hidden" id="womanCount" value="${petitionIndicatorDTO.womanCount}" />
 	     <input type="hidden" id="teens" value="${petitionIndicatorDTO.teens}" />
@@ -163,9 +148,30 @@
 	
 	</div>
 	
+	<div class="petition-link-area">
+		<h3>URL</h3>
+		<a id="copy_url" target="_blank"></a>
+		<button type="button" class="btn waves-effect waves-light btn-outline-dark" onclick="copyToClipboard('#copy_url')">복사하기</button>
+	</div>
 	
+	<div class="button-area">
+		<c:if test="${memId != null and memId != petitionDTO.writer}">
+			<button type="button" class="btn waves-effect waves-light btn-outline-dark">신고</button>
+		</c:if>
+		
+		<c:if test="${petitionDTO.petitionState != 1}">
+			<button type="button" onclick="goPetitionList()" class="btn waves-effect waves-light btn-outline-dark">목록</button>
+		</c:if>
+		<c:if test="${petitionDTO.petitionState == 1}">
+			<c:if test="${memId != null and memId == petitionDTO.writer}">
+				<button type="button" onclick="window.location.href='/projectB/petition/deletePetition.aa?petitionNum=${petitionDTO.num}'"
+					class="btn waves-effect waves-light btn-outline-dark">삭제</button>
+			</c:if>
+		</c:if>
+	</div>
 <iframe src="/projectB/petition/petComment.aa?petitionNum=${petitionDTO.num}"></iframe>
-	
+
+		
 </section>
 
 <script>
@@ -182,7 +188,7 @@ var data = [100, achive]; // here are the data values; v1 = total, v2 = current 
 var chart = d3.select("#percentageChart").append("svg") // creating the svg object inside the container div
   .attr("class", "chart")
   .attr("width", 200) // bar has a fixed width
-  .attr("height", 100);
+  .attr("height", 40);
 
 var x = d3.scale.linear() // takes the fixed width and creates the percentage from the data values
   .domain([0, d3.max(data)])
@@ -192,7 +198,7 @@ chart.selectAll("rect") // this is what actually creates the bars
   .data(data)
 .enter().append("rect")
   .attr("width", x)
-  .attr("height", 100)
+  .attr("height", 40)
   .attr("rx", 5) // rounded corners
   .attr("ry", 5);
   
@@ -200,7 +206,7 @@ chart.selectAll("text") // adding the text labels to the bar
   .data(data)
 .enter().append("text")
   .attr("x", x)
-  .attr("y", 50) // y position of the text inside bar
+  .attr("y", 22) // y position of the text inside bar
   .attr("dx", -3) // padding-right
   .attr("dy", ".35em") // vertical-align: middle
   .attr("text-anchor", "end") // text-align: right
@@ -214,10 +220,32 @@ function copyToClipboard(element) {
 	$temp.remove();
 	alert("URL이 복사 되었습니다.");
 }
-
+//두개의 날짜를 비교하여 차이를 알려준다.
+function dateDiff(_date1, _date2) {
+	
+    var diffDate_1 = _date1 instanceof Date ? _date1 :new Date(_date1);
+    var diffDate_2 = _date2 instanceof Date ? _date2 :new Date(_date2);
+ 
+    diffDate_1 =new Date(diffDate_1.getFullYear(), diffDate_1.getMonth()+1, diffDate_1.getDate());
+    diffDate_2 =new Date(diffDate_2.getFullYear(), diffDate_2.getMonth()+1, diffDate_2.getDate());
+ 
+    var diff = Math.abs(diffDate_2.getTime() - diffDate_1.getTime());
+    diff = Math.ceil(diff / (1000 * 3600 * 24));
+ 
+    return diff;
+}
 $(document).ready(function () {
 	$('#copy_url').attr('href', document.location.href);
 	$('#copy_url').text(document.location.href);
+    
+    var endDate = $('#endDate').val();
+    
+    console.log(dateDiff(endDate, "2021-01-23"));
+    var dateDiffCnt = dateDiff(endDate, '2021-01-23');
+    if (dateDiffCnt > 0) {
+    	$('#dDay').text("D-" + dateDiffCnt);
+    	$('#dDay').css("visibility", 'visible');
+    }
 	
     var manCount = $('#manCount').val();
     var womanCount = $('#womanCount').val();
@@ -228,43 +256,44 @@ $(document).ready(function () {
     var fifties = $('#fifties').val();
     var sixties = $('#sixties').val();
 
-    new Chart(document.getElementById("pie-chart"), {
-       type: 'pie',
-       data: {
-          labels: ["남자", "여자"],
-          datasets: [{
-             label: "Population (millions)",
-             backgroundColor: ["#A9E2F3", "#F5A9BC"],
-             data: [manCount, womanCount]
-          }]
-       },
-       options: {
-          title: {
-             display: false
-          }
-       }
-    });
+    if (!(manCount == 0 && womanCount == 0)) {
+    	$('#chartArea').show();
+    	new Chart(document.getElementById("pie-chart"), {
+   	       type: 'pie',
+   	       data: {
+   	          labels: ["남자", "여자"],
+   	          datasets: [{
+   	             label: "Population (millions)",
+   	             backgroundColor: ["#A9E2F3", "#F5A9BC"],
+   	             data: [manCount, womanCount]
+   	          }]
+   	       },
+   	       options: {
+   	          title: {
+   	             display: false
+   	          }
+   	       }
+   	    });
 
-   
-
-    new Chart(document.getElementById("bar-chart"), {
-       type: 'bar',
-       data: {
-          labels: ["10대","20대","30대","40대","50대","60대"],
-          datasets: [
-             {
-                backgroundColor: ["#6174d5", "#5f76e8", "#768bf4", "#7385df", "#b1bdfa", '#FF0000'],
-                data: [teens,twenties,thirties,forties,fifties,sixties]
-             }
-          ]
-       },
-       options: {
-          legend: {display: false},
-          title: {
-             display: false
-          }
-       }
-    });
+   	    new Chart(document.getElementById("bar-chart"), {
+   	       type: 'bar',
+   	       data: {
+   	          labels: ["10대","20대","30대","40대","50대","60대"],
+   	          datasets: [
+   	             {
+   	                backgroundColor: ["#6174d5", "#5f76e8", "#768bf4", "#7385df", "#b1bdfa", '#FF0000'],
+   	                data: [teens,twenties,thirties,forties,fifties,sixties]
+   	             }
+   	          ]
+   	       },
+   	       options: {
+   	          legend: {display: false},
+   	          title: {
+   	             display: false
+   	          }
+   	       }
+   	    });
+    }
 })
 
 function goPetitionList() {
