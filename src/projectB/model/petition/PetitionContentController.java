@@ -2,10 +2,10 @@ package projectB.model.petition;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,42 +28,24 @@ public class PetitionContentController {
   
    
     @RequestMapping("petContent.aa")
-    public String petContent(@RequestParam("num")int num, Model model) throws Exception{
+    public String petContent(@RequestParam("num")int num, Model model, HttpServletRequest request) throws Exception{
         PetitionDTO petitionDTO = PetitionContentService.getArticle(num);
-        List<CategoryDTO> categoryDTO = PetitionContentService.getCategoryList();
-        String categoryName = "";
         
-        for (int i=0; i<categoryDTO.size(); i++) {
-            if (petitionDTO.getCategory() == categoryDTO.get(i).getNum()) {
-                categoryName = categoryDTO.get(i).getCategoryName();
-            }
+        if (petitionDTO.getOpen() == 1) {
+          // 비공개 글이면 리턴
+          return "petition/petitionContentClosed";
         }
-        
-        PetitionIndicatorDTO petitionIndicatorDTO = PetitionContentService.getPetitionIndicator(num);
-        
-        int pState = 1;
-        java.util.Date date = new Date();
-        long time = date.getTime();
-        Timestamp ts = new Timestamp(time);
 
-        if(petitionDTO.getPetition() > 100) {
-            pState = 2;
-            
-        }else if(ts.equals(petitionDTO.getEndDate()) && petitionDTO.getPetition() < 200000){
-            pState = 3;
-        }else if(ts.equals(petitionDTO.getEndDate()) && petitionDTO.getPetition() > 200000){
-            pState = 4;
-        }
+//        PetitionContentService.updatePetitionState(petitionDTO.getNum(),totalPetition,endDate);
         
-        String petitionState = PetitionContentService.getPetitionState(pState);
-        System.out.println(petitionState);
+        String petitionState = PetitionContentService.getPetitionState(petitionDTO.getPetitionState());
         
-        
-        
-        
-        
+        int categoryNum = petitionDTO.getCategory();
+        String categoryName = PetitionContentService.getCategoryName(categoryNum);
+        PetitionIndicatorDTO petitionIndicatorDTO = PetitionContentService.getPetitionIndicator(num);
+
         model.addAttribute("categoryName", categoryName);       
-        model.addAttribute("PetitionDTO",petitionDTO);
+        model.addAttribute("petitionDTO",petitionDTO);
         model.addAttribute("petitionState",petitionState);
         model.addAttribute("petitionIndicatorDTO",petitionIndicatorDTO);
         return "petition/petitionContent";
@@ -120,6 +102,12 @@ public class PetitionContentController {
         PetitionContentService.insertPetCmt(dto);
         PetitionContentService.updatePetitionCount(dto.getPetitionNum());
         petitionPetitionerService.insertMap(dto.getPetitionNum(), dto.getWriter());
+        
+        
+        
+        PetitionContentService.updatePetitionState(dto.getPetitionNum());
+        
+        
         return "petition/petitionCommentPro";
     }
   

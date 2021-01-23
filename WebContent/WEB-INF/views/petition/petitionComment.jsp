@@ -26,11 +26,6 @@
 
 <body>  
 
-<div>1Sesion ${memId}  <c:out value="${petitionNum }" />
-	<c:if test="${memId == null}">
-	not login
-	</c:if> 
-</div>
 <form id="agreeForm">
 	<input type="button" VALUE="청원동의" class="btn btn-block btn-primary" onclick="Confirm()"/>
 		
@@ -127,7 +122,7 @@
                         method: "post",
                         data: {
                             "writer" : "${memId}",
-                            "content" : "",
+                            "content" : "동의합니다.",
                             "petitionNum" : "${petitionNum}"
                         },
                         success: function(e) {

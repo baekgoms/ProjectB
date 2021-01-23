@@ -1,0 +1,257 @@
+section.petition-container {
+    width: 800px;
+    margin: 0 auto;
+    padding: 30px 0;
+    font-size: 16px;
+}
+
+.petition-header {
+    display: inline-block;
+    width: 100%;
+}
+
+ul.petition-state-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    display: inline-block;
+    text-align: left;
+}
+
+ul.petition-state-list > li > .line-box {
+    width: 95px;
+    height: 50px;
+    background: #CCC;
+    border-radius: 3px;
+    display: inline-block;
+    color: white;
+    line-height: 50px;
+    text-align: center;
+    vertical-align: top;
+}
+
+ul.petition-state-list > li.on > .line-box {
+    background: #1c2d41;
+}
+
+.line {
+    width: 123px;
+    height: 3px;
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    background: #DDD;
+    top: 10px;
+}
+
+ul.petition-state-list > li {display: inline-block;}
+
+.petition-header-left {
+    display: inline-block;
+    float: left;
+    width: 70%;
+}
+
+.petition-header-right {display: inline-block;float: left;width: 30%;}
+
+.petition-title-area {
+    border-bottom: 2px solid #999;
+    padding: 10px;
+    height: 90px;
+    text-align: left;
+    font-size: 24px;
+}
+
+span.petition-category {
+    border-radius: 10px;
+    padding: 5px 10px;
+    margin-right: 5px;
+    font-weight: 700;
+    background: #1c2d41;
+    color: white;
+    vertical-align: top;
+}
+
+span.petition-title {
+    vertical-align: top;
+}
+
+.petition-writer {
+    /* border: 2px solid #999; */
+    padding: 10px;
+    text-align: left;
+    margin-top: 10px;
+}
+
+.petition-writer span:first-child {border-radius: 10px;padding: 5px 10px;margin-right: 5px;font-weight: 700;vertical-align: top;border: 1px solid #AAA;}
+
+.petition-calendar {
+    padding: 10px;
+    text-align: left;
+    margin-top: 10px;
+}
+
+.petition-calendar-date, .petition-calendar-separator {
+    display: inline-block;
+}
+
+.petition-calendar-date {
+    border: 1px solid #CCC;
+    border-radius: 20px;
+    padding: 10px 20px;
+    font-size: 18px;
+}
+
+.petition-calendar-separator {
+    margin: 0 20px;
+    font-size: 24px;
+}
+
+/* Chart Start */
+.chart rect:first-of-type {
+  color: #fff;
+  stroke: #1c2d41;
+  fill: white;
+}
+
+text:first-of-type {
+  fill: #1c2d41;
+  font-family: sans-serif;
+  font-size: 12px;
+}
+
+.chart rect:nth-of-type(2) {
+  color: #fff;
+  stroke: transparent;
+  fill: #1c2d41;
+}
+
+text:nth-of-type(2) {
+  fill: #a8d4e4;
+  font-family: sans-serif;
+  font-size: 12px;
+}
+/* Chart End */
+
+.petition-people-area {
+    padding: 39px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+div#percentageChart {
+    /* border: 2px solid #999; */
+    padding: 10px;
+    text-align: center;
+}
+
+span.petition-people {
+    display: block;
+    border-radius: 10px;
+    padding: 5px 10px;
+    margin-right: 5px;
+    font-weight: 700;
+    vertical-align: top;
+    border: 1px solid #AAA;
+}
+
+span.petition-people-cnt {
+    display: block;
+    font-size: 21px;
+    margin-top: 6px;
+}
+
+p.petition-end-text {
+    margin-top: 10px;
+}
+
+.petition-end-text >span {
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.petition-header-right {
+    /* padding-left: 10px; */
+}
+
+.petition-body {
+    border-top: 1px solid #CCC;
+    border-bottom: 1px solid #CCC;
+    margin: 30px 0;
+    padding: 20px 0;
+    text-align: left;
+}
+
+.petition-tag-area {
+	text-align: left;
+}
+
+.petition-tag-area > a {
+	margin-right: 10px;
+}
+
+.petition-link-area {
+    text-align: left;
+    border-bottom: 1px solid #CCC;
+    border-top: 1px solid #CCC;
+    margin: 20px 0;
+    padding: 20px 0;
+}
+
+.petition-link-area > a {
+    border: 1px solid #DDD;
+    width: calc(100% - 99px);
+    display: inline-block;
+    line-height: 50px;
+    height: 50px;
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+.petition-url-area {
+    text-align: left;
+    border-bottom: 1px solid #CCC;
+    border-top: 1px solid #CCC;
+    margin: 20px 0;
+    padding: 20px 0;
+}
+
+.petition-url-area > a {}
+
+.petition-url-area > button {
+    width: 95px;
+    height: 62px;
+    border-radius: 3px;
+    display: inline-block;
+    color: white;
+    line-height: 40px;
+    text-align: center;
+    vertical-align: top;
+    background: #1c2d41;
+    border: none;
+    /* float: right; */
+}
+
+.petition-url-area > a {
+    line-height: 40px;
+    color: #6363ff !important;
+    text-decoration: underline !important;
+    border: 1px solid #DDD;
+    width: calc(100% - 99px);
+    padding: 10px;
+    display: inline-block;
+}
+
+.petition-link-area > button {
+    width: 93px;
+    height: 50px;
+    /* background: #1c2d41; */
+    /* border-radius: 3px; */
+    display: inline-block;
+    /* color: white; */
+    line-height: 50px !importanr;
+    text-align: center;
+    vertical-align: top;
+    /* border: none; */
+}
