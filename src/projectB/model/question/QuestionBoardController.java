@@ -14,12 +14,12 @@ import projectB.model.questionService.QuestionService;
 
 @Controller
 @RequestMapping("question")
-public class QuestionController {
+public class QuestionBoardController {
 
 	@Autowired
     private QuestionService questionDAO = null;
 	
-	@RequestMapping("board.aa")
+	@RequestMapping("upload.aa")
     public String upload(QuestionDTO dto, Model model,HttpSession session) throws Exception {
         
         //임시 세션 아이디 입력
@@ -36,14 +36,25 @@ public class QuestionController {
             model.addAttribute("dto", dto);
             dto.setWriter((String)session.getAttribute("memId"));
             System.out.println("Writer:"+dto.getWriter());
-            //category = questionDAO.getCategory();
-            //model.addAttribute("category", category);
-            //System.out.println("category size:"+category.size()+"\n"+category);
+            category = questionDAO.getCategory();
+            model.addAttribute("category", category);
+            System.out.println("category size:"+category.size()+"\n"+category);
         }   
         
-        return "wooch/questionBoard";
+        return "wooch/questionUploadForm";
     }
-
+	 
+	@RequestMapping("uploadPro.aa")
+	public String writePro(QuestionDTO dto, HttpServletRequest request, HttpSession session) throws Exception{
+       
+		dto.setWriter((String)session.getAttribute("memId"));
+		System.out.println("Writer:"+dto.getWriter());
+		questionDAO.insertQuestion(dto);
+		System.out.println("uploadPro run");
+       
+		return "wooch/uploadPro";
+	}
+	 
 	 
 	
 }
