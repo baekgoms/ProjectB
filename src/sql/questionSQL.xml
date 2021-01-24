@@ -15,5 +15,26 @@
 		select name from question_category
 	</select>
 	
+<!-- =============================================================== -->
+	
+	<select id="getArticle" resultType="questionDTO" parameterType="map">
+		select * from (select num, category, title, content, writer, reply, reg
+		from(select * from question 
+		<if test="keyword != null">
+			where title like '%' || #{keyword} || '%' or content like '%' || #{keyword} || '%'
+		</if>
+		order by num desc) order by num desc) 
+	</select>
+	
+	<select id="getArticles" resultType="questionDTO" parameterType="map">
+		select * from (select num, category, title, content, writer, reply, reg rownum r 
+		from(select * from question 
+		<if test="keyword != null">
+			where title like '%' || #{keyword} || '%' or content like '%' || #{keyword} || '%'
+		</if>
+		order by num desc) order by num desc) 
+		where r <![CDATA[>=]]> #{start} and r <![CDATA[<=]]>#{end}
+	</select>
+	
 </mapper>
 

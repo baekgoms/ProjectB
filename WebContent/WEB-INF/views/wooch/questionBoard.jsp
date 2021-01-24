@@ -94,6 +94,19 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                        	
+											
+											<c:forEach items="${articleList}" var="article">
+											</tr>	
+													<td>${article.category}</td>
+													<td width="500"><a href="/projectB/question/">${article.title}</a></td>
+													<td>${article.writer}</td>
+													<td>${article.reply}</td>
+													<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${article.reg}" /></td>
+											</tr>	
+											</c:forEach>
+												
+											
                                             <tr>
                                                 <td>Tiger Nixon</td>
                                                 <td>System Architect</td>

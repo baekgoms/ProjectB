@@ -28,4 +28,23 @@ public class QuestionServiceImpl implements QuestionService{
 		return dao.selectList("question.getCategory");
 	}
 
+	@Override
+	public List<QuestionDTO> getArticle() throws Exception {
+
+		List<QuestionDTO> articleList = dao.selectList("question.getArticle");
+
+		return articleList;
+	}
+
+	@Override
+	public List<QuestionDTO> getArticles(int start, int end) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("start", start);
+		map.put("end", end);
+
+		List<QuestionDTO> articleList = dao.selectList("question.getArticles", map);
+
+		return articleList;
+	}
+
 }
