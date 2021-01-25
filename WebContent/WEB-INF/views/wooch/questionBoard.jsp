@@ -95,9 +95,8 @@
                                         </thead>
                                         <tbody>
                                         	
-											
 											<c:forEach items="${articleList}" var="article">
-											</tr>	
+											<tr>	
 													<td>${article.category}</td>
 													<td width="500"><a href="/projectB/question/">${article.title}</a></td>
 													<td>${article.writer}</td>
@@ -122,7 +121,9 @@
                         </div>
                     </div>
                 </div>
-        
+         	</div>
+         	
+         </div>	
    </body>
         <!-- ============================================================== -->
         <!-- End Page wrapper  -->
@@ -161,175 +162,8 @@
     <script src="/projectB/resource/bootstrap/js/sidebarmenu.js"></script>
     <script src="/projectB/resource/bootstrap/js/custom.min.js"></script>
     <script src="/projectB/resource/bootstrap/extra-libs/prism/prism.js"></script>  
-    <script src="/projectB/resource/bootstrap/assets/extra-libs/datatables.net/js/jquery.dataTables.min.js"></script>
-    <script src="/projectB/resource/bootstrap/js/pages/datatable/datatable-basic.init.js"></script>
-	<script>
-	    $(document).ready(function () {
-	
-	        var tag = {};
-	        var counter = 0;
-	        var count = 0;
-
-	        
-	        // 태그를 추가한다.
-	        function addTag (value) {
-	            tag[counter] = value; // 태그를 Object 안에 추가
-	            if(counter < 5){
-	            counter++; // counter 증가 삭제를 위한 del-btn 의 고유 id 가 된다.
-	        	}
-	        }
-	
-	        // 최종적으로 서버에 넘길때 tag 안에 있는 값을 array type 으로 만들어서 넘긴다.
-	        function marginTag () {
-	            return Object.values(tag).filter(function (word) {
-	                return word !== "";
-	            });
-	        }
-	    
-	        // 서버에 넘기기
-	        $("#tag-form").on("submit", function (e) {
-	            var value = marginTag(); // return array
-	            $("#rdTag").val(value); 
-	
-	            $(this).submit();
-	        });
-	
-	        $("#tag").on("keypress", function (e) {
-	            var self = $(this);
-	
-	            // input 에 focus 되있을 때 엔터 및 스페이스바 입력시 구동
-	            if (e.key === "Enter" || e.keyCode == 32) {
-	
-	                var tagValue = self.val(); // 값 가져오기
-	
-	                // 값이 없으면 동작 ㄴㄴ
-	                if (tagValue !== "") {
-	
-	                    // 같은 태그가 있는지 검사한다. 있다면 해당값이 array 로 return 된다.
-	                    var result = Object.values(tag).filter(function (word) {
-	                        return word === tagValue;
-	                    })
-	                
-	                    // 태그 중복 검사
-	                     if (counter <= 4) { //5개 제
-	                    
-		                    if (result.length == 0) { 
-		                        $("#tag-list").append("<b class='tag-item'>"+tagValue+"<span class='del-btn' style='color:blue' idx='"+counter+"'>(X)&nbsp; </span></b>");
-		                        addTag(tagValue);
-		                        self.val("");
-		                        
-		                    } else {
-		                        alert("태그값이 중복됩니다.");
-		                    }
-	              		} else {
-                        alert("최대 5개까지 입력 가능합니다.");
-                   		 }
-	                }
-	                e.preventDefault(); // SpaceBar 시 빈공간이 생기지 않도록 방지
-	            }
-	        });
-	
-	        // 삭제 버튼 
-	        // 삭제 버튼은 비동기적 생성이므로 document 최초 생성시가 아닌 검색을 통해 이벤트를 구현시킨다.
-	        $(document).on("click", ".del-btn", function (e) {
-	            var index = $(this).attr("idx");
-	            tag[index] = " ";
-	            $(this).parent().remove();
-	            counter--;
-	        });
-	})
-	</script>
-	
-	<script>
-		$(document).ready(function () {
-			var count = 0;
-				
-			$('.btnAdd').click(function(){
-				if (count == 0 || count == 1 ) {
-					count++;
-				$('.addInput').append(
-						
-					'<div class="col-md-8" id="'+count+'+">\
-	                	<div class="form-group" id="'+count+'" >\
-							<input type="text" name="link" id="'+count+'" class="form-control" value=""\
-	                    	   	 placeholder="First Input First Row">\
-		                </div>\
-		            </div>\
-		            <div class="col-md-4" id="'+count+'">\
-		                <div class="form-group" id="'+count+'" >\
-		                    <button id="btnRemove'+count+'" class=" btn btn-info">삭제</button>\
-		                </div>\
-		            </div>'
-			
-				);
-		
-				$('#btnRemove1').on('click', function(){
-					$( 'input' ).remove( '#1' );
-					$( 'div' ).remove( '#1' );
-					$(this).remove();
-					if(count == 1 || count == 2){
-						count--;
-					}
-				});
-				
-				$('#btnRemove2').on('click', function(){
-					$( 'input' ).remove( '#2' );
-					$( 'div' ).remove( '#2' );
-					$(this).remove();
-					if(count == 2){
-						count--;
-					}
-				});
-				
-				}else {return;}
-			});		
-			
-		});
-	</script>
-	
-	<script type="text/javascript">
-	    
-		function checkIt()
-	    {
-	        var title = document.getElementById("title");
-	        var content = document.getElementById("content");
-	        var category = document.getElementById("inputGroupSelect01");
-	        
-	       	if(title.value=="") {
-	           	alert("제목을 입력해주세요");
-	           	title.focus();
-	           	return false;
-	       	}
-	       	else if(content.value=="") {
-	           	alert("내용을 입력해주세요");
-	           	content.focus();
-	           	return false;
-	       	}
-	       	else if(category.value=="선택") {
-	           	alert("분류를 선택해주세요");
-	           	category.focus();
-	           	return false;
-	       	}
-	    	return true;
-	    }
-	     
-	    function removeCheck() {
-			 if (confirm("작성한 내용을 삭제하시겠습니까?") == true){    //확인
-			     var el = document.getElementsByClassName('content');
-			     for(var i=0; i<el.length; i++){ el[i].value = ''; }
-			 }else{ return false; }
-		}
+   	<script src="/projectB/resource/bootstrap/assets/extra-libs/datatables.net/js/jquery.dataTables.js"></script>
+  	<script src="/projectB/resource/bootstrap/js/pages/datatable/datatable-basic.init.js"></script> 
     
-	    function backCheck() {
-	   		 if (confirm("작성하신 내용을 삭제하고 게시판으로 이동합니다.") == true){    //확인
-	   			window.location = '/projectB/petition/afootPetition.aa';	
-	   		 }else{ return false; }
-	   	}
-	    
-	</script>
-	
-
-
-
-
-
+    
+    

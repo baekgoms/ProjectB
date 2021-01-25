@@ -11388,7 +11388,7 @@
 				 *      } );
 				 *    } );
 				 */
-				"sNext": "Next",
+				"sNext": "다음",
 
 
 				/**
@@ -11411,7 +11411,7 @@
 				 *      } );
 				 *    } );
 				 */
-				"sPrevious": "Previous"
+				"sPrevious": "이전"
 			},
 
 			/**
@@ -11466,7 +11466,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sInfo": "Showing _START_ to _END_ of _TOTAL_ entries",
+			"sInfo": "총 _TOTAL_개의 게시물 중 _START_에서 _END_까지의 게시물을 보는 중입니다. ",
 
 
 			/**
@@ -11627,7 +11627,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sLengthMenu": "Show _MENU_ entries",
+			"sLengthMenu": "표시 게시물 수 _MENU_",
 
 
 			/**
@@ -11707,7 +11707,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"sSearch": "Search:",
+			"sSearch": "검색:",
 
 
 			/**
