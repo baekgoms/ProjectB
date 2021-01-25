@@ -46,19 +46,13 @@ ul {
 	left: -13px;
 	position: relative;
 }
-/* .layer {
+/*  .layer {
   position: absolute;
   top: 25%;
   left: 25%;
   width: 1200px;
   margin: -50px 0 0 -50px;
 } */
-iframe {
-	width: 1000px;
-	border: none;
-	height: 1000px;
-	margin: 20px auto;
-}
 </style>
 
 <script>
@@ -359,6 +353,12 @@ $(document).ready(function(){
 </head>
 
 <body onload="SetPosition()">
+	<!-- <iframe src="/projectB/beakTest/test.aa"></iframe> -->
+	
+	<%-- <c:import url="/WEB-INF/views/test/Test.jsp" /> --%>
+	<jsp:include page="/WEB-INF/views/topbar/top.jsp" />
+	<br><br>
+	
 	<div class="layer">
 	<c:if test = "${ article == null }">
 		<div class="text left cb text_wrap motion agenda-body display-idle fadeIn visible"
