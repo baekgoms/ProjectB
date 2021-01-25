@@ -17,13 +17,13 @@ public class LoginController {
 	@Autowired
 	private LoginService loginSerivce;
 
-	@RequestMapping("loginForm")
+	@RequestMapping("loginForm.aa")
 	public String loginForm() {
 		System.out.println("loginForm run");
 		return "login/loginForm";
 	}
 
-	@RequestMapping("loginPro")
+	@RequestMapping("loginPro.aa")
 	public String loginPro(PetitionerDTO dto, HttpSession session, Model model) {
 		System.out.println("loginPro run");
 

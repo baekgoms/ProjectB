@@ -60,6 +60,7 @@ ul {
 		var writer = '${memId}';
 		if (!writer) {
 			alert("로그인이 필요합니다.");
+			window.location.href = "/projectB/login/loginForm.aa";
 			return false;
 		}
 		//console.log("cmvote_state / " + cmvote_state);
@@ -104,6 +105,7 @@ ul {
 		var writer = '${memId}';
 		if (!writer) {
 			alert("로그인이 필요합니다.");
+			window.location.href = "/projectB/login/loginForm.aa";
 			return false;
 		}
 		
@@ -121,6 +123,7 @@ ul {
 	function commentInsertCheck(writer) {
 		if (!writer) {
 			alert("로그인이 필요합니다.");
+			window.location.href = "/projectB/login/loginForm.aa";
 			return false;
 		}
 		
@@ -149,6 +152,7 @@ ul {
 
 		if (!voter) {
 			alert("로그인이 필요합니다.");
+			window.location.href = "/projectB/login/loginForm.aa";
 			return false;
 		}
 		if (voteResult != 0) {
@@ -275,6 +279,7 @@ $(document).ready(function(){
 		var writer = '${memId}';
 		if (!writer) {
 			alert("로그인이 필요합니다.");
+			window.location.href = "/projectB/login/loginForm.aa";
 			return false;
 		}
 			
