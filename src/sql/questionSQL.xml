@@ -15,13 +15,18 @@
 		select name from question_category
 	</select>
 	
+	<select id ="getCategoryMap" resultType="map">
+		select * from question_category
+	</select>
+	
 <!-- =============================================================== -->
 	
 	<select id="getArticle" resultType="questionDTO" parameterType="map">
 		select * from (select num, category, title, content, writer, reply, reg
 		from(select * from question 
+		where open = 1
 		<if test="keyword != null">
-			where title like '%' || #{keyword} || '%' or content like '%' || #{keyword} || '%'
+			or title like '%' || #{keyword} || '%' or content like '%' || #{keyword} || '%'
 		</if>
 		order by num desc) order by num desc) 
 	</select>

@@ -21,6 +21,7 @@ public class QuestionController {
 	@Autowired
     private QuestionService questionDAO = null;
 	
+	//==========================올리기================================
 	@RequestMapping("upload.aa")
     public String upload(QuestionDTO dto, Model model,HttpSession session) throws Exception {
         
@@ -58,6 +59,23 @@ public class QuestionController {
 	}
 	
 	//==========================보기================================
+	@RequestMapping("board.aa")
+	public String board( Model model) throws Exception {
+		
+        List<QuestionDTO> articleList = null;
+        List category = null;
+        System.out.println("wooch board run");
+        
+        category = questionDAO.getCategory();
+        model.addAttribute("category", category);
+        System.out.println("category size:"+category.size()+"\n"+category);
+        
+        articleList = questionDAO.getArticle();
+        model.addAttribute("articleList", articleList);
+        
+		return "wooch/questionBoard";
+	}
+	 
 	@RequestMapping("board2.aa")
     public String board2(QuestionDTO dto, Model model,HttpSession session) throws Exception {
         
@@ -82,30 +100,5 @@ public class QuestionController {
         
         return "wooch/questionBoard";
     }
-
-	
-	@RequestMapping("board.aa")
-	public String board( Model model) throws Exception {
-		//int pageSize = 12;
-        //int currentPage = pageNum;
-        //int startRow = (currentPage - 1) * pageSize + 1;
-        //int endRow = currentPage * pageSize;
-        //int count = 0;
-        
-        List<QuestionDTO> articleList = null;
-        //count = questionDAO.getArticleCount();
-        //if (count > 0) {
-            articleList = questionDAO.getArticle();
-        //} else {
-        //    articleList = Collections.emptyList();
-        //}
-        //model.addAttribute("currentPage", new Integer(currentPage));
-        //model.addAttribute("count", new Integer(count));
-        model.addAttribute("articleList", articleList);
-        //model.addAttribute("pageNum", new Integer(pageNum));
-        
-		return "wooch/questionBoard";
-	}
-	 
 	
 }

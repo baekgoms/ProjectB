@@ -23,9 +23,14 @@ public class QuestionServiceImpl implements QuestionService{
 
 	@Override
 	public List getCategory() throws Exception {
-		Map map = new HashMap();
 
 		return dao.selectList("question.getCategory");
+	}
+	
+	@Override
+	public List getCategoryMap() throws Exception {
+	
+		return dao.selectList("question.getCategoryMap");
 	}
 
 	@Override

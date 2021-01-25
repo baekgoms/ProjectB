@@ -81,7 +81,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Zero Configuration</h4>
+                                <!--  <h4 class="card-title">Zero Configuration</h4>-->
                                 <div class="table-responsive">
                                     <table id="zero_config" class="table table-striped table-bordered no-wrap">
                                         <thead>
@@ -97,11 +97,14 @@
                                         	
 											<c:forEach items="${articleList}" var="article">
 											<tr>	
-													<td>${article.category}</td>
-													<td width="500"><a href="/projectB/question/">${article.title}</a></td>
-													<td>${article.writer}</td>
-													<td>${article.reply}</td>
-													<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${article.reg}" /></td>
+												<td>${category[article.category-1]}</td>
+												<td width="500"><a href="/projectB/question/">${article.title}</a></td>
+												<td>${article.writer}</td>
+												<td>
+													<c:if test="${article.reply eq 0}"><c:out value="답변 대기중"/></c:if>
+													<c:if test="${article.reply eq 1}"><c:out value="답변 완료"/></c:if>
+												</td>
+												<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${article.reg}" /></td>
 											</tr>	
 											</c:forEach>
 												
