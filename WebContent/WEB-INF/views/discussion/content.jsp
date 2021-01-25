@@ -420,12 +420,12 @@ $(document).ready(function(){
 						
 						<button id = "btn_y" type="button" class="btn btn-info btn-circle-lg" 
 						onclick="btn_y('${article.num}', '${ memId }', '${ voteResult }')"
-							style="position: relative; left: 210px; top: -200;">
+							style="position: relative; left: 190px; top: -160px;">
 							<i class="fa fa-check"></i>
 						</button>
 						<button type="button" class="btn btn-danger btn-circle-lg" 
 						onclick="btn_n('${article.num}', '${ memId }', '${ voteResult }')"
-							style="position: relative; left: 125px; top: -80;">
+							style="position: relative; left: 125px; top: -80px;">
 							<i class="fa fa-times"></i>
 						</button>
 					</div>		
@@ -794,19 +794,7 @@ $(document).ready(function(){
 			} ],
 			resize : true,
 			colors : [ '#5f76e8', '#e04643' ]
-		});
-
-		/* <c:forEach items='${comments}' var='comment'>
-			if(${comment.grouping > 0}){
-				var parent = $('#comment_${ comment.grouping }');
-				parent.append("<div id='co_r_reply1537116' class='co_r_reply' style='display: block; top: 20px; position: relative;'>");
-				parent.append("<span class=''>");
-				parent.append(${ comment.writer });
-				parent.append("</span>");
-				parent.append("</div>");
-			}	
-		</c:forEach> */
-		
+		});		
 	</script>
 
 </body>
