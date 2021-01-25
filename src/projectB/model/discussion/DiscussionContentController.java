@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import projectB.model.discussionCommService.DisBoardCommService;
 import projectB.model.petition.DiscussionDTO;
-import projectB.test.hj.DisBoardService;
+import projectB.model.discussionService.DiscussionService;
 
 @Controller
 @RequestMapping("discussion")
 public class DiscussionContentController {
 	@Autowired
-	private DisBoardService disBoardDAO = null;
+	private DiscussionService disBoardDAO = null;
 	
 	@Autowired
 	private DisBoardCommService disBoardCommService = null;
