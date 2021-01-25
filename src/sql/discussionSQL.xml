@@ -44,7 +44,7 @@
 		<if test="date1 != null and date2 != null">
 			<![CDATA[where reg between to_date(#{date1}) and to_date(#{date2})]]>
 		</if>
-		<![CDATA[order by agreement+opposition desc) order by agreement+opposition desc) where r >= #{start} and r <= #{end} ]]>
+		order by agreement+opposition desc) order by agreement+opposition desc) <![CDATA[where r >= #{start} and r <= #{end} ]]>
 	</select>
 
 	<select id="getBestCArticles" parameterType="map" resultType="discussionDTO">

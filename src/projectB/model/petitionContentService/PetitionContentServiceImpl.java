@@ -1,5 +1,6 @@
 package projectB.model.petitionContentService;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,68 +16,90 @@ import projectB.model.petitioner.PetitionerDTO;
 @Service("petitionContentService")
 public class PetitionContentServiceImpl implements PetitionContentService{
   
-  @Autowired
-  private SqlSessionTemplate dao = null;
+    @Autowired
+    private SqlSessionTemplate dao = null;
+    
+    @Override
+    public PetitionDTO getArticle(int num) throws Exception {
+        return dao.selectOne("petition.getArticle", num);
+    }
+    
+    @Override
+    public void insertPetCmt(PetCommentDTO dto) throws Exception {
+        dao.insert("petition.insertPetCmt", dto);
+    }
   
-  @Override
-  public PetitionDTO getArticle(int num) throws Exception {
-      return dao.selectOne("petition.getArticle", num);
-  }
+    @Override
+    public int petCmtCount(int petitionNum) throws Exception {
+        return dao.selectOne("petition.petCmtCount", petitionNum);
+    }
+    
+    @Override
+    public List<PetitionDTO> petCmtListAll(int petitionNum) throws Exception {
+        return dao.selectList("petition.petCmtListAll", petitionNum);
+    }
+  
+    @Override
+    public List<PetitionDTO> petCmtList(int petitionNum, int start, int end) throws Exception {
+        Map map = new HashMap();
+        map.put("petitionNum", petitionNum);
+        map.put("start", start);
+        map.put("end", end);
+        List<PetitionDTO> petCmtList = dao.selectList("petition.petCmtList", map);
+        return petCmtList;
+    }
+  
+    @Override
+    public int updatePetitionCount(int petitionNum) {
+        return dao.update("petition.updatePetitionCount", petitionNum);
+    }
+    
+    @Override
+    public PetitionIndicatorDTO getPetitionIndicator(int num) throws Exception {
+        return dao.selectOne("petition.getPetitionIndicator", num);
+    }
+    
+    
+   
+   
+    @Override
+    public PetitionerDTO getPetitionerById(String writerId) {
+     
+      return dao.selectOne("petition.getPetitionerById", writerId);
+    }
 
-  @Override
-  public void insertPetCmt(PetCommentDTO dto) throws Exception {
-      dao.insert("petition.insertPetCmt", dto);
-  }
+    @Override
+    public String getPetitionState(int petitionState) {
+     
+      return dao.selectOne("petition.getPetitionState", petitionState);
+    }
 
-  @Override
-  public int petCmtCount(int petitionNum) throws Exception {
-      return dao.selectOne("petition.petCmtCount", petitionNum);
-  }
-  
-  @Override
-  public List<PetitionDTO> petCmtListAll(int petitionNum) throws Exception {
-      return dao.selectList("petition.petCmtListAll", petitionNum);
-  }
 
-  @Override
-  public List<PetitionDTO> petCmtList(int petitionNum, int start, int end) throws Exception {
-      Map map = new HashMap();
-      map.put("petitionNum", petitionNum);
-      map.put("start", start);
-      map.put("end", end);
-      List<PetitionDTO> petCmtList = dao.selectList("petition.petCmtList", map);
-      return petCmtList;
-  }
+    @Override
+    public String getCategoryName(int categoryNum) throws Exception {
 
-  @Override
-  public int updatePetitionCount(int petitionNum) {
-      return dao.update("petition.updatePetitionCount", petitionNum);
-  }
-  
-  @Override
-  public PetitionIndicatorDTO getPetitionIndicator(int num) throws Exception {
-      return dao.selectOne("petition.getPetitionIndicator", num);
-  }
-  
-  
-   @Override
-   public void updateIndicator(int num, String gender, int age) {
-       Map<String, Object> map = new HashMap<>();
-       map.put("petitionNum", num);
-       map.put("gender", "남자".equals(gender));
-       map.put("age", age);
-       dao.update("petition.updateIndicator", map);
+      return dao.selectOne("petition.getCategoryName",categoryNum);
     }
    
-   @Override
-   public PetitionerDTO getPetitionerById(String writerId) {
-     
-     return dao.selectOne("petitioner.getPetitionerById", writerId);
-   }
+    @Override
+    public void updateIndicator(int num, String gender, int age) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("petitionNum", num);
+        map.put("gender", "남자".equals(gender));
+        map.put("age", age);
+        dao.update("petition.updateIndicator", map);
+    }
+   
+    @Override
+    public void updatePetitionState(int petitionNum) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("petitionNum", petitionNum);
+        dao.update("petition.updatePetitionState",petitionNum);
+    }
 
-  @Override
-  public List<CategoryDTO> getCategoryList() throws Exception {
-    return dao.selectList("petition.getCategoryList");
-  }
+    @Override
+    public void deletePetition(int petitionNum) throws Exception {
+        dao.delete("petition.deletePetition",petitionNum);
+    }
 
 }

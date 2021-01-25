@@ -84,7 +84,7 @@
 	</select>
 	
 	<update id="reportCount" parameterType="int">
-	update petition set report = report+1 where num=#{num}
+		update petition set report = report+1 where num=#{num}
 	</update>
 	
 	<select id="reportCountBynum" resultType="int" parameterType="int">
@@ -92,7 +92,7 @@
 	</select>
 	
 	<update id ="reportCountId" parameterType="String">
-	update petitioner set report = report+1 where id=#{id}
+		update petitioner set report = report+1 where id=#{id}
 	</update>
 
 
@@ -153,7 +153,26 @@
 		select * from petitionPetitionerMap where petitionNum = #{petitionNum} and petitionerId = #{petitionerId}
 	</select>
 	
-	<update id="updateIndicator" parameterType="HashMap">
+	
+	
+	
+	<update id="updatePetitionCount" parameterType="int">
+		update petition set petition = petition + 1 where num = #{num}
+	</update>
+	
+	<select id="getPetitionerById" resultType="petitionerDTO" parameterType="String">
+		select * from petitioner where id = #{id}
+	</select>
+	
+	<select id="getCategoryName" resultType="String" parameterType="int">
+        select categoryName from category where num = #{num}
+    </select>
+    
+	<select id="getPetitionState" resultType="String" parameterType="int">
+        select state from petitionState where num = #{num}
+    </select>
+    
+    <update id="updateIndicator" parameterType="HashMap">
 		update petitionIndicator 
 		<set>
 			<choose>
@@ -161,24 +180,34 @@
 				<otherwise>			WOMANCOUNT = WOMANCOUNT + 1,</otherwise>
 			</choose>
 			<choose>
-				<when test="age &lt; 20">TEENS = TEENS + 1,	</when>
-				<when test="age &lt; 30">TWENTIES = TWENTIES + 1,	</when>
-				<when test="age &lt; 40">THIRTIES = THIRTIES + 1,	</when>
-				<when test="age &lt; 50">FORTIES = FORTIES + 1,	</when>
-				<when test="age &lt; 60">FIFTIES =FIFTIES  + 1,	</when>
-				<when test="age &lt; 70">SIXTIES = SIXTIES + 1,	</when>
+				<when test="age &lt; 20">TEENS = TEENS + 1	</when>
+				<when test="age &lt; 30">TWENTIES = TWENTIES + 1	</when>
+				<when test="age &lt; 40">THIRTIES = THIRTIES + 1	</when>
+				<when test="age &lt; 50">FORTIES = FORTIES + 1	</when>
+				<when test="age &lt; 60">FIFTIES =FIFTIES  + 1	</when>
+				<when test="age &lt; 99">SIXTIES = SIXTIES + 1	</when>
 			</choose>
 		</set>
 		where num = #{ petitionNum }
 	</update>
 	
-	
-	<update id="updatePetitionCount" parameterType="int">
-		UPDATE petition set petition = petition + 1
-		where num = #{num}
+    <update id="updatePetitionState" parameterType="HashMap">
+		update petition 
+		SET
+			petitionState = 
+				CASE 
+					WHEN petition &gt;= 100
+						THEN 2
+					WHEN sysdate &gt;= endDate and petition &lt; 200000
+						THEN 3
+					WHEN sysdate &gt;= endDate and petition &gt; 200000
+						THEN 4
+					ELSE 1 END
+		where num = #{ petitionNum }
 	</update>
 	
-	
-	
+	<delete id="deletePetition" parameterType="int">
+		delete from petition where num=#{num} 
+	</delete>
 </mapper>
 

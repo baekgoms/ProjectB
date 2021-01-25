@@ -37,7 +37,7 @@ public interface PetitionService {
 	public int getreportCount(int num) throws Exception;
 	public int updateReport(String id) throws Exception;
 
-	*/
+	
 	public List<CategoryDTO> getCategoryList() throws Exception;
 	//=====================================민희========================================
 	
@@ -52,6 +52,6 @@ public interface PetitionService {
 	public int updatePetitionCount(int petitionNum)throws Exception;
     public PetitionIndicatorDTO getPetitionIndicator(int num) throws Exception;
     public void updateIndicator(int num, String gender, int age);
-
+    */
 	
 }

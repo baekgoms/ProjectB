@@ -37,6 +37,7 @@ public class PetitionerDTO implements BaseDTO{
 			setReg(rs.getTimestamp("reg"));
 			setBlockReg(rs.getTimestamp("blockReg"));
 			setAuthKey(rs.getInt("authKey"));
+            setBirthday(rs.getString("birthday"));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

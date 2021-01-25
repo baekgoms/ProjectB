@@ -48,4 +48,46 @@
 				and r <![CDATA[>=]]> #{ startRow } 
 				and r <![CDATA[<=]]> #{ endRow }  
 	</select>
+	
+	<update id="add_up">
+		update discussionComment set up = up + 1 where num = #{ value }
+	</update>
+	
+	<update id="sub_up">
+		update discussionComment set up = up - 1 where num = #{ value }
+	</update>
+	
+	<update id="add_down">
+		update discussionComment set down = down + 1 where num = #{ value }
+	</update>
+	
+	<update id="sub_down">
+		update discussionComment set down = down - 1 where num = #{ value }
+	</update>
+	
+	
+	<insert id="insertCommentVote" parameterType = "commentVoteDTO">
+		insert into commentVote values(commentVote_seq.nextval, #{ discussionNum }, #{ commentNum }, #{ writer }, #{ state })
+	</insert>
+	
+	<select id="getCommentVote" resultType = "commentVoteDTO" parameterType = "map">
+		select * from commentVote where discussionNum = #{ discussionNum } and commentNum = #{ discussionNum } and writer = #{ writer }
+	</select>
+	
+	<select id="checkCommentVote" resultType = "int" parameterType = "map">
+		select count(*) from commentVote where discussionNum = #{ discussionNum } and commentNum = #{ commentNum } and writer = #{ writer }
+	</select>
+	
+	<delete id="deleteCmVote" parameterType = "commentVoteDTO">
+		delete commentVote where writer = #{ writer } and commentNum = #{ commentNum } and discussionNum = #{ discussionNum }
+	</delete>
+	
+	<select id="getCmmVoteCount" resultType = "int" parameterType = "map">
+		select count(*) from commentVote where writer = #{ writer } and discussionNum = #{ discussionNum }
+	</select>
+	
+	<select id="getCmmVotes" resultType = "commentVoteDTO" parameterType = "map">
+		select * from commentVote where writer = #{ writer } and discussionNum = #{ discussionNum }
+	</select>
+	
 </mapper>

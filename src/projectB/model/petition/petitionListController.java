@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import projectB.model.petitionListService.PetitionListService;
-import projectB.model.petitionService.PetitionService;
+
 
 @Controller
 @RequestMapping("petition")
