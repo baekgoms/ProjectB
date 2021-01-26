@@ -94,8 +94,16 @@
 	<update id ="reportCountId" parameterType="String">
 		update petitioner set report = report+1 where id=#{id}
 	</update>
+	
+	<select id ="getStateMain" resultType="petitionDTO" parameterType="map">
+				select * from (select num, title, content, category, startDate, endDate, writer,
+		petition, petitionState, link, indicatorNum, tag, report, open,rownum r 
+		from(select * from petition where petitionState= #{state} order by num desc) order by num desc) 
+	</select>
 
-
+	<select id="MainbyEnddate" resultType="petitionDTO">
+		select*from petition order by enddate asc
+	</select>
 	
 	<!-- ==============================민희================================ -->
 	

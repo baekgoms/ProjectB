@@ -22,18 +22,24 @@
 
 	<tr>
 	<td colspan="2" align="right">
+	<c:choose>
+	<c:when test ="${memId == null}">
 				<button type="button" class="btn waves-effect waves-light btn-outline-dark">로그인</button>
+	</c:when>
+	<c:when test ="${memId != null}">
+				<button type="button" class="btn waves-effect waves-light btn-outline-dark">내 정보 보기</button>
+	</c:when>
+	</c:choose>		
 				<hr>
 			</td>
 	</tr>
 	<tr>
 		<td width="600">추가답변 원해요(랜덤)<br>
-		1, ############<br>
-		2, ############<br>
-		3, ############<br>
-		4, ############<br>
-		5, ############<br>
-		
+		<c:if test="${ count > 0 }">
+			<c:forEach var="article" items="${articleList}" begin="0" end="5" step="1" varStatus="status">
+		<a href ="projectB/petition/petContent.aa?num=${article.num}">${article.title}</a><br>
+		</c:forEach>
+		</c:if>
 		</td>
 		<td width="600">11111111111111(워드클라우드?)</td>
 	</tr>
@@ -44,12 +50,12 @@
 <br>
 	<tr>
 		<td width="600">마감임박 청원(마감임박순)<br>
-		1, ############<br>
-		2, ############<br>
-		3, ############<br>
-		4, ############<br>
-		5, ############<br>
+		<c:forEach var="enddate" items="${enddateList}" begin="0" end="5" step="1" varStatus="status">
+			<a href ="projectB/petition/petContent.aa?num=${enddate.num}">${enddate.title}</a><br>
+		
+		</c:forEach>
 		</td>
+		
 		<td width="600">동의수 높은 청원(동의수순)<br>
 		1, ############<br>
 		2, ############<br>
