@@ -15,6 +15,7 @@ import projectB.model.petition.PetitionDTO;
 import projectB.model.petitionListService.PetitionListService;
 
 @Controller
+@RequestMapping("petition")
 public class PetitionMianController {
 	
 	@Autowired
@@ -44,13 +45,16 @@ public class PetitionMianController {
 	        
 	        List<PetitionDTO> enddateList = null;
 	        enddateList = MainDAO.getArtilclebyEnddate();
+	        
+	        List<PetitionDTO> petitionList = null;
+	        petitionList = MainDAO.getArtilclebyPetition();
 		
 		
 	        model.addAttribute("state",state);
 	        model.addAttribute("memId",id);
 	        model.addAttribute("articleList", articleList);
 	        model.addAttribute("enddateList",enddateList);
-	        
+	        model.addAttribute("petitionList",petitionList);
 		return "test/PetitionMain";
 	}
 }

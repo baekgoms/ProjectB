@@ -30,4 +30,10 @@ public class PetitionMainImpl implements PetitionMainService{
 		return enddateList;
 	}
 
+	@Override
+	public List<PetitionDTO> getArtilclebyPetition() throws Exception {
+		List<PetitionDTO> petitionList = dao.selectList("petition.MainbyPetition");
+		return petitionList;
+	}
+
 }

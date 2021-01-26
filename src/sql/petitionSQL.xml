@@ -105,6 +105,10 @@
 		select*from petition order by enddate asc
 	</select>
 	
+	<select id="MainbyPetition" resultType="petitionDTO">
+		select*from petition order by petition desc
+	</select>
+	
 	<!-- ==============================민희================================ -->
 	
 	<!-- resultType으로 리턴
