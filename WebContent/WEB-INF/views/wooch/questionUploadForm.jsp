@@ -148,7 +148,7 @@
 						                            class="position-relative mt-2" style="height: 700px; overflow: auto;">	
 						                            
 						                            <textarea class="form-control content" rows="3" placeholder="문의내용 작성 " name="content" id="content"
-						                            				style="height: 700px; overflow: auto;"></textarea>
+						                            				style="height: 700px; overflow: auto; resize: none;"></textarea>
 						                            					                          
 						                        </div>
 		                                        

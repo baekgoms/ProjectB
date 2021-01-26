@@ -12,5 +12,6 @@ public interface QuestionService {
 	public List getCategoryMap() throws Exception;
 	public List<QuestionDTO> getArticle() throws Exception;
 	public List<QuestionDTO> getArticles(int start, int end) throws Exception;
+	public List<QuestionDTO> getOneInfo(int num) throws Exception;
 	
 }

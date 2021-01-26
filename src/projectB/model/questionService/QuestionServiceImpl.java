@@ -52,4 +52,10 @@ public class QuestionServiceImpl implements QuestionService{
 		return articleList;
 	}
 
+	@Override
+	public List<QuestionDTO> getOneInfo(int num) throws Exception {
+		
+		return dao.selectList("question.getOneInfo",num);
+	}
+
 }

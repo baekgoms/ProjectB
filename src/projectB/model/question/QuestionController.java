@@ -76,29 +76,21 @@ public class QuestionController {
 		return "wooch/questionBoard";
 	}
 	 
-	@RequestMapping("board2.aa")
-    public String board2(QuestionDTO dto, Model model,HttpSession session) throws Exception {
+	@RequestMapping("content.aa")
+public String content( Model model, int num) throws Exception {
+		
+        List<QuestionDTO> articleList = null;
+        List category = null;
+        System.out.println("wooch board run");
+                
+        category = questionDAO.getCategory();
+        model.addAttribute("category", category);
+        System.out.println("category size:"+category.size()+"\n"+category);
         
-        //임시 세션 아이디 입력
-        session.setAttribute("memId", "홍우찬테스트");
+        articleList = questionDAO.getOneInfo(num);
+        model.addAttribute("articleList", articleList);
         
-        String id = (String) session.getAttribute("memId");
-        System.out.println("session id:"+id);
-        
-        if(id != null) {
-            
-            List category = null;
-            System.out.println("wooch uploadForm run");
-            
-            model.addAttribute("dto", dto);
-            dto.setWriter((String)session.getAttribute("memId"));
-            System.out.println("Writer:"+dto.getWriter());
-            //category = questionDAO.getCategory();
-            //model.addAttribute("category", category);
-            //System.out.println("category size:"+category.size()+"\n"+category);
-        }   
-        
-        return "wooch/questionBoard";
-    }
+		return "wooch/questionContent";
+	}
 	
 }
