@@ -12,64 +12,81 @@
 <!-- This Page CSS -->
 <link href="/projectB/resource/assets/libs/morris.js/morris.css" rel="stylesheet">
 <title>청원메인페이지</title>
+
+<style>
+     
+      .jb-600 {
+        font-weight: 600;
+      }
+ 
+</style>
 </head>
 <body>
 
 <div align="center">
-<table width="1200" style="text-align: center;">
-<br>
-<br>
-
-	<tr>
-	<td colspan="2" align="right">
-	<c:choose>
-	<c:when test ="${memId == null}">
-				<button type="button"class="btn waves-effect waves-light btn-outline-dark"
-				onclick="document.location.href='/projectB/login/loginForm.aa'" >로그인 </button>
-				<button type="button"class="btn waves-effect waves-light btn-outline-dark"
-				onclick="document.location.href='/projectB/petitioner/signUp.aa'" >회원가입 </button>
-	</c:when>
-	<c:when test ="${memId != null}">
-		${memId}님 환영합니다.
-				<button type="button" class="btn waves-effect waves-light btn-outline-dark">내 정보 보기</button>
-	</c:when>
-	</c:choose>		
-				<hr>
-	</td>
-	</tr>
-	<tr>
-		<td width="600">추가답변 원해요(랜덤)<br>
-			<c:if test="${ count > 0 }">
-				<c:forEach var="article" items="${articleList}" begin="0" end="5" step="1" varStatus="status">
-					<a href ="projectB/petition/petContent.aa?num=${article.num}">${article.title}</a><br>
-				</c:forEach>
-			</c:if>
-		</td>
-		<td width="600">11111111111111(워드클라우드?)</td>
-	</tr>
-</table>
-
-<table width="1200" style="text-align: center;">
-<br>
-<br>
-	<tr>
-		<td width="600">마감임박 청원(마감임박순)<br>
-		<c:forEach var="enddate" items="${enddateList}" begin="0" end="5" step="1" varStatus="status">
-			<a href ="projectB/petition/petContent.aa?num=${enddate.num}">${enddate.title}</a><br>
-		</c:forEach>
-		</td>
-		
-		<td width="600">동의수 높은 청원(동의수순)<br>
-		<c:forEach var="petition" items="${petitionList}" begin="0" end="5" step="1" varStatus="status">
-			<a href ="projectB/petition/petContent.aa?num=${petition.num}">${petition.title}</a><br>
-		</c:forEach>
-		</td>
+	<table width="1200" style="text-align: center;">
+	<br>
+	<br>
 	
-	</tr>
-	<br>
-	<br>
+		<tr>
+			<td colspan="2" align="right">
+				<c:choose>
+					<c:when test ="${memId == null}">
+								<button type="button"class="btn waves-effect waves-light btn-outline-dark"
+								onclick="document.location.href='/projectB/login/loginForm.aa'" >로그인 </button>
+								<button type="button"class="btn waves-effect waves-light btn-outline-dark"
+								onclick="document.location.href='/projectB/petitioner/signUp.aa'" >회원가입 </button>
+					</c:when>
+					<c:when test ="${memId != null}">
+						${memId}님 환영합니다.
+								<button type="button" class="btn waves-effect waves-light btn-outline-dark">내 정보 보기</button>
+					</c:when>
+				</c:choose>		
+				<hr>
+			</td>
+		</tr>
+		<tr>
+			<td width="600"><h3 class="jb-600">추가답변 원해요</h3><br>
+				<c:choose>
+					<c:when test="${ count > 0 }">
+						<c:forEach var="article" items="${articleList}" begin="0" end="5" step="1" varStatus="status">
+							<a href ="projectB/petition/petContent.aa?num=${article.num}">${article.title}</a><br>
+						</c:forEach>
+					</c:when>
+					<c:when test="${ count == 0 }">
+						추가답변을 원하는 청원이 없습니다.
+					</c:when>
+				</c:choose>
+			</td>
+			<td width="600"><h3 class="jb-600">가장 많이 사용된 태그</h3><br>
+				<c:forEach var="tagList" items="${tagList}" begin="0" end="5" step="1" varStatus="status">
+					${tagList}</a> <br>
+				</c:forEach>
+			</td>
+		</tr>
+	</table>
 
-</table>
+	<table width="1200" style="text-align: center;">
+	<br>
+	<br>
+		<tr>
+			<td width="600"><h3 class="jb-600">마감임박 청원</h3><br>
+				<c:forEach var="enddate" items="${enddateList}" begin="0" end="5" step="1" varStatus="status">
+					<a href ="projectB/petition/petContent.aa?num=${enddate.num}">${enddate.title}</a>
+					/ <font color="red"><fmt:formatDate value="${enddate.endDate}" pattern = "yyyy-MM-dd" /></font> <br>
+				</c:forEach>
+			</td>
+			
+			<td width="600"><h3 class="jb-600">동의수 높은 청원</h3><br>
+				<c:forEach var="petition" items="${petitionList}" begin="0" end="5" step="1" varStatus="status">
+					<a href ="projectB/petition/petContent.aa?num=${petition.num}">${petition.title}</a> 
+					/ <font color="red">${petition.petition}</font><br>
+				</c:forEach>
+			</td>
+		</tr>
+	<br>
+	<br>
+	</table>
 </div>
 
 <script src="/projectB/resource/bootstrap/assets/libs/jquery/dist/jquery.min.js"></script>
@@ -85,5 +102,7 @@
 <script src="/projectB/resource/bootstrap/assets/libs/morris.js/morris.min.js"></script>
 <script src="/projectB/resource/bootstrap/js/pages/morris/morris-data.js"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+
+
 </body>
 </html>
