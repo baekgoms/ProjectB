@@ -16,7 +16,7 @@ public class woochTest {
 	@RequestMapping("test.aa")
 	public String test() {
 		System.out.println("wooch test controller");
-		return "wooch/test";
+		return "wooch/AdminMain";
 	}
 	
 }

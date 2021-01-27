@@ -44,7 +44,7 @@ public class QuestionController {
             System.out.println("category size:"+category.size()+"\n"+category);
         }   
         
-        return "wooch/questionUploadForm";
+        return "question/questionUploadForm";
     }
 	 
 	@RequestMapping("uploadPro.aa")
@@ -55,7 +55,7 @@ public class QuestionController {
 		questionDAO.insertQuestion(dto);
 		System.out.println("uploadPro run");
        
-		return "wooch/uploadPro";
+		return "question/uploadPro";
 	}
 	
 	//==========================보기================================
@@ -73,7 +73,7 @@ public class QuestionController {
         articleList = questionDAO.getArticle();
         model.addAttribute("articleList", articleList);
         
-		return "wooch/questionBoard";
+		return "question/questionBoard";
 	}
 	 
 	@RequestMapping("content.aa")
@@ -90,7 +90,7 @@ public String content( Model model, int num) throws Exception {
         articleList = questionDAO.getOneInfo(num);
         model.addAttribute("articleList", articleList);
         
-		return "wooch/questionContent";
+		return "question/questionContent";
 	}
 	
 }

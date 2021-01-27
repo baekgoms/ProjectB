@@ -83,39 +83,45 @@
                             <div class="card-body">
                                 <!--  <h4 class="card-title">Zero Configuration</h4>-->
                                 <div class="table-responsive">
+                                <input class="btn btn-dark" type="button" value="문의하기" onclick="document.location.href='/projectB/question/upload.aa'"/>
                                     <table id="zero_config" class="table table-striped table-bordered no-wrap">
-                                         <input class="btn btn-dark" type="button" value="목록" onclick="document.location.href='/projectB/question/board.aa'"/>
-                                      
-                                      <!-- 로그인 처리 -->
-                                       <input class="btn btn-dark" type="button" value="수정" onclick="document.location.href='/projectB/question/board.aa'"/>
-                                   
-                                        
-                                        <hr/>
+                                        <thead>
+                                            <tr>
+                                                <th>분류</th>
+                                                <th>제목</th>
+                                                <th>작성자</th>
+                                                <th>답변여부</th>
+                                                <th>작성시간</th>
+                                            </tr>
+                                        </thead>
                                         <tbody>
-                                        	<tr>
-                                        	<c:forEach items="${articleList}" var="article">
-                                                <td width="60">분류</td><td>${category[article.category-1]}</td>
-                                                <td width="60">제목</td><td><c:out value="${article.title}" /></td>
-                                                 <td width="80">작성자</td><td>${article.writer}</td>
-                                            </c:forEach>
-											</tr>	
+                                        	
 											<c:forEach items="${articleList}" var="article">
-											<td colspan="6">${article.content}</td>
-											 </c:forEach>
+											<tr>	
+												<td>${category[article.category-1]}</td>
+												<td width="500"><a href="/projectB/question/content.aa?num=${article.num}">${article.title}</a></td>
+												<td>${article.writer}</td>
+												<td>
+													<c:if test="${article.reply eq 0}"><c:out value="답변 대기중"/></c:if>
+													<c:if test="${article.reply eq 1}"><c:out value="답변 완료"/></c:if>
+												</td>
+												<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${article.reg}" /></td>
+											</tr>	
+											</c:forEach>
+												
                                         </tbody>
+                                        <tfoot>
+                                           <tr>
+                                                <th>분류</th>
+                                                <th>제목</th>
+                                                <th>작성자</th>
+                                                <th>답변여부</th>
+                                                <th>작성시간</th>
+                                            </tr>
+                                        </tfoot>
                                     </table>
                                     
                                 </div>
-                                 <div class="form-actions">
-                                <div class="text-right">
-                                
-                                <!-- 관리자 처리 -->
-                                 <textarea class="form-control content" rows="3" placeholder="답글 입력 " name="content" id="content"
-						                            				style="height: 150px; overflow: auto; resize: none;"></textarea>
-                                 <input class="btn btn-dark" type="button" value="입력" onclick="document.location.href='/projectB/question/board.aa'"/>
-								</div>  
-								</div>   
-								                      
                             </div>
                         </div>
                     </div>
@@ -161,6 +167,7 @@
     <script src="/projectB/resource/bootstrap/js/sidebarmenu.js"></script>
     <script src="/projectB/resource/bootstrap/js/custom.min.js"></script>
     <script src="/projectB/resource/bootstrap/extra-libs/prism/prism.js"></script>  
+   	<script src="/projectB/resource/bootstrap/assets/extra-libs/datatables.net/js/jquery.dataTables.js"></script>
   	<script src="/projectB/resource/bootstrap/js/pages/datatable/datatable-basic.init.js"></script> 
    
 			       
