@@ -17,81 +17,42 @@ public class AnswerListServiceImpl implements AnswerListService{
   private SqlSessionTemplate dao = null;
   
   @Override
-  public int getArticleCount() throws Exception {
-    return dao.selectOne("answer.getArticleCount");
-  }
-
-  @Override
-  public List<AnswerDTO> getArticles(int startRow, int endRow) throws Exception {
-    Map map = new HashMap();
-    map.put("startRow", startRow);
-    map.put("endRow", endRow);
-
-    List<AnswerDTO> articleList = dao.selectList("answer.getArticleAll", map);
-
-    return articleList;
-  }
-
-  @Override
-  public List<AnswerDTO> getArticles(int startRow, int endRow, int category) throws Exception {
-    Map map = new HashMap();
-    map.put("startRow", startRow);
-    map.put("endRow", endRow);
-    map.put("category", category);
-    List<AnswerDTO> articleList = dao.selectList("answer.getArticleCategory", map);
-    return articleList;
-  }
-
-  @Override
-  public List<AnswerDTO> getArticlesSort(int startRow, int endRow, int sort) throws Exception {
-    Map map = new HashMap();
-    map.put("startRow", startRow);
-    map.put("endRow", endRow);
-    map.put("sort", sort);
-    List<AnswerDTO> articleList = dao.selectList("answer.getArticleAll", map);
-    return articleList;
-  }
-
-  @Override
-  public int getArticleCountbyCategory(int category) throws Exception {
-    return dao.selectOne("answer.getArticleCountCategory", category);
-  }
-
-  @Override
-  public int getArticleCountbyState(int state) throws Exception {
-    return dao.selectOne("answer.getArticleCountState", state);
-  }
-
-  @Override
-  public List<AnswerDTO> getArtilclebyState(int state, int startRow, int endRow) throws Exception {
+  public int getArticleCount(int state,String department, int category, String keyword) throws Exception {
     Map map = new HashMap();
     map.put("state", state);
-    map.put("startRow", startRow);
-    map.put("endRow", endRow);
-    List<AnswerDTO> stateList = dao.selectList("answer.getArticleState", map);
-    return stateList;
+    map.put("department", department);
+    map.put("category", category);
+    map.put("keyword", keyword);
+    return dao.selectOne("answer.getArticleCount", map);
   }
 
+  
   @Override
   public List<CategoryDTO> getCategoryList() throws Exception {
     return dao.selectList("answer.getCategoryList");
   }
-
+  
   @Override
-  public List<AnswerDTO> getArticlesSearch(int startRow, int endRow, String keyword)
-      throws Exception {
+  public List<AnswerDTO> getArticleAll(int state,int startRow, int endRow,String department, int category, String keyword, String sort) throws Exception {
     Map map = new HashMap();
-    map.put("startRow", startRow);
+    map.put("state", state);
+    map.put("startRow", startRow); 
     map.put("endRow", endRow);
+    map.put("department", department);
+    map.put("category", category);
     map.put("keyword", keyword);
+    map.put("sort", sort);
+    
+
     List<AnswerDTO> articleList = dao.selectList("answer.getArticleAll", map);
+
     return articleList;
   }
 
+
   @Override
-  public int getArticleCount(String keyword) throws Exception {
-    int count = dao.selectOne("answer.getArticleCount",keyword);
-    return count;
+  public PetitionDTO getPetitionInfo(int petitionNum) throws Exception {
+    return dao.selectOne("answer.getPetitionInfo", petitionNum);
   }
 
 }

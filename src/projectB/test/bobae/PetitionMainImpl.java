@@ -36,4 +36,10 @@ public class PetitionMainImpl implements PetitionMainService{
 		return petitionList;
 	}
 
+	@Override
+	public List<PetitionDTO> getTagCount() throws Exception {
+		List<PetitionDTO> tagList = dao.selectList("petition.tagCount");
+		return tagList;
+	}
+
 }

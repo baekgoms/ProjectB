@@ -9,6 +9,7 @@ public class AnswerDTO implements BaseDTO{
 
   private int num;
   private int petitionNum;
+  private int state;
   private int category;
   private String content;
   private String answerLink;
@@ -19,7 +20,7 @@ public class AnswerDTO implements BaseDTO{
   private int opposite;
   private int addition;
   private String id;
-  private String title;
+
   
   
   public void setInfo(ResultSet rs) {
@@ -36,7 +37,7 @@ public class AnswerDTO implements BaseDTO{
         setOpposite(rs.getInt("opposite"));
         setAddition(rs.getInt("addition"));
         setId(rs.getString("id"));
-        setTitle(rs.getString("title"));
+        setState(rs.getInt("state"));
     }
     catch(SQLException e) {
         e.printStackTrace();
@@ -116,10 +117,14 @@ public class AnswerDTO implements BaseDTO{
   public void setId(String id) {
     this.id = id;
   }
-  public String getTitle() {
-    return title;
+ 
+  public int getState() {
+    return state;
   }
-  public void setTitle(String title) {
-    this.title = title;
+
+
+  public void setState(int state) {
+    this.state = state;
   }
+
 }

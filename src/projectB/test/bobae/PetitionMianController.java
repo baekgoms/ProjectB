@@ -32,6 +32,7 @@ public class PetitionMianController {
 		 	int count = 0;
 	        int state= 3;
 	        
+	        
 	        List<PetitionDTO> articleList = null;
 	        count = petitionDAO.getArticleCountbyState(state);
 	        if(count > 0) {
@@ -39,7 +40,7 @@ public class PetitionMianController {
 	        } else {
 	            articleList = Collections.emptyList();
 	        }
-	        
+	        System.out.println(count + "//count");
 	        System.out.println(state + "//state");
 	        System.out.println(id + "//id");
 	        
@@ -49,12 +50,16 @@ public class PetitionMianController {
 	        List<PetitionDTO> petitionList = null;
 	        petitionList = MainDAO.getArtilclebyPetition();
 		
+	        List<PetitionDTO> tagList = null;
+	        tagList = MainDAO.getTagCount();
 		
 	        model.addAttribute("state",state);
+	        model.addAttribute("count", new Integer(count));
 	        model.addAttribute("memId",id);
 	        model.addAttribute("articleList", articleList);
 	        model.addAttribute("enddateList",enddateList);
 	        model.addAttribute("petitionList",petitionList);
+	        model.addAttribute("tagList",tagList);
 		return "test/PetitionMain";
 	}
 }

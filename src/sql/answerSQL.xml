@@ -6,53 +6,58 @@
 
 	<!-- resultType으로 리턴
 		 parameterType DAO에서 가지고 오는 타입 -->
-	
-	<select id ="getArticleCount" resultType="int">
-		select count(*) from answer
-		<if test="keyword != null">
-			where title like '%' || #{keyword} || '%' or content like '%' || #{keyword} || '%' or tag like '%' || #{keyword} || '%'
-		</if>
-	</select>
-	
-	<select id="getArticleAll" resultType="answerDTO" parameterType="map">
-		select * from (select num, petitionNum, category, content, answerLink, name, department, answerDate, recommend, 
-		opposite, addition, id, title rownum r from(select * from answer 
-		<if test="keyword != null">
-			where title like '%' || #{keyword} || '%' or content like '%' || #{keyword} || '%' or tag like '%' || #{keyword} || '%'
-		</if>
-		<if test="sort == null">
-		order by num desc) order by num desc) 
-		</if>
-		<if test="sort != null">
-		order by answer desc) order by answer desc) 
-		</if> 
-		where r <![CDATA[>=]]> #{startRow} and r <![CDATA[<=]]>#{endRow}
-	</select>
-	
-	<select id ="getArticleState" resultType="answerDTO" parameterType="map">
-		select * from (select num, petitionNum, category, content, answerLink, name, department, answerDate, recommend, 
-		opposite, addition, id, title, rownum r 
-		from(select * from answer where petitionState= #{state} order by num desc) order by num desc) 
-		where r <![CDATA[>=]]> #{startRow} and r <![CDATA[<=]]>#{endRow}
-	</select>
-	
-	<select id ="getArticleCategory" resultType="answerDTO" parameterType="map">
-		select * from (select num, petitionNum, category, content, answerLink, name, department, answerDate, recommend, 
-		opposite, addition, id, title, rownum r from(select * from answer where category= #{category} order by num desc) order by num desc) 
-		where r <![CDATA[>=]]> #{startRow} and r <![CDATA[<=]]>#{endRow}
-	</select>
 
-	<select id ="getArticleCountCategory" resultType="int" parameterType="int">
-		select count(*) from answer where category= #{category} 
-	</select>
-
-	<select id ="getArticleCountState" resultType="int" parameterType="int">
-		select count(*) from petition where petitionState = #{state} 
-	</select>
 	
+	<select id ="getArticleCount" resultType="int" parameterType="map">
+		select count(*) from answer A 
+			INNER JOIN petition B ON A.petitionNum = B.num
+		where A.state = #{state} and A.department = #{department} 
+		<if test="category != null and category != '' and category != 0">
+			AND A.category = #{category}
+		</if>
+		<if test="keyword != null and keyword != ''">
+			AND B.title LIKE '%' || #{keyword} || '%'
+		</if>
+	</select>	
+
 	<select id="getCategoryList" resultType="CategoryDTO" >
 		select * from category 
 	</select>
+
+	<select id="getArticleAll" resultType="answerDTO" parameterType="map">
+		select * from (select num, petitionNum, state, category, content, answerLink, name, department, answerDate, recommend, 
+		opposite, addition, id, rownum r from(select A.* from answer A
+			INNER JOIN petition B ON A.petitionNum = B.num
+		where A.department = #{department}
+		and A.state = #{state}
+		<if test="category != null and category != '' and category != 0">
+			AND A.category = #{category}
+		</if>
+		<if test="keyword != null and keyword != ''">
+			AND B.title LIKE '%' || #{keyword} || '%'
+		</if>
+		<if test="sort != null and sort != ''">
+			<choose>
+				<when test="sort == 1">
+				<!-- 최신순 -->
+				ORDER BY B.num DESC
+				</when>
+				<when test="sort == 2">
+				<!-- 동의순 -->
+				ORDER BY B.petition DESC
+				</when>
+			</choose>
+		</if>
+		)
+		) where r <![CDATA[>=]]> #{startRow} and r <![CDATA[<=]]>#{endRow}
+	</select>
+	
+
+	
+	<select id="getPetitionInfo" resultType="petitionDTO" parameterType="int">
+      select * from petition where num = #{petitionNum} 
+    </select>
+
 	
 </mapper>
 
