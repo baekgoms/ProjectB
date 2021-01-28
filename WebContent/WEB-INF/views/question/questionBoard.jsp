@@ -4,11 +4,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<!-- Custom CSS -->
-<link href="/projectB/resource/bootstrap/css/style.css" rel="stylesheet">
-<!-- This Page CSS -->
-<link href="/projectB/resource/assets/libs/morris.js/morris.css" rel="stylesheet">
-
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 
