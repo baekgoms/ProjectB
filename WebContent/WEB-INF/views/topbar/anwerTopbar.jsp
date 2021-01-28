@@ -17,7 +17,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/projectB/resource/bootstrap/assets/images/favicon.png">
 <style type="text/css">
 a:visited {
-	color: green;
+	color: #5f76e8;
 	text-decoration: none;
 }
 </style>
@@ -48,39 +48,46 @@ a:visited {
                 
                 <div class="navbar-collapse collapse" id="navbarSupportedContent" style="border-bottom: 1px solid #082e59;">
                 	<ul class="navbar-nav float-left mr-auto ml-3 pl-1">
-                		<li class="nav-item dropdown" style="position: relative; left: 250px;">
-                			<a href="/projectB/petition/afootPetition.aa">
+                		
+                		<li class="nav-item dropdown" style="position: relative; left: 180px;">
+                			<a href="/projectB/answer/list.aa?state=4">
                 				<strong style="color: white;">
-                					국민 청원
+                					답변 대기
                 				</strong>
                 			</a>
                 		</li>
                 		                		
-                		<li class="nav-item dropdown" style="position: relative; left: 500px;">
-                			<a href="/projectB/discussion/main.aa">
+                		<li class="nav-item dropdown" style="position: relative; left: 360px;">
+                			<a href="/projectB/answer/list.aa?state=5">
                 				<strong style="color: white;">
-                					토론방
+                					답변 완료
                 				</strong>
                 			</a>
                 		</li> 
                 		
-                		<li class="nav-item dropdown" style="position: relative; left: 750px;">
+                		<li class="nav-item dropdown" style="position: relative; left: 540px;">
+                			<a href="/projectB/answer/list.aa?state=6">
+                				<strong style="color: white;">
+                					추가 답변 대기
+                				</strong>
+                			</a>
+                		</li>
+                		
+                		<li class="nav-item dropdown" style="position: relative; left: 720px;">
+                			<a href="/projectB/answer/list.aa?state=7">
+                				<strong style="color: white;">
+                					추가 답변 완료
+                				</strong>
+                			</a>
+                		</li>
+                		
+                		<li class="nav-item dropdown" style="position: relative; left: 900px;">
                 			<a href="/projectB/discussion/main.aa">
                 				<strong style="color: white;">
                 					문의하기
                 				</strong>
                 			</a>
                 		</li>
-                		
-                		<!-- <c:if test = "">
-	                		<li class="nav-item dropdown">
-	                			<a href="/projectB/login/loginForm.aa">
-	                				<strong style="position: relative; left: 1000px; color: white;">
-	                					로그인
-	                				</strong>
-	                			</a>
-	                		</li>
-                		</c:if> -->
                 	</ul>
                 </div> 
             </nav>
