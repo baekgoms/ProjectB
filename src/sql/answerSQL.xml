@@ -67,7 +67,7 @@
 		where r <![CDATA[>=]]> #{startRow} and r <![CDATA[<=]]>#{endRow}
 	</select>
 	
-	<select id="completedAnswerCount" resultType="AnswerDTO">
+	<select id="completedAnswerCount" resultType="int" parameterType="int">
 		select count(*) from answer where state=#{state}
 	</select>
 	
