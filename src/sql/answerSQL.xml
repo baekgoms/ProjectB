@@ -57,25 +57,31 @@
 	<select id="getPetitionInfo" resultType="petitionDTO" parameterType="int">
       select * from petition where num = #{petitionNum} 
     </select>
+    
+    <select id = "getAnswerByRecommends" resultType="answerDTO" parameterType="map">
+    select * from (select num, petitionNum, state, category, content, answerLink,
+		name, department, answerDate, recommend, opposite, addition, id, rownum r
+		from (select * from answer order by recommend desc, num asc)
+		order by recommend desc, num asc)
+		where r <![CDATA[>=]]> #{ startRow } and r <![CDATA[<=]]>#{ endRow }
+    </select>
+    
+    <select id = "getAnswerByOpposites" resultType="answerDTO" parameterType="map">
+	    select * from (select num, petitionNum, state, category, content, answerLink,
+			name, department, answerDate, recommend, opposite, addition, id, rownum r
+			from (select * from answer order by opposite desc, num asc)
+			order by opposite desc, num asc)
+			where r <![CDATA[>=]]> #{ startRow } and r <![CDATA[<=]]>#{ endRow }
+    </select>
+        
+    <select id = "getAnswerByAdditions" resultType="answerDTO" parameterType="map">
+	    select * from (select num, petitionNum, state, category, content, answerLink,
+			name, department, answerDate, recommend, opposite, addition, id, rownum r
+			from (select * from answer order by addition desc, num asc)
+			order by addition desc, num asc)
+			where r <![CDATA[>=]]> #{ startRow } and r <![CDATA[<=]]>#{ endRow }
+    </select>
 
-
-	<!-- 답변 완료된 청원 게시판     ########### 보배 ################-->
-	
-	<select id="completedAnswer" resultType="AnswerDTO" parameterType="map">
-		select * from (select num, petitionNum, state, category, content, answerLink, name, department, answerDate, recommend, 
-		opposite, addition, id, rownum r from(select*from answer where state= #{state} order by num desc)order by num desc)
-		where r <![CDATA[>=]]> #{startRow} and r <![CDATA[<=]]>#{endRow}
-	</select>
-	
-	<select id="completedAnswerCount" resultType="AnswerDTO">
-		select count(*) from answer where state=#{state}
-	</select>
-	
-	<select id="getInfobyNum" resultType="petitionDTO" parameterType="int">
-		select*from petition where num = #{num}
-	</select>
-	
-	
 	
 </mapper>
 
