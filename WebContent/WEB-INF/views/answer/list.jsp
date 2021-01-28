@@ -26,13 +26,13 @@ function inputCheck(){
 
 </script>
 
-<title>답변 대기 게시판</title>
+<title>답변 게시판</title>
 <style>
       th {
         text-align: center;
       }
 	  form#search {
-	    width: 1100px;
+	    width: 1600px;
 	  }
 	  .answer-tab {
 	  }
@@ -46,7 +46,7 @@ function inputCheck(){
 	  }
 	  
 	  .category-btn {
-		width: 170px;
+		width: 256px;
 	    line-height: 28px;
         border-color: #ccc !important;
 	  }
@@ -86,27 +86,6 @@ function inputCheck(){
 <br>
 <br>
 
-<div>
-	<div class="row">
-<%-- 	<div class="col-lg-3">
-    <div>
-        <h4 class="card-title"></h4>
-        <div class="list-group"> 
-            <h3 class="list-group-item">답변</h3>
-            <a href="/projectB/answer/list.aa?state=4" class="list-group-item <c:if test="${state == 4}"> active</c:if>">답변 대기</a> 
-            <a href="/projectB/answer/list.aa?state=5" class="list-group-item <c:if test="${state == 5}"> active</c:if>">답변 완료</a> 
-        </div>
-    </div>
-    
-    <div>
-        <h4 class="card-title"></h4>
-        <div class="list-group"> 
-            <h3 class="list-group-item">추가 답변</h3>
-            <a href="/projectB/answer/list.aa?state=6" class="list-group-item <c:if test="${state == 6}"> active</c:if>">추가 답변 대기</a> 
-            <a href="/projectB/answer/list.aa?state=7" class="list-group-item <c:if test="${state == 7}"> active</c:if>">추가 답변 완료</a> 
-        </div>
-    </div>
-</div> --%>
 <div class="col-lg-4">
 <div align="center">
 	<c:set var="i" value="0" />
