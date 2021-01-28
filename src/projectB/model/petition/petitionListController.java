@@ -189,13 +189,7 @@ public class petitionListController {
     }
     
     
-    @RequestMapping("finish_list.aa")
-    public String test1() {
-        System.out.println("finish Test");
-        
-        System.out.println("ddd");
-        return "petition/finish_list";
-    }
+   
 
     @RequestMapping("terminationPetition.aa")
     public String timeout_list(@RequestParam(defaultValue="1")int pageNum, Model model) throws Exception {
