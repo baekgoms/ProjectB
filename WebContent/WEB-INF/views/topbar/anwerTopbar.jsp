@@ -48,6 +48,13 @@ a:visited {
                 
                 <div class="navbar-collapse collapse" id="navbarSupportedContent" style="border-bottom: 1px solid #082e59;">
                 	<ul class="navbar-nav float-left mr-auto ml-3 pl-1">
+                		<li class="nav-item dropdown" style="position: relative; left: 100px;">
+                			<a href="">
+                				<strong style="color: white;">
+                					답변 메인
+                				</strong>
+                			</a>
+                		</li>
                 		
                 		<li class="nav-item dropdown" style="position: relative; left: 180px;">
                 			<a href="/projectB/answer/list.aa?state=4">

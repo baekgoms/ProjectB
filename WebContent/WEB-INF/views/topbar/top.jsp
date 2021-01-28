@@ -48,6 +48,14 @@ a:visited {
                 
                 <div class="navbar-collapse collapse" id="navbarSupportedContent" style="border-bottom: 1px solid #082e59;">
                 	<ul class="navbar-nav float-left mr-auto ml-3 pl-1">
+                		<li class="nav-item dropdown" style="position: relative; left: 50px;">
+                			<a href="/projectB/petition/afootPetition.aa">
+                				<strong style="color: white;">
+                					국민 메인
+                				</strong>
+                			</a>
+                		</li>
+                		
                 		<li class="nav-item dropdown" style="position: relative; left: 250px;">
                 			<a href="/projectB/petition/afootPetition.aa">
                 				<strong style="color: white;">

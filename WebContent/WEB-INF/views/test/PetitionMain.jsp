@@ -22,13 +22,15 @@
 </style>
 </head>
 <body>
-
+<jsp:include page="/WEB-INF/views/topbar/top.jsp" />
+<br>
+<br>
 <div align="center">
 	<table width="1200" style="text-align: center;">
 	<br>
 	<br>
 	
-		<tr>
+		<%-- <tr>
 			<td colspan="2" align="right">
 				<c:choose>
 					<c:when test ="${memId == null}">
@@ -44,7 +46,7 @@
 				</c:choose>		
 				<hr>
 			</td>
-		</tr>
+		</tr> --%>
 		<tr>
 			<td width="600"><h3 class="jb-600">추가답변 원해요</h3><br>
 				<c:choose>
