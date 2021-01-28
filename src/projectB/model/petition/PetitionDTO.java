@@ -21,8 +21,11 @@ public class PetitionDTO implements BaseDTO{
 	private String tag;
 	private int report;
 	private int open;
+
 	
-	public void setInfo(ResultSet rs) {
+
+
+  public void setInfo(ResultSet rs) {
 		try {
 			setNum(rs.getInt("num"));
 			setTitle(rs.getString("title"));
@@ -38,6 +41,7 @@ public class PetitionDTO implements BaseDTO{
 			setTag(rs.getString("tag"));
 			setReport(rs.getInt("report"));
 			setOpen(rs.getInt("open"));
+
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
@@ -72,4 +76,5 @@ public class PetitionDTO implements BaseDTO{
 	public void setReport(int report) { this.report = report; }
 	public int getOpen() { return open; }
 	public void setOpen(int open) { this.open = open; }
+
 }

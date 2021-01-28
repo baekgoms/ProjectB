@@ -32,7 +32,7 @@ function inputCheck(){
         text-align: center;
       }
 	  form#search {
-	    width: 1600px;
+	    width: 1800px;
 	  }
 	  .answer-tab {
 	  }
@@ -46,7 +46,7 @@ function inputCheck(){
 	  }
 	  
 	  .category-btn {
-		width: 256px;
+		width: 290px;
 	    line-height: 28px;
         border-color: #ccc !important;
 	  }
@@ -133,7 +133,7 @@ function inputCheck(){
 		</select>
 	</div>
 	<table class="table">
-		<tr>
+		<tr align = "center">
 			<th scope="col" >글번호</th>
 			<th scope="col" >분류</th>
 			<th scope="col" >제목</th>

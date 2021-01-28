@@ -41,6 +41,7 @@
 		<mapper resource="/sql/loginSQL.xml" />
 		<mapper resource="/sql/questionSQL.xml" />
 		<mapper resource="/sql/answerSQL.xml" />
+		<mapper resource="/sql/adminPetitionSQL.xml" />
 	</mappers>
   
 </configuration>
