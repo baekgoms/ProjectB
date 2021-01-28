@@ -1,4 +1,4 @@
-package projectB.test.bobae;
+package projectB.model.PetitionMainService;
 
 import java.util.HashMap;
 import java.util.List;
@@ -7,6 +7,7 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import projectB.model.petition.PetitionDTO;
 
 @Service("PetitionMainService")

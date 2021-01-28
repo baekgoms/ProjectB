@@ -1,4 +1,4 @@
-package projectB.test.bobae;
+package projectB.model.petition;
 
 import java.util.Collections;
 import java.util.List;
@@ -10,8 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import projectB.model.PetitionMainService.PetitionMainService;
 import projectB.model.login.LoginUtils;
-import projectB.model.petition.PetitionDTO;
 import projectB.model.petitionListService.PetitionListService;
 
 @Controller
@@ -60,6 +60,6 @@ public class PetitionMianController {
 	        model.addAttribute("enddateList",enddateList);
 	        model.addAttribute("petitionList",petitionList);
 	        model.addAttribute("tagList",tagList);
-		return "test/PetitionMain";
+		return "petition/PetitionMain";
 	}
 }
