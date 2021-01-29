@@ -64,6 +64,22 @@
 		from (select * from answer order by recommend desc, num asc)
 		order by recommend desc, num asc)
 		where r <![CDATA[>=]]> #{ startRow } and r <![CDATA[<=]]>#{ endRow }
+		
+		<if test="sort == 1">
+			and answerDate >= sysdate - 7
+		</if>
+		
+		<if test="sort == 2">
+			and answerDate >= add_months(sysdate, -1)
+		</if>
+		
+		<if test="sort == 3">
+			and answerDate >= add_months(sysdate, -6)
+		</if>
+		
+		<if test="sort == 4">
+			and answerDate >= add_months(sysdate, -12)
+		</if>
     </select>
     
     <select id = "getAnswerByOpposites" resultType="answerDTO" parameterType="map">
@@ -72,6 +88,22 @@
 			from (select * from answer order by opposite desc, num asc)
 			order by opposite desc, num asc)
 			where r <![CDATA[>=]]> #{ startRow } and r <![CDATA[<=]]>#{ endRow }
+			
+		<if test="sort == 1">
+			and answerDate >= sysdate - 7
+		</if>
+		
+		<if test="sort == 2">
+			and answerDate >= add_months(sysdate, -1)
+		</if>
+		
+		<if test="sort == 3">
+			and answerDate >= add_months(sysdate, -6)
+		</if>
+		
+		<if test="sort == 4">
+			and answerDate >= add_months(sysdate, -12)
+		</if>
     </select>
         
     <select id = "getAnswerByAdditions" resultType="answerDTO" parameterType="map">
@@ -80,6 +112,22 @@
 			from (select * from answer order by addition desc, num asc)
 			order by addition desc, num asc)
 			where r <![CDATA[>=]]> #{ startRow } and r <![CDATA[<=]]>#{ endRow }
+			
+		<if test="sort == 1">
+			and answerDate >= sysdate - 7
+		</if>
+		
+		<if test="sort == 2">
+			and answerDate >= add_months(sysdate, -1)
+		</if>
+		
+		<if test="sort == 3">
+			and answerDate >= add_months(sysdate, -6)
+		</if>
+		
+		<if test="sort == 4">
+			and answerDate >= add_months(sysdate, -12)
+		</if>
     </select>
 
 

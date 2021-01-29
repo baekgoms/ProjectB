@@ -54,31 +54,34 @@ public class AnswerListServiceImpl implements AnswerListService {
 	}
 
 	@Override
-	public List<AnswerDTO> getAnswerByRecommends(int startRow, int endRow) throws Exception {
+	public List<AnswerDTO> getAnswerByRecommends(int startRow, int endRow, int sort) throws Exception {
 		Map<String, Integer> map = new HashMap<>();
 
 		map.put("startRow", startRow);
 		map.put("endRow", endRow);
+		map.put("sort", sort);
 
 		return dao.selectList("answer.getAnswerByRecommends", map);
 	}
 	
 	@Override
-	public List<AnswerDTO> getAnswerByOpposites(int startRow, int endRow) throws Exception {
+	public List<AnswerDTO> getAnswerByOpposites(int startRow, int endRow, int sort) throws Exception {
 		Map<String, Integer> map = new HashMap<>();
 
 		map.put("startRow", startRow);
 		map.put("endRow", endRow);
+		map.put("sort", sort);
 
 		return dao.selectList("answer.getAnswerByOpposites", map);
 	}
 	
 	@Override
-	public List<AnswerDTO> getAnswerByAdditions(int startRow, int endRow) throws Exception {
+	public List<AnswerDTO> getAnswerByAdditions(int startRow, int endRow, int sort) throws Exception {
 		Map<String, Integer> map = new HashMap<>();
 
 		map.put("startRow", startRow);
 		map.put("endRow", endRow);
+		map.put("sort", sort);
 
 		return dao.selectList("answer.getAnswerByAdditions", map);
 	}

@@ -12,8 +12,8 @@ public interface AnswerListService {
   public List<CategoryDTO> getCategoryList() throws Exception; 
   public PetitionDTO getPetitionInfo(int petitionNum) throws Exception;
   
-  public List<AnswerDTO> getAnswerByRecommends(int startRow, int endRow) throws Exception;
-  public List<AnswerDTO> getAnswerByOpposites(int startRow, int endRow) throws Exception;
-  public List<AnswerDTO> getAnswerByAdditions(int startRow, int endRow) throws Exception;
+  public List<AnswerDTO> getAnswerByRecommends(int startRow, int endRow, int sort) throws Exception;
+  public List<AnswerDTO> getAnswerByOpposites(int startRow, int endRow, int sort) throws Exception;
+  public List<AnswerDTO> getAnswerByAdditions(int startRow, int endRow, int sort) throws Exception;
 
 }
