@@ -3,6 +3,10 @@ package projectB.model.petition;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import projectB.model.BaseDTO;
 
@@ -76,5 +80,14 @@ public class PetitionDTO implements BaseDTO{
 	public void setReport(int report) { this.report = report; }
 	public int getOpen() { return open; }
 	public void setOpen(int open) { this.open = open; }
+	
+	public List<String> getTags() {
+		List<String> list = Collections.emptyList();
+		if (tag != null) {
+			list = new ArrayList<String>(Arrays.asList(tag.split(",")));
+		}		
+		
+		return list;
+	}
 
 }

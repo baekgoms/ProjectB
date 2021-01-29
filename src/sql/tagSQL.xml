@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tags">
+	<!--  CRUD (Create, Read, Update, Delete) -> DB구축  -->
+	<insert id="insertTag" parameterType="String">
+		insert into tags(name) values(#{ value })	
+	</insert>
+	
+	<select id="checkTag" parameterType="String" resultType="int">
+		select count(*) from tags where name = #{ value } 
+	</select>
+	
+	<update id = "updateCumulativeTag">
+		update tags set cumulative = cumulative + 1 where name = #{ value }
+	</update>
+</mapper>

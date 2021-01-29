@@ -10,10 +10,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import projectB.model.login.LoginUtils;
 import projectB.model.petition.DiscussionDTO;
 import projectB.model.petition.PetitionDTO;
 import projectB.model.petitionService.PetitionService;
 import projectB.model.petitionerService.PetitionerService;
+import projectB.model.tag.TagService;
 
 @Controller
 @RequestMapping("petition")
@@ -21,6 +23,9 @@ public class PetitionUploadController {
 	
 	@Autowired
     private PetitionService petitionDAO = null;
+	
+	@Autowired
+	private TagService tagService;
     
     //====================================우찬=================================
     @RequestMapping("upload.aa")
@@ -29,7 +34,7 @@ public class PetitionUploadController {
         //임시 세션 아이디 입력
         session.setAttribute("memId", "홍우찬테스트");
         
-        String id = (String) session.getAttribute("memId");
+        String id = LoginUtils.getLoginID(session);
         System.out.println("session id:"+id);
         
         if(id != null) {
@@ -50,12 +55,20 @@ public class PetitionUploadController {
     
    @RequestMapping("uploadPro.aa")
    public String writePro(PetitionDTO dto, HttpServletRequest request, HttpSession session) throws Exception{
-           
+	   System.out.println("uploadPro run");    
        
-       dto.setWriter((String)session.getAttribute("memId"));
+       dto.setWriter(LoginUtils.getLoginID(session));
        System.out.println("Writer:"+dto.getWriter());
        petitionDAO.insertArticle(dto);
-       System.out.println("uploadPro run");
+       
+       for(String s : dto.getTags()) {
+    	   int result = tagService.checkTag(s);
+			if (result > 0) {
+				tagService.updateTag(s);
+			} else {
+				tagService.insertTag(s);
+    	   }
+       }
        
        return "petition/uploadPro";
    }

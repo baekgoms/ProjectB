@@ -30,6 +30,7 @@
 		<typeAlias alias="commentVoteDTO" type="projectB.model.discussion.CommentVoteDTO" /> 
 		<typeAlias alias="questionDTO" type="projectB.model.question.QuestionDTO" /> 
 		<typeAlias alias="answerDTO" type="projectB.model.answer.AnswerDTO" />
+		<typeAlias alias="tagDTO" type="projectB.model.tag.TagDTO" />
 	</typeAliases>
 	
 	<mappers>
@@ -42,6 +43,7 @@
 		<mapper resource="/sql/questionSQL.xml" />
 		<mapper resource="/sql/answerSQL.xml" />
 		<mapper resource="/sql/adminPetitionSQL.xml" />
+		<mapper resource="/sql/tagSQL.xml" />
 	</mappers>
   
 </configuration>
