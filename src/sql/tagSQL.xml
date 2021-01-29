@@ -15,4 +15,10 @@
 	<update id = "updateCumulativeTag">
 		update tags set cumulative = cumulative + 1 where name = #{ value }
 	</update>
+	
+	<select id = "getTags" resultType="tagDTO" parameterType="map">
+		select * from (select name, cumulative, rownum r
+		from (select * from tags order by cumulative desc) order by cumulative desc)
+		where cumulative > 0 and r <![CDATA[>=]]> #{ startRow } and r <![CDATA[<=]]> #{ endRow }  
+	</select>
 </mapper>

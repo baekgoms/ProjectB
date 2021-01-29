@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import projectB.model.answerList.AnswerListService;
 import projectB.model.petition.PetitionDTO;
+import projectB.model.tag.TagDTO;
+import projectB.model.tag.TagService;
 
 @Controller
 @RequestMapping("answer")
@@ -17,6 +19,9 @@ public class AnswerMainController {
 	@Autowired
 	private AnswerListService AnswerListService = null;
 
+	@Autowired
+	private TagService tagService;
+	
 	@RequestMapping("answerMain.aa")
 	public String answerMain(Model model) {
 
@@ -46,10 +51,14 @@ public class AnswerMainController {
 				PetitionDTO dto = AnswerListService.getPetitionInfo(answerDTO.getPetitionNum());
 				petitionAdditions.add(dto);
 			}
+			
+			List<TagDTO> tags = tagService.getTags(1, 5);
 
 //			model.addAttribute("recommends", recommends);
 //			model.addAttribute("oppsites", oppsites);
 //			model.addAttribute("additions", additions);
+			
+			model.addAttribute("tags", tags);
 			model.addAttribute("petitionRecommends", petitionRecommends);
 			model.addAttribute("petitionOppsites", petitionOppsites);
 			model.addAttribute("petitionAdditions", petitionAdditions);
