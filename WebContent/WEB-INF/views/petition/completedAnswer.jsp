@@ -147,8 +147,9 @@ ol, li {
 		    	 </td>
 		    	<td class="ans_td2" > 
 		    		<div class="ans_movie">
-		    			<c:set var="url" value="${answer.answerLink}" />
-							<object type="text/html" width="560" height="315" data="${ url }" allowFullScreen></object>
+		    				<c:if test="${ answer.answerLink != null }">
+		    					<object type="text/html" width="560" height="315" data="https://www.youtube.com/embed/${ answer.answerLink }" allowFullScreen></object>
+		    				</c:if>		    				
 					</div>
 				</td>
 			</tr>
