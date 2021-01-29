@@ -42,7 +42,7 @@ function inputCheck(){
 	<input type="button" value="							진행중인 청원							" class="btn waves-effect waves-light btn-outline-dark"
 		onclick="document.location.href='/projectB/petition/afootPetition.aa'">
 	<input type="button" value="							완료된 청원								" class="btn waves-effect waves-light btn-outline-dark"	
-		onclick="document.location.href='/projectB/petition/finish_list.aa'">
+		onclick="document.location.href='/projectB/answer/completedAnswer.aa'">
 </div>
 <br />
 <div align="center">
@@ -101,7 +101,7 @@ function inputCheck(){
 			</td>
 			<td colspan="5" align="right">
 				<button type="button" class="btn waves-effect waves-light btn-outline-dark"
-				onClick="document.location.href='/projectB/petition/uploadForm.aa'">지금 청원하기</button>
+				onClick="document.location.href='/projectB/petition/upload.aa'">지금 청원하기</button>
 			</td>
 		</tr>
 
@@ -141,10 +141,9 @@ function inputCheck(){
 						${ category[article.category].categoryName }
 					</td>
 					<td width=300 align="center">
-	        			<a href ="projectB/petition/petContent.aa?num=${article.num}&pageNum=${currentPage}">${article.title}
+	        			<a href ="/projectB/petition/petContent.aa?num=${article.num}&pageNum=${currentPage}">${article.title}
 	        			</a>
-	        			
-	        			<input type="button" name="report" value="신고하기" onClick="openReport(${article.num});">
+	        		
 	        		</td>
 					<td width=100 align="center">${article.endDate}</td>
 					<td width=100 align="center">${article.petition}</td>
@@ -222,14 +221,7 @@ function inputCheck(){
 <script src="/projectB/resource/bootstrap/js/pages/morris/morris-data.js"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
 <script style="text/javascript">
-function openReport(num){
-	
-	
-	url = "/projectB/petition/declareArticle.aa?num=" + num;
-	
-	window.open(url, "confirm", 
-    "toolbar=no, location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=600, height=400");
-}
+
 
 $('#select').on('change', function() {
     location.href= this.value;

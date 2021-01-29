@@ -120,6 +120,7 @@
 		<c:forEach items="${fn:split(petitionDTO.link, ',') }" var="item">
            <a href="${item}" target="_blank">${item}</a>
         </c:forEach>
+        	
 	</div>
 	
 	<div style="margin-top: 30px;" id="chartArea">
@@ -156,7 +157,7 @@
 	
 	<div class="button-area">
 		<c:if test="${memId != null and memId != petitionDTO.writer}">
-			<button type="button" class="btn waves-effect waves-light btn-outline-dark">신고</button>
+			<button type="button" class="btn waves-effect waves-light btn-outline-dark" onClick="openReport(${petitionDTO.num});">신고</button>
 		</c:if>
 		
 		<c:if test="${petitionDTO.petitionState != 1}">
@@ -309,6 +310,15 @@ function goPetitionList() {
 	} else if (petitionState == '4') {
 		window.location.href = '/petition/standbyPetition.aa';
 	}
+}
+
+function openReport(num){
+	
+	
+	url = "/projectB/petition/declareArticle.aa?num=" + num;
+	
+	window.open(url, "confirm", 
+    "toolbar=no, location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=600, height=400");
 }
 </script>
 </body>
