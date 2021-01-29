@@ -42,7 +42,7 @@ a:visited {
 	<br>
 	
 	<div class="col-12" style="max-width: 25%; height: 900px">	
-		<div class="card" style="position: relative; left: 1628px; width: 150px">
+		<!-- <div class="card" style="position: relative; left: 1628px; width: 150px">
 			<select class="form-control" id="exampleFormControlSelect1">
 				<option>전체</option>
 				<option>일주일</option>
@@ -50,7 +50,7 @@ a:visited {
 				<option>6개월</option>
 				<option>12개월</option>
 			</select>
-		</div>
+		</div> -->
 		
 		<div class="card" style="position: relative; left: 70px;">
 			<div class="card-body">				
@@ -144,9 +144,9 @@ a:visited {
 			<div class="table-responsive">
 				<table class="table table-bordered" >
 					<tr>
-						<c:forEach var = "i" begin = "1" end = "5">
+						<c:forEach var = "tag" items = "${ tags }">
 							<td>
-								${ i } 번째 인기 태그								
+								${ tag.name }								
 							</td>
 						</c:forEach>
 					</tr>
