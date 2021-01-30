@@ -65,7 +65,7 @@ a:visited {
                 		</li>
                 		                		
                 		<li class="nav-item dropdown" style="position: relative; left: 360px;">
-                			<a href="">
+                			<a href="/projectB/admin/petitioner.aa">
                 				<strong style="color: white;">
                 					회원 관리
                 				</strong>
