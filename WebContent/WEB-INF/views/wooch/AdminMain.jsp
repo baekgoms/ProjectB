@@ -438,6 +438,11 @@
             <!-- ============================================================== -->
             <!-- End Bread crumb and right sidebar toggle -->
             <!-- ============================================================== -->
+            
+            
+ <!-- ================================================================================================================== -->            
+            
+            
             <!-- ============================================================== -->
             <!-- Container fluid  -->
             <!-- ============================================================== -->
@@ -451,9 +456,9 @@
                             <div class="d-flex d-lg-flex d-md-block align-items-center">
                                 <div>
                                     <div class="d-inline-flex align-items-center">
-                                        <h2 class="text-dark mb-1 font-weight-medium">236</h2>
+                                        <h2 class="text-dark mb-1 font-weight-medium">${todayPetitioner}</h2>
                                         <span
-                                            class="badge bg-primary font-12 text-white font-weight-medium badge-pill ml-2 d-lg-block d-md-none">+18.33%</span>
+                                            class="badge bg-primary font-12 text-white font-weight-medium badge-pill ml-2 d-lg-block d-md-none">+${todayPercent}%</span>
                                     </div>
                                     <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">새로운 회원 </h6>
                                 </div>
@@ -472,10 +477,10 @@
                                         <span
                                             class="badge bg-danger font-12 text-white font-weight-medium badge-pill ml-2 d-md-none d-lg-block">-18.33%</span>
                                     </div>
-                                    <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">새로운 블랙리스트 </h6>
+                                    <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">새로운 신고 </h6>
                                 </div>
                                 <div class="ml-auto mt-md-3 mt-lg-0">
-                                    <span class="opacity-7 text-muted"><i data-feather="user-minus"></i></span>
+                                    <span class="opacity-7 text-muted"><i data-feather="alert-triangle"></i></span>
                                 </div>
                             </div>
                         </div>
@@ -518,6 +523,7 @@
                 <!-- *************************************************************** -->
                 <!-- End First Cards -->
                 <!-- *************************************************************** -->
+<!-- ================================================================================================================== -->                
                 <!-- *************************************************************** -->
                 <!-- Start Sales Charts Section -->
                 <!-- *************************************************************** -->
@@ -527,22 +533,32 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">인기 청원</h4>
-                                <div id="campaign-v2" class="mt-2" style="height:283px; width:100%;"></div>
+                                
+                                <div class="text-center">
+                                    <input data-plugin="knob" data-width="220" data-height="220" data-linecap=round
+                                        data-fgColor="#01caf1" value="${petitioPercent}" data-skin="tron" data-angleOffset="180"
+                                        data-readOnly=true data-thickness=".2" />
+                                </div>
+                                
+                                <div style="height:35px; width:100%;"></div>
+                                
                                 <ul class="list-style-none mb-0">
                                     <li>
-                                        <i class="fas fa-circle text-primary font-10 mr-2"></i>
-                                        <span class="text-muted">Direct Sales</span>
-                                        <span class="text-dark float-right font-weight-medium">2346</span>
+                                        <a href="/projectB/question/content.aa" style="color: brown; 
+											display: inline-block; width: 90%; 
+											white-space: nowrap; overflow: hidden; 
+											text-overflow: ellipsis;">
+											"${topPetition[0].title}"</a>
                                     </li>
                                     <li class="mt-3">
                                         <i class="fas fa-circle text-danger font-10 mr-2"></i>
-                                        <span class="text-muted">Referral Sales</span>
-                                        <span class="text-dark float-right font-weight-medium">2108</span>
+                                        <span class="text-muted">마감일까지 남은 일</span>
+                                        <span class="text-dark float-right font-weight-medium">D-?</span>
                                     </li>
                                     <li class="mt-3">
                                         <i class="fas fa-circle text-cyan font-10 mr-2"></i>
-                                        <span class="text-muted">Affiliate Sales</span>
-                                        <span class="text-dark float-right font-weight-medium">1204</span>
+                                        <span class="text-muted">청원 동의 수</span>
+                                        <span class="text-dark float-right font-weight-medium">${topPetition[0].petition}</span>
                                     </li>
                                 </ul>
                             </div>
@@ -560,9 +576,6 @@
                             </div>
                         </div>
                     </div>
-                    
-                    
-                    
                     
                     <div class="col-lg-4 col-md-12">
                         <div class="card">
@@ -632,188 +645,92 @@
                
                
                
-               
-                <!-- *************************************************************** -->
-                <!-- Start Top Leader Table -->
-                <!-- *************************************************************** -->
-                <div class="row">
-                    <div class="col-12">
+                 <div class="row">
+                    <div class="col-lg-6">
                         <div class="card">
                             <div class="card-body">
-                                <div class="d-flex align-items-center mb-4">
-                                    <h4 class="card-title">Top Leaders</h4>
-                                    <div class="ml-auto">
-                                        <div class="dropdown sub-dropdown">
-                                            <button class="btn btn-link text-muted dropdown-toggle" type="button"
-                                                id="dd1" data-toggle="dropdown" aria-haspopup="true"
-                                                aria-expanded="false">
-                                                <i data-feather="more-vertical"></i>
-                                            </button>
-                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dd1">
-                                                <a class="dropdown-item" href="#">Insert</a>
-                                                <a class="dropdown-item" href="#">Update</a>
-                                                <a class="dropdown-item" href="#">Delete</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <h4 class="card-title">Primary Table</h4>
+                                <h6 class="card-subtitle">To use add class <code>.bg-primary .text-white</code> in the
+                                    <code>&lt;thead&gt;</code>.</h6>
                                 <div class="table-responsive">
-                                    <table class="table no-wrap v-middle mb-0">
-                                        <thead>
-                                            <tr class="border-0">
-                                                <th class="border-0 font-14 font-weight-medium text-muted">Team Lead
-                                                </th>
-                                                <th class="border-0 font-14 font-weight-medium text-muted px-2">Project
-                                                </th>
-                                                <th class="border-0 font-14 font-weight-medium text-muted">Team</th>
-                                                <th class="border-0 font-14 font-weight-medium text-muted text-center">
-                                                    Status
-                                                </th>
-                                                <th class="border-0 font-14 font-weight-medium text-muted text-center">
-                                                    Weeks
-                                                </th>
-                                                <th class="border-0 font-14 font-weight-medium text-muted">Budget</th>
+                                    <table class="table">
+                                        <thead class="bg-primary text-white">
+                                            <tr>
+                                                <th>#</th>
+                                                <th>First Name</th>
+                                                <th>Last Name</th>
+                                                <th>Username</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td class="border-top-0 px-2 py-4">
-                                                    <div class="d-flex no-block align-items-center">
-                                                        <div class="mr-3"><img
-                                                                src="/projectB/resource/bootstrap/assets/images/users/widget-table-pic1.jpg"
-                                                                alt="user" class="rounded-circle" width="45"
-                                                                height="45" /></div>
-                                                        <div class="">
-                                                            <h5 class="text-dark mb-0 font-16 font-weight-medium">Hanna
-                                                                Gover</h5>
-                                                            <span class="text-muted font-14">hgover@gmail.com</span>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="border-top-0 text-muted px-2 py-4 font-14">Elite Admin</td>
-                                                <td class="border-top-0 px-2 py-4">
-                                                    <div class="popover-icon">
-                                                        <a class="btn btn-primary rounded-circle btn-circle font-12"
-                                                            href="javascript:void(0)">DS</a>
-                                                        <a class="btn btn-danger rounded-circle btn-circle font-12 popover-item"
-                                                            href="javascript:void(0)">SS</a>
-                                                        <a class="btn btn-cyan rounded-circle btn-circle font-12 popover-item"
-                                                            href="javascript:void(0)">RP</a>
-                                                        <a class="btn btn-success text-white rounded-circle btn-circle font-20"
-                                                            href="javascript:void(0)">+</a>
-                                                    </div>
-                                                </td>
-                                                <td class="border-top-0 text-center px-2 py-4"><i
-                                                        class="fa fa-circle text-primary font-12" data-toggle="tooltip"
-                                                        data-placement="top" title="In Testing"></i></td>
-                                                <td
-                                                    class="border-top-0 text-center font-weight-medium text-muted px-2 py-4">
-                                                    35
-                                                </td>
-                                                <td class="font-weight-medium text-dark border-top-0 px-2 py-4">$96K
-                                                </td>
+                                                <td>1</td>
+                                                <td>Nigam</td>
+                                                <td>Eichmann</td>
+                                                <td>@Sonu</td>
                                             </tr>
                                             <tr>
-                                                <td class="px-2 py-4">
-                                                    <div class="d-flex no-block align-items-center">
-                                                        <div class="mr-3"><img
-                                                                src="/projectB/resource/bootstrap/assets/images/users/widget-table-pic2.jpg"
-                                                                alt="user" class="rounded-circle" width="45"
-                                                                height="45" /></div>
-                                                        <div class="">
-                                                            <h5 class="text-dark mb-0 font-16 font-weight-medium">Daniel
-                                                                Kristeen
-                                                            </h5>
-                                                            <span class="text-muted font-14">Kristeen@gmail.com</span>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="text-muted px-2 py-4 font-14">Real Homes WP Theme</td>
-                                                <td class="px-2 py-4">
-                                                    <div class="popover-icon">
-                                                        <a class="btn btn-primary rounded-circle btn-circle font-12"
-                                                            href="javascript:void(0)">DS</a>
-                                                        <a class="btn btn-danger rounded-circle btn-circle font-12 popover-item"
-                                                            href="javascript:void(0)">SS</a>
-                                                        <a class="btn btn-success text-white rounded-circle btn-circle font-20"
-                                                            href="javascript:void(0)">+</a>
-                                                    </div>
-                                                </td>
-                                                <td class="text-center px-2 py-4"><i
-                                                        class="fa fa-circle text-success font-12" data-toggle="tooltip"
-                                                        data-placement="top" title="Done"></i>
-                                                </td>
-                                                <td class="text-center text-muted font-weight-medium px-2 py-4">32</td>
-                                                <td class="font-weight-medium text-dark px-2 py-4">$85K</td>
+                                                <td>2</td>
+                                                <td>Deshmukh</td>
+                                                <td>Prohaska</td>
+                                                <td>@Genelia</td>
                                             </tr>
                                             <tr>
-                                                <td class="px-2 py-4">
-                                                    <div class="d-flex no-block align-items-center">
-                                                        <div class="mr-3"><img
-                                                                src="/projectB/resource/bootstrap/assets/images/users/widget-table-pic3.jpg"
-                                                                alt="user" class="rounded-circle" width="45"
-                                                                height="45" /></div>
-                                                        <div class="">
-                                                            <h5 class="text-dark mb-0 font-16 font-weight-medium">Julian
-                                                                Josephs
-                                                            </h5>
-                                                            <span class="text-muted font-14">Josephs@gmail.com</span>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="text-muted px-2 py-4 font-14">MedicalPro WP Theme</td>
-                                                <td class="px-2 py-4">
-                                                    <div class="popover-icon">
-                                                        <a class="btn btn-primary rounded-circle btn-circle font-12"
-                                                            href="javascript:void(0)">DS</a>
-                                                        <a class="btn btn-danger rounded-circle btn-circle font-12 popover-item"
-                                                            href="javascript:void(0)">SS</a>
-                                                        <a class="btn btn-cyan rounded-circle btn-circle font-12 popover-item"
-                                                            href="javascript:void(0)">RP</a>
-                                                        <a class="btn btn-success text-white rounded-circle btn-circle font-20"
-                                                            href="javascript:void(0)">+</a>
-                                                    </div>
-                                                </td>
-                                                <td class="text-center px-2 py-4"><i
-                                                        class="fa fa-circle text-primary font-12" data-toggle="tooltip"
-                                                        data-placement="top" title="Done"></i>
-                                                </td>
-                                                <td class="text-center text-muted font-weight-medium px-2 py-4">29</td>
-                                                <td class="font-weight-medium text-dark px-2 py-4">$81K</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="px-2 py-4">
-                                                    <div class="d-flex no-block align-items-center">
-                                                        <div class="mr-3"><img
-                                                                src="/projectB/resource/bootstrap/assets/images/users/widget-table-pic4.jpg"
-                                                                alt="user" class="rounded-circle" width="45"
-                                                                height="45" /></div>
-                                                        <div class="">
-                                                            <h5 class="text-dark mb-0 font-16 font-weight-medium">Jan
-                                                                Petrovic
-                                                            </h5>
-                                                            <span class="text-muted font-14">hgover@gmail.com</span>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="text-muted px-2 py-4 font-14">Hosting Press HTML</td>
-                                                <td class="px-2 py-4">
-                                                    <div class="popover-icon">
-                                                        <a class="btn btn-primary rounded-circle btn-circle font-12"
-                                                            href="javascript:void(0)">DS</a>
-                                                        <a class="btn btn-success text-white font-20 rounded-circle btn-circle"
-                                                            href="javascript:void(0)">+</a>
-                                                    </div>
-                                                </td>
-                                                <td class="text-center px-2 py-4"><i
-                                                        class="fa fa-circle text-danger font-12" data-toggle="tooltip"
-                                                        data-placement="top" title="In Progress"></i></td>
-                                                <td class="text-center text-muted font-weight-medium px-2 py-4">23</td>
-                                                <td class="font-weight-medium text-dark px-2 py-4">$80K</td>
+                                                <td>3</td>
+                                                <td>Roshan</td>
+                                                <td>Rogahn</td>
+                                                <td>@Hritik</td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Success Table</h4>
+                                <h6 class="card-subtitle">To use add class <code>.bg-success .text-white</code> in the
+                                    <code>&lt;thead&gt;</code>.</h6>
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead class="bg-success text-white">
+                                            <tr>
+                                                <th>#</th>
+                                                <th>First Name</th>
+                                                <th>Last Name</th>
+                                                <th>Username</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>Nigam</td>
+                                                <td>Eichmann</td>
+                                                <td>@Sonu</td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <td>Deshmukh</td>
+                                                <td>Prohaska</td>
+                                                <td>@Genelia</td>
+                                            </tr>
+                                            <tr>
+                                                <td>3</td>
+                                                <td>Roshan</td>
+                                                <td>Rogahn</td>
+                                                <td>@Hritik</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- row -->
+                                
                             </div>
                         </div>
                     </div>
@@ -866,11 +783,17 @@
     <script src="/projectB/resource/bootstrap/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
     <script src="/projectB/resource/bootstrap/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js"></script>
     <script src="/projectB/resource/bootstrap/assets/extra-libs/jvector/jquery-jvectormap-world-mill-en.js"></script>
-    <script src="/projectB/resource/bootstrap/js/pages/dashboards/dashboard1.js?ver=1"></script>
+    <script src="/projectB/resource/bootstrap/js/pages/dashboards/dashboard1.js?ver=2"></script>
 	 <!--Morris JavaScript -->
     <script src="/projectB/resource/bootstrap/assets/libs/raphael/raphael.min.js"></script>
     <script src="/projectB/resource/bootstrap/assets/libs/morris.js/morris.min.js"></script>
     <script src="/projectB/resource/bootstrap/js/pages/morris/morris-data.js?ver=1"></script>
+    <script src="/projectB/resource/bootstrap/assets/extra-libs/knob/jquery.knob.js"></script>
+    <script>
+        $(function () {
+            $('[data-plugin="knob"]').knob();
+        });
+    </script>
 </body>
 
 			       

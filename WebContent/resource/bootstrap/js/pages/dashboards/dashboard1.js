@@ -8,8 +8,8 @@ $(function () {
         bindto: '#campaign-v2',
         data: {
             columns: [
-                ['반대', 45],
-                ['찬성', 55]
+                [' ', 45],
+                ['동의', 55]
             ],
 
             type: 'donut',

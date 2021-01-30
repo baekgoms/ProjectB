@@ -43,6 +43,7 @@
 		<mapper resource="/sql/questionSQL.xml" />
 		<mapper resource="/sql/answerSQL.xml" />
 		<mapper resource="/sql/adminPetitionSQL.xml" />
+		<mapper resource="/sql/adminMainSQL.xml" />
 		<mapper resource="/sql/tagSQL.xml" />
 	</mappers>
   

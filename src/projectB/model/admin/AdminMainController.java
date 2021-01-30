@@ -1,32 +1,50 @@
 package projectB.model.admin;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import projectB.model.adminService.AdminMainService;
+import projectB.model.petition.PetitionDTO;
+
 
 @Controller
 @RequestMapping("admin")
 public class AdminMainController {
 	
+	@Autowired
+    private AdminMainService DAO = null;
+	
 	@RequestMapping("main.aa")
-	public String main() {
+	public String main(Model model) throws Exception {
 		
-		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
-		SimpleDateFormat format2 = new SimpleDateFormat ( "yyyy년 MM월dd일");
-				
-		Date time = new Date();
-				
-		String time1 = format1.format(time);
-		String time2 = format2.format(time);
-				
-		System.out.println(time1);
-		System.out.println(time2);
+		//새로운 회원
+		int todayPetitioner = DAO.getCountPetitionerToday();
+		model.addAttribute("todayPetitioner", todayPetitioner);
 		
+		//새로운 회원 퍼센트
+		double todayPercent = DAO.getPercentPetitionerToday();
+		model.addAttribute("todayPercent", todayPercent);
 		
+		//인기 청원
+		List<PetitionDTO> topPetition = DAO.getTopPetition();
+		System.out.println("topPetition : "+topPetition);
+		model.addAttribute("topPetition", topPetition);
+		
+		//인기 청원 퍼센트
+		int petition = (int)topPetition.get(0).getPetition();
+		System.out.println("petition : "+petition);
+		double petitioPercent = petition / (200000 / 100); 
+		System.out.println("petitioPercent : "+petitioPercent);
+		petitioPercent = Math.round(petitioPercent); 
+		model.addAttribute("petitioPercent", petitioPercent);
 		
 		System.out.println("admin main controller");
+		System.out.println(todayPetitioner);
+		
 		return "wooch/AdminMain";
 	}
 	

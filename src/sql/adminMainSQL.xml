@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="adminMain">
+
+<!-- ==============================1번 라인=========================== -->
+
+	<select id="getCountPetitionerToday" resultType="int" parameterType="String">
+		select count(*) from petitioner where TO_CHAR(reg, 'YYYYMMDD') = #{today}
+	</select>
+	
+	<select id="getCountPetitionerTillYesterday" resultType="int" parameterType="String">
+		select count(*) from petitioner where TO_CHAR(reg, 'YYYYMMDD') != #{today}
+	</select>
+	
+<!-- ==============================2번 라인=========================== -->
+
+	<select id="getPercentTopPetition" resultType="int" parameterType="String">
+		select count(*) from petitioner where TO_CHAR(reg, 'YYYYMMDD') != #{today}
+	</select>
+
+	<select id="getTopPetition" resultType="petitionDTO" parameterType="String">
+		select * from petition where petition = (SELECT max(petition) FROM petition 
+		where petitionState = 2 and TO_CHAR(startDate, 'YYYYMM') = #{thisMonth} and open = 0 )
+	</select>
+
+
+
+<!-- ==============================보배=========================== -->
+	<select id ="getArticleCount" resultType="int">
+		select count(*) from petition
+		<if test="keyword != null">
+			where title like '%' || #{keyword} || '%' or content like '%' || #{keyword} || '%' or tag like '%' || #{keyword} || '%'
+		</if>
+	</select>
+	
+	<select id="getArticleAll" resultType="petitionDTO" parameterType="map">
+		select * from (select num, title, content, category, startDate, endDate, writer,
+		petition, petitionState, link, indicatorNum, tag, report, open, rownum r 
+		from(select * from petition 
+		<if test="keyword != null">
+			where title like '%' || #{keyword} || '%' or content like '%' || #{keyword} || '%' or tag like '%' || #{keyword} || '%'
+		</if>
+		<if test="sort == null">
+		order by num desc) order by num desc) 
+		</if>
+		<if test="sort != null">
+		order by petition desc) order by petition desc) 
+		</if> 
+		where r <![CDATA[>=]]> #{startRow} and r <![CDATA[<=]]>#{endRow}
+	</select>
+	
+	<select id ="getArticleState" resultType="petitionDTO" parameterType="map">
+				select * from (select num, title, content, category, startDate, endDate, writer,
+		petition, petitionState, link, indicatorNum, tag, report, open,rownum r 
+		from(select * from petition where petitionState= #{state} order by num desc) order by num desc) 
+		where r <![CDATA[>=]]> #{startRow} and r <![CDATA[<=]]>#{endRow}
+	</select>
+	
+	<select id ="getArticleCategory" resultType="petitionDTO" parameterType="map">
+				select * from (select num, title, content, category, startDate, endDate, writer,
+		petition, petitionState, link, indicatorNum, tag, report, open,rownum r 
+		from(select * from petition where category= #{category} order by num desc) order by num desc) 
+		where r <![CDATA[>=]]> #{startRow} and r <![CDATA[<=]]>#{endRow}
+	</select>
+
+	<select id ="getArticleCountCategory" resultType="int" parameterType="int">
+		select count(*) from petition where category= #{category} 
+	</select>
+
+	<select id ="getArticleCountState" resultType="int" parameterType="int">
+		select count(*) from petition where petitionState = #{state} 
+	</select>
+	
+	<select id="getCategoryList" resultType="CategoryDTO" >
+		select*from category 
+	</select>
+	
+	<select id="forReport" resultType="petitionDTO" parameterType="int">
+		select*from petition where num=#{num}
+	</select>
+	
+	<update id="reportCount" parameterType="int">
+		update petition set report = report+1 where num=#{num}
+	</update>
+	
+	<select id="reportCountBynum" resultType="int" parameterType="int">
+		select report from petition where num=#{num}
+	</select>
+	
+	<update id ="reportCountId" parameterType="String">
+		update petitioner set report = report+1 where id=#{id}
+	</update>
+	
+	<!-- 메인!  -->
+	
+	<select id ="getStateMain" resultType="petitionDTO" parameterType="map">
+				select * from (select num, title, content, category, startDate, endDate, writer,
+		petition, petitionState, link, indicatorNum, tag, report, open,rownum r 
+		from(select * from petition where petitionState= #{state} order by num desc) order by num desc) 
+	</select>
+
+	<select id="MainbyEnddate" resultType="petitionDTO">
+		select*from petition order by enddate asc
+	</select>
+	
+	<select id="MainbyPetition" resultType="petitionDTO">
+		select*from petition order by petition desc
+	</select>
+	
+
+	<select id="tagCount" resultType="String">
+		select tag, count(*) from petition group by tag
+	</select>
+	
+	
+	
+	<!-- ==============================민희================================ -->
+	
+	<!-- resultType으로 리턴
+		 parameterType DAO에서 가지고 오는 타입 -->
+	
+	<select id="getArticle" resultType="PetitionDTO" parameterType="int">
+		select * from petition where num = #{num}
+	</select>
+	
+	<select id="petCmtListAll" resultType="PetCommentDTO" parameterType="int">
+		select * from petitionComment where petitionNum = #{petitionNum}
+	</select>
+	
+	<select id="petCmtCount" resultType="int" parameterType="int" >
+		select count(*) from petitionComment where petitionNum = #{petitionNum}
+	</select>
+	
+	<select id="petCmtList" resultType="petCommentDTO" parameterType="map">
+		<![CDATA[
+		select * from (select num,writer,content,reg, petitionNum, rownum r from
+        (select * from petitionComment where petitionNum = #{petitionNum} order by num desc) order by num desc) 
+        where r >= #{start} and r <= #{end}
+        ]]>
+	</select>
+	
+	<select id="getPetitionIndicator" resultType="petitionIndicatorDTO" parameterType="int">
+        select * from petitionIndicator where num = #{num}
+    </select>
+	
+	<!-- 청원번호/청원자번호를 넣는다 -->
+	<insert id="insertPetitionPetitionerMap" parameterType="HashMap">
+		insert into petitionPetitionerMap values ( #{petitionNum}, #{petitionerId} ) 
+	</insert>
+	
+	<!--청원번호에 해당하는 mapping정보를 확인한다 (여기X) -->
+	<select id="getPetitionPetitionerByPetitionNum" resultType="petitionPetitionerMapDTO" parameterType="int">
+		select * from petitionPetitionerMap where petitionNum = #{petitionNum}
+	</select>
+	
+	<!-- 청원번호/청원아이디의 mapping정보를 확인한다.-->
+	<select id="getPetitionPetitionerByPetitionNumPetitionerId" resultType="petitionPetitionerMapDTO" parameterType="HashMap">
+		select * from petitionPetitionerMap where petitionNum = #{petitionNum} and petitionerId = #{petitionerId}
+	</select>
+	
+	<select id="getPetitionerById" resultType="petitionerDTO" parameterType="String">
+		select * from petitioner where id = #{id}
+	</select>
+	
+	<select id="getCategoryName" resultType="String" parameterType="int">
+        select categoryName from category where num = #{num}
+    </select>
+    
+	<select id="getPetitionState" resultType="String" parameterType="int">
+        select state from petitionState where num = #{num}
+    </select>
+ 
+</mapper>
+
