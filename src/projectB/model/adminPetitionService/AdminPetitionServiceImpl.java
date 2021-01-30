@@ -1,17 +1,9 @@
 package projectB.model.adminPetitionService;
 
-import java.sql.Timestamp;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import projectB.model.petition.CategoryDTO;
-import projectB.model.petition.PetCommentDTO;
 import projectB.model.petition.PetitionDTO;
-import projectB.model.petition.PetitionIndicatorDTO;
-import projectB.model.petitioner.PetitionerDTO;
 
 @Service("adminPetitionService")
 public class AdminPetitionServiceImpl implements AdminPetitionService{

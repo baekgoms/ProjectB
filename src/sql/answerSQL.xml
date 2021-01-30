@@ -6,7 +6,16 @@
 
 	<!-- resultType으로 리턴
 		 parameterType DAO에서 가지고 오는 타입 -->
+	<update id="updateState" parameterType="int">
+		update answer set state = state + 1 where petitionNum=#{petitionNum}
+	</update>
 
+	<insert id ="insertArticle" parameterType="answerDTO">
+		insert into answer(num,petitionNum,state,content,answerLink,name,department,answerDate,id) 
+		values(AnswerNum_seq.nextval, #{petitionNum}, #{state}, #{content}, #{answerLink},#{name},#{department},
+		sysdate, #{id})
+	</insert>
+	
 	
 	<select id ="getArticleCount" resultType="int" parameterType="map">
 		select count(*) from answer A 

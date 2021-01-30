@@ -1,7 +1,6 @@
 package projectB.model.adminPetition;
 
 
-import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,9 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import projectB.model.petitionContentService.PetitionContentService;
-import projectB.model.petitionContentService.PetitionPetitionerMapService;
-import projectB.model.petitioner.PetitionerDTO;
 import projectB.model.adminPetitionService.AdminPetitionService;
 import projectB.model.petition.PetitionDTO;
 
@@ -75,7 +71,6 @@ public class AdminPetitionController {
   public String changeClose(@RequestParam("num") int num, Model model) throws Exception{
    
     adminPetitionService.updateClose(num);
-    
     model.addAttribute("num", num);
     return "adminPetition/changeClose";
   }

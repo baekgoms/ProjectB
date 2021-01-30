@@ -140,10 +140,10 @@ function inputCheck(){
 			<th scope="col" >청원만료일</th>
 			<th scope="col" >참여인원</th>
 			<c:if test="${state == 4 || state == 6}">
-				<th scope="col" >답변하기</th>
+				<th scope="col" >답변</th>
 			</c:if>
 			<c:if test="${state == 5 || state == 7}">
-				<th scope="col" >수정하기</th>
+				<th scope="col" >답변</th>
 			</c:if>
 		</tr>
 
@@ -187,11 +187,11 @@ function inputCheck(){
 					<td width=100 align="center">
 						<c:if test="${state == 4 || state == 6}">
 							<button type="button" class="btn waves-effect waves-light btn-outline-dark"
-								onClick="document.location.href='/projectB/answer/========.aa'">답변하기</button> 
+								onClick="document.location.href='/projectB/answer/answerUpload.aa?petitionNum=${articleList[status.index].petitionNum}'">답변작성</button> 
 						</c:if>
 						<c:if test="${state == 5 || state == 7}">
 							<button type="button" class="btn waves-effect waves-light btn-outline-dark"
-								onClick="document.location.href='/projectB/answer/========.aa'">수정하기</button> 
+								onClick="document.location.href='/projectB/answer/========.aa'">답변확인</button> 
 						</c:if>
 					</td>
 				</tr>

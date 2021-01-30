@@ -37,9 +37,9 @@
    	<table cellspacing="0" cellpadding="0" align="center" width="900" border=1>
    	
       	<tr height="40">
-      		<td align="center" width="200" style="background-color:#5f76e8;color:#fff" >카테고리</td>
-        	<td align="center"  colspan="4" width="800" style="background-color:#5f76e8;color:#fff">청원제목</td>
-        	<td align="center" width="200" style="background-color:#5f76e8;color:#fff">참여인원 </td>
+      		<td align="center" width="200" style="background-color:#7c8798;color:#fff" >카테고리</td>
+        	<td align="center"  colspan="4" width="800" style="background-color:#7c8798;color:#fff">청원제목</td>
+        	<td align="center" width="200" style="background-color:#7c8798;color:#fff">참여인원 </td>
 		</tr>
       	<tr height="70">
       		<td align="center" width="200">${categoryName}</td>
@@ -121,13 +121,6 @@
 	onclick="document.location.href='/projectB/adminpetition.======.aa?num=${petitionDTO.num}'">      	      	
 </div>
 
-
-<script style="text/javascript">
-	function changeState(){
-	}
-
-</script>
-	
 
 <script src="/projectB/resource/bootstrap/assets/libs/jquery/dist/jquery.min.js"></script>
 <script src="/projectB/resource/bootstrap/assets/libs/popper.js/dist/umd/popper.min.js"></script>

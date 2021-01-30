@@ -131,15 +131,6 @@
 </form>
 
 
-
-<script style="text/javascript">
-	function changeSelect(){
-		{petitionDTO.open} = 1
-	}
-
-</script>
-
-
 <script src="/projectB/resource/bootstrap/assets/libs/jquery/dist/jquery.min.js"></script>
 <script src="/projectB/resource/bootstrap/assets/libs/popper.js/dist/umd/popper.min.js"></script>
 <script src="/projectB/resource/bootstrap/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
