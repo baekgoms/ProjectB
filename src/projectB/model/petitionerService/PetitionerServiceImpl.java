@@ -1,6 +1,7 @@
 package projectB.model.petitionerService;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,44 @@ public class PetitionerServiceImpl implements PetitionerService {
 		//System.out.println("updatePetitionerState id - " + id);
 		connection.update("petitioner.updatePetitionerState", id);
 	}
-
-
+	
+	@Override
+	public List<PetitionerDTO> petitioners(int startRow, int endRow, int sort) {
+		HashMap<String, Integer> dataMap = new HashMap<>();
+		dataMap.put("startRow", startRow);
+		dataMap.put("endRow", endRow);
+		dataMap.put("sort", sort);
+		
+		return connection.selectList("petitioner.petitioners", dataMap);
+	}
+	
+	@Override
+	public int totalMemberCount() {
+		return connection.selectOne("petitioner.totalMemberCount");
+	}
+	
+	@Override
+	public void deletepetitioner(int num) {
+		connection.delete("petitioner.deletePetitioner", num);
+	}
+	
+	@Override
+	public int totalBlackListCount(int sort) {
+		return connection.selectOne("petitioner.totalBlackListCount", sort);
+	}
+	
+	@Override
+	public List<PetitionerDTO> blackList(int startRow, int endRow, int sort) {
+		HashMap<String, Integer> dataMap = new HashMap<>();
+		dataMap.put("startRow", startRow);
+		dataMap.put("endRow", endRow);
+		dataMap.put("sort", sort);
+		
+		return connection.selectList("petitioner.blackList", dataMap);
+	}
+	
+	@Override
+	public void selectRelease(int num) {
+		connection.update("petitioner.release", num);
+	}
 }
