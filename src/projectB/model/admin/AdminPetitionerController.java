@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import projectB.model.petition.PetitionDTO;
+import projectB.model.petitionListService.PetitionListService;
 import projectB.model.petitioner.PetitionerDTO;
 import projectB.model.petitionerService.PetitionerService;
 
@@ -19,6 +21,9 @@ import projectB.model.petitionerService.PetitionerService;
 public class AdminPetitionerController {
 	@Autowired
 	private PetitionerService petitionerService;
+	
+	@Autowired
+    private PetitionListService petitionDAO;
 
 	public static final int MEMBER_LENGTH = 20;
 	public static final int MEMBER_PAGE_LENGTH = 10;
@@ -76,5 +81,46 @@ public class AdminPetitionerController {
 		}
 		
 		return "redirect:petitioner.aa";
+	}
+	
+	@RequestMapping("memberDetail.aa")
+	public String memberDetail(int num, Model model) {
+		
+		try {
+			PetitionerDTO dto = petitionerService.petitionerByNum(num);
+			List<PetitionDTO> petitions = petitionDAO.getArticles(1, 3);
+			
+			model.addAttribute("dto", dto);
+			model.addAttribute("petitions", petitions);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return "adminPetitioner/petitionerDetail";
+	}
+	
+	@RequestMapping("memberModify.aa")
+	public String memberModify(PetitionerDTO dto) {
+		System.out.println("memberModify run");
+		System.out.println(dto.getNum());
+		System.out.println(dto.getEmail());
+		
+		try{
+			petitionerService.updatePetitioner(dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:memberDetail.aa?num="+dto.getNum();
+	}
+	
+	@RequestMapping("memberDel.aa")
+	public String memberDel(int num) {
+		System.out.println("memberDel / " + num);
+		try{
+			petitionerService.deletepetitioner(num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "adminPetitioner/petitionerDel";
 	}
 }

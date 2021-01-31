@@ -13,13 +13,16 @@ public interface PetitionerService {
 	PetitionerDTO getPetitionerByEmailAndAuthKey(String email, int authKey)  throws SQLException;
 	void insertPetitioner(PetitionerDTO dto) throws SQLException;
 	void updatePetitionerState(String id)  throws SQLException;
+	PetitionerDTO petitionerByNum(int num)  throws SQLException;
 	
-	public List<PetitionerDTO> petitioners(int startRow, int endRow, int sort);
-	public int totalMemberCount();
-	public void deletepetitioner(int num);
+	List<PetitionerDTO> petitioners(int startRow, int endRow, int sort);
+	int totalMemberCount();
+	void deletepetitioner(int num);
 	
-	public int totalBlackListCount(int sort);
-	public List<PetitionerDTO> blackList(int startRow, int endRow, int sort);
-	public void selectRelease(int num);
+	int totalBlackListCount(int sort);
+	List<PetitionerDTO> blackList(int startRow, int endRow, int sort);
+	void selectRelease(int num);
+	
+	void updatePetitioner(PetitionerDTO dto) throws SQLException;
 
 }

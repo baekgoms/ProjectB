@@ -1,5 +1,6 @@
 package projectB.model.petitionerService;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -83,5 +84,15 @@ public class PetitionerServiceImpl implements PetitionerService {
 	@Override
 	public void selectRelease(int num) {
 		connection.update("petitioner.release", num);
+	}
+	
+	@Override
+	public PetitionerDTO petitionerByNum(int num)  throws SQLException {
+		return connection.selectOne("petitioner.petitionerByNum", num);
+	}
+	
+	@Override
+	public void updatePetitioner(PetitionerDTO dto) throws SQLException {
+		connection.update("petitioner.memberModify", dto);
 	}
 }

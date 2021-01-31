@@ -1,8 +1,10 @@
 package projectB.model.petitioner;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 import projectB.model.BaseDTO;
 
@@ -16,11 +18,13 @@ public class PetitionerDTO implements BaseDTO{
 	private String gender;
 	private int report;
 	private int state;
-	private int emailArg;
+	private int emailArg;	
 	private Timestamp reg;
 	private Timestamp blockReg;
 	private int authKey;
 	private String birthday;
+	private Timestamp loginTime;
+	private int warning;
 
 	public void setInfo(ResultSet rs) {
 		try {
@@ -71,4 +75,9 @@ public class PetitionerDTO implements BaseDTO{
 	public void setAuthKey(int authKey) { this.authKey = authKey; }
 	public String getBirthday() { return birthday; }
 	public void setBirthday(String birthday) { this.birthday = birthday; }
+	public Timestamp getLoginTime() { return loginTime; }
+	public void setLoginTime(Timestamp loginTime) { this.loginTime = loginTime; }
+	public int getWarning() { return warning; }
+	public void setWarning(int warning) { this.warning = warning; }
+	
 }

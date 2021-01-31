@@ -23,6 +23,11 @@
 		select * from petitioner where email = #{ email } and authKey = #{ authKey }
 	</select>
 	
+	<select id = "petitionerByNum" resultType="petitionerDTO" parameterType="int">
+		select * from petitioner where num = #{ value }
+	</select>
+	
+	
 	<update id="updatePetitionerState" parameterType="petitionerDTO">
 		update petitioner set state = 1 where id = #{ id }
 	</update>
@@ -97,6 +102,10 @@
 	
 	<update id="release" parameterType = "int">
 		update petitioner set blockreg = '2000-12-12', state = 1 where num = #{ value }
+	</update>
+	
+	<update id="memberModify" parameterType="petitionerDTO">
+		update petitioner set password = #{ password }, contact = #{ contact }, email = #{ email }, report = #{ report } where num = #{ num }
 	</update>
 	
 </mapper>

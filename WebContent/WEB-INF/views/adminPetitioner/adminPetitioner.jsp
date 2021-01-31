@@ -80,6 +80,9 @@ a:visited {
 		}); */
 
 	}
+	function openNewWindow(url) { 
+		open(url,"Mail","toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, width=550, height=875");
+	}
 </script>
 </head>
 <body>
@@ -143,7 +146,11 @@ a:visited {
 								<label class="custom-control-label" for="customCheck_${ status.index }"></label>
 							</div>
 							</th>
-							<td>${ petitioner.id }</td>
+							<td>
+								<a href="javascript:openNewWindow('/projectB/admin/memberDetail.aa?num=${ petitioner.num }')"> 
+									${ petitioner.id }
+								</a>
+							</td>
 							<td>${ petitioner.name }</td>
 							<td>${ petitioner.gender }</td>
 							<td>${ petitioner.birthday }</td>
