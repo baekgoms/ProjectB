@@ -73,7 +73,7 @@ a:visited {
                 		</li> 
                 		
                 		<li class="nav-item dropdown" style="position: relative; left: 540px;">
-                			<a href="">
+                			<a href="/projectB/admin/question.aa">
                 				<strong style="color: white;">
                 					문의 관리
                 				</strong>

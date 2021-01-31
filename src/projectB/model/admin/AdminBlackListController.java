@@ -58,7 +58,7 @@ public class AdminBlackListController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "test/Test";
+		return "adminPetitioner/adminBlackList";
 	}
 
 	@RequestMapping(value = "selectRelease.aa", method = RequestMethod.POST)
