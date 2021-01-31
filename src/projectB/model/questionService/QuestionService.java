@@ -14,4 +14,6 @@ public interface QuestionService {
 	public List<QuestionDTO> getArticles(int start, int end) throws Exception;
 	public List<QuestionDTO> getOneInfo(int num) throws Exception;
 	
+	public List<QuestionDTO> questions(int start, int end, int sort) throws Exception;
+	public int questionCount(int sort) throws Exception;
 }
