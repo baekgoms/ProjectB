@@ -87,8 +87,9 @@ $(function () {
         bindto: '#campaign-v3',
         data: {
             columns: [
-                ['반대', 45],
-                ['찬성', 55]
+                ['', 0],
+                ['찬성', 45.5],
+                ['반대', 54.5]
             ],
 
             type: 'donut',

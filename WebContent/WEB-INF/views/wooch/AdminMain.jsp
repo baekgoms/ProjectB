@@ -475,7 +475,7 @@
                                     <div class="d-inline-flex align-items-center">
                                         <h2 class="text-dark mb-1 font-weight-medium">7</h2>
                                         <span
-                                            class="badge bg-danger font-12 text-white font-weight-medium badge-pill ml-2 d-md-none d-lg-block">-18.33%</span>
+                                            class="badge bg-danger font-12 text-white font-weight-medium badge-pill ml-2 d-md-none d-lg-block">+18.33%</span>
                                     </div>
                                     <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">새로운 신고 </h6>
                                 </div>
@@ -490,9 +490,9 @@
                             <div class="d-flex d-lg-flex d-md-block align-items-center">
                                 <div>
                                     <div class="d-inline-flex align-items-center">
-                                        <h2 class="text-dark mb-1 font-weight-medium">1538</h2>
+                                        <h2 class="text-dark mb-1 font-weight-medium">${todayPetition}</h2>
                                         <span
-                                            class="badge bg-primary font-12 text-white font-weight-medium badge-pill ml-2 d-lg-block d-md-none">+18.33%</span>
+                                            class="badge bg-primary font-12 text-white font-weight-medium badge-pill ml-2 d-lg-block d-md-none">+${todayPetitionPercent}%</span>
                                     </div>
                                     <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">새로운 청원 </h6>
                                 </div>
@@ -507,9 +507,9 @@
                             <div class="d-flex d-lg-flex d-md-block align-items-center">
                                 <div>
                                     <div class="d-inline-flex align-items-center">
-                                        <h2 class="text-dark mb-1 font-weight-medium">1538</h2>
+                                        <h2 class="text-dark mb-1 font-weight-medium">${todayDiscussion}</h2>
                                         <span
-                                            class="badge bg-primary font-12 text-white font-weight-medium badge-pill ml-2 d-lg-block d-md-none">+18.33%</span>
+                                            class="badge bg-primary font-12 text-white font-weight-medium badge-pill ml-2 d-lg-block d-md-none">+${todayDiscussionPercent}%</span>
                                     </div>
                                     <h6 class="text-muted font-weight-normal mb-0 w-100 text-truncate">새로운 토론 </h6>
                                 </div>
@@ -553,7 +553,7 @@
                                     <li class="mt-3">
                                         <i class="fas fa-circle text-danger font-10 mr-2"></i>
                                         <span class="text-muted">마감일까지 남은 일</span>
-                                        <span class="text-dark float-right font-weight-medium">D-?</span>
+                                        <span class="text-dark float-right font-weight-medium">D-${restDay}</span>
                                     </li>
                                     <li class="mt-3">
                                         <i class="fas fa-circle text-cyan font-10 mr-2"></i>
@@ -581,20 +581,22 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">인기 토론글</h4>
-                                <div id="campaign-v3" class="mt-2" style="height:283px; width:100%;"></div>
+                                <div id="campaign-v3" class="mt-2" style="height:260px; width:100%;"></div>
                                 <ul class="list-style-none mb-0">
                                     <li>
-                                        <i class="fas fa-circle text-primary font-10 mr-2"></i>
-                                        <span class="text-muted">Direct Sales</span>
-                                        <span class="text-dark float-right font-weight-medium">2346</span>
+                                        <a href="/projectB/question/content.aa" style="color: brown; 
+											display: inline-block; width: 90%; 
+											white-space: nowrap; overflow: hidden; 
+											text-overflow: ellipsis;">
+											"${topDiscussion[0].subject}"</a>
                                     </li>
                                     <li class="mt-3">
-                                        <i class="fas fa-circle text-danger font-10 mr-2"></i>
+                                        <i class="fas fa-circle text-cyan font-10 mr-2"></i>
                                         <span class="text-muted">Referral Sales</span>
                                         <span class="text-dark float-right font-weight-medium">2108</span>
                                     </li>
                                     <li class="mt-3">
-                                        <i class="fas fa-circle text-cyan font-10 mr-2"></i>
+                                        <i class="fas fa-circle text-danger font-10 mr-2"></i>
                                         <span class="text-muted">Affiliate Sales</span>
                                         <span class="text-dark float-right font-weight-medium">1204</span>
                                     </li>
@@ -783,7 +785,7 @@
     <script src="/projectB/resource/bootstrap/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
     <script src="/projectB/resource/bootstrap/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js"></script>
     <script src="/projectB/resource/bootstrap/assets/extra-libs/jvector/jquery-jvectormap-world-mill-en.js"></script>
-    <script src="/projectB/resource/bootstrap/js/pages/dashboards/dashboard1.js?ver=2"></script>
+    <script src="/projectB/resource/bootstrap/js/pages/dashboards/dashboard1.js?ver=4"></script>
 	 <!--Morris JavaScript -->
     <script src="/projectB/resource/bootstrap/assets/libs/raphael/raphael.min.js"></script>
     <script src="/projectB/resource/bootstrap/assets/libs/morris.js/morris.min.js"></script>
