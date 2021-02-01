@@ -32,6 +32,15 @@
 		update petitioner set state = 1 where id = #{ id }
 	</update>
 	
+	<select id="petitionersByState" resultType="petitionerDTO" parameterType="map">
+	  select * from (select num, id, password, name, contact, email,
+		gender, report, state, emailArg, reg, blockReg, authKey, birthday, rownum r
+    	from (select * from petitioner where state = #{ state }
+        order by num desc)
+	    order by num desc)
+		where r <![CDATA[>=]]> #{ startRow } and r <![CDATA[<=]]>#{ endRow }
+	</select>
+	
 	<select id="petitioners" resultType="petitionerDTO" parameterType="map">
 	  select * from (select num, id, password, name, contact, email,
 		gender, report, state, emailArg, reg, blockReg, authKey, birthday, rownum r
@@ -53,6 +62,10 @@
 	
 	<select id="totalMemberCount" resultType="int">
 		select count(*) from petitioner where state = 1
+	</select>
+	
+	<select id="totalMemberCountByState" resultType="int" parameterType="int">
+		select count(*) from petitioner where state = #{ value }
 	</select>
 	
 	<delete id="deletePetitioner" parameterType="int">

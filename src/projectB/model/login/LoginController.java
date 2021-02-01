@@ -14,9 +14,9 @@ import projectB.model.petitioner.PetitionerDTO;
 @RequestMapping("login")
 public class LoginController {
 
-	private static final int PETITIONER = 1;
-	private static final int ANSWER = 6;
-	private static final int ADMIN = 7;
+	public static final int PETITIONER = 1;
+	public static final int ANSWER = 6;
+	public static final int ADMIN = 7;
 	@Autowired
 	private LoginService loginSerivce;
 

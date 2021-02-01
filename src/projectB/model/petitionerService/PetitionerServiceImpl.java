@@ -56,9 +56,23 @@ public class PetitionerServiceImpl implements PetitionerService {
 		return connection.selectList("petitioner.petitioners", dataMap);
 	}
 	
+	public List<PetitionerDTO> petitionersByState(int startRow, int endRow, int state){
+		HashMap<String, Integer> dataMap = new HashMap<>();
+		dataMap.put("startRow", startRow);
+		dataMap.put("endRow", endRow);
+		dataMap.put("state", state);
+		
+		return connection.selectList("petitioner.petitionersByState", dataMap);
+	}
+	
 	@Override
 	public int totalMemberCount() {
 		return connection.selectOne("petitioner.totalMemberCount");
+	}
+	
+	@Override
+	public int totalMemberCount(int state) {
+		return connection.selectOne("petitioner.totalMemberCountByState", state);
 	}
 	
 	@Override

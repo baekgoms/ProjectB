@@ -98,6 +98,10 @@ a:visited {
 				onclick="document.location.href='/projectB/admin/petitioner.aa'">
 			<input type="button" value="블랙리스트 관리" class="btn waves-effect waves-light btn-outline-dark"	
 				onclick="document.location.href='/projectB/admin/petitionerblack.aa'">
+				<input type="button" value="답변자 관리" class="btn waves-effect waves-light btn-outline-dark"	
+				onclick="">
+				<input type="button" value="관리자 관리" class="btn waves-effect waves-light btn-outline-dark"	
+				onclick="">
 			
 			<!-- <div style="width: 300px; float: left;">
 			<input type="text" class="form-control" name="keyword" id="keyword" placeholder="검색어를 입력하세요."/>

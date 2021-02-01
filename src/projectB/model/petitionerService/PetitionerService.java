@@ -16,7 +16,9 @@ public interface PetitionerService {
 	PetitionerDTO petitionerByNum(int num)  throws SQLException;
 	
 	List<PetitionerDTO> petitioners(int startRow, int endRow, int sort);
+	List<PetitionerDTO> petitionersByState(int startRow, int endRow, int state);
 	int totalMemberCount();
+	int totalMemberCount(int state);
 	void deletepetitioner(int num);
 	
 	int totalBlackListCount(int sort);
