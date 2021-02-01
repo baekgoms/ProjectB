@@ -84,9 +84,11 @@ ol, li {
 </style>
 </head>
 <body>
-
-<br />
-<br />
+<jsp:include page="/WEB-INF/views/topbar/top.jsp" />
+<br>
+<br>
+<br>
+<br>
 <form name="form" method="post">
 
 <div align="center">

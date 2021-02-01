@@ -36,8 +36,11 @@ function inputCheck(){
 
 </head>
 <body>
-<br />
-<br />
+<jsp:include page="/WEB-INF/views/topbar/top.jsp" />
+<br>
+<br>
+<br>
+<br>
 <div align="center">
 	<input type="button" value="							진행중인 청원							" class="btn waves-effect waves-light btn-outline-dark"
 		onclick="document.location.href='/projectB/petition/afootPetition.aa'">

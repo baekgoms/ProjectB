@@ -14,19 +14,19 @@ import projectB.model.login.LoginUtils;
 
 @Aspect
 public class Petition {
-	@Around("execution(public * projectB.model.petition..upload_petition(..))")
+	@Around("execution(public * projectB.model..upload_*(..))")
 	public Object checklogin(ProceedingJoinPoint jp) throws Throwable {
 		System.out.println("upload_petition");
 		
-		//request 객체 사용 방법
 		RequestAttributes ra = RequestContextHolder.currentRequestAttributes();
 		ServletRequestAttributes sra = (ServletRequestAttributes)ra;
 		
 		HttpServletRequest request = sra.getRequest();
 		HttpSession session = request.getSession();
+		
 		Object view = "redirect:/login/loginForm.aa";
 		if(LoginUtils.isLogin(session)) {
-			view = jp.proceed(); //가던길 가라. 정상이동!
+			view = jp.proceed();
 		}
 		return view;
 	}

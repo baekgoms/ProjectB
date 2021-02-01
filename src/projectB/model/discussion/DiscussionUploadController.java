@@ -25,24 +25,12 @@ public class DiscussionUploadController {
 	private TagService tagService;
 	
 	@RequestMapping("upload.aa")
-    public String discussionUpload(DiscussionDTO dto, Model model,HttpSession session) throws Exception {
-        
-        //임시 세션 아이디 입력
-        session.setAttribute("memId", "홍우찬테스트");
-        
-        String id = (String) session.getAttribute("memId");
-        System.out.println("session id:"+id);
-        
-        if(id != null) {
-            
-            List category = null;
-            System.out.println("wooch discussionUploadForm run");
-            
-            model.addAttribute("dto", dto);
-            dto.setWrite((String)session.getAttribute("memId"));
-            System.out.println("Write:"+dto.getWrite());
-        }   
-        
+    public String upload_discussion(DiscussionDTO dto, Model model,HttpSession session) throws Exception {
+		System.out.println("discussion uploadForm run");
+		List category = null;
+		model.addAttribute("dto", dto);
+		dto.setWrite((String) session.getAttribute("memId"));
+		
         return "discussion/discussionUploadForm";
     }
     
