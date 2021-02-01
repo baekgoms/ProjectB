@@ -11,7 +11,11 @@ public interface AdminMainService {
 	public int getCountPetitionerToday( ) throws Exception;
 	public double getPercentPetitionerToday( ) throws Exception;
 	
-	//==========새로운 회원===============
+	//==========새로운 문의===============
+	public int getCountQuestionToday( ) throws Exception;
+	public double getPercentQuestionToday( ) throws Exception;
+	
+	//==========새로운 청원===============
 	public int getCountPetitionToday( ) throws Exception;
 	public double getPercentPetitionToday( ) throws Exception;
 	
@@ -22,6 +26,9 @@ public interface AdminMainService {
 	//==========인기 청원===============
 	public List<PetitionDTO> getTopPetition( ) throws Exception;
 	public int getRestDay() throws Exception;
+	
+	//==========최다 청원 분야===============
+	public String getBestCategory( ) throws Exception;
 	
 	//==========인기 토론===============
 	public List<DiscussionDTO> getTopDiscussion( ) throws Exception;

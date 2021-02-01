@@ -13,7 +13,14 @@
 		select count(*) from petitioner where TO_CHAR(reg, 'YYYYMMDD') != #{today}
 	</select>
 	
-<!-- ==============================새로운 신고=========================== -->	
+<!-- ==============================새로운 문의=========================== -->	
+	<select id="getCountQuestionToday" resultType="int" parameterType="String">
+		select count(*) from Question where TO_CHAR(reg, 'YYYYMMDD') = #{today}
+	</select>
+	
+	<select id="getCountQuestionTillYesterday" resultType="int" parameterType="String">
+		select count(*) from Question where TO_CHAR(reg, 'YYYYMMDD') != #{today}
+	</select>
 	
 <!-- ==============================새로운 청원=========================== -->	
 	<select id="getCountPetitionToday" resultType="int" parameterType="String">
@@ -35,23 +42,58 @@
 	
 	
 <!-- ==============================인기 청원=========================== -->
-	<select id="getTopPetition" resultType="petitionDTO" parameterType="String">
+	<select id="getTopPetition" resultType="petitionDTO">
 		select * from petition where petition = (SELECT max(petition) FROM petition 
 		where petitionState = 2 and startDate >= ADD_MONTHS(sysdate, -1))
 	</select>
 
-	<select id="getRestDay" resultType="int" parameterType="String">
+	<select id="getRestDay" resultType="int">
 		SELECT endDate - SYSDATE FROM petition
 		where petition = (SELECT max(petition) FROM petition 
 		where petitionState = 2 and startDate >= ADD_MONTHS(sysdate, -1))
 	</select>
 	
+<!-- ==============================누적 청원=========================== -->
+	<select id="getCountTotalPetition" resultType="int">
+		select count(*) from petition
+	</select>
+	
+<!-- ==============================진행중인 청원=========================== -->
+	<select id="getCountOngoingPetition" resultType="int">
+		select count(*) from petition where petitionState = 1 or petitionState = 2
+	</select>	
+	
+<!-- ==============================답변 대기중 청원=========================== -->
+	<select id="getCountWaitingAnswerPetition" resultType="int">
+		select count(*) from petition where petitionState = 4 or petitionState = 6
+	</select>		
+	
+<!-- ==============================최다 청원 분야========================== -->
+	<select id="getBestCategoryNum" resultType="int">
+		SELECT T1.CATEGORY FROM (SELECT S1.TITLE, S1.CATEGORY, COUNT(*) OVER(PARTITION BY S1.CATEGORY) 
+		AS OVERLAP FROM PETITION S1)T1 WHERE T1.OVERLAP > 1 AND ROWNUM = 1
+	</select>
+ 
+	<select id="getCategory" resultType="String" parameterType="int">
+		select categoryName from category where num = #{bestCategoryNum}
+	</select>
+	
+<!-- ==============================누적 회원=========================== -->
+	<select id="getCountTotalPetitioner" resultType="int">
+		select count(*) from petitioner where State !=7
+	</select>
+	
+<!-- ==============================신규 블랙리스트=========================== -->
+	<select id="getNewBlacklist" resultType="int">
+		select count(*) from petitioner where state =4 and reg = sysdate
+	</select>				
+	
+	
 <!-- ==============================인기 토론=========================== -->
-	<select id="getTopDiscussion" resultType="discussionDTO">
+	<select id="getTopDiscussion" resultType="discussionDTO" >
 		SELECT * FROM DISCUSSION 
 		WHERE (OPPOSITION+AGREEMENT) = (SELECT MAX(OPPOSITION+AGREEMENT) FROM DISCUSSION 
 		WHERE open = 0 and reg >= ADD_MONTHS(sysdate, -1))	
-	
 	</select>
 
  

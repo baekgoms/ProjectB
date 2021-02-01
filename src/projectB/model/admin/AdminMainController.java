@@ -1,10 +1,10 @@
 package projectB.model.admin;
 
-import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +18,9 @@ import projectB.model.petition.PetitionDTO;
 @Controller
 @RequestMapping("admin")
 public class AdminMainController {
+	
+	@Autowired
+	private SqlSessionTemplate dao = null;
 	
 	@Autowired
     private AdminMainService DAO = null;
@@ -36,6 +39,14 @@ public class AdminMainController {
 		System.out.println("todayPercent : "+todayPercent);
 		model.addAttribute("todayPercent", todayPercent);
 		
+		//새로운 회원
+		int todayQuestion = DAO.getCountQuestionToday();
+		model.addAttribute("todayQuestion", todayQuestion);
+		//새로운 회원 퍼센트
+		double todayQuestionPercent = DAO.getPercentQuestionToday();
+		System.out.println("todayQuestionPercent : "+todayQuestionPercent);
+		model.addAttribute("todayQuestionPercent", todayQuestionPercent);		
+		
 		//인기 청원
 		List<PetitionDTO> topPetition = DAO.getTopPetition();
 		System.out.println("topPetition : "+topPetition);
@@ -49,10 +60,41 @@ public class AdminMainController {
 		petitioPercent = Math.round(petitioPercent); 
 		model.addAttribute("petitioPercent", petitioPercent);
 		
+		//최다 청원 분야
+		String bestCategory = DAO.getBestCategory();
+		model.addAttribute("bestCategory", bestCategory);
+		
+		//누적 청원
+		int totalPetition = dao.selectOne("adminMain.getCountTotalPetition");
+		model.addAttribute("totalPetition", totalPetition);
+		
+		//진행중인 청원
+		int ongoingPetition = dao.selectOne("adminMain.getCountOngoingPetition");
+		model.addAttribute("ongoingPetition", ongoingPetition);
+		
+		//진행중인 청원
+		int WaitingAnswerPetition = dao.selectOne("adminMain.getCountWaitingAnswerPetition");
+		model.addAttribute("WaitingAnswerPetition", WaitingAnswerPetition);
+		
+		//누적 회원
+		int TotalPetitioner = dao.selectOne("adminMain.getCountTotalPetitioner");
+		model.addAttribute("TotalPetitioner", TotalPetitioner);
+		
+		//신규 블랙리스트
+		int newBlacklist = dao.selectOne("adminMain.getNewBlacklist");
+		model.addAttribute("newBlacklist", newBlacklist);
+		
 		//인기 토론
 		List<DiscussionDTO> topDiscussion = DAO.getTopDiscussion();
 		System.out.println("topDiscussion : "+topDiscussion);
 		model.addAttribute("topDiscussion", topDiscussion);
+		int agree = (int)topDiscussion.get(0).getAgreement();
+		int oppo = (int)topDiscussion.get(0).getOpposition();
+		double dOnePer = (agree + oppo) / 100.0;
+		double agreePer = agree / dOnePer;
+		double oppoPer = oppo / dOnePer;
+		model.addAttribute("agreePer", agreePer);
+		model.addAttribute("oppoPer", oppoPer);
 		
 		//새로운 청원
 		int todayPetition = DAO.getCountPetitionToday();

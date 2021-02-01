@@ -3,6 +3,7 @@ package projectB.model.adminService;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,20 +27,11 @@ public class AdminMainServiceImpl implements AdminMainService{
 	//==========새로운 회원===============
 	@Override
 	public int getCountPetitionerToday() throws Exception {
-		
-		Date time = new Date();
-		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyyMMdd");
-		String today = format1.format(time);
-		
 		return dao.selectOne("adminMain.getCountPetitionerToday", today);
 	}
 
 	@Override
 	public double getPercentPetitionerToday() throws Exception {
-		
-		Date time = new Date();
-		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyyMMdd");
-		String today = format1.format(time);
 		
 		int CountTillYesterday = dao.selectOne("adminMain.getCountPetitionerTillYesterday", today);
 		System.out.println("Impl CountTillYesterday : "+CountTillYesterday);
@@ -58,8 +50,31 @@ public class AdminMainServiceImpl implements AdminMainService{
 		return percent;
 	}
 
-	//==========새로운 신고===============
-	
+	//==========새로운 문의===============
+	@Override
+	public int getCountQuestionToday() throws Exception {
+		return dao.selectOne("adminMain.getCountQuestionToday", today);
+	}
+
+	@Override
+	public double getPercentQuestionToday() throws Exception {
+		
+		int CountQuestionTillYesterday = dao.selectOne("adminMain.getCountQuestionTillYesterday", today);
+		System.out.println("Impl CountQuestionTillYesterday : "+CountQuestionTillYesterday);
+		
+		System.out.println("Impl getCountQuestionToday : "+getCountQuestionToday());
+		double OnePercent = CountQuestionTillYesterday / 100.00;
+		System.out.println("Impl OnePercent : "+OnePercent);
+		double percent =  getCountQuestionToday() / OnePercent;
+		System.out.println("Impl percent : "+percent);
+		percent = Math.round(percent*100)/100.0; 
+		
+		if(CountQuestionTillYesterday == 0) { percent = 100; }
+		else if(getCountQuestionToday() == 0) {percent = 0;}
+		System.out.println("Impl percent : "+percent+"----------");
+		
+		return percent;
+	}
 	
 	//==========새로운 청원===============
 	@Override
@@ -77,13 +92,13 @@ public class AdminMainServiceImpl implements AdminMainService{
 		double OnePercent = CountPetitionTillYesterday / 100.00;
 		System.out.println("Impl OnePercent : "+OnePercent);
 		double percent =  getCountPetitionToday() / OnePercent;
-		System.out.println("Impl percent : "+percent);
+		System.out.println("Impl Petition percent : "+percent);
 		percent = Math.round(percent*100)/100.0; 
 		
 		if(CountPetitionTillYesterday == 0) { percent = 100; }
-		else if(getCountPetitionToday() == 0) {percent = 0;}
-		System.out.println("Impl percent : "+percent+"----------");
-		return 0;
+		else if(getCountPetitionToday() == 0.00) {percent = 0;}
+		System.out.println("Impl Petition percent : "+percent+"----------");
+		return percent;
 	}
 	
 	
@@ -107,20 +122,16 @@ public class AdminMainServiceImpl implements AdminMainService{
 			percent = Math.round(percent*100)/100.0; 
 			
 			if(CountDiscussionTillYesterday == 0) { percent = 100; }
-			else if(getCountDiscussionToday() == 0) {percent = 0;}
+			else if(getCountDiscussionToday() == 0.00) {percent = 0;}
 			System.out.println("Impl percent : "+percent+"----------");
-			return 0;
+			return percent;
 		}
 	
 	
 	//==========인기 청원===============
 	@Override
 	public List<PetitionDTO> getTopPetition() throws Exception {
-		
-
-		
 		List<PetitionDTO> TopPetition = dao.selectList("adminMain.getTopPetition");
-		
 		return TopPetition;
 	}
 
@@ -134,6 +145,17 @@ public class AdminMainServiceImpl implements AdminMainService{
 		return dao.selectOne("adminMain.getRestDay", thisMonth);
 	}
 
+	//==========최다 청원 분야===============
+	@Override
+	public String getBestCategory( ) throws Exception {
+		
+		int bestCategoryNum = dao.selectOne("adminMain.getBestCategoryNum");
+		String category = dao.selectOne("adminMain.getCategory",bestCategoryNum);
+		
+		
+		return category;
+	}
+	
 	
 	//==========인기 토론===============
 	@Override

@@ -21,7 +21,7 @@ $(function () {
             label: {
                 show: false
             },
-            title: 'Hello',
+            title: '찬성/반대',
             width: 18
         },
 
