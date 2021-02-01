@@ -53,40 +53,36 @@
 <input type="hidden" id="endDate" value="<fmt:formatDate value="${petitionDTO.endDate}"
                         pattern = "yyyy-MM-dd" />"/>
 
-<section class="petition-container">
+<section class="petition-container" style="width: 900px;">
 	<div class="petition-area-wrap">
 		<div class="petition-title-area">
-			<span class="petition-category">${categoryName}</span>
 			<br/>
-			<span class="petition-title">${petitionDTO.title}</span>
+			<span>${petitionDTO.title}</span>
 		</div>
 		<span class="petition-dday" style="visibility: hidden;" id="dDay"></span>
 	</div>
 	<div class="petition-header">
-		<div class="petition-header-left">
+		<br/>
 			<div class="petition-people-area">
-				<span class="petition-people">참여인원</span>
-				<span class="petition-people-cnt">${petitionDTO.petition}명</span>
+				<span style="font-size:12pt;font-weight:bold">참여인원  : [</span>
+				<span style="margin:15px;font-size:12pt">${petitionDTO.petition}</span>
+				<span style="font-size:12pt;font-weight:bold">명 ]</span>
+				<span style="margin:50px;" id="percentageChart" ></span>
 			</div>
-			<div class="petition-calendar">
-				<div>
-					<div class="petition-calendar-separator" style="font-size: 21px">청원기간 : </div>
-					<div class="petition-calendar-date"><fmt:formatDate value="${petitionDTO.startDate}"
-                        pattern = "yyyy-MM-dd" /></div>
-					<div class="petition-calendar-separator">~</div>
-					<div class="petition-calendar-date"><fmt:formatDate value="${petitionDTO.endDate}"
-                        pattern = "yyyy-MM-dd" /></div>
-				</div>
+				<br/><br/>
+			<div class="petition-info-area"style="font-size:12pt;align:center;">
+				<span style="font-weight:bold">카테고리 :</span> 
+				<span style="margin-right:25px;">${categoryName}</span>
+				<span class="petition-time"style="font-weight:bold">청원기간 : </span>
+				<span>
+					<fmt:formatDate value="${petitionDTO.startDate}" pattern = "yyyy-MM-dd" /> ~
+					<fmt:formatDate value="${petitionDTO.endDate}" pattern = "yyyy-MM-dd" />
+				</span>	
+                <span style="margin-left:25px;font-weight:bold">청원인  : </span>
+                <span>${petitionDTO.writer}</span>
 			</div>
-		</div>
-		<div class="petition-header-right">
-			<div id="percentageChart"></div>
-			<div style="margin-top: 50px; font-size: 21px">
-				<span>청원인 : </span>
-				<span>${petitionDTO.writer}</span>
-			</div>
-		</div>
 	</div>
+	
 
 	<div class="petition-state-area">
 		<ul class="petition-state-list">
@@ -109,7 +105,7 @@
 	</div>
 
 	<div class="petition-body">
-		<pre style="font-size:18px; font-family: Ubuntu Mono">${petitionDTO.content}</pre>
+		<pre style="font-size:14px; font-family: Ubuntu Mono">${petitionDTO.content}</pre>
 		<br/>
 		<a href="#">#안녕</a>
 		<c:forEach items="${fn:split(petitionDTO.tag, ',') }" var="item">
@@ -119,7 +115,7 @@
 
 	
 	<div class="petition-link-area">
-		<h3>관련 링크</h3>
+		<h5>관련 링크</h5>
 		<c:forEach items="${fn:split(petitionDTO.link, ',') }" var="item">
            <a href="${item}" target="_blank">${item}</a>
         </c:forEach>
@@ -136,7 +132,7 @@
 	     <input type="hidden" id="fifties" value="${petitionIndicatorDTO.fifties}" />
 	     <input type="hidden" id="sixties" value="${petitionIndicatorDTO.sixties}" />
 	
-	     	<div style="display: inline-block; height: 200px; width: 300px;">
+	     	<div style="display: inline-block; height: 200px; width: 300px; margin-left:100px;">
 	        	<canvas id="pie-chart"  class="chartjs-render-monitor"
 	                    style="display: inline; height: 200px; width: 300px;">
 	            </canvas>
@@ -152,13 +148,13 @@
 	
 	</div>
 	
-	<div class="petition-link-area">
-		<h3>URL</h3>
+	<div class="petition-link-area2">
+		<h5>URL</h5>
 		<a id="copy_url" target="_blank"></a>
 		<button type="button" class="btn waves-effect waves-light btn-outline-dark" onclick="copyToClipboard('#copy_url')">복사하기</button>
 	</div>
-	
-	<div class="button-area">
+	<br/>
+	<div class="button-area" style="margin-left:420px">
 		<c:if test="${memId != null and memId != petitionDTO.writer}">
 			<button type="button" class="btn waves-effect waves-light btn-outline-dark" onClick="openReport(${petitionDTO.num});">신고</button>
 		</c:if>
@@ -173,7 +169,10 @@
 			</c:if>
 		</c:if>
 	</div>
-<iframe src="/projectB/petition/petComment.aa?petitionNum=${petitionDTO.num}"></iframe>
+	<br/><br/>
+	<c:if test="${commentYn != 'N'}">
+		<iframe src="/projectB/petition/petComment.aa?petitionNum=${petitionDTO.num}" ></iframe>
+	</c:if>
 
 		
 </section>
@@ -247,7 +246,7 @@ $(document).ready(function () {
     console.log(dateDiff(endDate, "2021-01-23"));
     var dateDiffCnt = dateDiff(endDate, '2021-01-23');
     if (dateDiffCnt > 0) {
-    	$('#dDay').text("D-" + dateDiffCnt);
+    	$('#dDay').text(" D-" + dateDiffCnt);
     	$('#dDay').css("visibility", 'visible');
     }
 	
@@ -268,7 +267,7 @@ $(document).ready(function () {
    	          labels: ["남자", "여자"],
    	          datasets: [{
    	             label: "Population (millions)",
-   	             backgroundColor: ["#A9E2F3", "#F5A9BC"],
+   	             backgroundColor: ["#7385df", "#F5A9D0"],
    	             data: [manCount, womanCount]
    	          }]
    	       },
@@ -285,7 +284,7 @@ $(document).ready(function () {
    	          labels: ["10대","20대","30대","40대","50대","60대"],
    	          datasets: [
    	             {
-   	                backgroundColor: ["#6174d5", "#5f76e8", "#768bf4", "#7385df", "#b1bdfa", '#FF0000'],
+   	                backgroundColor: ["#6174d5", "#5f76e8", "#768bf4", "#7385df", "#b1bdfa", '#F5A9D0'],
    	                data: [teens,twenties,thirties,forties,fifties,sixties]
    	             }
    	          ]

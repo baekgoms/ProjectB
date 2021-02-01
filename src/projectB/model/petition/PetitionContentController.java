@@ -31,6 +31,7 @@ public class PetitionContentController {
   public String petContent(@RequestParam("num") int num, Model model, HttpServletRequest request)
       throws Exception {
     PetitionDTO petitionDTO = PetitionContentService.getArticle(num);
+    String commentYn = request.getParameter("commentYn");
 
     if (petitionDTO.getOpen() == 1) {
       // 비공개 글이면 리턴
@@ -49,6 +50,7 @@ public class PetitionContentController {
     model.addAttribute("petitionDTO", petitionDTO);
     model.addAttribute("petitionState", petitionState);
     model.addAttribute("petitionIndicatorDTO", petitionIndicatorDTO);
+    model.addAttribute("commentYn", commentYn);
     return "petition/petitionContent";
   }
 

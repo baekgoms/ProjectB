@@ -24,6 +24,7 @@
       body {
          text-align: center;
       }
+     
 
    </style>
 
@@ -31,15 +32,18 @@
 </head>
 
 <body>
+<jsp:include page="/WEB-INF/views/topbar/admintopbar.jsp" />
+<br/><br/><br/><br/>
+
 <div>
 <br>
 <input type="hidden" name="num" value="${petitionDTO.num}" />
    	<table cellspacing="0" cellpadding="0" align="center" width="900" border=1>
    	
       	<tr height="40">
-      		<td align="center" width="200" style="background-color:#7c8798;color:#fff" >카테고리</td>
-        	<td align="center"  colspan="4" width="800" style="background-color:#7c8798;color:#fff">청원제목</td>
-        	<td align="center" width="200" style="background-color:#7c8798;color:#fff">참여인원 </td>
+      		<td align="center" width="200" style="background-color:#D8D8D8;color:#000000" >카테고리</td>
+        	<td align="center"  colspan="4" width="800" style="background-color:#D8D8D8;color:#000000">청원제목</td>
+        	<td align="center" width="200" style="background-color:#D8D8D8;color:#000000">참여인원 </td>
 		</tr>
       	<tr height="70">
       		<td align="center" width="200">${categoryName}</td>
@@ -49,12 +53,12 @@
  
  
  		<tr height="40">
-        	<td align="center" width="200" style="background-color:#5f76e8;color:#fff">청원상태</td>
-        	<td align="center" width="200" style="background-color:#5f76e8;color:#fff">청원시작</td>
-        	<td align="center" width="200" style="background-color:#5f76e8;color:#fff">청원마감</td>
-			<td align="center" width="200" style="background-color:#5f76e8;color:#fff">청원인</td>
-			<td align="center" width="200" style="background-color:#5f76e8;color:#fff">신고수</td>
-			<td align="center" width="200" style="background-color:#5f76e8;color:#fff">공개여부</td>
+        	<td align="center" width="200" style="background-color:#BDBDBD;color:#fff">청원상태</td>
+        	<td align="center" width="200" style="background-color:#BDBDBD;color:#fff">청원시작</td>
+        	<td align="center" width="200" style="background-color:#BDBDBD;color:#fff">청원마감</td>
+			<td align="center" width="200" style="background-color:#BDBDBD;color:#fff">청원인</td>
+			<td align="center" width="200" style="background-color:#BDBDBD;color:#fff">신고수</td>
+			<td align="center" width="200" style="background-color:#BDBDBD;color:#fff">공개여부</td>
     	</tr>
     	<tr height="70">
         	<td align="center" width="200">${petitionState}</td>
@@ -75,7 +79,7 @@
 		
 
 		<tr height="40">
-        	<td align="center" colspan="6" width="1200" style="background-color:#5f76e8;color:#fff">내용 </td>
+        	<td align="center" colspan="6" width="1200" style="background-color:#BDBDBD;color:#000000">내용 </td>
         </tr>
         <tr>
          	<td align="left" colspan="6" width="1200"><br/>
@@ -101,9 +105,10 @@
          	</td>
       	</tr>
    </table>
+<br/>
 
-
-<div>
+<div >
+<center>
 	<c:if test="${petitionDTO.open == '0'}">
 		<input type="button" class="btn waves-effect waves-light btn-outline-dark" align="center" value="비공개"
 		onclick="document.location.href='/projectB/adminPetition/changeClose.aa?num=${petitionDTO.num}'">
@@ -119,6 +124,7 @@
 	                  	
 	<input  type="button" class="btn waves-effect waves-light btn-outline-dark" align="center" value="목록보기"
 	onclick="document.location.href='/projectB/adminpetition.======.aa?num=${petitionDTO.num}'">      	      	
+</center>
 </div>
 
 

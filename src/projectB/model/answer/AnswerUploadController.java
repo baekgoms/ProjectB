@@ -9,21 +9,21 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import projectB.model.answerList.AnswerListService;
 import projectB.model.petition.CategoryDTO;
 import projectB.model.petition.PetitionDTO;
 import projectB.model.petition.PetitionIndicatorDTO;
+import projectB.model.answerListService.AnswerListService;
 import projectB.model.answerUploadService.*;
 
 @Controller 
 @RequestMapping("answer")
 public class AnswerUploadController {
 
-  @Autowired 
-  private AnswerUploadService AnswerUploadService = null;
+    @Autowired 
+    private AnswerUploadService AnswerUploadService = null;
   
-  @RequestMapping("answerUpload.aa")
-  public String answerUpload(@RequestParam("petitionNum") int petitionNum, Model model) throws Exception {
+    @RequestMapping("answerUpload.aa")
+    public String answerUpload(@RequestParam("petitionNum") int petitionNum, Model model) throws Exception {
     
     PetitionDTO petitionDTO = AnswerUploadService.getPetitionInfo(petitionNum);
     
@@ -35,16 +35,17 @@ public class AnswerUploadController {
     
     model.addAttribute("petitionDTO",petitionDTO);
     return "answer/answerUpload";
-  }
+    }
   
-  @RequestMapping("answerUploadPro.aa")
-  public String answerUploadPro(@RequestParam("petitionNum") int petitionNum, @ModelAttribute AnswerDTO answerDTO, Model model) throws Exception {
-    AnswerUploadService.updateState(petitionNum);
+    @RequestMapping("answerUploadPro.aa")
+    public String answerUploadPro(@RequestParam("petitionNum") int petitionNum, @ModelAttribute AnswerDTO answerDTO, Model model) throws Exception {
+    AnswerUploadService.updateAnswerState(petitionNum);
+    AnswerUploadService.updatePetitionState(petitionNum);
     AnswerUploadService.insertArticle(answerDTO);
     
     model.addAttribute("petitionNum", petitionNum);
     return "answer/answerUploadPro";
-  }
+    }
   
   
 }

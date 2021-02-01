@@ -1,4 +1,4 @@
-package projectB.model.answerList;
+package projectB.model.answerListService;
 
 import java.util.HashMap;
 import java.util.List;

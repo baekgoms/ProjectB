@@ -1,4 +1,4 @@
-package projectB.model.answerList;
+package projectB.model.answerListService;
 
 import java.util.List;
 import projectB.model.answer.AnswerDTO;
