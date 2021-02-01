@@ -1,3 +1,4 @@
+<%@page import="projectB.model.login.LoginUtils"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -22,6 +23,7 @@ a:visited {
 }
 </style>
 </head>
+
 <body>
 	<div id="main-wrapper" data-theme="light" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
         data-sidebar-position="fixed" data-header-position="fixed" data-boxed-layout="full">
@@ -80,15 +82,28 @@ a:visited {
                 			</a>
                 		</li>
                 		
-                		<!-- <c:if test = "">
+                		<%
+							boolean isLogin = LoginUtils.isLogin(session);
+                			if(isLogin){
+						%>
 	                		<li class="nav-item dropdown">
+	                			<a href="/projectB/petitioner/logout.aa">
+	                				<strong style="position: relative; left: 1000px; color: white;">
+	                					로그아웃
+	                				</strong>
+	                			</a>
+	                		</li>
+                		<% }
+                		else { %>
+                		
+                			<li class="nav-item dropdown">
 	                			<a href="/projectB/login/loginForm.aa">
 	                				<strong style="position: relative; left: 1000px; color: white;">
 	                					로그인
 	                				</strong>
 	                			</a>
 	                		</li>
-                		</c:if> -->
+                		<% } %>
                 	</ul>
                 </div> 
             </nav>
