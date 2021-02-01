@@ -13,6 +13,9 @@ public class LoginUtils {
 	}
 	
 	public static boolean isLogin(HttpSession session) {
+		if(session == null) {
+			return false;
+		}
 		return session.getAttribute("memId") != null;
 	}
 	
