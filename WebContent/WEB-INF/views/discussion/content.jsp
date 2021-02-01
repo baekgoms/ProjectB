@@ -358,9 +358,6 @@ $(document).ready(function(){
 </head>
 
 <body onload="SetPosition()">
-	<!-- <iframe src="/projectB/beakTest/test.aa"></iframe> -->
-	
-	<%-- <c:import url="/WEB-INF/views/test/Test.jsp" /> --%>
 	<jsp:include page="/WEB-INF/views/topbar/top.jsp" />
 	<br><br>
 	

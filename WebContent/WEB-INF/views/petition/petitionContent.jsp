@@ -44,7 +44,10 @@
 </head>
 
 <body>
-
+<jsp:include page="/WEB-INF/views/topbar/top.jsp" />
+<br>
+<br>
+<br>
 <input type="hidden" id="achive" value="${petitionDTO.petition / 2000}" />
 <input type="hidden" id="petitionState" value="${petitionDTO.petitionState}" />
 <input type="hidden" id="endDate" value="<fmt:formatDate value="${petitionDTO.endDate}"
