@@ -34,7 +34,10 @@
 </head>
 
 <body>
- 
+<jsp:include page="/WEB-INF/views/topbar/top.jsp" />
+<br>
+<br>
+<br>
 <!-- ============================================================================================================= -->
 <!-- Page wrapper -->
 <!-- ============================================================================================================== -->
@@ -46,14 +49,14 @@
                 <div class="row">
                     <div class="col-7 align-self-center">
                         <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">청원 작성 </h4>
-                        <div class="d-flex align-items-center">
+                        <!-- <div class="d-flex align-items-center">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb m-0 p-0">
                                     <li class="breadcrumb-item"><a href="index.html" class="text-muted">Home</a></li>
                                     <li class="breadcrumb-item text-muted active" aria-current="page"> Upload Petition</li>
                                 </ol>
                             </nav>
-                        </div>
+                        </div> -->
                     </div>
                     <!--  
                     <div class="col-5 align-self-center">
@@ -203,10 +206,10 @@
             <!-- ============================================================== -->
             <!-- footer 마지막 문구  -->
             <!-- ============================================================== -->
-            <footer class="footer text-center text-muted">
+            <!-- <footer class="footer text-center text-muted">
                 All Rights Reserved by Adminmart. Designed and Developed by <a
                     href="https://wrappixel.com">WrapPixel</a>.
-            </footer>
+            </footer> -->
             <!-- ============================================================== -->
             <!-- End footer -->
             <!-- ============================================================== -->

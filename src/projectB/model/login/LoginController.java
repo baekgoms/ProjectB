@@ -33,11 +33,17 @@ public class LoginController {
 		// DB에서 체크
 		int loginReulst = loginSerivce.checkLogin(dto);
 		
+		if(loginReulst == 1) {
+			dto = loginSerivce.getPetitioner(dto);
+		}
+		
 		LoginUtils.setLogin(session, dto, loginReulst);
 		
 		//현재 회원 상태에 따라 로그인 위치 변경
 		//일반 / 답변 / 관리
+		System.out.println("dto.getState() - " +  dto.getState());
 		String view = "redirect:loginForm.aa";
+		
 		if(dto.getState() == PETITIONER) {
 			view = "redirect:/petition/afootPetition.aa";
 		}

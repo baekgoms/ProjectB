@@ -1,5 +1,7 @@
 package projectB.model.loginService;
 
+import java.sql.SQLException;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,10 @@ public class LoginServiceImpl implements LoginService {
 			e.printStackTrace();
 		}
 		return result;
+	}
+	
+	public PetitionerDTO getPetitioner(PetitionerDTO dto) {
+		return dao.selectOne("login.loginInfo", dto);
 	}
 
 }
