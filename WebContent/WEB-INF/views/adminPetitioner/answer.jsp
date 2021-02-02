@@ -86,9 +86,6 @@ a:visited {
             onclick="document.location.href='/projectB/admin/petitionerblack.aa'">
             <input type="button" value="답변자 관리" class="btn waves-effect waves-light btn-outline-dark"   
             onclick="document.location.href='/projectB/admin/answers.aa'">
-            <input type="button" value="관리자 관리" class="btn waves-effect waves-light btn-outline-dark"   
-            onclick="">
-            
             
          
          <!-- <div style="width: 300px; float: left;">
