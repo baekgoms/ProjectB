@@ -2,6 +2,7 @@ package projectB.model.adminService;
 
 import java.util.List;
 
+import projectB.model.answer.AnswerDTO;
 import projectB.model.petition.DiscussionDTO;
 import projectB.model.petition.PetitionDTO;
 
@@ -32,5 +33,8 @@ public interface AdminMainService {
 	
 	//==========인기 토론===============
 	public List<DiscussionDTO> getTopDiscussion( ) throws Exception;
+	
+	//==========이슈 답변===============
+	public List<AnswerDTO> getTopAnswer() throws Exception;
 	
 }

@@ -96,6 +96,23 @@
 		WHERE open = 0 and reg >= ADD_MONTHS(sysdate, -1))	
 	</select>
 
+<!-- ==============================이슈 답변=========================== -->
+	<select id="getTopAnswer" resultType="answerDTO" >
+		SELECT * FROM ANSWER 
+		WHERE (OPPOSITE+RECOMMEND+ADDITION) = (SELECT MAX(OPPOSITE+RECOMMEND+ADDITION) FROM ANSWER 
+		WHERE ANSWERDATE >= ADD_MONTHS(sysdate, -1))	
+	</select>
+
+<!-- ==============================3년 그래프=========================== -->
+	<select id="getCountPetition" resultType="int" parameterType="String">
+		SELECT count(*) from petition
+		WHERE TO_CHAR(startdate, 'YYYY') = #{year} 
+	</select>  
+	
+	<select id="getCountPetitioner" resultType="int" parameterType="String">
+		SELECT count(*) from petitioner
+		WHERE TO_CHAR(reg, 'YYYY') = #{year} and state != 7 and state != 99
+	</select>  
  
 </mapper>
 

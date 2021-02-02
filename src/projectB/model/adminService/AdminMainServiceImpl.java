@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import projectB.model.answer.AnswerDTO;
 import projectB.model.petition.DiscussionDTO;
 import projectB.model.petition.PetitionDTO;
 
@@ -166,6 +167,13 @@ public class AdminMainServiceImpl implements AdminMainService{
 		return TopDiscussion;
 	}
 	
-
+	//==========이슈 토론===============
+		@Override
+		public List<AnswerDTO> getTopAnswer() throws Exception {
+			
+			List<AnswerDTO> TopAnswer = dao.selectList("adminMain.getTopAnswer");
+			
+			return TopAnswer;
+		}
 
 }

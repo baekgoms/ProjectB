@@ -268,8 +268,18 @@
                     <div class="col-lg-6">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Line Chart</h4>
-                                <div id="morris-line-chart"></div>
+                                <h4 class="card-title">요약</h4>
+                                <div id="morris-bar-chart"></div>
+                                <div style="height : 16px;"></div>
+                                <ul class="list-style-none mb-0">
+                                    <li>
+                                       	<b  style="color: brown; 
+										display: inline-block; width: 90%; color: black;
+										white-space: nowrap; overflow: hidden; 
+										text-overflow: ellipsis; text-align: center;">
+										3년간 등록된 청원, 회원 수 요약 그래프 </b>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -278,8 +288,17 @@
                     <div class="col-lg-6">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Donute Chart</h4>
+                                <h4 class="card-title">이슈 답변</h4>
                                 <div id="morris-donut-chart"></div>
+                                <ul class="list-style-none mb-0">
+                                    <li>
+                                        <a href="/projectB/question/content.aa" style="color: brown; 
+											display: inline-block; width: 90%; 
+											white-space: nowrap; overflow: hidden; 
+											text-overflow: ellipsis;">
+											"${topAnswer[0].content}"</a>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -339,8 +358,11 @@
 	 <!--Morris JavaScript -->
     <script src="/projectB/resource/bootstrap/assets/libs/raphael/raphael.min.js"></script>
     <script src="/projectB/resource/bootstrap/assets/libs/morris.js/morris.min.js"></script>
-    <script src="/projectB/resource/bootstrap/js/pages/morris/morris-data.js"></script>
     <script src="/projectB/resource/bootstrap/assets/extra-libs/knob/jquery.knob.js"></script>
+    
+        <script src="/projectB/resource/bootstrap/js/pages/morris/morris-data.js"></script>
+    
+    
     <script>
         $(function () {
             $('[data-plugin="knob"]').knob();
@@ -433,6 +455,69 @@
             
         });
         
+        $(function () {
+            "use strict";
+        
+	        var recommendPer = ${recommendPer};
+	        var oppositePer = ${oppositePer};
+	        var additionPer = ${additionPer};
+	        
+	        var thisYearPetitionCount = ${thisYearPetitionCount};
+	        var beforeYearPetitionCount = ${beforeYearPetitionCount};
+	        var beforeTwoYearPetitionCount = ${beforeTwoYearPetitionCount};
+	        
+	        var thisYearPetitionerCount = ${thisYearPetitionerCount};
+	        var beforeYearPetitionerCount = ${beforeYearPetitionerCount};
+	        var beforeTwoYearPetitionerCount = ${beforeTwoYearPetitionerCount};
+	        
+	        let today = new Date();   
+	        let year = today.getFullYear(); // 년도
+	        var A = 2021;
+	
+	     	// Morris bar chart
+	        Morris.Bar({
+	            element: 'morris-bar-chart',
+	            data: [{
+	                y: year-2,
+	                a: beforeTwoYearPetitionerCount,
+	                b: beforeTwoYearPetitionCount
+	            }, {
+	                y: year-1,
+	                a: beforeYearPetitionerCount,
+	                b: beforeYearPetitionCount
+	            }, {
+	                y: year,
+	                a: thisYearPetitionerCount,
+	                b: thisYearPetitionCount
+	            }],
+	            xkey: 'y',
+	            ykeys: ['a', 'b'],
+	            labels: ['회원', '청원'],
+	            barColors:['#01caf1', '#5f76e8'],
+	            hideHover: 'auto',
+	            gridLineColor: '#eef0f2',
+	            resize: true
+	        });
+	        
+	         // Morris donut chart        
+	         Morris.Donut({
+	             element: 'morris-donut-chart',
+	             data: [{
+	                 label: "추천 ",
+	                 value: recommendPer,
+	
+	             }, {
+	                 label: "추가 답변 희망",
+	                 value: additionPer
+	             }, {
+	                 label: "반대",
+	                 value: oppositePer
+	             }],
+	             resize: true,
+	             colors:['#5f76e8', '#01caf1', '#8fa0f3']
+	         });
+
+         });    
         
     </script>
 </body>

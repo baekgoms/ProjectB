@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import projectB.model.adminService.AdminMainService;
+import projectB.model.answer.AnswerDTO;
 import projectB.model.petition.DiscussionDTO;
 import projectB.model.petition.PetitionDTO;
 
@@ -29,7 +30,8 @@ public class AdminMainController {
 	public String main(Model model) throws Exception {
 		
 		Date time = new Date();
-		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyyMM");
+		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy");
+		int year = Integer.parseInt(format1.format(time));
 		
 		//새로운 회원
 		int todayPetitioner = DAO.getCountPetitionerToday();
@@ -115,6 +117,39 @@ public class AdminMainController {
 		//마감 남은 일 수
 		int restDay = DAO.getRestDay();
 		model.addAttribute("restDay",restDay);
+		
+		//요약 그래프
+		int thisYearPetitionCount = dao.selectOne("adminMain.getCountPetition",Integer.toString(year));
+		int beforeYearPetitionCount = dao.selectOne("adminMain.getCountPetition",Integer.toString(year-1));
+		int beforeTwoYearPetitionCount = dao.selectOne("adminMain.getCountPetition",Integer.toString(year-2));
+		int thisYearPetitionerCount = dao.selectOne("adminMain.getCountPetitioner",Integer.toString(year));
+		int beforeYearPetitionerCount = dao.selectOne("adminMain.getCountPetitioner",Integer.toString(year-1));
+		int beforeTwoYearPetitionerCount = dao.selectOne("adminMain.getCountPetitioner",Integer.toString(year-2));
+		model.addAttribute("thisYearPetitionCount", thisYearPetitionCount);
+		model.addAttribute("beforeYearPetitionCount", beforeYearPetitionCount);
+		model.addAttribute("beforeTwoYearPetitionCount", beforeTwoYearPetitionCount);
+		model.addAttribute("thisYearPetitionerCount", thisYearPetitionerCount);
+		model.addAttribute("beforeYearPetitionerCount", beforeYearPetitionerCount);
+		model.addAttribute("beforeTwoYearPetitionerCount", beforeTwoYearPetitionerCount);
+		
+		
+		//이슈 답변
+		List<AnswerDTO> topAnswer = DAO.getTopAnswer();
+		int recommend = topAnswer.get(0).getRecommend();
+		int opposite = topAnswer.get(0).getOpposite();
+		int addition = topAnswer.get(0).getAddition();
+		int total = recommend + opposite + addition;
+		double onePer = total / 100.0;
+		double recommendPer = recommend / onePer;
+		double oppositePer = opposite / onePer;
+		double additionPer = addition / onePer;
+		recommendPer = Math.round(recommendPer); 
+		oppositePer = Math.round(oppositePer);
+		additionPer = Math.round(additionPer);
+		model.addAttribute("recommendPer", recommendPer);
+		model.addAttribute("oppositePer", oppositePer);
+		model.addAttribute("additionPer", additionPer);
+		model.addAttribute("topAnswer", topAnswer);
 		
 		System.out.println("admin main controller");
 		System.out.println(todayPetitioner);
