@@ -31,6 +31,7 @@
 		<typeAlias alias="questionDTO" type="projectB.model.question.QuestionDTO" /> 
 		<typeAlias alias="answerDTO" type="projectB.model.answer.AnswerDTO" />
 		<typeAlias alias="tagDTO" type="projectB.model.tag.TagDTO" />
+		<typeAlias alias="petitionStateDTO" type="projectB.model.petition.petitionStateDTO" />
 	</typeAliases>
 	
 	<mappers>

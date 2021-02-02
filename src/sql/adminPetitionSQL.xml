@@ -20,6 +20,35 @@
 		UPDATE petition SET open = 0 WHERE num = #{num}
 	</update>
 	
+<!-- 		청원 관리		 -->
+
+	<select id ="getArticleCount" resultType="int">
+		select count(*) from petition
+	</select>
+	
+	<select id="getArticleAll" resultType="petitionDTO" parameterType="map">
+		select * from (select num, title, content, category, startDate, endDate, writer,
+		petition, petitionState, link, indicatorNum, tag, report, open, rownum r 
+		from(select * from petition order by num desc) order by num desc)  
+		where r <![CDATA[>=]]> #{startRow} and r <![CDATA[<=]]>#{endRow}
+	</select>
+	
+	<select id ="getArticleCountCategory" resultType="int" parameterType="int">
+		select count(*) from petition where category= #{category} 
+	</select>
+	
+	<select id="getCategoryList" resultType="CategoryDTO" >
+		select*from category 
+	</select>
+	
+	<select id ="getArticleCountState" resultType="int" parameterType="int">
+		select count(*) from petition where petitionState= #{state} 
+	</select>
+	
+	<select id="getStateList" resultType="petitionStateDTO">
+		select*from petitionState 
+	</select>
+	
 
 </mapper>
 
