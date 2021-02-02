@@ -33,7 +33,7 @@ a:visited {
                 <div class="navbar-header" data-logobg="skin6">
                     <div class="navbar-brand" style="background-color: #082e59;">
                         <!-- Logo icon -->
-                        <a href="/projectB/petition/afootPetition.aa">
+                        <a href="/projectB/petition/petitionMain.aa">
                             <b class="logo-icon">
                                 <img src="/projectB/resource/bootstrap/assets/images/big/main.png"
                                 style = "background-color: #082e59; width: 100%; height: 78px; left: 50px; position: relative;"
@@ -51,7 +51,7 @@ a:visited {
                 <div class="navbar-collapse collapse" id="navbarSupportedContent" style="border-bottom: 1px solid #082e59;">
                 	<ul class="navbar-nav float-left mr-auto ml-3 pl-1">
                 		<li class="nav-item dropdown" style="position: relative; left: 50px;">
-                			<a href="/projectB/petition/afootPetition.aa">
+                			<a href="/projectB/petition/petitionMain.aa">
                 				<strong style="color: white;">
                 					국민 메인
                 				</strong>
@@ -75,7 +75,7 @@ a:visited {
                 		</li> 
                 		
                 		<li class="nav-item dropdown" style="position: relative; left: 750px;">
-                			<a href="/projectB/discussion/main.aa">
+                			<a href="/projectB/question/board.aa">
                 				<strong style="color: white;">
                 					문의하기
                 				</strong>
