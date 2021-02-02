@@ -65,7 +65,7 @@
 		<br/>
 			<div class="petition-people-area">
 				<span style="font-size:12pt;font-weight:bold">참여인원  : [</span>
-				<span style="margin:15px;font-size:12pt">${petitionDTO.petition}</span>
+				<span style="margin:15px;font-size:16pt">${petitionDTO.petition}</span>
 				<span style="font-size:12pt;font-weight:bold">명 ]</span>
 				<span style="margin:50px;" id="percentageChart" ></span>
 			</div>
@@ -122,6 +122,8 @@
         	
 	</div>
 	
+	
+	<c:if test="${commentYn != 'N'}">
 	<div style="margin-top: 30px;" id="chartArea">
 		 <input type="hidden" id="manCount" value="${petitionIndicatorDTO.manCount}" />
 	     <input type="hidden" id="womanCount" value="${petitionIndicatorDTO.womanCount}" />
@@ -170,7 +172,7 @@
 		</c:if>
 	</div>
 	<br/><br/>
-	<c:if test="${commentYn != 'N'}">
+	
 		<iframe src="/projectB/petition/petComment.aa?petitionNum=${petitionDTO.num}" ></iframe>
 	</c:if>
 

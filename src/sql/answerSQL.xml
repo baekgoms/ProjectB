@@ -11,7 +11,7 @@
 	</update>
 	
 	<update id="updatePetitionState" parameterType="int">
-		update petition set state = state + 1 where num=#{num}
+		update petition set petitionState = petitionState + 1 where num=#{num}
 	</update>
 
 	<insert id ="insertArticle" parameterType="answerDTO">

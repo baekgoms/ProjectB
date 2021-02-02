@@ -48,9 +48,18 @@
 		<div class="row">
 			<div class="col-12">
 			
-			
 
-<form method="post" name="uploadForm" action="/projectB/answer/answerUploadPro.aa?" >
+<form method="post" name="uploadForm" action="/projectB/answer/answerUploadPro.aa" >
+<input type="hidden" name="petitionNum" value="${petitionNum}" />
+<input type="hidden" name="state" value="${petitionDTO.petitionState}" />
+<input type="hidden" name="name" value="${answerDTO.name}" />
+<input type="hidden" name="department" value="${answerDTO.department}" />
+<input type="hidden" name="id" value="${answerDTO.id}" />
+
+
+
+
+
 	<div class="card">
 		<div class="card-body">
 			    <h4 class="card-title">청원정보</h4>
@@ -69,38 +78,38 @@
 				<input type="text" class="form-control" id="nametext1" placeholder="${answerDTO.name}" readOnly>
 				</div>
 				
-		<!-- 관련 동영상링크 작성-->
-			<h4 class="card-title">관련 영상 링크 </h4>    
-				<div class="form-group">
-					<input type="text" class="form-control" placeholder="제목 입력" id="title" name="title">
-				</div>
+					<!-- 관련 동영상링크 작성-->
+				<h4 class="card-title">관련 영상 링크 </h4>    
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="URL입력" name="answerLink" id="answerLink" >
+					</div>
 		
 		
-		<!-- 관련 내용 작성 -->
-			<h4 class="card-title">답변내용</h4>
-				<div data-spy="scroll" data-target="#navbar-example2" data-offset="0"
-				 class="position-relative mt-2" style="height: 700px; overflow: auto;">	
+					<!-- 관련 내용 작성 -->
+				<h4 class="card-title">답변내용</h4>
+					<div data-spy="scroll" data-target="#navbar-example2" data-offset="0"
+					 class="position-relative mt-2" style="height: 700px; overflow: auto;">	
 						                            
-				<textarea class="form-control content" rows="3" placeholder="답변 내용 작성 " name="content" id="content"
-				style="height: 700px; overflow: auto;"></textarea>
+					<textarea class="form-control content" rows="3" placeholder="답변 내용 작성 " name="content" id="content"
+					style="height: 700px; overflow: auto;"></textarea>
 						                            					                          
-				</div>
+					</div>
 		                                        
 					<hr>
 		                                        
 		                            
 		                                    
-				<div class="form-actions">
-					<div class="text-right">
-		    			<button type="submit" class="btn btn-info">등록 </button>
-		        			<input id="tblbutton" class="btn btn-dark" type="button" value="다시 작성" onclick="removeCheck()">
-		            		<input id="backButton" class="btn btn-dark" type="button" value="목록" onclick="backCheck()">
-		    		</div>
-				</div>
+					<div class="form-actions">
+						<div class="text-right">
+		    				<button type="submit" class="btn btn-info">등록 </button>
+		        				<input id="tblbutton" class="btn btn-dark" type="button" value="다시 작성" onclick="removeCheck()">
+		            			<input id="backButton" class="btn btn-dark" type="button" value="목록" onclick="backCheck()">
+		    			</div>
+					</div>
 			
-		</div>
-	</div>	
-</form>
+			</div>
+		</div>	
+	</form>
 		      
 		      
 		          

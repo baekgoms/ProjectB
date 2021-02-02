@@ -21,7 +21,7 @@
 <body>  
 
 <script>
-window.location="/projectB/answer/============.aa?num=${num}";
+window.location="/projectB/answer/answerContent.aa?petitionNum=${petitionNum}";
 </script>
 
 <script src="/projectB/resource/bootstrap/assets/libs/jquery/dist/jquery.min.js"></script>

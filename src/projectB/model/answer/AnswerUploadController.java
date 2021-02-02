@@ -27,23 +27,28 @@ public class AnswerUploadController {
     
     PetitionDTO petitionDTO = AnswerUploadService.getPetitionInfo(petitionNum);
     
-    
-    /*
+    /* TODO - session
     AnswerDTO answerDTO =  AnswerUploadService.getReplyInfo(id);
     model.addAttribute("answerDTO",answerDTO);
     */
     
+    model.addAttribute("petitionNum", petitionNum);
     model.addAttribute("petitionDTO",petitionDTO);
     return "answer/answerUpload";
     }
   
     @RequestMapping("answerUploadPro.aa")
-    public String answerUploadPro(@RequestParam("petitionNum") int petitionNum, @ModelAttribute AnswerDTO answerDTO, Model model) throws Exception {
+    public String answerUploadPro(@ModelAttribute AnswerDTO answerDTO, Model model) throws Exception {
+    int petitionNum = answerDTO.getPetitionNum();
     AnswerUploadService.updateAnswerState(petitionNum);
     AnswerUploadService.updatePetitionState(petitionNum);
     AnswerUploadService.insertArticle(answerDTO);
     
+    
+    System.out.println(petitionNum);
+    
     model.addAttribute("petitionNum", petitionNum);
+    
     return "answer/answerUploadPro";
     }
   
