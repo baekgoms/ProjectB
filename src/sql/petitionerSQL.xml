@@ -8,7 +8,7 @@
 	<insert id = "insertPetitioner" parameterType="petitionerDTO">
 		insert into petitioner values(petitioner_seq.nextval, 
 		#{ id }, #{ password }, #{ name }, #{ contact }, #{ email }, #{ gender }, 
-		#{ report }, #{ state }, 0, sysdate, to_date('20001212', 'YYYYMMDD'), #{ authKey }, #{ birthday })
+		#{ report }, #{ state }, 0, sysdate, to_date('20001212', 'YYYYMMDD'), #{ authKey }, #{ birthday }, #{ department })
 	</insert>
 	
 	<select id = "confirmId" resultType="int" parameterType="String">

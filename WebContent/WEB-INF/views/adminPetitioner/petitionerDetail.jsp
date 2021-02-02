@@ -122,10 +122,10 @@ a:visited {
 						<td>${ dto.birthday }</td>
 					</tr>					
 					
-					<tr>
+					<%-- <tr>
 						<td>마지막 접속 시간</td>
 						<td>${ dto.loginTime }</td>
-					</tr>
+					</tr> --%>
 					
 					<tr>
 						<td>가입일</td>

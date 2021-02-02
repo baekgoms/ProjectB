@@ -23,8 +23,9 @@ public class PetitionerDTO implements BaseDTO{
 	private Timestamp blockReg;
 	private int authKey;
 	private String birthday;
-	private Timestamp loginTime;
+//	private Timestamp loginTime;
 	private int warning;
+	private String department;
 
 	public void setInfo(ResultSet rs) {
 		try {
@@ -42,6 +43,7 @@ public class PetitionerDTO implements BaseDTO{
 			setBlockReg(rs.getTimestamp("blockReg"));
 			setAuthKey(rs.getInt("authKey"));
             setBirthday(rs.getString("birthday"));
+            setDepartment(rs.getString("department"));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -75,9 +77,10 @@ public class PetitionerDTO implements BaseDTO{
 	public void setAuthKey(int authKey) { this.authKey = authKey; }
 	public String getBirthday() { return birthday; }
 	public void setBirthday(String birthday) { this.birthday = birthday; }
-	public Timestamp getLoginTime() { return loginTime; }
-	public void setLoginTime(Timestamp loginTime) { this.loginTime = loginTime; }
+//	public Timestamp getLoginTime() { return loginTime; }
+//	public void setLoginTime(Timestamp loginTime) { this.loginTime = loginTime; }
 	public int getWarning() { return warning; }
-	public void setWarning(int warning) { this.warning = warning; }
-	
+	public void setWarning(int warning) { this.warning = warning; }	
+	public String getDepartment() { return department; }
+	public void setDepartment(String department) { this.department = department; }	
 }
