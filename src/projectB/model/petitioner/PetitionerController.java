@@ -54,7 +54,7 @@ public class PetitionerController {
 
 		dto.setAuthKey(authKey);
 		dto.setState(PetitionerService.NOT_AUTH_STATE);
-		
+		dto.setDepartment("");
 		try {
 			petitionerService.insertPetitioner(dto);
 		} catch (SQLException e) {
@@ -62,7 +62,7 @@ public class PetitionerController {
 		}
 
 		mailSendService.sendMail(dto.getEmail(), authKey);
-		return "redirect:signUp.aa";
+		return "redirect:/petition/petitionMain.aa";
 	}
 
 	@RequestMapping("mailAuth.aa")
