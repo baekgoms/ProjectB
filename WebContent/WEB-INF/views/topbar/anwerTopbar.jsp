@@ -31,7 +31,7 @@ a:visited {
                 <div class="navbar-header" data-logobg="skin6">
                     <div class="navbar-brand" style="background-color: #082e59;">
                         <!-- Logo icon -->
-                        <a href="/projectB/petition/afootPetition.aa">
+                        <a href="/projectB/petition/petitionMain.aa">
                             <b class="logo-icon">
                                 <img src="/projectB/resource/bootstrap/assets/images/big/main.png"
                                 style = "background-color: #082e59; width: 100%; height: 78px; left: 50px; position: relative;"
@@ -89,7 +89,7 @@ a:visited {
                 		</li>
                 		
                 		<li class="nav-item dropdown" style="position: relative; left: 900px;">
-                			<a href="/projectB/discussion/main.aa">
+                			<a href="/projectB/question/board.aa">
                 				<strong style="color: white;">
                 					문의하기
                 				</strong>

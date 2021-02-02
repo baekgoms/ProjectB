@@ -1,3 +1,4 @@
+<%@page import="projectB.model.login.LoginUtils"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
@@ -29,7 +30,21 @@
 </head>
 
 <body>
-<jsp:include page="/WEB-INF/views/topbar/top.jsp" />
+<%
+	if(LoginUtils.isAdmin(session)) {
+%>
+	<jsp:include page="/WEB-INF/views/topbar/admintopbar.jsp" />	
+<%
+ 	} else if(LoginUtils.isAnswer(session)) {
+%>
+	<jsp:include page="/WEB-INF/views/topbar/anwerTopbar.jsp" />
+<%
+ 	} else {
+%>
+	<jsp:include page="/WEB-INF/views/topbar/top.jsp" />
+<%
+ 	}
+%>
 <br>
 <br>
 <br>

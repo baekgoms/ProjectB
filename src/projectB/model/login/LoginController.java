@@ -14,9 +14,7 @@ import projectB.model.petitioner.PetitionerDTO;
 @RequestMapping("login")
 public class LoginController {
 
-	public static final int PETITIONER = 1;
-	public static final int ANSWER = 6;
-	public static final int ADMIN = 7;
+	
 	@Autowired
 	private LoginService loginSerivce;
 
@@ -42,13 +40,13 @@ public class LoginController {
 		//System.out.println("dto.getState() - " +  dto.getState());
 		String view = "redirect:loginForm.aa";
 		
-		if(dto.getState() == PETITIONER) {
+		if(dto.getState() == LoginUtils.PETITIONER) {
 			view = "redirect:/petition/afootPetition.aa";
 		}
-		else if(dto.getState() == ANSWER) {
+		else if(dto.getState() == LoginUtils.ANSWER) {
 			view = "redirect:/answer/answerMain.aa";
 		}
-		else if(dto.getState() == ADMIN) {
+		else if(dto.getState() == LoginUtils.ADMIN) {
 			view = "redirect:/petition/afootPetition.aa";
 		}
 		

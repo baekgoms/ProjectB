@@ -31,12 +31,12 @@ public class AdminAnswerController {
 	@RequestMapping("answers.aa")
 	public String main(@RequestParam(defaultValue = "1", required = true) int pageNum, Model model) {
 
-		int totalCount = petitionerService.totalMemberCount(LoginController.ANSWER);
+		int totalCount = petitionerService.totalMemberCount(LoginUtils.ANSWER);
 
 		Map<String, Integer> pageInfos = PageUtils.pageInfos(MEMBER_LENGTH, MEMBER_PAGE_LENGTH, totalCount, pageNum);
 		int startRow = pageInfos.get("startRow");
 		int endRow = pageInfos.get("endRow");
-		List<PetitionerDTO> answers = petitionerService.petitionersByState(startRow, endRow, LoginController.ANSWER);
+		List<PetitionerDTO> answers = petitionerService.petitionersByState(startRow, endRow, LoginUtils.ANSWER);
 		
 		model.addAttribute("petitioners", answers);
 		model.addAttribute("petitionerCount", answers.size());
@@ -59,7 +59,7 @@ public class AdminAnswerController {
 		try {
 			dto.setGender("no");
 			dto.setBirthday("999999");
-			dto.setState(LoginController.ANSWER);
+			dto.setState(LoginUtils.ANSWER);
 			petitionerService.insertPetitioner(dto);	
 		}
 		catch (Exception e) {
