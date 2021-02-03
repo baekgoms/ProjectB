@@ -23,6 +23,7 @@
     		<param-value>
     			/WEB-INF/controller/oracle/oracleDB-servlet.xml
     			/WEB-INF/controller/petitioner-servlet.xml
+    			/WEB-INF/controller/aop-servlet.xml
     			/WEB-INF/controller/test-servlet.xml			
     		</param-value>
     	</init-param>

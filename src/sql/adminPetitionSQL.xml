@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="adminPetition">
+	<!-- resultType으로 리턴
+		 parameterType DAO에서 가지고 오는 타입 -->
+		 
+		 
+	<update id ="updatePetition" parameterType="petitionDTO" >
+		UPDATE petition SET title = #{title}, 
+		content = #{content} WHERE num = #{num}
+	</update>
+	
+	<update id ="updateClose" parameterType="int" >
+		UPDATE petition SET open = 1 WHERE num = #{num}
+	</update>
+	
+	<update id ="updateOpen" parameterType="int" >
+		UPDATE petition SET open = 0 WHERE num = #{num}
+	</update>
+	
+<!-- 		청원 관리		 -->
+
+	<select id ="getArticleCount" resultType="int">
+		select count(*) from petition
+		<if test="keyword != null">
+		<choose>
+				<when test="searchOption == 'all'">
+					WHERE writer like '%' ||#{keyword}||'%'
+					OR content like '%'||#{keyword}||'%'
+					OR title like '%'||#{keyword}||'%'
+				</when>
+				<otherwise>
+					WHERE ${searchOption} like '%'||#{keyword}||'%'
+				</otherwise>
+			</choose>
+			</if>
+	</select>
+	
+	<select id="getArticleAll" resultType="petitionDTO" parameterType="map">
+		select * from (select num, title, content, category, startDate, endDate, writer,
+		petition, petitionState, link, indicatorNum, tag, report, open, rownum r 
+		from(select * from petition 
+		<if test="keyword != null">
+			<choose>
+				<when test="searchOption == 'all'">
+					WHERE writer like '%' ||#{keyword}||'%'
+					OR content like '%'||#{keyword}||'%'
+					OR title like '%'||#{keyword}||'%'
+				</when>
+				<otherwise>
+					WHERE ${searchOption} like '%'||#{keyword}||'%'
+				</otherwise>
+			</choose>
+		</if>
+		order by num desc) order by num desc)  
+		where r <![CDATA[>=]]> #{startRow} and r <![CDATA[<=]]>#{endRow}
+	</select>
+	
+	<select id ="getArticleCountCategory" resultType="int" parameterType="int">
+		select count(*) from petition where category= #{category} 
+	</select>
+	
+	<select id="getCategoryList" resultType="CategoryDTO" >
+		select*from category 
+	</select>
+	
+	<select id ="getArticleCountState" resultType="int" parameterType="int">
+		select count(*) from petition where petitionState= #{state} 
+	</select>
+	
+	<select id="getStateList" resultType="petitionStateDTO">
+		select*from petitionState 
+	</select>
+	
+	<select id="getContent" resultType="petitionDTO" parameterType="int">
+		select*from petition where num = #{num}
+	</select>
+	
+	<select id ="getArticleState" resultType="petitionDTO" parameterType="map">
+				select * from (select num, title, content, category, startDate, endDate, writer,
+		petition, petitionState, link, indicatorNum, tag, report, open,rownum r 
+		from(select * from petition where petitionState= #{state} order by num desc) order by num desc) 
+		where r <![CDATA[>=]]> #{startRow} and r <![CDATA[<=]]>#{endRow}
+	</select>
+
+
+</mapper>
+

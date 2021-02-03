@@ -1,13 +1,25 @@
 section.petition-container {
-    width: 800px;
     margin: 0 auto;
-    padding: 30px 0;
-    font-size: 16px;
+    padding: 10px 0;
+    font-size: 14px;
 }
 
 .petition-header {
     display: inline-block;
     width: 100%;
+}
+
+.petition-info-area {
+	width: 800px;
+    height: 50px;
+    border:1px solid black;
+    background: #F2F2F2;
+    color: #848484;
+    border-radius: 3px;
+    display: inline-block;
+    line-height: 50px;
+    text-align: center;
+    margin-left:50px;
 }
 
 ul.petition-state-list {
@@ -20,7 +32,7 @@ ul.petition-state-list {
 }
 
 ul.petition-state-list > li > .line-box {
-    width: 95px;
+    width: 120px;
     height: 50px;
     background: #CCC;
     border-radius: 3px;
@@ -29,6 +41,7 @@ ul.petition-state-list > li > .line-box {
     line-height: 50px;
     text-align: center;
     vertical-align: top;
+    font-size:12pt;
 }
 
 ul.petition-state-list > li.on > .line-box {
@@ -47,20 +60,14 @@ ul.petition-state-list > li.on > .line-box {
 
 ul.petition-state-list > li {display: inline-block;}
 
-.petition-header-left {
-    display: inline-block;
-    float: left;
-    width: 70%;
-}
 
-.petition-header-right {display: inline-block;float: left;width: 30%;}
 
 .petition-title-area {
     /* border-bottom: 2px solid #999; */
     padding: 10px;
     height: 90px;
     text-align: left;
-    font-size: 22px;
+    font-size: 23px;
     text-overflow: ellipsis;
     white-space: nowrap;
     word-wrap: normal;
@@ -88,6 +95,7 @@ span.petition-title {
     margin-top: 10px;
 }
 
+
 .petition-writer span:first-child {border-radius: 10px;padding: 5px 10px;margin-right: 5px;font-weight: 700;vertical-align: top;border: 1px solid #AAA;}
 
 .petition-calendar {
@@ -108,14 +116,15 @@ span.petition-title {
 }
 
 span.petition-dday {
-    width: 60px;
+    width: 65px;
     display: inline-block;
     vertical-align: bottom;
     height: 60px;
-    background: #ff9b9b;
+    background: #F5A9D0;
     line-height: 60px;
     font-size: 24px;
-    color: black;
+    color: #585858;
+    text-align:center;
 }
 .petition-calendar-date {
     border: 1px solid #CCC;
@@ -168,21 +177,7 @@ div#percentageChart {
     margin-top: 30px;
 }
 
-span.petition-people {
-    display: inline-block;
-    border-radius: 10px;
-    padding: 5px 10px;
-    margin-right: 5px;
-    font-weight: 700;
-    vertical-align: top;
-    border: 1px solid #AAA;
-}
 
-span.petition-people-cnt {
-    display: inline-block;
-    font-size: 21px;
-    margin-top: 2px;
-}
 
 p.petition-end-text {
     margin-top: 10px;
@@ -199,8 +194,8 @@ p.petition-end-text {
 
 .petition-body {
     border-top: 1px solid #CCC;;
-    margin: 20px 0;
-    padding: 40px 0;
+    margin-top: 20px;
+    padding: 20px 0;
     text-align: left;
 }
 
@@ -215,19 +210,29 @@ p.petition-end-text {
 .petition-link-area {
     text-align: left;
     border-top: 1px solid #CCC;
-    margin: 20px 0;
     padding: 20px 0;
 }
 
 .petition-link-area > a {
     border: 1px solid #DDD;
-    width: calc(100% - 99px);
+    width: 100%;
     display: inline-block;
     line-height: 50px;
     height: 50px;
     margin-bottom: 5px;
     text-align: left;
 }
+
+.petition-link-area2 > a {
+    border: 1px solid #DDD;
+    width: 800px;
+    display: inline-block;
+    line-height: 45px;
+    height: 45px;
+    margin-bottom: 5px;s
+    text-align: left;
+}
+
 
 .petition-url-area {
     text-align: left;
@@ -275,5 +280,6 @@ p.petition-end-text {
     line-height: 50px !importanr;
     text-align: center;
     vertical-align: top;
+    align: center;
     /* border: none; */
 }

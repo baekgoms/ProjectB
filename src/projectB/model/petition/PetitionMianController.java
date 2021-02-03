@@ -60,6 +60,6 @@ public class PetitionMianController {
 	        model.addAttribute("enddateList",enddateList);
 	        model.addAttribute("petitionList",petitionList);
 	        model.addAttribute("tagList",tagList);
-		return "petition/PetitionMain";
+		return "main/PetitionMain";
 	}
 }

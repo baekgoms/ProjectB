@@ -1,15 +1,23 @@
 package projectB.model.answer;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import projectB.model.answerList.AnswerListService;
+import org.springframework.web.bind.annotation.RequestParam;
+import projectB.model.answerListService.AnswerListService;
 import projectB.model.petition.PetitionDTO;
+import projectB.model.tag.TagDTO;
+import projectB.model.tag.TagService;
+
+enum answerType {
+	RECOMMEND, OPPSITE, ADDITION,
+}
 
 @Controller
 @RequestMapping("answer")
@@ -17,48 +25,77 @@ public class AnswerMainController {
 	@Autowired
 	private AnswerListService AnswerListService = null;
 
+	@Autowired
+	private TagService tagService;
+
+	private static int MIN_LENGTH = 1;
+	private static int MAX_LENGTH = 10;
+
 	@RequestMapping("answerMain.aa")
-	public String answerMain(Model model) {
+	public String answerMain(@RequestParam(defaultValue = "ALL", required = true) String sort, Model model) {
+		System.out.println("answerMain run/" + sort);
 
-		System.out.println("answerMain run");
 		try {
-			// 추천 많은 정렬 리스트
-			List<AnswerDTO> recommends = AnswerListService.getAnswerByRecommends(1, 10);
-			// 반대 많은 정렬 리스트
-			List<AnswerDTO> oppsites = AnswerListService.getAnswerByOpposites(1, 10);
-			// 추가답변 대기 리스트
-			List<AnswerDTO> additions = AnswerListService.getAnswerByAdditions(1, 10);
+			List<AnswerDTO> recommends = answers(sort, answerType.RECOMMEND);
+			List<AnswerDTO> oppsites = answers(sort, answerType.OPPSITE);
+			List<AnswerDTO> additions = answers(sort, answerType.ADDITION);
+			List<TagDTO> tags = tagService.getTags(1, 5);
 
-			List<PetitionDTO> petitionRecommends = new ArrayList<>();
-			for (AnswerDTO answerDTO : recommends) {
-				PetitionDTO dto = AnswerListService.getPetitionInfo(answerDTO.getPetitionNum());
-				petitionRecommends.add(dto);
-			}
+			model.addAttribute("sort", sort);
 
-			List<PetitionDTO> petitionOppsites = new ArrayList<>();
-			for (AnswerDTO answerDTO : oppsites) {
-				PetitionDTO dto = AnswerListService.getPetitionInfo(answerDTO.getPetitionNum());
-				petitionOppsites.add(dto);
-			}
-
-			List<PetitionDTO> petitionAdditions = new ArrayList<>();
-			for (AnswerDTO answerDTO : additions) {
-				PetitionDTO dto = AnswerListService.getPetitionInfo(answerDTO.getPetitionNum());
-				petitionAdditions.add(dto);
-			}
-
-//			model.addAttribute("recommends", recommends);
-//			model.addAttribute("oppsites", oppsites);
-//			model.addAttribute("additions", additions);
-			model.addAttribute("petitionRecommends", petitionRecommends);
-			model.addAttribute("petitionOppsites", petitionOppsites);
-			model.addAttribute("petitionAdditions", petitionAdditions);
-
-			// 인기 태그
+			model.addAttribute("tags", tags);
+			model.addAttribute("petitionRecommends", petitions(recommends));
+			model.addAttribute("petitionOppsites", petitions(oppsites));
+			model.addAttribute("petitionAdditions", petitions(additions));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		return "answer/answerMain";
+	}
+
+	private List<String> enums() {
+		List<String> enums = new ArrayList<>();
+		enums.add("ALL"); // 0
+		enums.add("WEEK"); // 1
+		enums.add("MONTH"); // 2
+		enums.add("HALF_YEAR"); // 3
+		enums.add("YEAR"); // 4
+
+		return enums;
+	}
+
+	private List<AnswerDTO> answers(String sort, answerType type) throws Exception {
+		List<AnswerDTO> answers = Collections.emptyList();
+
+		List<String> enums = enums();
+		for (int i = 0; i < enums.size(); ++i) {
+			String s = enums.get(i);
+			if (s.equals(sort)) {
+				if (type == answerType.RECOMMEND) {
+					answers = AnswerListService.getAnswerByRecommends(MIN_LENGTH, MAX_LENGTH, i);
+				} else if (type == answerType.OPPSITE) {
+					answers = AnswerListService.getAnswerByOpposites(MIN_LENGTH, MAX_LENGTH, i);
+				} else if (type == answerType.ADDITION) {
+					answers = AnswerListService.getAnswerByAdditions(MIN_LENGTH, MAX_LENGTH, i);
+				}
+			}
+		}
+
+		return answers;
+	}
+
+	private List<PetitionDTO> petitions(List<AnswerDTO> answers) {
+		List<PetitionDTO> petitions = new ArrayList<>();
+		try {
+			for (AnswerDTO answerDTO : answers) {
+				PetitionDTO dto = AnswerListService.getPetitionInfo(answerDTO.getPetitionNum());
+				petitions.add(dto);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return petitions;
 	}
 }

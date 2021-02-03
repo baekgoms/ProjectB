@@ -3,6 +3,9 @@ package projectB.model.petition;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import projectB.model.BaseDTO;
@@ -54,6 +57,15 @@ public class DiscussionDTO implements BaseDTO{
 	public String getLink() { return link; }
 	public int getCommentcount() { return commentcount;	}
 	
+	public List<String> getTags() {
+		List<String> list = Collections.emptyList();
+		if (tag != null) {
+			list = new ArrayList<String>(Arrays.asList(tag.split(",")));
+		}		
+		
+		return list;
+	}
+	
 	public void setNum(int num) { this.num = num; }
 	public void setWrite(String write) { this.write = write; }
 	public void setContent(String content) { this.content = content; }
@@ -66,6 +78,4 @@ public class DiscussionDTO implements BaseDTO{
 	public void setSubject(String subject) { this.subject = subject; } 
 	public void setLink(String link) { this.link = link; }
 	public void setCommentcount(int commentcount) { this.commentcount = commentcount; }
-	
-	
 }

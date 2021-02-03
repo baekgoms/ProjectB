@@ -1,13 +1,9 @@
+<%@page import="projectB.model.login.LoginUtils"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
-<!-- Custom CSS -->
-<link href="/projectB/resource/bootstrap/css/style.css" rel="stylesheet">
-<!-- This Page CSS -->
-<link href="/projectB/resource/assets/libs/morris.js/morris.css" rel="stylesheet">
 
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -34,7 +30,25 @@
 </head>
 
 <body>
-
+<%
+	if(LoginUtils.isAdmin(session)) {
+%>
+	<jsp:include page="/WEB-INF/views/topbar/admintopbar.jsp" />	
+<%
+ 	} else if(LoginUtils.isAnswer(session)) {
+%>
+	<jsp:include page="/WEB-INF/views/topbar/anwerTopbar.jsp" />
+<%
+ 	} else {
+%>
+	<jsp:include page="/WEB-INF/views/topbar/top.jsp" />
+<%
+ 	}
+%>
+<br>
+<br>
+<br>
+<br>
 <!-- ============================================================================================================= -->
 <!-- Page wrapper -->
 <!-- ============================================================================================================== -->
@@ -46,16 +60,16 @@
                 <div class="row">
                     <div class="col-7 align-self-center">
                         <h4 class="page-title text-truncate text-dark font-weight-medium mb-1">문의 게시판</h4>
-                        <div class="d-flex align-items-center">
+                        <!-- <div class="d-flex align-items-center">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb m-0 p-0">
                                     <li class="breadcrumb-item"><a href="index.html" class="text-muted">Home</a></li>
                                     <li class="breadcrumb-item text-muted active" aria-current="page">Question Board</li>
                                 </ol>
                             </nav>
-                        </div>
+                        </div> -->
                     </div>
-                    <div class="col-5 align-self-center">
+                    <!-- <div class="col-5 align-self-center">
                         <div class="customize-input float-right">
                             <select class="custom-select custom-select-set form-control bg-white border-0 custom-shadow custom-radius">
                                 <option selected>Aug 19</option>
@@ -63,7 +77,7 @@
                                 <option value="2">Jun 19</option>
                             </select>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             <!-- ============================================================== -->

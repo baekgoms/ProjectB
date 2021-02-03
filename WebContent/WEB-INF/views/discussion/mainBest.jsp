@@ -35,6 +35,9 @@ function inputCheck(){
 
 <title>토론게시판</title>
 <center>
+<jsp:include page="/WEB-INF/views/topbar/top.jsp" />
+<br>
+<br>
 <div class="col-12">
 <br><br>
 </div>

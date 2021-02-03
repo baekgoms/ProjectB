@@ -23,6 +23,10 @@ function inputCheck(){
 
 <title>토론게시판</title>
 <center>
+<jsp:include page="/WEB-INF/views/topbar/top.jsp" />
+<br>
+<br>
+
 <div class="col-12">
 <br><br>
 </div>
@@ -37,7 +41,7 @@ function inputCheck(){
 	<input type="button" value="                           최신순                              " class="btn waves-effect waves-light btn-outline-dark" 
 		onclick="document.location.href='/projectB/discussion/main.aa?pageNum=1'">
 	<input type="button" value="                           베스트순                           " class="btn waves-effect waves-light btn-outline-dark" 
-		onclick="document.location.href='/projectB/discussion/mainBest.aa?pageNum=1'">
+		onclick="document.location.href='/projectB/discussion/mainBest.aa'">
 </c:otherwise>
 </c:choose>
 
@@ -59,7 +63,7 @@ function inputCheck(){
 </tr>
 <tr height="50" align="right">
 <td colspan="3"><input type="button" class="btn waves-effect waves-light btn-outline-dark" 
-	onclick="document.location.href='/projectB/discussion/writeForm.aa?pageNum=${pageNum}'" value="토론글 작성하기"></td></tr>
+	onclick="document.location.href='/projectB/discussion/upload.aa?pageNum=${pageNum}'" value="토론글 작성하기"></td></tr>
 </table>
 </form>
 <c:choose>

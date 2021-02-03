@@ -35,5 +35,30 @@
 		select * from question where num = #{num}
 	</select>
 	
+	<select id="questions" resultType="questionDTO" parameterType="map">
+		select * from (select num, category, title, content, writer, reply, reg, rownum r
+		from(select * from question
+		
+		<if test="sort == 1">
+			where reply = 0
+		</if>
+		<if test="sort == 2">
+			where reply = 1
+		</if>
+		
+		order by num desc ) order by num desc)
+		where r <![CDATA[>=]]> #{ startRow } and r <![CDATA[<=]]>#{ endRow }
+	</select>
+	
+	<select id="totalQuestionCount" resultType="int" parameterType="int">
+		select count(*) from question
+		<if test="value == 1">
+			where reply = 0
+		</if>
+		<if test="value == 2">
+			where reply = 1
+		</if>
+	</select>
+	
 </mapper>
 

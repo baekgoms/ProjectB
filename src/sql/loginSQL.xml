@@ -8,5 +8,9 @@
 	<select id = "login" resultType="int" parameterType="petitionerDTO">
 		select count(*) from petitioner where id = #{ id } and password = #{ password }
 	</select>
+	
+	<select id = "loginInfo" resultType="petitionerDTO" parameterType="petitionerDTO">
+		select * from petitioner where id = #{ id } and password = #{ password }
+	</select>
 </mapper>
 

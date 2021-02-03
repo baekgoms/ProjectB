@@ -8,7 +8,7 @@
 	<insert id = "insertPetitioner" parameterType="petitionerDTO">
 		insert into petitioner values(petitioner_seq.nextval, 
 		#{ id }, #{ password }, #{ name }, #{ contact }, #{ email }, #{ gender }, 
-		0, #{ state }, 0, sysdate, to_date('20001212', 'YYYYMMDD'), #{ authKey }, #{ birthday })
+		#{ report }, #{ state }, 0, sysdate, to_date('20001212', 'YYYYMMDD'), #{ authKey }, #{ birthday }, #{ department })
 	</insert>
 	
 	<select id = "confirmId" resultType="int" parameterType="String">
@@ -23,13 +23,103 @@
 		select * from petitioner where email = #{ email } and authKey = #{ authKey }
 	</select>
 	
+	<select id = "petitionerByNum" resultType="petitionerDTO" parameterType="int">
+		select * from petitioner where num = #{ value }
+	</select>
+	
+	
 	<update id="updatePetitionerState" parameterType="petitionerDTO">
 		update petitioner set state = 1 where id = #{ id }
 	</update>
 	
+	<select id="petitionersByState" resultType="petitionerDTO" parameterType="map">
+	  select * from (select num, id, password, name, contact, email,
+		gender, report, state, emailArg, reg, blockReg, authKey, birthday, rownum r
+    	from (select * from petitioner where state = #{ state }
+        order by num desc)
+	    order by num desc)
+		where r <![CDATA[>=]]> #{ startRow } and r <![CDATA[<=]]>#{ endRow }
+	</select>
+	
+	<select id="petitioners" resultType="petitionerDTO" parameterType="map">
+	  select * from (select num, id, password, name, contact, email,
+		gender, report, state, emailArg, reg, blockReg, authKey, birthday, rownum r
+    	from (select * from petitioner where state = 1
+    	<choose>
+			<when test="sort == 3">
+				order by report desc, num desc)
+				order by report desc, num desc)
+			</when>
+			<otherwise>
+			     order by num desc)
+			     order by num desc)
+		    </otherwise>
+		</choose>
+    	
+    	where r <![CDATA[>=]]> #{ startRow } and r <![CDATA[<=]]>#{ endRow }
+	</select>
 	
 	
-
+	<select id="totalMemberCount" resultType="int">
+		select count(*) from petitioner where state = 1
+	</select>
+	
+	<select id="totalMemberCountByState" resultType="int" parameterType="int">
+		select count(*) from petitioner where state = #{ value }
+	</select>
+	
+	<delete id="deletePetitioner" parameterType="int">
+		delete petitioner where num = #{ value }
+	</delete>
+	
+	<select id="blackList" resultType="petitionerDTO" parameterType="map">
+	  select * from (select num, id, password, name, contact, email,
+		gender, report, state, emailArg, reg, blockReg, authKey, birthday, rownum r
+    	from (select * from petitioner where
+    	<choose>
+    		<when test="sort == 1">
+				state = 2
+			</when>
+			<when test="sort == 2">
+				state = 3
+			</when>
+			<when test="sort == 3">
+				state = 4
+			</when>
+			<otherwise>
+			    state = 2 or state = 3 or state = 4
+		    </otherwise>
+		</choose>
+		 order by num desc) order by num desc)
+    	
+    	where r <![CDATA[>=]]> #{ startRow } and r <![CDATA[<=]]>#{ endRow }
+	</select>
+	
+	<select id="totalBlackListCount" resultType="int" parameterType = "int">
+		select count(*) from petitioner where
+		<choose>
+    		<when test="value == 1">
+				state = 2
+			</when>
+			<when test="value == 2">
+				state = 3
+			</when>
+			<when test="value == 3">
+				state = 4
+			</when>
+			<otherwise>
+			    state = 2 or state = 3 or state = 4
+		    </otherwise>
+		</choose>
+	</select>
+	
+	<update id="release" parameterType = "int">
+		update petitioner set blockreg = '2000-12-12', state = 1 where num = #{ value }
+	</update>
+	
+	<update id="memberModify" parameterType="petitionerDTO">
+		update petitioner set password = #{ password }, contact = #{ contact }, email = #{ email }, report = #{ report } where num = #{ num }
+	</update>
 	
 </mapper>
 

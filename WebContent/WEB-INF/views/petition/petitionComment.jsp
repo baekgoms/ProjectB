@@ -4,11 +4,6 @@
 
 <%@ page import = "java.text.SimpleDateFormat" %>
 
-<%
-	// TODO : Delete ME!!
-	session.setAttribute("memId", "123");
-%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -111,7 +106,7 @@
 			<c:choose>
 				<c:when test="${memId == null}">
 					alert("로그인이 필요한 서비스 입니다.");
-					window.location = "";
+					parent.window.location = "/projectB/login/loginForm.aa";
 				</c:when>
 				<c:when test="${petitionPetitionerService.isAgreed(petitionNum,memId)}">
 					alert("이미 동의한 청원입니다.");

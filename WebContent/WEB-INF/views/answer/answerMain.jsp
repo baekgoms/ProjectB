@@ -33,8 +33,33 @@ a:visited {
 	display: inline-block; width: 120px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 </style>
+<script type="text/javascript">
+	function selectOption(obj){
+		window.location.href = "/projectB/answer/answerMain.aa?sort=" + obj.value;
+	}
+	
+	
+	function init() {
+		var osize = '${petitionOppsites.size()}';
+		var asize = '${petitionOppsites.size()}';
+		var ob = osize * 77;
+		var ab = asize * 154;
+		if(osize < 10 ){
+			ob = ob + 14;
+		}
+		
+		if(asize < 10 ){
+			ab = ab + 30;
+		}
+		$("#oppsiteCard").css("bottom", ob)
+		$("#additionCard").css("bottom", ab)
+		
+		console.log("ob/" + ob);
+		console.log("ab/" + ab);
+	}
+</script>
 </head>
-<body>
+<body onload = "init()">
 	<jsp:include page="/WEB-INF/views/topbar/anwerTopbar.jsp" />
 	<br>
 	<br>
@@ -43,15 +68,20 @@ a:visited {
 	
 	<div class="col-12" style="max-width: 25%; height: 900px">	
 		<div class="card" style="position: relative; left: 1628px; width: 150px">
-			<select class="form-control" id="exampleFormControlSelect1">
-				<option>전체</option>
-				<option>일주일</option>
-				<option>한달</option>
-				<option>6개월</option>
-				<option>12개월</option>
+			<select class="form-control" id="exampleFormControlSelect1" onchange="selectOption(this)">
+			<!-- 나중에 테이블로 뺴서 카테고리화 시킬 것 ? -->				
+				<option value="ALL" <c:if test="${ 'ALL' == sort }">selected</c:if>>전체</option>
+				<option value="WEEK"<c:if test="${ 'WEEK' == sort }">selected</c:if>>일주일</option>
+				<option value="MONTH"<c:if test="${ 'MONTH' == sort }">selected</c:if>>한달</option>
+				<option value="HALF_YEAR"<c:if test="${ 'HALF_YEAR' == sort }">selected</c:if>>6개월</option>
+				<option value="YEAR"<c:if test="${ 'YEAR' == sort }">selected</c:if>>12개월</option>
 			</select>
 		</div>
 		
+ 		<%-- <c:out value="${ petitionRecommends.size() }"/>
+		<c:out value="${ petitionOppsites.size() }"/>
+		<c:out value="${ petitionAdditions.size() }"/>
+		  --%>
 		<div class="card" style="position: relative; left: 70px;">
 			<div class="card-body">				
 				<h4 class="card-title" style="text-align: center;">추천순</h4>
@@ -86,7 +116,7 @@ a:visited {
 			</div>
 		</div>
 		
-		<div class="card" style="position: relative; bottom: 770px; left: 700px">
+		<div class="card" id = "oppsiteCard" style="position: relative; bottom: 770px; left: 700px">
 			<div class="card-body">
 				<h4 class="card-title" style="text-align: center;">반대순</h4>
 			</div>
@@ -113,7 +143,7 @@ a:visited {
 			</div>
 		</div>
 		
-		<div class="card" style="position: relative; bottom: 1540px; left: 1330px;">
+		<div class="card" id = "additionCard" style="position: relative; bottom: 1540px; left: 1330px">
 			<div class="card-body">
 				<h4 class="card-title" style="text-align: center;">추가 답변 대기순</h4>
 			</div>
@@ -144,9 +174,9 @@ a:visited {
 			<div class="table-responsive">
 				<table class="table table-bordered" >
 					<tr>
-						<c:forEach var = "i" begin = "1" end = "5">
+						<c:forEach var = "tag" items = "${ tags }">
 							<td>
-								${ i } 번째 인기 태그								
+								${ tag.name }								
 							</td>
 						</c:forEach>
 					</tr>

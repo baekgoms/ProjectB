@@ -1,4 +1,4 @@
-package projectB.test.bobae;
+package projectB.model.answer;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10,7 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import projectB.model.answer.AnswerDTO;
+import projectB.model.CompletedAnswerService.CompletedAnswerListService;
 import projectB.model.petition.PetitionDTO;
 
 

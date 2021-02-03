@@ -57,5 +57,21 @@ public class QuestionServiceImpl implements QuestionService{
 		
 		return dao.selectList("question.getOneInfo",num);
 	}
+	
+	@Override
+	public List<QuestionDTO> questions(int startRow, int endRow, int sort) throws Exception {
+		Map<String, Integer> map = new HashMap<>();
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		map.put("sort", sort);
+
+		List<QuestionDTO> articleList = dao.selectList("question.questions", map);
+
+		return articleList;
+	}
+	
+	public int questionCount(int sort) throws Exception {
+		return dao.selectOne("question.totalQuestionCount", sort);
+	}
 
 }

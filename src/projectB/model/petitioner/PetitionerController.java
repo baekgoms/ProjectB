@@ -2,12 +2,15 @@ package projectB.model.petitioner;
 
 import java.sql.SQLException;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import projectB.model.login.LoginUtils;
 import projectB.model.mail.MailSendService;
 import projectB.model.petitionerService.PetitionerService;
 
@@ -23,6 +26,13 @@ public class PetitionerController {
 	@Autowired
 	private MailSendService mailSendService;
 
+	@RequestMapping("logout.aa")
+	public String logout(HttpSession session) {
+		System.out.println("logout");
+		LoginUtils.logout(session);
+		return "redirect:/petition/afootPetition.aa";
+	}
+	
 	@RequestMapping("signUp.aa")
 	public String signUp() {
 		return "petitioner/signUp";
@@ -44,7 +54,7 @@ public class PetitionerController {
 
 		dto.setAuthKey(authKey);
 		dto.setState(PetitionerService.NOT_AUTH_STATE);
-		
+		dto.setDepartment("");
 		try {
 			petitionerService.insertPetitioner(dto);
 		} catch (SQLException e) {
@@ -52,7 +62,7 @@ public class PetitionerController {
 		}
 
 		mailSendService.sendMail(dto.getEmail(), authKey);
-		return "redirect:signUp.aa";
+		return "redirect:/petition/petitionMain.aa";
 	}
 
 	@RequestMapping("mailAuth.aa")
