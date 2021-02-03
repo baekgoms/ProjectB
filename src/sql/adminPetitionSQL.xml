@@ -24,12 +24,37 @@
 
 	<select id ="getArticleCount" resultType="int">
 		select count(*) from petition
+		<if test="keyword != null">
+		<choose>
+				<when test="searchOption == 'all'">
+					WHERE writer like '%' ||#{keyword}||'%'
+					OR content like '%'||#{keyword}||'%'
+					OR title like '%'||#{keyword}||'%'
+				</when>
+				<otherwise>
+					WHERE ${searchOption} like '%'||#{keyword}||'%'
+				</otherwise>
+			</choose>
+			</if>
 	</select>
 	
 	<select id="getArticleAll" resultType="petitionDTO" parameterType="map">
 		select * from (select num, title, content, category, startDate, endDate, writer,
 		petition, petitionState, link, indicatorNum, tag, report, open, rownum r 
-		from(select * from petition order by num desc) order by num desc)  
+		from(select * from petition 
+		<if test="keyword != null">
+			<choose>
+				<when test="searchOption == 'all'">
+					WHERE writer like '%' ||#{keyword}||'%'
+					OR content like '%'||#{keyword}||'%'
+					OR title like '%'||#{keyword}||'%'
+				</when>
+				<otherwise>
+					WHERE ${searchOption} like '%'||#{keyword}||'%'
+				</otherwise>
+			</choose>
+		</if>
+		order by num desc) order by num desc)  
 		where r <![CDATA[>=]]> #{startRow} and r <![CDATA[<=]]>#{endRow}
 	</select>
 	
@@ -49,6 +74,17 @@
 		select*from petitionState 
 	</select>
 	
+	<select id="getContent" resultType="petitionDTO" parameterType="int">
+		select*from petition where num = #{num}
+	</select>
+	
+	<select id ="getArticleState" resultType="petitionDTO" parameterType="map">
+				select * from (select num, title, content, category, startDate, endDate, writer,
+		petition, petitionState, link, indicatorNum, tag, report, open,rownum r 
+		from(select * from petition where petitionState= #{state} order by num desc) order by num desc) 
+		where r <![CDATA[>=]]> #{startRow} and r <![CDATA[<=]]>#{endRow}
+	</select>
+
 
 </mapper>
 

@@ -171,7 +171,7 @@ ol, li {
 			<ul class="pagination justify-content-center">
 		  		 <c:if test="${startPage > 10}">
 					 <li class="page-item">
-		      			<a class="page-link" href="/projectB/answer/completedAnswer?pageNum=${startPage - 10}" aria-label="Previous">
+		      			<a class="page-link" href="/projectB/answer/completedAnswer.aa?pageNum=${startPage - 10}" aria-label="Previous">
 		     				<span aria-hidden="true">«</span>
 		      				<span class="sr-only">Previous</span>
 		      	  		</a>

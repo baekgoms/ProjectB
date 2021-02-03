@@ -59,5 +59,41 @@ public class petitionManagementImpl implements petitionManegementService{
 
 		return dao.selectList("adminPetition.getStateList");
 	}
+	
+	 @Override
+	    public List<PetitionDTO> getArticlesSearch(int startRow, int endRow, String keyword, String searchOption) throws Exception {
+	        Map map = new HashMap();
+	        map.put("startRow", startRow);
+	        map.put("endRow", endRow);
+	        map.put("keyword", keyword);
+	        map.put("searchOption", searchOption);
+	        List<PetitionDTO> articleList = dao.selectList("adminPetition.getArticleAll", map);
+	        return articleList;
+	    }
+
+	    @Override
+	    public int getArticleCount(String keyword, String searchOption) throws Exception {
+	    	Map map = new HashMap();
+	        map.put("keyword", keyword);
+	        map.put("searchOption", searchOption);
+	    	int count = dao.selectOne("adminPetition.getArticleCount",map);
+	        return count;
+	    }
+
+		@Override
+		public PetitionDTO getContent(int num) throws Exception {
+			
+			return dao.selectOne("adminPetition.getContent",num);
+		}
+
+		@Override
+		public List<PetitionDTO> getArtilclebyState(int state, int startRow, int endRow) throws Exception {
+			Map map = new HashMap();
+			map.put("state", state);
+			map.put("startRow", startRow);
+			map.put("endRow", endRow);
+			List<PetitionDTO> stateList = dao.selectList("adminPetition.getArticleState", map);
+			return stateList;
+		}
 
 }

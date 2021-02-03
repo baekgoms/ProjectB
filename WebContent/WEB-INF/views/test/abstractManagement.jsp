@@ -10,18 +10,8 @@
 <link href="/projectB/resource/bootstrap/css/style.css" rel="stylesheet">
 <!-- This Page CSS -->
 <link href="/projectB/resource/assets/libs/morris.js/morris.css" rel="stylesheet">
-<script>
-function inputCheck(){ 
-	if($("#keyword").val() == ""){
-		$("#keyword").addClass(" is-invalid");
-		$("#keyword").focus(); 
-		return;
-	}else{
-		$("#search").submit();
-	}
-}
-</script>
-<title>청원관리</title>
+
+<title>청원관리-추상답변요청청원</title>
 <style>
 .card, .card-group {
     margin-bottom: 30px;
@@ -49,68 +39,9 @@ function inputCheck(){
 	<input type="button" value="전체목록" class="btn waves-effect waves-light btn-outline-dark" onclick="document.location.href='/projectB/admin/petitionManagement.aa'">
 	<input type="button" value="수정요청 청원" class="btn waves-effect waves-light btn-outline-dark" onclick="document.location.href='/projectB/admin/modifyManagement.aa'">
 	<input type="button" value="추상답변 관리" class="btn waves-effect waves-light btn-outline-dark"	onclick="document.location.href='/projectB/admin/abstractManagement.aa'">
-<br>
-<br>
-<div class="col-lg-6">
-	<div class="mb-4">
-		<p>
-			<button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-				검색필터 ▼
-			</button>
-		</p>
-		<div class="collapse" id="collapseExample" >
-			<div class="card card-body" >
-				<h3>검색필터</h3>
-				<form name="form" method="post" action="/projectB/admin/petitionManagementSearch.aa" id="search">
-					<table class="table">
-					
-						<tr>
-							<td>청원상태</td>
-							<td>
-								<label><input type="radio" name="fDTypes" class="mr0" value="전체">전체</label>
-								<label><input type="radio" name="fDTypes" class="mr0" value="청원시작">청원시작</label>
-								<label><input type="radio" name="fDTypes" class="mr0" value="청원진행중">청원진행중</label>
-								<label><input type="radio" name="fDTypes" class="mr0" value="청원완료">청원완료</label>
-							</td>
-						</tr>
-						<tr>
-							<td>청원수</td>
-							<td>    
-								<input type="range" value="150000" min="0" max="300000" step="1000" onchange = "SetValue(this)">
-							</td>
-						</tr>
-						<tr>
-							<td>일자별</td>
-							<td>
-							  <label><input type="radio" name="fDTypes" class="mr0" value="최근1주">최근1주</label>
-							  <label><input type="radio" name="fDTypes" class="mr0" value="최근1개월">최근1개월</label>
-							  <label><input type="radio" name="fDTypes" class="mr0" value="최근3개월">최근3개월</label>
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2" >
-								<select id="searchOption" name="searchOption" >
-									<option value="all" <c:out value="${searchOption == 'all'?'selected':''}"/>>전체</option>
-									<option value="title" <c:out value="${searchOption == 'title'?'selected':''}"/>>제목</option>
-									<option value="content" <c:out value="${searchOption == 'content'?'selected':''}"/>>내용</option>
-									<option value="writer" <c:out value="${searchOption == 'writer'?'selected':''}"/>>작성자</option>
-								</select>
-								<input type="text" name="keyword" id="keyword" class="form-control" style="width:70%;" placeholder="검색어를 입력하세요" >
-
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2" align="right">
-								<button type="button" class="btn waves-effect waves-light btn-outline-dark" onClick="inputCheck()">검색</button>
-								<input type="reset" value="초기화" class="btn waves-effect waves-light btn-outline-dark" >
-							</td>
-						</tr>
-					</table>
-				</form>
-			</div>
-		</div>
-	</div> 
 </div>
+<br>
+
   
 <div class="table-responsive"  >
 	<table class="table" style="text-align:center;">
@@ -126,7 +57,7 @@ function inputCheck(){
             <th scope="col">청원동의수</th>
            	<th scope="col">글상태</th>
         </tr>
-	<c:if test="${count > 0 }">
+        <c:if test="${count > 0 }">
 		<c:forEach var="article" items="${ articleList }">
          <tr>
          	<c:set var="number" value="${number-1}" />
@@ -150,15 +81,15 @@ function inputCheck(){
                 </c:choose>
                 </td>
           </tr>
-         </c:forEach>
-     </c:if>
+          </c:forEach>
+          </c:if>
           <tr>
           	<td colspan="10" align="right">
             	<input type="button" value="선택삭제" class="btn waves-effect waves-light btn-outline-dark">
 			</td>
           </tr>
 	</table>
-	 <c:if test="${count > 0}">
+	<c:if test="${count > 0}">
 			<c:set var="pageCount" value="${count / pageSize +(count % pageSize == 0 ? 0: 1)}" />
 			<c:set var="pageBlock" value="${10}" />
 			<fmt:parseNumber var="result" value="${ currentPage/10 }" integerOnly="true" />
@@ -206,15 +137,5 @@ function inputCheck(){
 <script src="/projectB/resource/bootstrap/assets/libs/morris.js/morris.min.js"></script>
 <script src="/projectB/resource/bootstrap/js/pages/morris/morris-data.js"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
-<script language="JavaScript">
-
-function SetValue(this)
-
-{
-range_val.value = this.value;
-}
-
-
-</script>
 </body>
 </html>
