@@ -41,7 +41,7 @@ function inputCheck(){
 	<input type="button" value="                           최신순                              " class="btn waves-effect waves-light btn-outline-dark" 
 		onclick="document.location.href='/projectB/discussion/main.aa?pageNum=1'">
 	<input type="button" value="                           베스트순                           " class="btn waves-effect waves-light btn-dark" 
-		onclick="document.location.href='/projectB/discussion/mainBest.aa'">
+		onclick="document.location.href='javascript:void(0)'">
 
 <form action="/projectB/discussion/mainSearch.aa" id="search">
 <table class="table">

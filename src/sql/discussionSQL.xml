@@ -17,7 +17,7 @@
 									  #{subject})
 	</insert>
 	
-	<select id="getArticleCount" resultType="int">
+	<select id="getArticleCount" resultType="int" parameterType="string">
 		select count(*) from discussion
 		<if test="keyword != null">
 			where subject like '%' || #{keyword} || '%' or content like '%' || #{keyword} || '%' or tag like '%' || #{keyword} || '%' 

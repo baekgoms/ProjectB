@@ -29,7 +29,7 @@ function inputCheck(){
 <c:choose>
 <c:when test="${empty keyword}">
 	<input type="button" value="                           최신순                              " class="btn waves-effect waves-light btn-dark" 
-		onclick="document.location.href='/projectB/discussion/main.aa?pageNum=1'">
+		onclick="document.location.href='javascript:void(0)'">
 	<input type="button" value="                           베스트순                           " class="btn waves-effect waves-light btn-outline-dark" 
 		onclick="document.location.href='/projectB/discussion/mainBest.aa?pageNum=1'">
 	</c:when>
@@ -122,40 +122,62 @@ function inputCheck(){
 <div class="col-12">
 <br><hr><br>
 </div>
-                                   
+                            
 <div class="col-lg-4 mb-4">
 <nav aria-label="Page navigation example">
 <ul class="pagination justify-content-center">
 <c:if test="${startPage > 10}">
 <li class="page-item">
-    <a class="page-link" href="/projectB/discussion/main.aa?pageNum=${startPage - 10}"aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-        <span class="sr-only">Previous</span>
-    </a>
+		<c:choose>
+		<c:when test="${empty keyword}">
+			<a class="page-link" href="/projectB/discussion/main.aa?keyword=${keyword}&pageNum=${startPage - 10}"aria-label="Previous">
+        	<span aria-hidden="true">&laquo;</span>
+			<span class="sr-only">Previous</span>
+   			</a>
+		</c:when>
+		<c:otherwise>
+		    <a class="page-link" href="/projectB/discussion/main.aa?pageNum=${startPage - 10}"aria-label="Previous">
+        	<span aria-hidden="true">&laquo;</span>
+			<span class="sr-only">Previous</span>
+   			</a>
+		</c:otherwise>
+		</c:choose>
+
 </li>
 </c:if>
-<c:choose>
-	<c:when test="${empty keyword}">
-		<c:forEach var="i" begin="${startPage}" end="${endPage}">
+
+<c:forEach var="i" begin="${startPage}" end="${endPage}">
+	<c:choose>
+		<c:when test="${empty keyword}">
 			<li class="page-item"><a class="page-link"
-  	 	     href="/projectB/discussion/main.aa?pageNum=${i}">${i}</a>
+			 	     href="/projectB/discussion/main.aa?pageNum=${i}">${i}</a>
 			</li>
-		</c:forEach>
-	</c:when>
-	<c:otherwise>
-		<c:forEach var="i" begin="${startPage}" end="${endPage}">
+		</c:when>
+		<c:otherwise>
 			<li class="page-item"><a class="page-link"
-  		      href="/projectB/discussion/mainSearch.aa?keyword=${keyword}&pageNum=${i}">${i}</a>
+				      href="/projectB/discussion/mainSearch.aa?keyword=${keyword}&pageNum=${i}">${i}</a>
 			</li>
-		</c:forEach>
-	</c:otherwise>
-</c:choose>
+		</c:otherwise>
+	</c:choose>
+</c:forEach>
+
 <c:if test="${endPage < pageCount}">
 <li class="page-item">
-    <a class="page-link" href="/projectB/discussion/main.aa?pageNum=${startPage + 10}" aria-label="Next">
+	<c:choose>
+	<c:when test="${empty keyword}">
+		<a class="page-link" href="/projectB/discussion/main.aa?keyword=${keyword}&pageNum=${startPage + 10}" aria-label="Next">
         <span aria-hidden="true">&raquo;</span>
         <span class="sr-only">Next</span>
-    </a>
+		</a>
+	</c:when>
+	<c:otherwise>
+		<a class="page-link" href="/projectB/discussion/main.aa?pageNum=${startPage + 10}" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+        <span class="sr-only">Next</span>
+		</a>
+	</c:otherwise>
+	</c:choose>
+   
 </li>
 </c:if>
 </ul>

@@ -48,8 +48,6 @@ public class DiscussionController {
             articleList = Collections.emptyList();
         }
         model.addAttribute("currentPage", new Integer(currentPage));
-        model.addAttribute("startRow", new Integer(startRow));
-        model.addAttribute("endRow", new Integer(endRow));
         model.addAttribute("count", new Integer(count));
         model.addAttribute("pageSize", new Integer(pageSize));
         model.addAttribute("articleList", articleList);
@@ -93,7 +91,7 @@ public class DiscussionController {
         // 오늘을 기준으로 한 주씩 전의 일요일 날짜 구하기 (총 5주전까지)
         for(int i = 0; i < 5;i++) {
         	if(week == 1) {
-        		lastweek = disBoardDAO.getPreWeek(lastweek);
+        		lastweek = disBoardDAO.getPreWeek(todayDate);
                 sunday = disBoardDAO.getSunday(lastweek);
                 week = lastweek.get("week");
                 month = lastweek.get("month");  

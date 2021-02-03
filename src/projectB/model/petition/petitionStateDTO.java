@@ -6,13 +6,13 @@ import projectB.model.BaseDTO;
 
 public class petitionStateDTO implements BaseDTO{
     private int num;
-    private int state;
+    private String state;
     
     
     public void setInfo(ResultSet rs) {
       try {
           setNum(rs.getInt("num"));
-          setState(rs.getInt("state"));
+          setState(rs.getString("state"));
           
       }catch(SQLException e) {
           e.printStackTrace();
@@ -25,10 +25,10 @@ public class petitionStateDTO implements BaseDTO{
     public void setNum(int num) {
       this.num = num;
     }
-    public int getState() {
+    public String getState() {
       return state;
     }
-    public void setState(int state) {
+    public void setState(String state) {
       this.state = state;
     }
 }
