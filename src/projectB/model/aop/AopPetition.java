@@ -49,4 +49,22 @@ public class AopPetition {
 		}
 		return view;
 	}
+	
+	@Around("execution(public * projectB.model.admin..*(..))")
+	public Object checklogin_admin(ProceedingJoinPoint jp) throws Throwable {
+		System.out.println("checklogin_answer");
+		
+		RequestAttributes ra = RequestContextHolder.currentRequestAttributes();
+		ServletRequestAttributes sra = (ServletRequestAttributes)ra;
+		
+		HttpServletRequest request = sra.getRequest();
+		HttpSession session = request.getSession();
+		
+		System.out.println("id = " + LoginUtils.getLoginID(session));
+		Object view = "redirect:/login/loginForm.aa";
+		if(LoginUtils.isLogin(session, LoginUtils.ADMIN)) {
+			view = jp.proceed();
+		}
+		return view;
+	}
 }

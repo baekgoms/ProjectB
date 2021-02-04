@@ -31,7 +31,7 @@
                         <tbody>
                         <c:forEach var="x" items="${petCmtList}">
                             <tr>
-                                <td align="center">${x.writer}"memId"</td>
+                                <td align="center">${x.writer}</td>
                                 <td align="center">${x.content}</td>
                                 <td align="center"> <fmt:formatDate value="${x.reg}" pattern="yy-MM-dd HH:mm"/></td>
                             </tr>
