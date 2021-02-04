@@ -12,8 +12,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import projectB.model.petition.CategoryDTO;
 import projectB.model.petition.PetitionDTO;
 import projectB.model.petition.PetitionIndicatorDTO;
+import projectB.model.petitioner.PetitionerDTO;
+import projectB.model.answerContentService.AnswerContentService;
 import projectB.model.answerListService.AnswerListService;
 import projectB.model.answerUploadService.*;
+import projectB.model.login.LoginUtils;
+
 
 @Controller 
 @RequestMapping("answer")
@@ -21,22 +25,27 @@ public class AnswerUploadController {
 
     @Autowired 
     private AnswerUploadService AnswerUploadService = null;
+    
+    @Autowired 
+    private AnswerContentService AnswerContentService = null;
   
     @RequestMapping("answerUpload.aa")
     public String answerUpload(@RequestParam("petitionNum") int petitionNum, Model model) throws Exception {
     
-    PetitionDTO petitionDTO = AnswerUploadService.getPetitionInfo(petitionNum);
-    
-    /* TODO - session
-    AnswerDTO answerDTO =  AnswerUploadService.getReplyInfo(id);
-    model.addAttribute("answerDTO",answerDTO);
+    /*
+    String id = LoginUtils.getLoginID(session);
+    PetitionerDTO petitionerDTO = AnswerUploadService.getReplyerInfo(id);
+    model.addAttribute("petitionerDTO",petitionerDTO);
     */
-    
+      
+    PetitionDTO petitionDTO = AnswerUploadService.getPetitionInfo(petitionNum);
     model.addAttribute("petitionNum", petitionNum);
     model.addAttribute("petitionDTO",petitionDTO);
+    
     return "answer/answerUpload";
     }
   
+    
     @RequestMapping("answerUploadPro.aa")
     public String answerUploadPro(@ModelAttribute AnswerDTO answerDTO, Model model) throws Exception {
     int petitionNum = answerDTO.getPetitionNum();
@@ -44,13 +53,44 @@ public class AnswerUploadController {
     AnswerUploadService.updatePetitionState(petitionNum);
     AnswerUploadService.insertArticle(answerDTO);
     
-    
-    System.out.println(petitionNum);
-    
     model.addAttribute("petitionNum", petitionNum);
     
     return "answer/answerUploadPro";
     }
   
+    
+    @RequestMapping("addAnswerUpload.aa")
+    public String addAnswerUpload(@RequestParam("petitionNum") int petitionNum, Model model) throws Exception {
+    
+    /*
+    String id = LoginUtils.getLoginID(session);
+    PetitionerDTO petitionerDTO = AnswerUploadService.getReplyerInfo(id);
+    model.addAttribute("petitionerDTO",petitionerDTO);
+    */
+      
+    PetitionDTO petitionDTO = AnswerUploadService.getPetitionInfo(petitionNum);
+    model.addAttribute("petitionNum", petitionNum);
+    model.addAttribute("petitionDTO",petitionDTO);
+    
+    AnswerDTO answerDTO = AnswerContentService.getAnswerByPetitionNum(petitionNum);
+    model.addAttribute("answerDTO",answerDTO);
+    
+    return "answer/addAnswerUpload";
+    }
   
+    
+    @RequestMapping("addAnswerUploadPro.aa")
+    public String addAnswerUploadPro(@ModelAttribute AnswerDTO answerDTO, Model model) throws Exception {
+    
+    int petitionNum = answerDTO.getPetitionNum();
+    AnswerUploadService.updateAnswerState(petitionNum);
+    AnswerUploadService.updatePetitionState(petitionNum);
+    AnswerUploadService.insertArticle2(answerDTO);
+    
+    model.addAttribute("petitionNum", petitionNum);
+    
+    return "answer/addAnswerUploadPro";
+    }
+    
+   
 }

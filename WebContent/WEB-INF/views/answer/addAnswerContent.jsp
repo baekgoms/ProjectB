@@ -90,7 +90,6 @@
 		<div>
 			<iframe style="margin-left:80px;" width="700" height="394" src="https://www.youtube.com/embed/${answerDTO.answerLink}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 		</div>
-
 																								
 	
 	<div class="petition-body"><h5 style="color:black;">청원 내용</h5>
@@ -114,16 +113,20 @@
 
 
 		<div class="answer-reply-content">
-			<h5 style="color:black;">답변원고</h5>
+			<h5 style="color:black;">답변원고_1</h5>
 			${answerDTO.content}
+			<br/><br/><br/>
+			<h5 style="color:black;">답변원고_2</h5>
+			${answerDTO.content2}
+			<br/><br/><br/>
 		</div>
 
 
-		<div class="answer-reaction" style="margin-left:300px;">
-			<button type="button" class="btn waves-effect waves-light btn-danger" onclick="fnAnswerReact(1, ${answerDTO.num})">추천(<span id="recommendCnt">${answerDTO.recommend}</span>)</button>
-			<button type="button" class="btn waves-effect waves-light btn-primary" onclick="fnAnswerReact(2, ${answerDTO.num})">반대(<span id="oppositeCnt">${answerDTO.opposite}</span>)</button>
-			<button type="button" class="btn waves-effect waves-light btn-warning" onclick="fnAnswerReact(3, ${answerDTO.num})">추가답변 원해요(<span id="additionCnt">${answerDTO.addition}</span>)</button> 
-		</div>
+			<div class="answer-reaction" style="margin-left:300px;">
+				<button type="button" class="btn waves-effect waves-light btn-danger" onclick="fnAnswerReact(1, ${answerDTO.num})">추천(<span id="recommendCnt">${answerDTO.recommend2}</span>)</button>
+				<button type="button" class="btn waves-effect waves-light btn-primary" onclick="fnAnswerReact(2, ${answerDTO.num})">반대(<span id="oppositeCnt">${answerDTO.opposite2}</span>)</button>
+				<button type="button" class="btn waves-effect waves-light btn-warning" onclick="fnAnswerReact(3, ${answerDTO.num})">추가답변 원해요(<span id="additionCnt">${answerDTO.addition2}</span>)</button> 
+			</div>
 
 	
 	<div class="buttons" style="margin-top:30px">
@@ -131,7 +134,7 @@
 	
 		
 		<input type="button" class="btn waves-effect waves-light btn-outline-dark" align="center" value="수정하기"
-		onclick="document.location.href='/projectB/answer/answerContentUpdate.aa?petitionNum=${petitionDTO.num}'"></button>
+		onclick="document.location.href='/projectB/answer/addAnswerContentUpdate.aa?petitionNum=${petitionDTO.num}'"></button>
 	                  	
 		<input type="button" class="btn waves-effect waves-light btn-outline-dark" align="center" value="목록보기"
 		onclick="document.location.href='/projectB/answer/list.aa?state=${answerDTO.state}'"></button>

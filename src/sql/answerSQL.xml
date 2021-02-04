@@ -6,21 +6,8 @@
 
 	<!-- resultType으로 리턴
 		 parameterType DAO에서 가지고 오는 타입 -->
-	<update id="updateAnswerState" parameterType="int">
-		update answer set state = state + 1 where petitionNum=#{petitionNum}
-	</update>
 	
-	<update id="updatePetitionState" parameterType="int">
-		update petition set petitionState = petitionState + 1 where num=#{num}
-	</update>
-
-	<insert id ="insertArticle" parameterType="answerDTO">
-		insert into answer(num,petitionNum,state,content,answerLink,name,department,answerDate,id) 
-		values(AnswerNum_seq.nextval, #{petitionNum}, #{state}, #{content}, #{answerLink},#{name},#{department},
-		sysdate, #{id})
-	</insert>
-	
-	
+	<!-- =============================답변List관련====================================== -->	 
 	<select id ="getArticleCount" resultType="int" parameterType="map">
 		select count(*) from answer A 
 			INNER JOIN petition B ON A.petitionNum = B.num
@@ -65,11 +52,82 @@
 		) where r <![CDATA[>=]]> #{startRow} and r <![CDATA[<=]]>#{endRow}
 	</select>
 	
-
 	
+	<!-- =============================답변Upload관련====================================== -->	 	 
+	<update id="updateAnswerState" parameterType="int">
+		update answer set state = state + 1 where petitionNum=#{petitionNum}
+	</update>
+	
+	<update id="updatePetitionState" parameterType="int">
+		update petition set petitionState = petitionState + 1 where num=#{num}
+	</update>
+
 	<select id="getPetitionInfo" resultType="petitionDTO" parameterType="int">
-      select * from petition where num = #{petitionNum} 
+      	select * from petition where num = #{petitionNum} 
     </select>
+
+    <select id="getReplyerInfo" resultType="petitionerDTO" parameterType="String">
+    	select * from petitioner where id=#{id}
+    </select>
+    
+	<update id ="insertArticle" parameterType="answerDTO">
+		UPDATE answer SET content = #{content}, answerLink = #{answerLink}, answerDate = sysdate WHERE petitionNum = #{petitionNum}
+	</update>
+
+	<update id ="insertArticle2" parameterType="answerDTO">
+		UPDATE answer SET content2 = #{content2}, answerLink = #{answerLink}, answerDate = sysdate WHERE petitionNum = #{petitionNum}
+	</update>
+	
+	
+	<!-- =============================답변Content관련====================================== -->	
+	
+	 
+	<select id="getAnswerByPetitionNum" parameterType="int" resultType="answerDTO">
+		SELECT * FROM answer WHERE petitionNum = #{petitionNum}
+	</select>
+    
+    <update id="updateArticle" parameterType="answerDTO">
+    	UPDATE answer SET answerLink = #{answerLink}, content = #{content}, answerDate = sysdate WHERE petitionNum=#{petitionNum}
+    </update>
+    
+    <update id="updateArticle2" parameterType="answerDTO">
+    	UPDATE answer SET answerLink = #{answerLink}, content2 = #{content2}, answerDate = sysdate WHERE petitionNum=#{petitionNum}
+    </update>
+    
+    <!-- =============================답변Reaction관련====================================== -->
+    
+
+    <select id="getAnswerPetitionerMap" parameterType="answerPetitionerMapDTO" resultType="answerPetitionerMapDTO">
+		select * from answerPetitionerMAP where answerNum = #{answerNum} AND petitioner = #{petitioner}
+    </select>
+    
+    <insert id="insertAnswerPetitionerMap" parameterType="answerPetitionerMapDTO">
+    	INSERT INTO answerPetitionerMAP
+   			(num, answerNum, petitioner, type)
+    	VALUES
+   			(answerPetitioner_seq.nextval ,#{answerNum}, #{petitioner}, #{type})
+    </insert>
+    
+    <update id="answerReact" parameterType="answerPetitionerMapDTO">
+    	UPDATE answer
+   			SET
+   			<if test="type == 1">
+   				recommend = recommend + 1
+   			</if>
+   			<if test="type == 2">
+   				opposite = opposite + 1
+   			</if>
+   			<if test="type == 3">
+   				addition = addition + 1
+   			</if>
+    	WHERE
+    		num = #{answerNum}
+    </update>
+    
+    
+    
+    
+    
     
     <select id = "getAnswerByRecommends" resultType="answerDTO" parameterType="map">
     select * from (select num, petitionNum, state, category, content, answerLink,

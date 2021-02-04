@@ -49,7 +49,7 @@
 			<div class="col-12">
 			
 
-<form method="post" name="uploadForm" action="/projectB/answer/answerUploadPro.aa" >
+<form method="post" name="uploadForm" action="/projectB/answer/addAnswerUploadPro.aa" >
 <input type="hidden" name="petitionNum" value="${petitionNum}" />
 <input type="hidden" name="state" value="${petitionDTO.petitionState}" />
 <input type="hidden" name="name" value="${petitionerDTO.name}" />
@@ -59,14 +59,14 @@
 
 <div class="card">
 	<div class="card-body">
-
-		<h4 class="card-title">청원정보</h4>
+			
+	    <h4 class="card-title">청원/기존 답변정보</h4>
 			<div class="form-group">
-				<a href="/projectB/petition/petContent.aa?num=${petitionDTO.num}" target="_blank">${petitionDTO.title}</a>
+				<a href="/projectB/answer/answerContent.aa?petitionNum=${petitionDTO.num}" target="_blank">${petitionDTO.title}</a>
 			</div>
 				<br/><hr>
-
 			
+				
 			<div class="form-group" style="color:black; font-size:14pt">
 				부서<input type="text" class="form-control" id="nametext1" placeholder="${petitionerDTO.department}" readOnly>
 				이름<input type="text" class="form-control" id="nametext1" placeholder="${petitionerDTO.name}" readOnly>
@@ -75,22 +75,22 @@
 
 		<h4 class="card-title">관련 영상 링크 </h4>    
 			<div class="form-group">
-				<input type="text" class="form-control" placeholder="URL입력" name="answerLink" id="answerLink" >
+				<input type="text" class="form-control" name="answerLink" id="answerLink" value="${answerDTO.answerLink}">
 			</div>
-			
+		
 
-		<h4 class="card-title">답변내용</h4>
+		<h4 class="card-title">추가답변내용</h4>
 			<div data-spy="scroll" data-target="#navbar-example2" data-offset="0"
 			 class="position-relative mt-2" style="height: 700px; overflow: auto;">	
 				                            
-				<textarea class="form-control content" rows="3" placeholder="답변 내용 작성 " name="content" id="content"
+				<textarea class="form-control content" rows="3" placeholder="답변 내용 작성 " name="content2" id="content2"
 				style="height: 700px; overflow: auto;"></textarea>
 				                            					                          
 			</div>                         
 			<hr>
-	                                        
-	                            
-	                                    
+		                                        
+		                            
+		                                    
 			<div class="form-actions">
 				<div class="text-right">
     				<button type="submit" class="btn btn-info">등록 </button>
@@ -98,10 +98,11 @@
             			<input id="backButton" class="btn btn-dark" type="button" value="목록" onclick="backCheck()">
     			</div>
 			</div>
+		
 		</div>
 	</div>	
 </form>
-		      
+	      
 		      
           
 			</div>

@@ -57,20 +57,20 @@
 	<div class="petition-area-wrap">
 		<div class="petition-title-area">
 			<br/>
-			<span>${petitionDTO.title}</span>
+			<span style="color:black;font-weight:bold">${petitionDTO.title}</span>
 		</div>
-		<span class="petition-dday" style="visibility: hidden;" id="dDay"></span>
+		<span class="petition-dday" style="visibility: hidden;" id="dDay" ></span>
 	</div>
 	<div class="petition-header">
 		<br/>
-			<div class="petition-people-area">
+			<div class="petition-people-area" style="color:black;">
 				<span style="font-size:12pt;font-weight:bold">참여인원  : [</span>
 				<span style="margin:15px;font-size:16pt">${petitionDTO.petition}</span>
 				<span style="font-size:12pt;font-weight:bold">명 ]</span>
 				<span style="margin:50px;" id="percentageChart" ></span>
 			</div>
 				<br/><br/>
-			<div class="petition-info-area"style="font-size:12pt;align:center;">
+			<div class="petition-info-area"style="font-size:12pt;align:center;color:black;">
 				<span style="font-weight:bold">카테고리 :</span> 
 				<span style="margin-right:25px;">${categoryName}</span>
 				<span class="petition-time"style="font-weight:bold">청원기간 : </span>
@@ -115,7 +115,7 @@
 
 	
 	<div class="petition-link-area">
-		<h5>관련 링크</h5>
+		<h5 style="color:black;">관련 링크</h5>
 		<c:forEach items="${fn:split(petitionDTO.link, ',') }" var="item">
            <a href="${item}" target="_blank">${item}</a>
         </c:forEach>
@@ -151,7 +151,7 @@
 	</div>
 	
 	<div class="petition-link-area2">
-		<h5>URL</h5>
+		<h5 style="color:black;">URL</h5>
 		<a id="copy_url" target="_blank"></a>
 		<button type="button" class="btn waves-effect waves-light btn-outline-dark" onclick="copyToClipboard('#copy_url')">복사하기</button>
 	</div>

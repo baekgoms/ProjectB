@@ -5,6 +5,7 @@ import java.sql.SQLException;
 
 public class AnswerPetitionerMapDTO {
 
+  private int num;
   private int answerNum;
   private String petitioner;
   private int type;
@@ -12,6 +13,7 @@ public class AnswerPetitionerMapDTO {
   
   public void setInfo(ResultSet rs) {
     try {
+        setNum(rs.getInt("num"));
         setAnswerNum(rs.getInt("answerNum"));
         setPetitioner(rs.getString("petitioner"));
         setType(rs.getInt("type"));
@@ -21,7 +23,12 @@ public class AnswerPetitionerMapDTO {
     }
 }
   
-  
+  public int getNum() {
+    return num;
+  }
+  public void setNum(int num) {
+    this.num = num;
+  }
   public int getAnswerNum() {
     return answerNum;
   }

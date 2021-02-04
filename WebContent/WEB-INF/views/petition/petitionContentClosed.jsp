@@ -7,6 +7,6 @@
 <%@ page import = "java.util.Date" %>
 
 <script>
-alert("비공개된 글입니다.");
+alert("본 게시물의 일부 내용이 국민 청원 요건에 위배되어 비공개되었습니다.");
 history.back();
 </script>

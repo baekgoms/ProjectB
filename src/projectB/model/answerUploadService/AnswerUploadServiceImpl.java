@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import projectB.model.answer.AnswerDTO;
 import projectB.model.petition.PetitionDTO;
+import projectB.model.petitioner.PetitionerDTO;
 
 @Service("AnswerUploadService")
 public class AnswerUploadServiceImpl implements AnswerUploadService {
@@ -38,4 +39,25 @@ public class AnswerUploadServiceImpl implements AnswerUploadService {
       
     }
 
+
+
+    @Override
+    public PetitionerDTO getReplyerInfo(String id) throws Exception {
+      return dao.selectOne("answer.getReplyerInfo",id);
+    }
+
+
+
+    @Override
+    public AnswerDTO getAnswerInfo(int petitionNum) throws Exception {
+      return dao.selectOne("answer.getAnswerInfo",petitionNum);
+    }
+
+
+
+    @Override
+    public void insertArticle2(AnswerDTO answerDTO) throws Exception {
+      dao.insert("answer.insertArticle2", answerDTO);
+    }
+ 
 }
