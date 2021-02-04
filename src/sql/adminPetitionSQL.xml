@@ -85,6 +85,9 @@
 		where r <![CDATA[>=]]> #{startRow} and r <![CDATA[<=]]>#{endRow}
 	</select>
 
+	<delete id="deleteArticle" parameterType="int">
+		delete from petition where num= #{num}
+	</delete>
 
 </mapper>
 

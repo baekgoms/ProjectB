@@ -76,7 +76,7 @@
 <th scope="col" colspan ="4">내용</th>
 </tr>
 <tr align="center">
-<td colspan ="4">${list.content}</td>
+<td colspan ="4"><pre font-family: Ubuntu Mono">${list.content}</pre></td>
 </tr>
 <tr align="center">
 <td >관련링크</td>
@@ -90,7 +90,8 @@
 <td colspan ="4" align="right">
 <input type="button" value="비공개처리" class="btn waves-effect waves-light btn-outline-dark">
 <input type="button" value="수정" class="btn waves-effect waves-light btn-outline-dark">
-<input type="button" value="삭제" class="btn waves-effect waves-light btn-outline-dark">
+<c:set var="num" value="${list.num}" />
+<input type="button" value="삭제" class="btn waves-effect waves-light btn-outline-dark" onClick="document.location.href='/projectB/admin/petitionDetailDelete.aa?num=${num}'">
 <input type="button" value="닫기" class="btn waves-effect waves-light btn-outline-dark" onclick="history.back();">
 </td>
 </tr>

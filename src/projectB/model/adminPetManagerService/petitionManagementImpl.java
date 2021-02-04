@@ -1,4 +1,4 @@
-package projectB.test.bobae;
+package projectB.model.adminPetManagerService;
 
 import java.util.HashMap;
 import java.util.List;
@@ -95,5 +95,12 @@ public class petitionManagementImpl implements petitionManegementService{
 			List<PetitionDTO> stateList = dao.selectList("adminPetition.getArticleState", map);
 			return stateList;
 		}
+
+		@Override
+		public void deleteArticle(int num) {
+			dao.delete("adminPetition.deleteArticle",num);
+		}
+
+		
 
 }

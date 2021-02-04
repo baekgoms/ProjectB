@@ -10,18 +10,61 @@
 <link href="/projectB/resource/bootstrap/css/style.css" rel="stylesheet">
 <!-- This Page CSS -->
 <link href="/projectB/resource/assets/libs/morris.js/morris.css" rel="stylesheet">
-<script>
-function inputCheck(){ 
-	if($("#keyword").val() == ""){
-		$("#keyword").addClass(" is-invalid");
-		$("#keyword").focus(); 
-		return;
-	}else{
-		$("#search").submit();
+<script type="text/javascript">
+	$(function(){
+		var chkObj = document.getElementsByName("RowCheck");
+		var rowCnt = chkObj.length;
+		
+		$("input[name='allCheck']").click(function(){
+			var chk_listArr = $("input[name='RowCheck']");
+			for (var i=0; i<chk_listArr.length; i++){
+				chk_listArr[i].checked = this.checked;
+			}
+		});
+		$("input[name='RowCheck']").click(function(){
+			if($("input[name='RowCheck']:checked").length == rowCnt){
+				$("input[name='allCheck']")[0].checked = true;
+			}
+			else{
+				$("input[name='allCheck']")[0].checked = false;
+			}
+		});
+	});
+	function deleteValue(){
+		var url = "abstractManagement.aa";    // Controller로 보내고자 하는 URL
+		var valueArr = new Array();
+	    var list = $("input[name='RowCheck']");
+	    for(var i = 0; i < list.length; i++){
+	        if(list[i].checked){ //선택되어 있으면 배열에 값을 저장함
+	            valueArr.push(list[i].value);
+	        }
+	    }
+	    if (valueArr.length == 0){
+	    	alert("선택된 글이 없습니다.");
+	    }
+	    else{
+			var chk = confirm("정말 삭제하시겠습니까?");				 
+			$.ajax({
+			    url : url,                    // 전송 URL
+			    type : 'POST',                // POST 방식
+			    traditional : true,
+			    data : {
+			    	valueArr : valueArr        // 보내고자 하는 data 변수 설정
+			    },
+                success: function(jdata){
+                    if(jdata = 1) {
+                        alert("삭제를 완료했습니다.");
+                        location.replace("abstractManagement.aa") //페이지 새로고침
+                    }
+                    else{
+                        alert("삭제를 실패했습니다.");
+                    }
+                }
+			});
+		}
 	}
-}
 </script>
-<title>청원관리</title>
+<title>청원관리-추상답변요청청원</title>
 <style>
 .card, .card-group {
     margin-bottom: 30px;
@@ -49,73 +92,14 @@ function inputCheck(){
 	<input type="button" value="전체목록" class="btn waves-effect waves-light btn-outline-dark" onclick="document.location.href='/projectB/admin/petitionManagement.aa'">
 	<input type="button" value="수정요청 청원" class="btn waves-effect waves-light btn-outline-dark" onclick="document.location.href='/projectB/admin/modifyManagement.aa'">
 	<input type="button" value="추상답변 관리" class="btn waves-effect waves-light btn-outline-dark"	onclick="document.location.href='/projectB/admin/abstractManagement.aa'">
-<br>
-<br>
-<div class="col-lg-6">
-	<div class="mb-4">
-		<p>
-			<button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-				검색필터 ▼
-			</button>
-		</p>
-		<div class="collapse" id="collapseExample" >
-			<div class="card card-body" >
-				<h3>검색필터</h3>
-				<form name="form" method="post" action="/projectB/admin/petitionManagementSearch.aa" id="search">
-					<table class="table">
-					
-						<tr>
-							<td>청원상태</td>
-							<td>
-								<label><input type="radio" name="fDTypes" class="mr0" value="전체">전체</label>
-								<label><input type="radio" name="fDTypes" class="mr0" value="청원시작">청원시작</label>
-								<label><input type="radio" name="fDTypes" class="mr0" value="청원진행중">청원진행중</label>
-								<label><input type="radio" name="fDTypes" class="mr0" value="청원완료">청원완료</label>
-							</td>
-						</tr>
-						<tr>
-							<td>청원수</td>
-							<td>    
-								<input type="range" value="150000" min="0" max="300000" step="1000" onchange = "SetValue(this)">
-							</td>
-						</tr>
-						<tr>
-							<td>일자별</td>
-							<td>
-							  <label><input type="radio" name="fDTypes" class="mr0" value="최근1주">최근1주</label>
-							  <label><input type="radio" name="fDTypes" class="mr0" value="최근1개월">최근1개월</label>
-							  <label><input type="radio" name="fDTypes" class="mr0" value="최근3개월">최근3개월</label>
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2" >
-								<select id="searchOption" name="searchOption" >
-									<option value="all" <c:out value="${searchOption == 'all'?'selected':''}"/>>전체</option>
-									<option value="title" <c:out value="${searchOption == 'title'?'selected':''}"/>>제목</option>
-									<option value="content" <c:out value="${searchOption == 'content'?'selected':''}"/>>내용</option>
-									<option value="writer" <c:out value="${searchOption == 'writer'?'selected':''}"/>>작성자</option>
-								</select>
-								<input type="text" name="keyword" id="keyword" class="form-control" style="width:70%;" placeholder="검색어를 입력하세요" >
-
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2" align="right">
-								<button type="button" class="btn waves-effect waves-light btn-outline-dark" onClick="inputCheck()">검색</button>
-								<input type="reset" value="초기화" class="btn waves-effect waves-light btn-outline-dark" >
-							</td>
-						</tr>
-					</table>
-				</form>
-			</div>
-		</div>
-	</div> 
 </div>
+<br>
+
   
 <div class="table-responsive"  >
 	<table class="table" style="text-align:center;">
     	<tr>
-        	<th scope="col">#</th>
+        	<th scope="col" style="vertical-align:middle; display:inline-block; margin-bottom:2px;" >&nbsp;<input id="allCheck" type="checkbox" name="allCheck" class="form-check-input"/></th>
             <th scope="col">청원번호</th>
             <th scope="col">카테고리</th>
             <th scope="col">제목</th>
@@ -126,11 +110,16 @@ function inputCheck(){
             <th scope="col">청원동의수</th>
            	<th scope="col">글상태</th>
         </tr>
-	<c:if test="${count > 0 }">
+        <c:if test="${count == 0}">
+        <tr>
+        <td colspan ="10">추가답변을 원하는 청원이 없습니다.</td>
+        </tr>
+        </c:if>
+        <c:if test="${count > 0 }">
 		<c:forEach var="article" items="${ articleList }">
          <tr>
          	<c:set var="number" value="${number-1}" />
-            	<td align="center"><input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1"></td>
+            	<td style="vertical-align:middle; display:inline-block; margin-bottom:2px;">&nbsp;<input name="RowCheck" type="checkbox" value="${article.num}" class="form-check-input"/></td>
                 <td>${article.num}</td>
                 <td>${ category[article.category].categoryName }</td>
                 <td>	<a href ="/projectB/admin/petitionDetail.aa?num=${article.num}&pageNum=${currentPage}">${article.title}</td>
@@ -150,15 +139,15 @@ function inputCheck(){
                 </c:choose>
                 </td>
           </tr>
-         </c:forEach>
-     </c:if>
+          </c:forEach>
+          </c:if>
           <tr>
           	<td colspan="10" align="right">
-            	<input type="button" value="선택삭제" class="btn waves-effect waves-light btn-outline-dark">
+            	<input type="button" value="선택삭제" class="btn waves-effect waves-light btn-outline-dark" onclick="deleteValue();">
 			</td>
           </tr>
 	</table>
-	 <c:if test="${count > 0}">
+	<c:if test="${count > 0}">
 			<c:set var="pageCount" value="${count / pageSize +(count % pageSize == 0 ? 0: 1)}" />
 			<c:set var="pageBlock" value="${10}" />
 			<fmt:parseNumber var="result" value="${ currentPage/10 }" integerOnly="true" />
@@ -206,15 +195,5 @@ function inputCheck(){
 <script src="/projectB/resource/bootstrap/assets/libs/morris.js/morris.min.js"></script>
 <script src="/projectB/resource/bootstrap/js/pages/morris/morris-data.js"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
-<script language="JavaScript">
-
-function SetValue(this)
-
-{
-range_val.value = this.value;
-}
-
-
-</script>
 </body>
 </html>

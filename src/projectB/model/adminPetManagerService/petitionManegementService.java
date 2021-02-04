@@ -1,10 +1,11 @@
-package projectB.test.bobae;
+package projectB.model.adminPetManagerService;
 
 import java.util.List;
 
 import projectB.model.petition.CategoryDTO;
 import projectB.model.petition.PetitionDTO;
 import projectB.model.petition.petitionStateDTO;
+
 
 public interface petitionManegementService {
 	
@@ -18,4 +19,5 @@ public interface petitionManegementService {
 	public int getArticleCount(String keyword, String searchOption) throws Exception;
 	public PetitionDTO getContent(int num) throws Exception;
 	public List<PetitionDTO> getArtilclebyState(int state, int startRow, int endRow) throws Exception;
+	public void deleteArticle(int num);
 }

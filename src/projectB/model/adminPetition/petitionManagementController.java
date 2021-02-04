@@ -1,7 +1,10 @@
-package projectB.test.bobae;
+package projectB.model.adminPetition;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import projectB.model.adminPetManagerService.petitionManegementService;
 import projectB.model.petition.CategoryDTO;
 import projectB.model.petition.PetitionDTO;
 import projectB.model.petition.petitionStateDTO;
@@ -53,7 +57,7 @@ public class petitionManagementController {
 		model.addAttribute("articleList", articleList);
 		model.addAttribute("pageNum", new Integer(pageNum));
 		
-		return "test/petitionManagement";
+		return "adminPetition/petitionManagement";
 	}
 	
 	@RequestMapping("petitionManagementSearch.aa")
@@ -92,13 +96,27 @@ public class petitionManagementController {
 		model.addAttribute("searchOption", searchOption);
 		
 
-		return "test/petitionManagement";
+		return "adminPetition/petitionManagement";
+	}
+	
+    @RequestMapping("petitionManagementdelete.aa")
+    public String ajaxTest(HttpServletRequest request) {
+            
+        String[] num = request.getParameterValues("valueArr");
+        int size = num.length;
+        int[] nums = Arrays.stream(num).mapToInt(Integer::parseInt).toArray();
+        for(int i=0; i<size; i++) {
+			ManageService.deleteArticle(nums[i]);
+		}
+       
+
+		return "adminPetition/petitionManagement";
 	}
 	
 	@RequestMapping("modifyManagement.aa")
 	public String modifyManagement() throws Exception{
 
-		return "test/modifyManagement";
+		return "adminPetition/modifyManagement";
 	}
 	
 	@RequestMapping("abstractManagement.aa")
@@ -129,7 +147,21 @@ public class petitionManagementController {
 			model.addAttribute("number", new Integer(number));
 			model.addAttribute("articleList", articleList);
 			
-		return "test/abstractManagement";
+		return "adminPetition/abstractManagement";
+	}
+	
+    @RequestMapping("abstractManagementdelete.aa")
+    public String ajaxTestAbstra(HttpServletRequest request) {
+            
+        String[] num = request.getParameterValues("valueArr");
+        int size = num.length;
+        int[] nums = Arrays.stream(num).mapToInt(Integer::parseInt).toArray();
+        for(int i=0; i<size; i++) {
+			ManageService.deleteArticle(nums[i]);
+		}
+       
+
+		return "adminPetition/abstractManagement";
 	}
 	
 	@RequestMapping("petitionDetail.aa")
@@ -143,6 +175,14 @@ public class petitionManagementController {
 		model.addAttribute("list", list);
 		model.addAttribute("state", getState);
 		
-		return "test/petitionDetail";
+		return "adminPetition/petitionDetail";
+	}
+	
+	@RequestMapping("petitionDetailDelete.aa")
+	public String petitionDetailDelete(int num) throws Exception{
+		
+		ManageService.deleteArticle(num);
+		
+		return "adminPetition/petitionDetailDelete";
 	}
 }
