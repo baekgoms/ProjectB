@@ -13,6 +13,6 @@
 >
 
 <aop:aspectj-autoproxy />
-<bean id = "upload" class = "projectB.model.aop.Petition"/>
+<bean id = "aop" class = "projectB.model.aop.AopPetition"/>
 
 </beans>

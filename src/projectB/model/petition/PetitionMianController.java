@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import projectB.model.PetitionMainService.PetitionMainService;
 import projectB.model.login.LoginUtils;
 import projectB.model.petitionListService.PetitionListService;
+import projectB.model.tag.TagDTO;
+import projectB.model.tag.TagService;
 
 @Controller
 @RequestMapping("petition")
@@ -24,6 +26,9 @@ public class PetitionMianController {
 	@Autowired
 	private PetitionMainService MainDAO = null;
 
+	@Autowired
+	private TagService tagService;
+	
 	@RequestMapping("petitionMain.aa")
 	public String petitionMain(HttpSession session, Model model) throws Exception{
 		
@@ -40,19 +45,14 @@ public class PetitionMianController {
 	        } else {
 	            articleList = Collections.emptyList();
 	        }
-	        System.out.println(count + "//count");
-	        System.out.println(state + "//state");
-	        System.out.println(id + "//id");
+//	        System.out.println(count + "//count");
+//	        System.out.println(state + "//state");
+//	        System.out.println(id + "//id");
 	        
-	        List<PetitionDTO> enddateList = null;
-	        enddateList = MainDAO.getArtilclebyEnddate();
+	        List<PetitionDTO> enddateList = MainDAO.getArtilclebyEnddate();
+	        List<PetitionDTO> petitionList = MainDAO.getArtilclebyPetition();
+	        List<TagDTO> tagList = tagService.getTags(1, 10);
 	        
-	        List<PetitionDTO> petitionList = null;
-	        petitionList = MainDAO.getArtilclebyPetition();
-		
-	        List<PetitionDTO> tagList = null;
-	        tagList = MainDAO.getTagCount();
-		
 	        model.addAttribute("state",state);
 	        model.addAttribute("count", new Integer(count));
 	        model.addAttribute("memId",id);

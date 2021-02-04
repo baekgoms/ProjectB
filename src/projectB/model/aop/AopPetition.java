@@ -13,7 +13,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import projectB.model.login.LoginUtils;
 
 @Aspect
-public class Petition {
+public class AopPetition {
 	@Around("execution(public * projectB.model..upload_*(..))")
 	public Object checklogin(ProceedingJoinPoint jp) throws Throwable {
 		System.out.println("upload_petition");
@@ -24,8 +24,27 @@ public class Petition {
 		HttpServletRequest request = sra.getRequest();
 		HttpSession session = request.getSession();
 		
+		System.out.println("id = " + LoginUtils.getLoginID(session));
 		Object view = "redirect:/login/loginForm.aa";
 		if(LoginUtils.isLogin(session)) {
+			view = jp.proceed();
+		}
+		return view;
+	}
+	
+	@Around("execution(public * projectB.model.answer..*(..))")
+	public Object checklogin_answer(ProceedingJoinPoint jp) throws Throwable {
+		System.out.println("checklogin_answer");
+		
+		RequestAttributes ra = RequestContextHolder.currentRequestAttributes();
+		ServletRequestAttributes sra = (ServletRequestAttributes)ra;
+		
+		HttpServletRequest request = sra.getRequest();
+		HttpSession session = request.getSession();
+		
+		System.out.println("id = " + LoginUtils.getLoginID(session));
+		Object view = "redirect:/login/loginForm.aa";
+		if(LoginUtils.isLogin(session, LoginUtils.ANSWER)) {
 			view = jp.proceed();
 		}
 		return view;

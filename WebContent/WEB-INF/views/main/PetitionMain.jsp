@@ -75,9 +75,9 @@
 	                    	<tr>
 	                           <th scope="col"><h3 class="jb-600">가장 많이 사용된 태그</h3></th>
 	                        </tr>
-	                       	<c:forEach var="tagList" items="${tagList}" begin="0" end="5" step="1" varStatus="status">
+	                       	<c:forEach var="tag" items="${tagList}">
 	                        <tr>
-	                             <td> ${tagList} </td>
+	                             <td> ${tag.name} </td>
 							</tr>
 	                        </c:forEach>
 	                     </table>
