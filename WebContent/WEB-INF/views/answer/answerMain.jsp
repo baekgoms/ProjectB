@@ -77,8 +77,21 @@ a:visited {
 				<option value="YEAR"<c:if test="${ 'YEAR' == sort }">selected</c:if>>12개월</option>
 			</select>
 		</div>
-		
- 		<%-- <c:out value="${ petitionRecommends.size() }"/>
+
+	<div class="card" style="width: 1600px; position: relative; left: 120px;">
+		<h4 class="card-title" style="text-align: center;">인기 태그 TOP5</h4>
+			<div class="table-responsive">
+				<table class="table table-bordered">
+					<tr>
+						<c:forEach var="tag" items="${ tags }">
+							<td>${ tag.name }</td>
+						</c:forEach>
+					</tr>
+				</table>
+			</div>
+	</div>
+
+		<%-- <c:out value="${ petitionRecommends.size() }"/>
 		<c:out value="${ petitionOppsites.size() }"/>
 		<c:out value="${ petitionAdditions.size() }"/>
 		  --%>
@@ -166,20 +179,6 @@ a:visited {
 						</c:forEach>
 												
 					</tbody>
-				</table>
-			</div>
-		</div>
-		<div class="card" style="position: relative; bottom: 1540px; left: 140px; width: 1600px;">
-			<h4 class="card-title" style="text-align: center;">인기 태그 TOP5</h4>
-			<div class="table-responsive">
-				<table class="table table-bordered" >
-					<tr>
-						<c:forEach var = "tag" items = "${ tags }">
-							<td>
-								${ tag.name }								
-							</td>
-						</c:forEach>
-					</tr>
 				</table>
 			</div>
 		</div>
