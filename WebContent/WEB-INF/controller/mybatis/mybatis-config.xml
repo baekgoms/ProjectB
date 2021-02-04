@@ -44,13 +44,10 @@
 		<mapper resource="/sql/loginSQL.xml" />
 		<mapper resource="/sql/questionSQL.xml" />
 		<mapper resource="/sql/answerSQL.xml" />
-<<<<<<< HEAD
 		<mapper resource="/sql/mypageSQL.xml" />
-=======
 		<mapper resource="/sql/adminPetitionSQL.xml" />
 		<mapper resource="/sql/adminMainSQL.xml" />
 		<mapper resource="/sql/tagSQL.xml" />
->>>>>>> e5f8a746bb9b9c9260c15b129cb90fddb17fef79
 	</mappers>
   
 </configuration>
