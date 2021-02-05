@@ -49,7 +49,7 @@ a:visited {
                 <div class="navbar-collapse collapse" id="navbarSupportedContent" style="border-bottom: 1px solid #082e59;">
                 	<ul class="navbar-nav float-left mr-auto ml-3 pl-1">
                 		<li class="nav-item dropdown" style="position: relative; left: 100px;">
-                			<a href="">
+                			<a href="/projectB/admin/main.aa">
                 				<strong style="color: white;">
                 					관리자 메인
                 				</strong>
@@ -64,7 +64,7 @@ a:visited {
                 			</a>
                 		</li>
                 		                		
-                		<li class="nav-item dropdown" style="position: relative; left: 360px;">
+                		<li class="nav-item dropdown" style="position: relative; left: 260px;">
                 			<a href="/projectB/admin/petitioner.aa">
                 				<strong style="color: white;">
                 					회원 관리
@@ -72,7 +72,7 @@ a:visited {
                 			</a>
                 		</li> 
                 		
-                		<li class="nav-item dropdown" style="position: relative; left: 540px;">
+                		<li class="nav-item dropdown" style="position: relative; left: 340px;">
                 			<a href="/projectB/admin/question.aa">
                 				<strong style="color: white;">
                 					문의 관리
@@ -80,7 +80,7 @@ a:visited {
                 			</a>
                 		</li>
                 		
-                		<li class="nav-item dropdown" style="position: relative; left: 720px;">
+                		<li class="nav-item dropdown" style="position: relative; left: 420px;">
                 			<a href="">
                 				<strong style="color: white;">
                 					토론 관리
@@ -88,8 +88,8 @@ a:visited {
                 			</a>
                 		</li>
                 		
-                		<li class="nav-item dropdown" style="position: relative; left: 900px;">
-                			<a href="">
+                		<li class="nav-item dropdown" style="position: relative; left: 500px;">
+                			<a href="/projectB/admin/report.aa">
                 				<strong style="color: white;">
                 					신고 관리
                 				</strong>
