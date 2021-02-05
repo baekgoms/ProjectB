@@ -2,11 +2,31 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="adminPetition">
-	<!-- resultType으로 리턴
-		 parameterType DAO에서 가지고 오는 타입 -->
-		 
-		 
+<mapper namespace="adminReport">
+
+	<select id ="getPetitionCount" resultType="int" parameterType="int">
+		select count(*) from petition where open= #{open} and report > 0
+	</select>
+	
+	<select id ="getDiscussionCount" resultType="int" parameterType="int">
+		select count(*) from Discussion where open= #{open} and report > 0
+	</select>
+	
+	<select id ="getDiscussionCommentCount" resultType="int" parameterType="int">
+		select count(*) from DiscussionComment where open= #{open} and report > 0
+	</select>
+
+
+
+
+
+
+
+
+
+
+
+	<!-- 		참고		 -->
 	<update id ="updatePetition" parameterType="petitionDTO" >
 		UPDATE petition SET title = #{title}, 
 		content = #{content} WHERE num = #{num}
@@ -19,8 +39,6 @@
 	<update id ="updateOpen" parameterType="int" >
 		UPDATE petition SET open = 0 WHERE num = #{num}
 	</update>
-	
-<!-- 		청원 관리		 -->
 
 	<select id ="getArticleCount" resultType="int">
 		select count(*) from petition
@@ -30,7 +48,6 @@
 					WHERE writer like '%' ||#{keyword}||'%'
 					OR content like '%'||#{keyword}||'%'
 					OR title like '%'||#{keyword}||'%'
-				
 				</when>
 				<otherwise>
 					WHERE ${searchOption} like '%'||#{keyword}||'%'
@@ -49,15 +66,9 @@
 					WHERE writer like '%' ||#{keyword}||'%'
 					OR content like '%'||#{keyword}||'%'
 					OR title like '%'||#{keyword}||'%'
-					<if test ="check != null">
-						AND petitionState = ${check}
-					</if>
 				</when>
 				<otherwise>
 					WHERE ${searchOption} like '%'||#{keyword}||'%'
-						<if test ="check != null">
-							AND petitionState = ${check}
-						</if>
 				</otherwise>
 			</choose>
 		</if>
@@ -95,10 +106,6 @@
 	<delete id="deleteArticle" parameterType="int">
 		delete from petition where num= #{num}
 	</delete>
-	
-	<select id="checkOpCl" resultType="petitionDTO" parameterType="int">
-		select title, open, num from petition where num=#{num}
-	</select>
 
 </mapper>
 

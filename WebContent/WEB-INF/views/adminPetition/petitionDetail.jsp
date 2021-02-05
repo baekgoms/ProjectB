@@ -31,11 +31,16 @@
 </style>
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/topbar/admintopbar.jsp" />
 <br>
 <br>
 <div class="table-responsive" align="center">
+
 <form >
-<table class="table">
+<br>
+<br>
+<table class="table" cellspacing="0" cellpadding="0" align="center" >
+
 <tr align="center">
 <td colspan ="4"><h3>청원 상세보기</h3></td>
 </tr>
@@ -79,18 +84,18 @@
 <td colspan ="4"><pre font-family: Ubuntu Mono">${list.content}</pre></td>
 </tr>
 <tr align="center">
-<td >관련링크</td>
+<th>관련링크</th>
 <td colspan ="3" >${list.link}</td>
 </tr>
 <tr align="center">
-<td >키워드</td>
+<th >키워드</th>
 <td colspan ="3">${list.tag}</td>
 </tr>
 <tr>
 <td colspan ="4" align="right">
-<input type="button" value="비공개처리" class="btn waves-effect waves-light btn-outline-dark">
-<input type="button" value="수정" class="btn waves-effect waves-light btn-outline-dark">
 <c:set var="num" value="${list.num}" />
+<input type="button" value="공개/비공개처리" class="btn waves-effect waves-light btn-outline-dark" onClick="openClose(${list.num});">
+<input type="button" value="수정" class="btn waves-effect waves-light btn-outline-dark" onClick="document.location.href='/projectB/adminPetition/contentUpdate.aa?num=${num}'">
 <input type="button" value="삭제" class="btn waves-effect waves-light btn-outline-dark" onClick="document.location.href='/projectB/admin/petitionDetailDelete.aa?num=${num}'">
 <input type="button" value="닫기" class="btn waves-effect waves-light btn-outline-dark" onclick="history.back();">
 </td>
@@ -127,5 +132,15 @@
 <script src="/projectB/resource/bootstrap/assets/libs/morris.js/morris.min.js"></script>
 <script src="/projectB/resource/bootstrap/js/pages/morris/morris-data.js"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+<script>
+function openClose(num){
+	
+	
+	url = "/projectB/admin/openClosePetition.aa?num=" + num;
+	
+	window.open(url, "confirm", 
+    "toolbar=no, location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=600, height=400");
+}
+</script>
 </body>
 </html>

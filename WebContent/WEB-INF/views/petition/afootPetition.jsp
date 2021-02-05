@@ -167,12 +167,32 @@ function inputCheck(){
 	
 		<ul class="pagination justify-content-center">
 				<c:if test="${startPage > 10 }">
-					<li class="page-item">
-						<a class="page-link" href="/projectB/petition/afootPetition.aa?pageNum=${startPage - 10}" aria-label="Previous">
-							<span aria-hidden = "true">«</span>
-							<span class="sr-only">Previous</span>
-						</a>
-					</li>
+					<c:choose>
+						<c:when test="${empty keyword && empty sort}">
+								<li class="page-item">
+									<a class="page-link" href="/projectB/petition/afootPetition.aa?pageNum=${startPage - 10}" aria-label="Previous">
+										<span aria-hidden = "true">«</span>
+										<span class="sr-only">Previous</span>
+									</a>
+								</li>
+						</c:when>
+						<c:when test="${empty keyword && not empty sort}">
+								<li class="page-item">
+									<a class="page-link"  href="/projectB/petition/afootPetitionSort.aa?pageNum=${startPage - 10}&sort=${sort}" aria-label="Previous">
+										<span aria-hidden = "true">«</span>
+										<span class="sr-only">Previous</span>
+									</a>
+								</li>
+						</c:when>
+						<c:otherwise>
+								<li class="page-item">
+									<a class="page-link"  href="/projectB/petition/afootPetitionSearch?keyword=${keyword}&pageNum=${startPage - 10}" aria-label="Previous">
+										<span aria-hidden = "true">«</span>
+										<span class="sr-only">Previous</span>
+									</a>
+								</li>
+						</c:otherwise>
+					</c:choose>
 				</c:if>
 			<c:choose>
 				<c:when test="${empty keyword && empty sort}">
@@ -198,12 +218,32 @@ function inputCheck(){
 				</c:otherwise>
 			</c:choose>
 			<c:if test="${endPage < pageCount}">
-				<li class="page-item">
-					<a class="page-link" href="/projectB/petition/afootPetition.aa?pageNum=${startPage + 10}" aria-label="Next">
-		  				<span aria-hidden="true">»</span>
+			<c:choose>
+						<c:when test="${empty keyword && empty sort}">
+								<li class="page-item">
+									<a class="page-link" href="/projectB/petition/afootPetition.aa?pageNum=${startPage + 10}" aria-label="Next">
+										<span aria-hidden="true">»</span>
 		 				 <span class="sr-only">Next</span>
-		 			</a>
-				</li>
+									</a>
+								</li>
+						</c:when>
+						<c:when test="${empty keyword && not empty sort}">
+								<li class="page-item">
+									<a class="page-link"  href="/projectB/petition/afootPetitionSort.aa?pageNum=${startPage + 10}&sort=${sort}" aria-label="Next">
+										<span aria-hidden="true">»</span>
+		 				 <span class="sr-only">Next</span>
+									</a>
+								</li>
+						</c:when>
+						<c:otherwise>
+								<li class="page-item">
+									<a class="page-link"  href="/projectB/petition/afootPetitionSearch?keyword=${keyword}&pageNum=${startPage + 10}" aria-label="Next">
+										<span aria-hidden="true">»</span>
+		 				 <span class="sr-only">Next</span>
+									</a>
+								</li>
+						</c:otherwise>
+					</c:choose>
 			</c:if>
 		</ul>
 	</c:if>

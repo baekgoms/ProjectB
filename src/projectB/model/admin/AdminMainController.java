@@ -154,7 +154,7 @@ public class AdminMainController {
 		System.out.println("admin main controller");
 		System.out.println(todayPetitioner);
 		
-		return "wooch/AdminMain";
+		return "main/AdminMain";
 	}
 	
 }

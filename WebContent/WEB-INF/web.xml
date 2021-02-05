@@ -16,7 +16,7 @@
     </filter-mapping>
     
     <servlet>
-    	<servlet-name>proejctB</servlet-name>
+    	<servlet-name>projectB</servlet-name>
     	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
     	<init-param>
     		<param-name>contextConfigLocation</param-name>
@@ -30,7 +30,7 @@
     </servlet>
     
     <servlet-mapping>
-    	<servlet-name>proejctB</servlet-name>
+    	<servlet-name>projectB</servlet-name>
     	<url-pattern>*.aa</url-pattern>
     </servlet-mapping>
 </web-app>
