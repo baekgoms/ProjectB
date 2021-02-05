@@ -34,6 +34,7 @@
 		<typeAlias alias="interestTagDTO" type="projectB.test.hj.InterestTagDTO" />
 		<typeAlias alias="tagDTO" type="projectB.model.tag.TagDTO" />
 		<typeAlias alias="answerPetitionerMapDTO" type="projectB.model.answer.AnswerPetitionerMapDTO"/>
+		<typeAlias alias="adminReportDTO" type="projectB.model.admin.AdminReportDTO"/>
 	</typeAliases>
 	
 	<mappers>
@@ -48,6 +49,7 @@
 		<mapper resource="/sql/mypageSQL.xml" />
 		<mapper resource="/sql/adminPetitionSQL.xml" />
 		<mapper resource="/sql/adminMainSQL.xml" />
+		<mapper resource="/sql/adminReportSQL.xml" />
 		<mapper resource="/sql/tagSQL.xml" />
 	</mappers>
   

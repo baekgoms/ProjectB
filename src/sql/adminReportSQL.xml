@@ -4,21 +4,72 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="adminReport">
 
-	<select id ="getPetitionCount" resultType="int" parameterType="int">
-		select count(*) from petition where open= #{open} and report > 0
+	<select id ="getTotalList" resultType="adminReportDTO" parameterType="map">
+		select * from 
+			(select num, sort, content, writer, report, rownum r from
+				(select num, 1  as sort, content, writer, report, rownum r from petition 
+					where open = #{open} and report > 0 
+					union
+					select num, 2  as sort, subject, write, report,  rownum r  from discussion 
+					where open = #{open} and report > 0 
+					union
+					select num, 3  as sort, content, writer, report,  rownum r from discussionComment 
+				where open = #{open} and report > 0 
+				<choose>
+					<when test="option == 1">
+						order by report desc, num desc)
+						order by report desc, num desc)
+					</when>
+					<otherwise>
+					     order by num desc)
+					     order by num desc)
+				    </otherwise>
+				</choose>
+		where r <![CDATA[>=]]> #{ startRow } and r <![CDATA[<=]]>#{ endRow }
+	</select>	
+
+
+	<select id="petitioners" resultType="petitionerDTO" parameterType="map">
+	  select * from (select num, id, password, name, contact, email,
+		gender, report, state, emailArg, reg, blockReg, authKey, birthday, rownum r
+    	from (select * from petitioner where state = 1
+    	<choose>
+			<when test="sort == 3">
+				order by report desc, num desc)
+				order by report desc, num desc)
+			</when>
+			<otherwise>
+			     order by num desc)
+			     order by num desc)
+		    </otherwise>
+		</choose>
+    	
+    	where 
+	</select>
+
+
+
+	<select id ="getPetitionCount" resultType="int" parameterType="map">
+		select count(*) from petition where open = #{open} and report > 0
 	</select>
 	
-	<select id ="getDiscussionCount" resultType="int" parameterType="int">
+	<select id ="getDiscussionCount" resultType="int" parameterType="map">
 		select count(*) from Discussion where open= #{open} and report > 0
 	</select>
 	
-	<select id ="getDiscussionCommentCount" resultType="int" parameterType="int">
+	<select id ="getDiscussionCommentCount" resultType="int" parameterType="map">
 		select count(*) from DiscussionComment where open= #{open} and report > 0
 	</select>
 
+	
+	
+	<select id ="getPetition" resultType="petitionDTO" parameterType="int">
+		select * from petition where open = #{open} and report > 0
+	</select>
 
-
-
+	<select id ="getDiscussion" resultType="discussionDTO" parameterType="int">
+		select * from Discussion where open= #{open} and report > 0
+	</select>
 
 
 

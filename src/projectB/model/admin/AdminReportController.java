@@ -1,6 +1,8 @@
 package projectB.model.admin;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +29,7 @@ public class AdminReportController {
 	
 
 	
-	public static final int LIST_LENGTH = 20;
+	public static final int LIST_LENGTH = 10;
 	public static final int PAGE_LENGTH = 10;
 	
 	//===============참고=========================
@@ -41,16 +43,20 @@ public class AdminReportController {
 	
 	@RequestMapping("report.aa")
 	public String report( @RequestParam(defaultValue="1", required = true)int pageNum,
-						  @RequestParam(defaultValue="1", required = true)int option, 
+						  @RequestParam(defaultValue="0", required = true)int option, 
 						  @RequestParam(defaultValue="0", required = true)int open,
 						  Model model ) throws Exception {
 		
 		System.out.println("===admin report controller start===");
-		int petitionCount = dao.selectOne("adminReport.getPetitionCount", open);
-		int discussionCount = dao.selectOne("adminReport.getPetitionCount", open);
-		int discussionCommentCount = dao.selectOne("adminReport.getPetitionCount", open);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("option", option);
+		map.put("open", open);
+		
+		int petitionCount = dao.selectOne("adminReport.getPetitionCount", map);
+		int discussionCount = dao.selectOne("adminReport.getPetitionCount", map);
+		int discussionCommentCount = dao.selectOne("adminReport.getPetitionCount", map);
 		int TotalCount = petitionCount + discussionCount + discussionCommentCount;
-				
 				
 		int startRow = (pageNum - 1) * LIST_LENGTH + 1;
 		int endRow = (pageNum) * LIST_LENGTH;
@@ -64,14 +70,18 @@ public class AdminReportController {
 		if (endPageIndex > pageTotalCount)
 			endPageIndex = pageTotalCount;
 		
-		List<PetitionerDTO> petitioners = petitionerService.petitioners(startRow, endRow, option);
+		map.put("startRow", startRow);
+		map.put("endRow", endRow);
+		System.out.println(map);
+		//List<PetitionerDTO> petitioners = petitionerService.petitioners(startRow, endRow, option);
+		List<AdminReportDTO> totalList = dao.selectList("adminReport.getTotalList", map);
 		
-		
-		model.addAttribute("petitioners", petitioners);
-		model.addAttribute("petitionerCount", petitioners.size());
+		model.addAttribute("totalList", totalList);
+		model.addAttribute("totalListCount", totalList.size());
 		
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("option", option);
+		model.addAttribute("open", open);
 		model.addAttribute("pageTotalCount", pageTotalCount);
 		model.addAttribute("startPageIndex", startPageIndex);
 		model.addAttribute("endPageIndex", endPageIndex);			
@@ -83,44 +93,6 @@ public class AdminReportController {
 		return "wooch/AdminReport";
 	}
 	
-	//참고=============================================================================
-	@RequestMapping("p.aa")
-	public String member(@RequestParam(defaultValue="1", required = true)int pageNum,
-			@RequestParam(defaultValue="1", required = true)int sort,
-			Model model) {
-		System.out.println("petitioner run");
-		
-		try {
-			
-			int memberTotalCount = petitionerService.totalMemberCount();
-			int startRow = (pageNum - 1) * MEMBER_LENGTH + 1;
-			int endRow = (pageNum) * MEMBER_LENGTH;
-			
-			int pageTotalCount = memberTotalCount / MEMBER_LENGTH;
-			if (memberTotalCount % MEMBER_LENGTH > 0)
-				pageTotalCount++;
-			
-			int startPageIndex = (((pageNum - 1) / MEMBER_PAGE_LENGTH) * MEMBER_PAGE_LENGTH) + 1;
-			int endPageIndex = startPageIndex + MEMBER_PAGE_LENGTH - 1;
-			if (endPageIndex > pageTotalCount)
-				endPageIndex = pageTotalCount;
-			
-			List<PetitionerDTO> petitioners = petitionerService.petitioners(startRow, endRow, sort);
-			
-			
-			model.addAttribute("petitioners", petitioners);
-			model.addAttribute("petitionerCount", petitioners.size());
-			
-			model.addAttribute("pageNum", pageNum);
-			model.addAttribute("sort", sort);
-			model.addAttribute("pageTotalCount", pageTotalCount);
-			model.addAttribute("startPageIndex", startPageIndex);
-			model.addAttribute("endPageIndex", endPageIndex);			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return "adminPetitioner/adminPetitioner";
-	}
 	
 	
 	

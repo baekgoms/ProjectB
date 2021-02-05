@@ -33,18 +33,20 @@
 </head>
 
 <script type="text/javascript">
+	
 	function selectOption(obj) {
-		window.location.href = "report.aa?option="+ obj.value;
+		var open = ${open};
+		window.location.href = "report.aa?open="+open+"&option="+ obj.value;
 	}
 	function selectAll() {
-		var chkbox = document.getElementsByName("member_checkbox");
+		var chkbox = document.getElementsByName("checkbox");
 		for (var i = 0; i < chkbox.length; i++) {
 			chkbox[i].checked = true;
 		}
 	}
 
 	function selectDel() {
-		var chkbox = document.getElementsByName("member_checkbox");
+		var chkbox = document.getElementsByName("checkbox");
 		var str = "";
 		for (var i = 0; i < chkbox.length; i++) {
 			if (chkbox[i].checked) {
@@ -56,6 +58,7 @@
 		form.setAttribute('method', 'post');
 		form.setAttribute('action', 'selectDel.aa');
 		document.charset = "utf-8";
+		
 		var hiddenField = document.createElement("input");
 		hiddenField.setAttribute('type', 'hidden');
 		hiddenField.setAttribute('name', 'selects');
@@ -67,7 +70,7 @@
 
 	}
 	function openNewWindow(url) { 
-		open(url,"Mail","toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, width=550, height=875");
+		open(url,"Mail","toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, width=1000, height=875");
 	}
 </script>
 
@@ -91,16 +94,15 @@
 	<div class="card">
 		<div class="card-body">
 			<input type="button" value="공개" class="btn waves-effect waves-light btn-outline-dark"
-				onclick="document.location.href='/projectB/admin/reportOpened.aa'">
+				onclick="document.location.href='/projectB/admin/report.aa?option=${option}'">
 			<input type="button" value="비공개" class="btn waves-effect waves-light btn-outline-dark"	
-				onclick="document.location.href='/projectB/admin/reportClosed.aa?open=1'">
+				onclick="document.location.href='/projectB/admin/report.aa?open=1&option=${option}'">
 		
 			
 			<select class="form-control" id="exampleFormControlSelect1" style="width: 150px; float: right;"
 				onchange = "selectOption(this)">
-				<option value="1" <c:if test="${ option == '1' }">selected</c:if>>청원</option>
-				<option value="2" <c:if test="${ option == '2' }">selected</c:if>>토론</option>
-				<option value="2" <c:if test="${ option == '3' }">selected</c:if>>토론 댓글</option>
+				<option value="0" <c:if test="${ option == 0 }">selected</c:if>>최신순</option>
+				<option value="1" <c:if test="${ option == 1 }">selected</c:if>>신고순</option>
 			</select>
 
 		</div>
@@ -112,7 +114,7 @@
 						<th scope="col"> <!-- 체크 번호 -->
 							#
 						</th>
-						<th scope="col">신고 분류</th> <!-- 1:청원, 2:청원댓글, 3:토론, 4:토론댓글 -->
+						<th scope="col">분류</th> <!-- 1:청원, 2:청원댓글, 3:토론, 4:토론댓글 -->
 						<th scope="col">신고 글(제목 또는 내용) </th>
 						<th scope="col">신고 글 작성자 </th>
 						<th scope="col">신고수</th>
@@ -120,40 +122,41 @@
 				</thead>
 				<tbody>
 					 
-					<c:forEach var = "petitioner" items="${ petitioners }" varStatus="status">
+					<c:forEach var = "totalList" items="${ totalList }" varStatus="status">
 						<tr>
 						 	<th scope="row">
 							 	<div class="custom-control custom-checkbox">
-									<input type="checkbox" class="custom-control-input" name = "member_checkbox"
-										id="customCheck_${ status.index }" value = "${ petitioner.num }"/> 
+									<input type="checkbox" class="custom-control-input" name = "checkbox"
+										id="customCheck_${ status.index }" value = "${ totalList.num }"/> 
 									<label class="custom-control-label" for="customCheck_${ status.index }"></label>
 								</div>
 							</th>
-							<td>청원</td>
 							<td>
-								<a href="javascript:openNewWindow('/projectB/admin/memberDetail.aa?num=${ petitioner.num }')"> 
-									${ petitioner.id }
-								</a>
+								<c:if test="${ totalList.sort == 1 }">청원</c:if>
+								<c:if test="${ totalList.sort == 2 }">토론</c:if>
+								<c:if test="${ totalList.sort == 3 }">토론 댓글</c:if>
 							</td>
-
-					
 							<td>
-								<c:if test="${ petitioner.state == 1 }">
-									일반 회원
-								</c:if>
-					
+								<c:if test="${ totalList.sort == 1 }">
+									<a href="javascript:openNewWindow('/projectB/petition/petContent.aa?num=${ totalList.num }')"> 
+										${ totalList.content }
+									</a>
+								</c:if>	
+								<c:if test="${ totalList.sort == 2 }">
+									<a href="javascript:openNewWindow('/projectB/discussion/content.aa?discussionNum=${ totalList.num }')"> 
+										${ totalList.content }
+									</a>
+								</c:if>	
+								<c:if test="${ totalList.sort == 3 }">
+									<a href="javascript:openNewWindow('/projectB/discussion/content.aa?discussionNum=${ totalList.num }')"> 
+										${ totalList.content }
+									</a>
+								</c:if>	
 							</td>
-							<td>${ petitioner.reg }</td>
-
+							<td>${ totalList.writer }</td>
+							<td>${ totalList.report }</td>
 						</tr>
 					 </c:forEach>
-					 
-					 
-					 
-					 
-					 
-					 
-					 
 				</tbody>				
 			</table>
 		</div>
@@ -172,12 +175,12 @@
 	</div>
 
 
-	<c:if test="${ petitionerCount > 0 }">
+	<c:if test="${ totalListCount > 0 }">
 		<ul id="commentPage" class="pagination justify-content-center">
 			<!-- << -->
-			<c:if test="${ startPageIndex > 10 }">
+			<c:if test="${ totalListCount > 10 }">
 				<li class="page-item">
-					<button class="page-link" onclick="document.location.href='petitioner.aa?pageNum=${ startPageIndex - 10 }&sort=${ sort }'">
+					<button class="page-link" onclick="document.location.href='report.aa?pageNum=${ startPageIndex - 10 }&option=${ option }&open=${ open }'">
 						«
 					</button>
 				</li>
@@ -186,7 +189,7 @@
 			<c:forEach var="i" begin="${ startPageIndex }"
 				end="${ endPageIndex }">
 				<li class="page-item">					
-					<button class="page-link" onclick="document.location.href='petitioner.aa?pageNum=${ i }&sort=${ sort }'">
+					<button class="page-link" onclick="document.location.href='report.aa?pageNum=${ i }&option=${ option }&open=${ open }'">
 						${i}
 					</button>
 				</li>
@@ -195,7 +198,7 @@
 			<!-- >> -->
 			<c:if test="${ endPageIndex < pageTotalCount }">
 				<li class="page-item">
-					<button class="page-link" onclick="document.location.href='petitioner.aa?pageNum=${ startPageIndex + 10 }&sort=${ sort }'">
+					<button class="page-link" onclick="document.location.href='report.aa?pageNum=${ startPageIndex + 10 }&option=${ option }&open=${ open }'">
 						»
 					</button>
 				</li>
