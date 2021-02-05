@@ -30,6 +30,7 @@
 					WHERE writer like '%' ||#{keyword}||'%'
 					OR content like '%'||#{keyword}||'%'
 					OR title like '%'||#{keyword}||'%'
+				
 				</when>
 				<otherwise>
 					WHERE ${searchOption} like '%'||#{keyword}||'%'
@@ -48,9 +49,15 @@
 					WHERE writer like '%' ||#{keyword}||'%'
 					OR content like '%'||#{keyword}||'%'
 					OR title like '%'||#{keyword}||'%'
+					<if test ="check != null">
+						AND petitionState = ${check}
+					</if>
 				</when>
 				<otherwise>
 					WHERE ${searchOption} like '%'||#{keyword}||'%'
+						<if test ="check != null">
+							AND petitionState = ${check}
+						</if>
 				</otherwise>
 			</choose>
 		</if>
@@ -88,6 +95,10 @@
 	<delete id="deleteArticle" parameterType="int">
 		delete from petition where num= #{num}
 	</delete>
+	
+	<select id="checkOpCl" resultType="petitionDTO" parameterType="int">
+		select title, open, num from petition where num=#{num}
+	</select>
 
 </mapper>
 

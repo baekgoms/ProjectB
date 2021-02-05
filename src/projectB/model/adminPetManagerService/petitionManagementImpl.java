@@ -61,18 +61,19 @@ public class petitionManagementImpl implements petitionManegementService{
 	}
 	
 	 @Override
-	    public List<PetitionDTO> getArticlesSearch(int startRow, int endRow, String keyword, String searchOption) throws Exception {
+	    public List<PetitionDTO> getArticlesSearch(int startRow, int endRow, String keyword, String searchOption, int check) throws Exception {
 	        Map map = new HashMap();
 	        map.put("startRow", startRow);
 	        map.put("endRow", endRow);
 	        map.put("keyword", keyword);
 	        map.put("searchOption", searchOption);
+	        map.put("check", check);
 	        List<PetitionDTO> articleList = dao.selectList("adminPetition.getArticleAll", map);
 	        return articleList;
 	    }
 
 	    @Override
-	    public int getArticleCount(String keyword, String searchOption) throws Exception {
+	    public int getArticleCount(String keyword, String searchOption,int check) throws Exception {
 	    	Map map = new HashMap();
 	        map.put("keyword", keyword);
 	        map.put("searchOption", searchOption);
@@ -99,6 +100,23 @@ public class petitionManagementImpl implements petitionManegementService{
 		@Override
 		public void deleteArticle(int num) {
 			dao.delete("adminPetition.deleteArticle",num);
+		}
+
+		@Override
+		public PetitionDTO checkOpCl(int num) throws Exception {
+			
+			return dao.selectOne("adminPetition.checkOpCl", num);
+		}
+
+		@Override
+		public void updatePublicly(int num) throws Exception {
+			dao.selectOne("adminPetition.updateOpen",num);	
+		}
+
+		@Override
+		public void updatePrivate(int num) throws Exception {
+			dao.selectOne("adminPetition.updateClose",num);	
+			
 		}
 
 		

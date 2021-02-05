@@ -122,14 +122,21 @@ function inputCheck(){
 				<form name="form" method="post" action="/projectB/admin/petitionManagementSearch.aa" id="search">
 					<table class="table">
 						<tr>
-							<td>청원상태</td>
 							<td>
-								<label><input type="radio" name="fDTypes1" class="mr01" value="전체">전체</label>
-								<label><input type="radio" name="fDTypes1" class="mr01" value="청원시작">청원시작</label>
-								<label><input type="radio" name="fDTypes1" class="mr01" value="청원진행중">청원진행중</label>
-								<label><input type="radio" name="fDTypes1" class="mr01" value="청원완료">청원완료</label>
+							<ul>
+								<li class="search_li">청원상태</li>
+							</ul>
+						</td>
+						<td>
+								<ul>
+									<li><input type="checkbox" id="r1" name="state" value="1001" />
+										<label for="r1">청원시작</label></li>
+									<li><input type="checkbox" id="r2" name="state" value="1005" />
+										<label for="r2">청원진행중</label></li>
+									<li><input type="checkbox" id="r3" name="state" value="1009" />
+										<label for="r3">청원진행중</label></li>
+								</ul>
 							</td>
-							
 						</tr>
 						<tr>
 							<td>청원수</td>
@@ -138,12 +145,21 @@ function inputCheck(){
 							</td>
 						</tr>
 						<tr>
-							<td>일자별</td>
 							<td>
-							  <label><input type="radio" name="fDTypes" class="mr0" value="최근1주">최근1주</label>
-							  <label><input type="radio" name="fDTypes" class="mr0" value="최근1개월">최근1개월</label>
-							  <label><input type="radio" name="fDTypes" class="mr0" value="최근3개월">최근3개월</label>
+								<ul>
+									<li class="search_li">일자별</li>
+								</ul>
 							</td>
+							<td>
+								<ul>
+									<li><input type="checkbox" id="r1" name="date" value="2001" />
+										<label for="r1">최근1주</label></li>
+									<li><input type="checkbox" id="r2" name="date" value="2005" />
+										<label for="r2">최근1개월</label></li>
+									<li><input type="checkbox" id="r3" name="date" value="2009" />
+										<label for="r3">최근3개월</label></li>
+								</ul>
+							<td>
 						</tr>
 						<tr>
 							<td colspan="2" >
