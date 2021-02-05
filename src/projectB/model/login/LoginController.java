@@ -37,7 +37,7 @@ public class LoginController {
 		
 		//현재 회원 상태에 따라 로그인 위치 변경
 		//일반 / 답변 / 관리
-		//System.out.println("dto.getState() - " +  dto.getState());
+		System.out.println("dto.getState() - " +  dto.getState());
 		String view = "redirect:loginForm.aa";
 		
 		if(dto.getState() == LoginUtils.PETITIONER) {
@@ -47,7 +47,7 @@ public class LoginController {
 			view = "redirect:/answer/answerMain.aa";
 		}
 		else if(dto.getState() == LoginUtils.ADMIN) {
-			view = "redirect:/petition/afootPetition.aa";
+			view = "redirect:/admin/main.aa";
 		}
 		
 		return view;
