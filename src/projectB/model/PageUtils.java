@@ -27,4 +27,32 @@ public class PageUtils {
 		
 		return map;
 	}
+	
+	public static int startRow(int length, int page) {
+		return (page - 1) * length + 1;
+	}
+	
+	public static int endRow(int length, int page) {
+		return (page) * length;
+	}
+	
+	public static int pageTotalCount(int length, int totalCount) {
+		int pageTotalCount = totalCount / length;
+		if (totalCount % length > 0)
+			pageTotalCount++;
+		
+		return pageTotalCount;
+	}
+	
+	public static int startPage(int length, int pageLength, int page) {
+		return (((page - 1) / pageLength) * pageLength) + 1;
+	}
+	
+	public static int endPage(int startPage, int pageLength, int pageTotalCount) {
+		int endPage = startPage + pageLength - 1;
+		if (endPage > pageTotalCount)
+			endPage = pageTotalCount;
+		
+		return endPage;
+	}
 }
