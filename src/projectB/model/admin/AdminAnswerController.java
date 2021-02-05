@@ -33,18 +33,24 @@ public class AdminAnswerController {
 
 		int totalCount = petitionerService.totalMemberCount(LoginUtils.ANSWER);
 
-		Map<String, Integer> pageInfos = PageUtils.pageInfos(MEMBER_LENGTH, MEMBER_PAGE_LENGTH, totalCount, pageNum);
-		int startRow = pageInfos.get("startRow");
-		int endRow = pageInfos.get("endRow");
+		//Map<String, Integer> pageInfos = PageUtils.pageInfos(MEMBER_LENGTH, MEMBER_PAGE_LENGTH, totalCount, pageNum);
+		int startRow = PageUtils.startPage(MEMBER_LENGTH, MEMBER_PAGE_LENGTH, pageNum);
+		int endRow = PageUtils.endRow(MEMBER_LENGTH, pageNum);
 		List<PetitionerDTO> answers = petitionerService.petitionersByState(startRow, endRow, LoginUtils.ANSWER);
 		
 		model.addAttribute("petitioners", answers);
 		model.addAttribute("petitionerCount", answers.size());
 
+		int startPage = PageUtils.startPage(MEMBER_LENGTH, MEMBER_PAGE_LENGTH, pageNum);
+		int pageTotalCount = PageUtils.pageTotalCount(MEMBER_LENGTH, totalCount);
+		
 		model.addAttribute("pageNum", pageNum);
-		model.addAttribute("pageTotalCount", pageInfos.get("pageTotalCount"));
-		model.addAttribute("startPageIndex", pageInfos.get("startPageIndex"));
-		model.addAttribute("endPageIndex", pageInfos.get("endPageIndex"));
+		model.addAttribute("pageTotalCount", pageTotalCount);
+		model.addAttribute("startPageIndex", startPage);
+		model.addAttribute("endPageIndex", PageUtils.endPage(startPage, MEMBER_PAGE_LENGTH, pageTotalCount));
+//		model.addAttribute("pageTotalCount", pageInfos.get("pageTotalCount"));
+//		model.addAttribute("startPageIndex", pageInfos.get("startPageIndex"));
+//		model.addAttribute("endPageIndex", pageInfos.get("endPageIndex"));
 
 		return "adminPetitioner/answer";
 	}

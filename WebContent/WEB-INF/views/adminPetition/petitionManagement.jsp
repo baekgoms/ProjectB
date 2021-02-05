@@ -94,7 +94,10 @@ function inputCheck(){
 </head>
 
 <body>
+
 <jsp:include page="/WEB-INF/views/topbar/admintopbar.jsp" />
+   <br>
+   <br>
 <br>
 <br>
 <h3>청원 관리</h3>
