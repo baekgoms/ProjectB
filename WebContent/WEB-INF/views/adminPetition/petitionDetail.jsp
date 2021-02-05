@@ -31,11 +31,16 @@
 </style>
 </head>
 <body>
+<jsp:include page="/WEB-INF/views/topbar/admintopbar.jsp" />
 <br>
 <br>
 <div class="table-responsive" align="center">
+
 <form >
+<br>
+<br>
 <table class="table">
+
 <tr align="center">
 <td colspan ="4"><h3>청원 상세보기</h3></td>
 </tr>
@@ -88,9 +93,9 @@
 </tr>
 <tr>
 <td colspan ="4" align="right">
-<input type="button" value="비공개처리" class="btn waves-effect waves-light btn-outline-dark">
-<input type="button" value="수정" class="btn waves-effect waves-light btn-outline-dark">
 <c:set var="num" value="${list.num}" />
+<input type="button" value="비공개처리" class="btn waves-effect waves-light btn-outline-dark">
+<input type="button" value="수정" class="btn waves-effect waves-light btn-outline-dark" onClick="document.location.href='/projectB/adminPetition/contentUpdate.aa?num=${num}'">
 <input type="button" value="삭제" class="btn waves-effect waves-light btn-outline-dark" onClick="document.location.href='/projectB/admin/petitionDetailDelete.aa?num=${num}'">
 <input type="button" value="닫기" class="btn waves-effect waves-light btn-outline-dark" onclick="history.back();">
 </td>

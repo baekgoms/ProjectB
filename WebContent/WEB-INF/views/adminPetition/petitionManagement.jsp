@@ -94,6 +94,7 @@ function inputCheck(){
 </head>
 
 <body>
+<jsp:include page="/WEB-INF/views/topbar/admintopbar.jsp" />
 <br>
 <br>
 <h3>청원 관리</h3>
@@ -117,15 +118,15 @@ function inputCheck(){
 				<h3>검색필터</h3>
 				<form name="form" method="post" action="/projectB/admin/petitionManagementSearch.aa" id="search">
 					<table class="table">
-					
 						<tr>
 							<td>청원상태</td>
 							<td>
-								<label><input type="radio" name="fDTypes" class="mr0" value="전체">전체</label>
-								<label><input type="radio" name="fDTypes" class="mr0" value="청원시작">청원시작</label>
-								<label><input type="radio" name="fDTypes" class="mr0" value="청원진행중">청원진행중</label>
-								<label><input type="radio" name="fDTypes" class="mr0" value="청원완료">청원완료</label>
+								<label><input type="radio" name="fDTypes1" class="mr01" value="전체">전체</label>
+								<label><input type="radio" name="fDTypes1" class="mr01" value="청원시작">청원시작</label>
+								<label><input type="radio" name="fDTypes1" class="mr01" value="청원진행중">청원진행중</label>
+								<label><input type="radio" name="fDTypes1" class="mr01" value="청원완료">청원완료</label>
 							</td>
+							
 						</tr>
 						<tr>
 							<td>청원수</td>
@@ -224,23 +225,63 @@ function inputCheck(){
 		
 			<ul class="pagination justify-content-center">
 		  		 <c:if test="${startPage > 10}">
-					 <li class="page-item">
-		      			<a class="page-link" href="/projectB/admin/petitionManagement.aa?pageNum=${startPage - 10}" aria-label="Previous">
-		     				<span aria-hidden="true">«</span>
-		      				<span class="sr-only">Previous</span>
-		      	  		</a>
-		    		</li>
+		  		 <c:choose>
+					<c:when test="${empty keyword && empty searchOption}">
+							<li class="page-item">
+								<a class="page-link" href="/projectB/admin/petitionManagement.aa?pageNum=${startPage - 10}" aria-label="Previous">
+			     				<span aria-hidden="true">«</span>
+			      				<span class="sr-only">Previous</span>
+			      	  		</a>
+							</li>
+					</c:when>
+					<c:otherwise>
+							<li class="page-item">
+								<a class="page-link" href="/projectB/admin/petitionManagementSearch?keyword=${keyword}&searchOption=${searchOption}&pageNum=${startPage - 10}" aria-label="Previous">
+								<span aria-hidden="true">«</span>
+			      				<span class="sr-only">Previous</span>
+			      	  		</a>
+							</li>
+					</c:otherwise>
+				</c:choose>
 				</c:if>
-				<c:forEach var="i" begin="${ startPage }" end="${ endPage }">    
-					<li class="page-item"><a class="page-link" href="/projectB/admin/petitionManagement.aa?pageNum=${i}">${i}</a></li>
-				</c:forEach>
+				
+				<c:choose>
+				<c:when test="${empty keyword && empty searchOption}">
+					<c:forEach var="i" begin="${startPage}" end="${endPage}">
+						<li class="page-item">
+							<a class="page-link"  href="/projectB/admin/petitionManagement.aa?pageNum=${i}">${i}</a>
+						</li>
+					</c:forEach>
+				</c:when>
+				<c:otherwise>
+					<c:forEach var="i" begin="${startPage}" end="${endPage}">
+						<li class="page-item">
+							<a class="page-link" href="/projectB/admin/petitionManagementSearch?keyword=${keyword}&searchOption=${searchOption}&pageNum=${i}">${i}</a>
+						</li>
+					</c:forEach>
+				</c:otherwise>
+			</c:choose>
+			
 				<c:if test="${endPage < pageCount}">
-					<li class="page-item">
-						<a class="page-link" href="/projectB/admin/petitionManagement.aa?pageNum=${startPage + 10}" aria-label="Next">
-						  	<span aria-hidden="true">»</span>
-						  	<span class="sr-only">Next</span>
-			  			</a>
-					</li>
+				
+					 <c:choose>
+						<c:when test="${empty keyword && empty searchOption}">
+								<li class="page-item">
+									<a class="page-link" href="/projectB/admin/petitionManagement.aa?pageNum=${startPage + 10}" aria-label="Next">
+				     					<span aria-hidden="true">»</span>
+							  			<span class="sr-only">Next</span>
+				      	  		</a>
+								</li>
+						</c:when>
+						<c:otherwise>
+								<li class="page-item">
+									<a class="page-link" href="/projectB/admin/petitionManagementSearch?keyword=${keyword}&searchOption=${searchOption}&pageNum=${startPage + 10}" aria-label="Next">
+										<span aria-hidden="true">»</span>
+							  			<span class="sr-only">Next</span>
+				      	  		</a>
+								</li>
+						</c:otherwise>
+					</c:choose>
 				</c:if>
 			</ul>
 		</c:if>      
