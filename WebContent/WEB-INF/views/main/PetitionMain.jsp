@@ -142,6 +142,8 @@
 	<br>
 	<br>
 	</table>
+	<iframe src="/projectB/qan/qna.aa"
+	style="position: relative; float: right;"></iframe>
 </div>
 
 <script src="/projectB/resource/bootstrap/assets/libs/jquery/dist/jquery.min.js"></script>

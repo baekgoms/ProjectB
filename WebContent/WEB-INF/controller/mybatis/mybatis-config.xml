@@ -35,6 +35,7 @@
 		<typeAlias alias="tagDTO" type="projectB.model.tag.TagDTO" />
 		<typeAlias alias="answerPetitionerMapDTO" type="projectB.model.answer.AnswerPetitionerMapDTO"/>
 		<typeAlias alias="adminReportDTO" type="projectB.model.admin.AdminReportDTO"/>
+		<typeAlias alias="qnaDTO" type="projectB.model.qna.QnADTO"/>
 	</typeAliases>
 	
 	<mappers>
@@ -51,6 +52,7 @@
 		<mapper resource="/sql/adminMainSQL.xml" />
 		<mapper resource="/sql/adminReportSQL.xml" />
 		<mapper resource="/sql/tagSQL.xml" />
+		<mapper resource="/sql/qnaSQL.xml" />
 	</mappers>
   
 </configuration>
