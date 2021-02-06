@@ -14,19 +14,13 @@ public class AnswerContentServiceImpl implements AnswerContentService{
   private SqlSessionTemplate dao = null;
   
   @Override
-  public AnswerDTO getAnswerByPetitionNum(int petitionNum) throws Exception {
-    return dao.selectOne("answer.getAnswerByPetitionNum", petitionNum);
+  public List<AnswerDTO> getAnswerByPetitionNum(int petitionNum) throws Exception {
+    return dao.selectList("answer.getAnswerByPetitionNum", petitionNum);
   }
 
   @Override
   public void updateArticle(AnswerDTO answerDTO) throws Exception {
     dao.update("answer.updateArticle",answerDTO);
-    
-  }
-
-  @Override
-  public void updateArticle2(AnswerDTO answerDTO) throws Exception {
-    dao.update("answer.updateArticle2",answerDTO);
     
   }
 }

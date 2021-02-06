@@ -20,10 +20,7 @@ public class AnswerDTO implements BaseDTO{
   private int opposite;
   private int addition;
   private String id;
-  private String content2;
-  private int recommend2;
-  private int opposite2;
-  private int addition2;
+  private int parentNum;
 
   
   
@@ -42,10 +39,7 @@ public class AnswerDTO implements BaseDTO{
         setAddition(rs.getInt("addition"));
         setId(rs.getString("id"));
         setState(rs.getInt("state"));
-        setContent2(rs.getString("content2"));
-        setRecommend2(rs.getInt("recommend2"));
-        setOpposite2(rs.getInt("opposite2"));
-        setAddition2(rs.getInt("addition2"));
+        setParentNum(rs.getInt("parentNum"));
     }
     catch(SQLException e) {
         e.printStackTrace();
@@ -53,6 +47,9 @@ public class AnswerDTO implements BaseDTO{
 }
   
   
+
+
+
   public int getNum() {
     return num;
   }
@@ -135,43 +132,13 @@ public class AnswerDTO implements BaseDTO{
     this.state = state;
   }
 
-  public String getContent2() {
-    return content2;
+  public int getParentNum() {
+    return parentNum;
   }
 
 
-  public void setContent2(String content2) {
-    this.content2 = content2;
-  }
-
-
-  public int getRecommend2() {
-    return recommend2;
-  }
-
-
-  public void setRecommend2(int recommend2) {
-    this.recommend2 = recommend2;
-  }
-
-
-  public int getOpposite2() {
-    return opposite2;
-  }
-
-
-  public void setOpposite2(int opposite2) {
-    this.opposite2 = opposite2;
-  }
-
-
-  public int getAddition2() {
-    return addition2;
-  }
-
-
-  public void setAddition2(int addition2) {
-    this.addition2 = addition2;
+  public void setParentNum(int parentNum) {
+    this.parentNum = parentNum;
   }
 
 }

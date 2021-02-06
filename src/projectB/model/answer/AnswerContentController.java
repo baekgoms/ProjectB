@@ -1,5 +1,6 @@
 package projectB.model.answer;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -46,14 +47,18 @@ public class AnswerContentController {
       PetitionIndicatorDTO petitionIndicatorDTO = PetitionContentService.getPetitionIndicator(petitionNum);
 
       
-      AnswerDTO answerDTO = AnswerContentService.getAnswerByPetitionNum(petitionNum);
+    //AnswerDTO answerDTO = AnswerContentService.getAnswerByPetitionNum(petitionNum);
 
+      List<AnswerDTO> answerList = new ArrayList<>();
+      answerList = AnswerContentService.getAnswerByPetitionNum(petitionNum);
+      model.addAttribute("answerList",answerList);
+      
       model.addAttribute("categoryName", categoryName);
       model.addAttribute("petitionDTO", petitionDTO);
       model.addAttribute("petitionState", petitionState);
       model.addAttribute("petitionIndicatorDTO", petitionIndicatorDTO);
-      model.addAttribute("answerDTO", answerDTO);
-    
+    //model.addAttribute("answerDTO", answerDTO);
+      
       return "answer/answerContent";
     
     }
@@ -90,26 +95,27 @@ public class AnswerContentController {
     model.addAttribute("petitionNum", petitionNum);
     model.addAttribute("petitionDTO",petitionDTO);
     
-    AnswerDTO answerDTO = AnswerContentService.getAnswerByPetitionNum(petitionNum);
-    model.addAttribute("answerDTO",answerDTO);
+    List<AnswerDTO> answerList = new ArrayList<>();
+    answerList = AnswerContentService.getAnswerByPetitionNum(petitionNum);
     
+
+    model.addAttribute("answerList",answerList);
+
     return "answer/answerContentUpdate";
     }
     
     
     @RequestMapping("answerContentUpdatePro.aa")
     public String petContentUpdatePro(@RequestParam("petitionNum") int petitionNum, @ModelAttribute AnswerDTO answerDTO, Model model) throws Exception{
-     
-
       AnswerContentService.updateArticle(answerDTO);
-      
+
       model.addAttribute("petitionNum", petitionNum);
 
       return "answer/answerContentUpdatePro";
     }
     
     //=============================================추가답변=================================================
-    
+    /*
     @RequestMapping("addAnswerContent.aa")
     public String addAnswerContent(@RequestParam("petitionNum") int petitionNum, Model model) throws Exception{
 
@@ -142,11 +148,11 @@ public class AnswerContentController {
     @RequestMapping("addAnswerContentUpdate.aa")
     public String addAnswerContentUpdate(@RequestParam("petitionNum") int petitionNum, Model model) throws Exception {
 
-    /*
+    
     String id = LoginUtils.getLoginID(session);
     PetitionerDTO petitionerDTO = AnswerUploadService.getReplyerInfo(id);
     model.addAttribute("petitionerDTO",petitionerDTO);
-    */
+    
     PetitionDTO petitionDTO = AnswerUploadService.getPetitionInfo(petitionNum);
     model.addAttribute("petitionNum", petitionNum);
     model.addAttribute("petitionDTO",petitionDTO);
@@ -168,5 +174,6 @@ public class AnswerContentController {
 
       return "answer/addAnswerContentUpdatePro";
     }
+    */
 }
 

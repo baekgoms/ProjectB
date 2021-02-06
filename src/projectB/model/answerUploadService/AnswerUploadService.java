@@ -9,7 +9,10 @@ public interface AnswerUploadService {
   public void updateAnswerState(int petitionNum) throws Exception;
   public void updatePetitionState(int num) throws Exception;
   public void insertArticle(AnswerDTO answerDTO) throws Exception;
+  public void insertAddArticle(AnswerDTO answerDTO) throws Exception;
   public PetitionerDTO getReplyerInfo(String id) throws Exception;
   public AnswerDTO getAnswerInfo(int petitionNum) throws Exception;
-  public void insertArticle2(AnswerDTO answerDTO) throws Exception;
+  public int insertParentNum(int petitionNum) throws Exception;
+  public void createRow(AnswerDTO answerDTO) throws Exception;
+  public int findParentNum(AnswerDTO answerDTO) throws Exception;
 }

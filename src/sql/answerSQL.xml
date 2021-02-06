@@ -54,44 +54,66 @@
 	
 	
 	<!-- =============================답변Upload관련====================================== -->	 	 
-	<update id="updateAnswerState" parameterType="int">
-		update answer set state = state + 1 where petitionNum=#{petitionNum}
-	</update>
+	<select id="getReplyerInfo" resultType="petitionerDTO" parameterType="String">
+    	select * from petitioner where id=#{id}
+    </select>
+    
+	<select id="getPetitionInfo" resultType="petitionDTO" parameterType="int">
+      	select * from petition where num = #{petitionNum} 
+    </select>
+    
+    <select id="getAnswerByPetitionNum" parameterType="int" resultType="answerDTO">
+		SELECT * FROM answer WHERE petitionNum = #{petitionNum} ORDER BY parentNum DESC
+	</select>
+	
 	
 	<update id="updatePetitionState" parameterType="int">
 		update petition set petitionState = petitionState + 1 where num=#{num}
 	</update>
-
-	<select id="getPetitionInfo" resultType="petitionDTO" parameterType="int">
-      	select * from petition where num = #{petitionNum} 
-    </select>
-
-    <select id="getReplyerInfo" resultType="petitionerDTO" parameterType="String">
-    	select * from petitioner where id=#{id}
-    </select>
-    
-	<update id ="insertArticle" parameterType="answerDTO">
-		UPDATE answer SET content = #{content}, answerLink = #{answerLink}, answerDate = sysdate WHERE petitionNum = #{petitionNum}
-	</update>
-
-	<update id ="insertArticle2" parameterType="answerDTO">
-		UPDATE answer SET content2 = #{content2}, answerLink = #{answerLink}, answerDate = sysdate WHERE petitionNum = #{petitionNum}
+	
+	<update id="updateAnswerState" parameterType="int">
+		update answer set state = state + 1 where petitionNum=#{petitionNum} and parentNum is NULL
 	</update>
 	
+	<select id="insertParentNum" parameterType="int" resultType="int">
+		select num from answer where petitionNum = #{petitionNum}
+	</select>
+	
+	<select id="findParentNum" parameterType="answerDTO" resultType="int">
+		select parentNum from answer where petitionNum = #{petitionNum} and state is null
+	</select>
+	
+	
+	<insert id="createRow" parameterType="answerDTO">
+    	INSERT INTO answer
+   			(num, petitionNum, content, parentNum, answerLink, answerDate)
+    	VALUES
+   			(answerNum_seq.nextval ,#{petitionNum}, #{content}, #{parentNum}, #{answerLink}, sysdate)
+    </insert>
+	
+	<!-- 답변 작성 -->
+	<update id ="insertArticle" parameterType="answerDTO">
+		UPDATE answer 
+			SET content = #{content}, answerLink = #{answerLink}, answerDate = sysdate 
+		WHERE petitionNum = #{petitionNum}
+	</update>
+	
+	<!-- 추가 답변 작성 -->
+	<update id ="insertAddArticle" parameterType="answerDTO">
+		UPDATE answer 
+			SET content = #{content}, answerLink = #{answerLink}, answerDate = sysdate 
+		WHERE parentNum = #{parentNum}
+	</update>
 	
 	<!-- =============================답변Content관련====================================== -->	
 	
 	 
-	<select id="getAnswerByPetitionNum" parameterType="int" resultType="answerDTO">
-		SELECT * FROM answer WHERE petitionNum = #{petitionNum}
-	</select>
+	
     
     <update id="updateArticle" parameterType="answerDTO">
-    	UPDATE answer SET answerLink = #{answerLink}, content = #{content}, answerDate = sysdate WHERE petitionNum=#{petitionNum}
-    </update>
-    
-    <update id="updateArticle2" parameterType="answerDTO">
-    	UPDATE answer SET answerLink = #{answerLink}, content2 = #{content2}, answerDate = sysdate WHERE petitionNum=#{petitionNum}
+    	UPDATE answer 
+    		SET answerLink = #{answerLink}, content = #{content}, answerDate = sysdate 
+    	WHERE num = #{num}
     </update>
     
     <!-- =============================답변Reaction관련====================================== -->
@@ -103,9 +125,9 @@
     
     <insert id="insertAnswerPetitionerMap" parameterType="answerPetitionerMapDTO">
     	INSERT INTO answerPetitionerMAP
-   			(num, answerNum, petitioner, type)
+   			(answerNum, petitioner, type)
     	VALUES
-   			(answerPetitioner_seq.nextval ,#{answerNum}, #{petitioner}, #{type})
+   			(#{answerNum}, #{petitioner}, #{type})
     </insert>
     
     <update id="answerReact" parameterType="answerPetitionerMapDTO">

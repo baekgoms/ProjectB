@@ -42,38 +42,55 @@ public class AnswerUploadController {
     model.addAttribute("petitionNum", petitionNum);
     model.addAttribute("petitionDTO",petitionDTO);
     
+    List<AnswerDTO> answerList = new ArrayList<>();
+    answerList = AnswerContentService.getAnswerByPetitionNum(petitionNum);
+    model.addAttribute("answerList",answerList);
+    
+    
     return "answer/answerUpload";
     }
   
     
     @RequestMapping("answerUploadPro.aa")
-    public String answerUploadPro(@ModelAttribute AnswerDTO answerDTO, Model model) throws Exception {
+    public String answerUploadPro(AnswerDTO answerDTO, Model model) throws Exception {
+    
     int petitionNum = answerDTO.getPetitionNum();
+    int state = answerDTO.getState();
+    if(state == 4) {
     AnswerUploadService.updateAnswerState(petitionNum);
     AnswerUploadService.updatePetitionState(petitionNum);
     AnswerUploadService.insertArticle(answerDTO);
+    }
+    
+    System.out.println("state==="+state);
+    if(state != 4) {
+      AnswerUploadService.updateAnswerState(petitionNum);
+      AnswerUploadService.updatePetitionState(petitionNum);
+      AnswerUploadService.createRow(answerDTO);
+      // AnswerUploadService.insertAddArticle(answerDTO);
+    }
+    
     
     model.addAttribute("petitionNum", petitionNum);
     
     return "answer/answerUploadPro";
     }
   
-    
+    /*
     @RequestMapping("addAnswerUpload.aa")
     public String addAnswerUpload(@RequestParam("petitionNum") int petitionNum, Model model) throws Exception {
     
-    /*
+    
     String id = LoginUtils.getLoginID(session);
     PetitionerDTO petitionerDTO = AnswerUploadService.getReplyerInfo(id);
     model.addAttribute("petitionerDTO",petitionerDTO);
-    */
+    
       
     PetitionDTO petitionDTO = AnswerUploadService.getPetitionInfo(petitionNum);
     model.addAttribute("petitionNum", petitionNum);
     model.addAttribute("petitionDTO",petitionDTO);
     
-    AnswerDTO answerDTO = AnswerContentService.getAnswerByPetitionNum(petitionNum);
-    model.addAttribute("answerDTO",answerDTO);
+
     
     return "answer/addAnswerUpload";
     }
@@ -91,6 +108,6 @@ public class AnswerUploadController {
     
     return "answer/addAnswerUploadPro";
     }
-    
+    */
    
 }

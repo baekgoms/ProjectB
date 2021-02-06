@@ -51,34 +51,49 @@
 
 <form method="post" name="uploadForm" action="/projectB/answer/answerUploadPro.aa" >
 <input type="hidden" name="petitionNum" value="${petitionNum}" />
-<input type="hidden" name="state" value="${petitionDTO.petitionState}" />
-<input type="hidden" name="name" value="${petitionerDTO.name}" />
-<input type="hidden" name="department" value="${petitionerDTO.department}" />
+<input type="hidden" name="state" value="${answerList[0].state}" />
 <input type="hidden" name="id" value="${petitionerDTO.id}" />
 
 
 <div class="card">
 	<div class="card-body">
 
+		<c:if test="${answerList[0].state == 4 }">
 		<h4 class="card-title">청원정보</h4>
 			<div class="form-group">
 				<a href="/projectB/petition/petContent.aa?num=${petitionDTO.num}" target="_blank">${petitionDTO.title}</a>
 			</div>
 				<br/><hr>
-
+		</c:if>		
+		
+		<c:if test="${answerList[0].state == 6 }">
+		<h4 class="card-title">청원/기존 답변정보</h4>
+			<div class="form-group">
+				<a href="/projectB/answer/answerContent.aa?petitionNum=${petitionDTO.num}" target="_blank">${petitionDTO.title}</a>
+			</div>
+				<br/><hr>		
+		</c:if>
 			
 			<div class="form-group" style="color:black; font-size:14pt">
 				부서<input type="text" class="form-control" id="nametext1" placeholder="${petitionerDTO.department}" readOnly>
 				이름<input type="text" class="form-control" id="nametext1" placeholder="${petitionerDTO.name}" readOnly>
 			</div>
 			
-
+		<c:if test="${answerList[0].state == 4 }">
 		<h4 class="card-title">관련 영상 링크 </h4>    
 			<div class="form-group">
-				<input type="text" class="form-control" placeholder="URL입력" name="answerLink" id="answerLink" >
+				<input type="text" class="form-control" placeholder="URL입력" name="answerLink" id="answerLink">
 			</div>
+		</c:if>
+		
+		<c:if test="${answerList[0].state == 6 }">
+		<h4 class="card-title">관련 영상 링크 </h4>    
+			<div class="form-group">
+				<input type="text" class="form-control" placeholder="URL입력" name="answerLink" id="answerLink" value="${answerList[0].answerLink}">
+			</div>	
+		</c:if>
 			
-
+		<c:if test="${answerList[0].state == 4 }">
 		<h4 class="card-title">답변내용</h4>
 			<div data-spy="scroll" data-target="#navbar-example2" data-offset="0"
 			 class="position-relative mt-2" style="height: 700px; overflow: auto;">	
@@ -88,8 +103,18 @@
 				                            					                          
 			</div>                         
 			<hr>
-	                                        
-	                            
+	    </c:if>
+	    <c:if test="${answerList[0].state == 6 }"> 
+	    <h4 class="card-title">추가답변내용</h4>
+			<div data-spy="scroll" data-target="#navbar-example2" data-offset="0"
+			 class="position-relative mt-2" style="height: 700px; overflow: auto;">	
+				                            
+				<textarea class="form-control content" rows="3" placeholder="답변 내용 작성 " name="content" id="content"
+				style="height: 700px; overflow: auto;"></textarea>
+				                            					                          
+			</div>                         
+			<hr>                                    
+	    </c:if>                        
 	                                    
 			<div class="form-actions">
 				<div class="text-right">
