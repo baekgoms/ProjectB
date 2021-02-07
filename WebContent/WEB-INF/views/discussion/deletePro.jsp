@@ -4,4 +4,4 @@
 	alert("삭제완료")
 </script>
 
-<meta http-equiv="Refresh" content="0;url=/projectB/discussion/main.aa" >
+<meta http-equiv="Refresh" content="0;url=/projectB/discussion/main.aa?pageNum=${pageNum}" >

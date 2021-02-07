@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="disBoardVote">
+	<!--  CRUD (Create, Read, Update, Delete) -> DB구축  -->
+	<insert id="insertVote" parameterType="map">
+		insert into discussionVote values( discussionVote_seq.nextval, #{writer}, #{discussionNum}, 1 )	
+	</insert>
+	
+	<select id="votecheck" parameterType="map" resultType="int">
+		select count(*) from discussionVote where writer = #{ writer } and discussionNum = #{ discussionNum } 
+	</select>
+</mapper>

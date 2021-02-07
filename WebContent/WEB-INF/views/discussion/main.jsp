@@ -7,60 +7,223 @@
 <!-- Custom CSS -->
 <link href="/projectB/resource/bootstrap/css/style.css" rel="stylesheet">
 <!-- This Page CSS -->
-<link rel="stylesheet" type="text/css" href="/projectB/resource/assets/extra-libs/prism/prism.css">
-    
-<input type="button" value="최신순">
-<input type="button" value="베스트순">
+<link href="/projectB/resource/assets/libs/morris.js/morris.css" rel="stylesheet">
 
-<br />
-글 리스트...
-<!-- 
-<c:if test="${count == 0}">
-<table>
-  <tr>
-    <td align="center">
-      게시판에 저장된 글이 없습니다.
-    </td>
-  </tr>
-</table>
-</c:if>
--->
-<c:if test="${count > 0}">
-<table>
-그리고 이게 4번반복
-<tr>
-...5번반복
-<td>
-</td>
-....여기까지
+<script>
+function inputCheck(){ 
+	if($("#keyword").val() == ""){
+		$("#keyword").addClass(" is-invalid");
+		$("#keyword").focus(); 
+		return;
+	}else{
+		$("#search").submit();
+	}
+}
+</script>
+
+<title>토론게시판</title>
+<center>
+<jsp:include page="/WEB-INF/views/topbar/top.jsp" />
+<br>
+<br>
+
+<div class="col-12">
+<br><br>
+</div>
+<c:choose>
+<c:when test="${empty keyword}">
+	<input type="button" value="                           최신순                              " class="btn waves-effect waves-light btn-dark" 
+		onclick="document.location.href='javascript:void(0)'">
+	<input type="button" value="                           베스트순                           " class="btn waves-effect waves-light btn-outline-dark" 
+		onclick="document.location.href='/projectB/discussion/mainBest.aa?pageNum=1'">
+	</c:when>
+<c:otherwise>
+	<input type="button" value="                           최신순                              " class="btn waves-effect waves-light btn-outline-dark" 
+		onclick="document.location.href='/projectB/discussion/main.aa?pageNum=1'">
+	<input type="button" value="                           베스트순                           " class="btn waves-effect waves-light btn-outline-dark" 
+		onclick="document.location.href='/projectB/discussion/mainBest.aa'">
+</c:otherwise>
+</c:choose>
+
+<form action="/projectB/discussion/mainSearch.aa" id="search">
+<table class="table">
+<tr height="50">
+<td colspan="2"></td>
 </tr>
-4번반복 끝
+<tr>
+<td width="30"></td>
+<td>
+<input type="text" class="form-control" name="keyword" id="keyword" value="${keyword}" placeholder="검색어를 입력해주세요"><div class="invalid-feedback">
+검색어가 입력되지 않았습니다.
+</div>
+</td>
+<td width="100">
+<button type="button" class="btn waves-effect waves-light btn-outline-dark" onClick="inputCheck()" >검색</button>
+</td>
+</tr>
+<tr height="50" align="right">
+<td colspan="3"><input type="button" class="btn waves-effect waves-light btn-outline-dark" 
+	onclick="document.location.href='/projectB/discussion/upload.aa?pageNum=${pageNum}'" value="토론글 작성하기"></td></tr>
+</table>
+</form>
+<c:choose>
+	<c:when test="${count == 0 && empty keyword}">
+		<table class="table">
+		  <tr>
+		    <td align="center">작성된 글이 없습니다.</td>
+		  </tr>
+		</table>
+	</c:when>
+	<c:when test="${count == 0 && not empty keyword }">
+		<table class="table">
+			<tr>
+		    <td align="center">검색결과가 없습니다.</td>
+			</tr>
+		</table>
+	</c:when>
+</c:choose>
+
+
+<c:if test="${count > 0}">
+<c:set var="i" value="0" />
+<c:set var="j" value="3" />
+
+<table class="table">
+<c:forEach items="${articleList}" var="article">
+<c:if test="${i%j == 0 }">
+<tr align="center">
+</c:if>
+<td width="450">
+<div id="${article.num}"></div>
+	<img src="" id="noimg" height=""> <br />
+	<a href="/projectB/discussion/content.aa?pageNum=${pageNum}&discussionNum=${article.num}">
+	${article.subject}<br />
+	${article.write}<br />
+	<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${article.reg}" /><br />
+	</a></td>
+	
+<c:if test="${i%j == j-1}">
+</tr>
+</c:if>
+<c:set var="i" value="${i+1}" />
+</c:forEach>
 </table>
 </c:if>
-<input type="button" class="btn waves-effect waves-light btn-outline-dark" 
-	onclick="document.location.href='/projectB/discussion/writeForm.aa'" value="토론글 작성하기">
+
+<c:if test="${count > 0}">
+	<fmt:parseNumber var="pageCount" value="${count / pageSize + ( count % pageSize == 0 ? 0 : 1)}" integerOnly="true" />
+   <c:set var="pageBlock" value="${10}"/>
+   <fmt:parseNumber var="result" value="${currentPage/10}" integerOnly="true" />
+   <c:if test="${currentPage % 10 == 0}">
+   <c:set var="result" value="${result-1}" />
+   </c:if>
+   <c:set var="startPage" value="${(result * 10) + 1 }" />
+   <c:set var="endPage" value="${startPage + pageBlock-1}"/>
+   <c:if test="${endPage > pageCount}">
+        <c:set var="endPage" value="${pageCount}"/>
+</c:if> 
+
+<div class="col-12">
+<br><hr><br>
+</div>
+                            
 <div class="col-lg-4 mb-4">
 <nav aria-label="Page navigation example">
 <ul class="pagination justify-content-center">
+<c:if test="${startPage > 10}">
 <li class="page-item">
-    <a class="page-link" href="javascript:void(0)"
-        aria-label="Previous">
-        <span aria-hidden="true">&laquo;</span>
-        <span class="sr-only">Previous</span>
-    </a>
+		<c:choose>
+		<c:when test="${empty keyword}">
+			<a class="page-link" href="/projectB/discussion/main.aa?keyword=${keyword}&pageNum=${startPage - 10}"aria-label="Previous">
+        	<span aria-hidden="true">&laquo;</span>
+			<span class="sr-only">Previous</span>
+   			</a>
+		</c:when>
+		<c:otherwise>
+		    <a class="page-link" href="/projectB/discussion/main.aa?pageNum=${startPage - 10}"aria-label="Previous">
+        	<span aria-hidden="true">&laquo;</span>
+			<span class="sr-only">Previous</span>
+   			</a>
+		</c:otherwise>
+		</c:choose>
+
 </li>
-<li class="page-item"><a class="page-link"
-        href="javascript:void(0)">1</a></li>
-<li class="page-item"><a class="page-link"
-        href="javascript:void(0)">2</a></li>
-<li class="page-item"><a class="page-link"
-        href="javascript:void(0)">3</a></li>
+</c:if>
+
+<c:forEach var="i" begin="${startPage}" end="${endPage}">
+	<c:choose>
+		<c:when test="${empty keyword}">
+			<li class="page-item"><a class="page-link"
+			 	     href="/projectB/discussion/main.aa?pageNum=${i}">${i}</a>
+			</li>
+		</c:when>
+		<c:otherwise>
+			<li class="page-item"><a class="page-link"
+				      href="/projectB/discussion/mainSearch.aa?keyword=${keyword}&pageNum=${i}">${i}</a>
+			</li>
+		</c:otherwise>
+	</c:choose>
+</c:forEach>
+
+<c:if test="${endPage < pageCount}">
 <li class="page-item">
-    <a class="page-link" href="javascript:void(0)" aria-label="Next">
+	<c:choose>
+	<c:when test="${empty keyword}">
+		<a class="page-link" href="/projectB/discussion/main.aa?keyword=${keyword}&pageNum=${startPage + 10}" aria-label="Next">
         <span aria-hidden="true">&raquo;</span>
         <span class="sr-only">Next</span>
-    </a>
+		</a>
+	</c:when>
+	<c:otherwise>
+		<a class="page-link" href="/projectB/discussion/main.aa?pageNum=${startPage + 10}" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+        <span class="sr-only">Next</span>
+		</a>
+	</c:otherwise>
+	</c:choose>
+   
 </li>
+</c:if>
 </ul>
 </nav>
 </div>
+</c:if>
+
+<script src="/projectB/resource/bootstrap/assets/libs/jquery/dist/jquery.min.js"></script>
+<script src="/projectB/resource/bootstrap/assets/libs/popper.js/dist/umd/popper.min.js"></script>
+<script src="/projectB/resource/bootstrap/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/projectB/resource/bootstrap/js/app-style-switcher.js"></script>
+<script src="/projectB/resource/bootstrap/js/feather.min.js"></script>
+<script src="/projectB/resource/bootstrap/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+<script src="/projectB/resource/bootstrap/assets/extra-libs/sparkline/sparkline.js"></script>
+<script src="/projectB/resource/bootstrap/js/sidebarmenu.js"></script>
+<script src="/projectB/resource/bootstrap/js/custom.min.js"></script>
+<script src="/projectB/resource/bootstrap/assets/libs/raphael/raphael.min.js"></script>
+<script src="/projectB/resource/bootstrap/assets/libs/morris.js/morris.min.js"></script>
+<script src="/projectB/resource/bootstrap/js/pages/morris/morris-data.js"></script>
+<script>
+<c:forEach items="${articleList}" var="chart">
+
+var a = parseInt('${chart.opposition}');
+var b = parseInt('${chart.agreement}');
+
+if (a+b == 0){
+	var id = document.getElementById("noimg");
+	id.src = "/projectB/resource/images/nochart.jpg";
+	id.height = "200";
+}else{
+	new Morris.Donut({
+		element: '${chart.num}',
+		data: [{ label: "찬성", value: '${chart.agreement}' }, 
+			   { label: "반대", value: '${chart.opposition}'}],
+		resize: true,
+		colors:['#5f76e8','#e04643']
+})
+	var id = document.getElementById("${chart.num}");
+	id.style.height = "200px";
+};
+</c:forEach>
+</script>
+
+
+</center>

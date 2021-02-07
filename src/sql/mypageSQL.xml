@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mypage">
+	<!--  CRUD (Create, Read, Update, Delete) -> DB구축  -->
+	<select id="getArticleCount" resultType="int" parameterType="String">
+	select count(*) from petition
+	<if test="memId != null">
+	where writer=#{memId}
+	</if>
+	</select>
+	
+	<select id="getArticles" parameterType="map" resultType="petitionDTO">
+	select * from (select num,title, content, category, startDate, endDate, writer, petition, petitionState, link, indicatorNum, tag, report, open, rownum r from(select * from petition 
+	<if test="memId != null">
+	where writer=#{memId}
+	</if>
+	order by num desc) order by num desc)
+	<![CDATA[where r >= #{start} and r <= #{end}]]>
+	</select>
+	
+	<select id="getStateList" resultType="petitionStateDTO">
+		select * from petitionState
+	</select>
+	
+	<select id="getAgreesCount" parameterType="String" resultType="int">
+		select count(*) from petitionPetitionerMap where petitionerId = #{memId}
+	</select>
+	
+	<select id="getAgrees" parameterType="String" resultType="int">
+		select petitionNum from petitionPetitionerMap where petitionerId = #{memId}
+	</select>
+	
+	<select id="getAgree" parameterType="Map" resultType="petitionDTO">
+		select * from (select num,title, content, category, startDate, endDate, writer, petition, petitionState, link, indicatorNum, tag, report, open, rownum r from(select * from petition 
+		where num=#{num} order by num desc) order by num desc)
+		<![CDATA[where r >= #{start} and r <= #{end}]]>
+	</select>
+	
+	<select id="getDisCount" parameterType="String" resultType="int">
+		select count(*) from discussion where write = #{memId}
+	</select>
+	
+	<select id="getDis" parameterType="map" resultType="discussionDTO">
+		select * from (select num, write, content, reg, agreement, opposition, tag, report, open, subject, link, commentcount, rownum as r from(select * from discussion 
+		where write=#{memId} order by num desc) order by num desc)
+	<![CDATA[where r >= #{start} and r <= #{end}]]>
+	</select>
+	
+	<select id="getDisCommCount" parameterType="String" resultType="int">
+		select count(*) from discussionComment where writer = #{memId}
+	</select>
+	
+	<select id="getDisCommNum" parameterType="String" resultType="int">
+		select discussionNum from discussionComment where writer = #{memId}
+	</select>
+	
+	<select id="getDisByNum" parameterType="map" resultType="discussionDTO">
+		select * from (select num, write, content, reg, agreement, opposition, tag, report, open, subject, link, commentcount, rownum as r from(select * from discussion 
+		where num=#{num} order by num desc) order by num desc)
+	<![CDATA[where r >= #{start} and r <= #{end}]]>
+	</select>
+	
+	<select id="getMember" parameterType="String" resultType="petitionerDTO">
+		select * from petitioner where id = #{memId}
+	</select>
+	
+	<select id="getPassword" parameterType="String" resultType="String">
+		select password from petitioner where id=#{memId}
+	</select>
+	
+	<update id="modifyPetitioner" parameterType="PetitionerDTO">
+		update petitioner <set>
+							<if test="#{password} != null">password = #{password},</if>
+							<if test="#{contact} != null">contact = #{contact},</if>
+							<if test="#{email} != null">email = #{email},</if>
+							<if test="#{emailArg} != null">emailArg = #{emailArg}</if>
+						  </set>
+						  where id = #{id}
+	</update>
+	
+	<select id="getTagList" parameterType="String" resultType="InterestTagDTO">
+		select tagName from interestTag where userId = #{memId}
+	</select>
+	
+	<select id="checkTag" parameterType="map" resultType="int">
+		select count(*) from interestTag where userId = #{userId} and tagName=#{tagName} 
+	</select>
+	
+	<insert id="insertTag" parameterType="map">
+		insert into interestTag values(interestTag_seq.nextval,#{tagName},#{userId})
+	</insert>
+	
+	<delete id="deleteTag" parameterType="map">
+		delete from interestTag where tagName = #{tagName} and userId = #{userId}
+	</delete>
+	
+	<select id="getArticlesHaveTag" resultType="petitionDTO">
+		select * from petition where tag is not null
+	</select>
+	
+	<select id="getMatchArticle" parameterType="int" resultType="petitionDTO">
+		select * from petition where num = #{num}
+	</select>
+
+</mapper>
+

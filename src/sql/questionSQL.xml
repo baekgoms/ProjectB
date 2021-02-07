@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="question">
+
+<!-- ==============================우찬=========================== -->
+	<insert id ="insertArticle" parameterType="questionDTO">
+		insert into question(
+		num,category,title,content,writer,open,reg) 
+		values(question_seq.nextval, #{category}, #{title}, #{content}, #{writer}, #{open}, sysdate)
+	</insert>
+	 
+	<select id ="getCategory" resultType="String">
+		select name from question_category
+	</select>
+	
+	<select id ="getCategoryMap" resultType="map">
+		select * from question_category
+	</select>
+	
+<!-- =============================================================== -->
+	
+	<select id="getArticle" resultType="questionDTO" parameterType="map">
+		select * from (select num, category, title, content, writer, reply, reg
+		from(select * from question 
+		where open = 1
+		<if test="keyword != null">
+			or title like '%' || #{keyword} || '%' or content like '%' || #{keyword} || '%'
+		</if>
+		order by num desc) order by num desc) 
+	</select>
+	
+	<select id="getOneInfo" resultType="questionDTO" parameterType="int">
+		select * from question where num = #{num}
+	</select>
+	
+	<select id="questions" resultType="questionDTO" parameterType="map">
+		select * from (select num, category, title, content, writer, reply, reg, rownum r
+		from(select * from question
+		
+		<if test="sort == 1">
+			where reply = 0
+		</if>
+		<if test="sort == 2">
+			where reply = 1
+		</if>
+		
+		order by num desc ) order by num desc)
+		where r <![CDATA[>=]]> #{ startRow } and r <![CDATA[<=]]>#{ endRow }
+	</select>
+	
+	<select id="totalQuestionCount" resultType="int" parameterType="int">
+		select count(*) from question
+		<if test="value == 1">
+			where reply = 0
+		</if>
+		<if test="value == 2">
+			where reply = 1
+		</if>
+	</select>
+	
+</mapper>
+

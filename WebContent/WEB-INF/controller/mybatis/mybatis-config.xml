@@ -19,9 +19,40 @@
 	<!-- 별칭 설정 / 전체 경로를 매번 사용할려면 너무 길어지니깐 줄여서 사용! -->
  	<!-- typeAliases는 해도되고, 안해도됨 -->
 	<typeAliases>
+		<typeAlias alias="discussionDTO" type="projectB.model.petition.DiscussionDTO" />
+		<typeAlias alias="disBoardCommDTO" type="projectB.model.discussion.DisBoardCommDTO" />
+		<typeAlias alias="petitionDTO" type="projectB.model.petition.PetitionDTO" />
+		<typeAlias alias="petCommentDTO" type="projectB.model.petition.PetCommentDTO" />
+		<typeAlias alias="petitionerDTO" type="projectB.model.petitioner.PetitionerDTO" />
+		<typeAlias alias="CategoryDTO" type="projectB.model.petition.CategoryDTO" />
+		<typeAlias alias="petitionIndicatorDTO" type="projectB.model.petition.PetitionIndicatorDTO" />
+		<typeAlias alias="petitionPetitionerMapDTO" type="projectB.model.petition.PetitionPetitionerMapDTO" />
+		<typeAlias alias="commentVoteDTO" type="projectB.model.discussion.CommentVoteDTO" /> 
+		<typeAlias alias="questionDTO" type="projectB.model.question.QuestionDTO" /> 
+		<typeAlias alias="answerDTO" type="projectB.model.answer.AnswerDTO" />
+		<typeAlias alias="petitionStateDTO" type="projectB.model.petition.petitionStateDTO" />
+		<typeAlias alias="interestTagDTO" type="projectB.test.hj.InterestTagDTO" />
+		<typeAlias alias="tagDTO" type="projectB.model.tag.TagDTO" />
+		<typeAlias alias="answerPetitionerMapDTO" type="projectB.model.answer.AnswerPetitionerMapDTO"/>
+		<typeAlias alias="adminReportDTO" type="projectB.model.admin.AdminReportDTO"/>
+		<typeAlias alias="qnaDTO" type="projectB.model.qna.QnADTO"/>
 	</typeAliases>
 	
 	<mappers>
+		<mapper resource="/sql/petitionerSQL.xml" />
+		<mapper resource="/sql/petitionSQL.xml" />
+		<mapper resource="/sql/discussionSQL.xml" />
+		<mapper resource="/sql/discussionCommentSQL.xml" />
+		<mapper resource="/sql/discussionVoteSQL.xml" />
+		<mapper resource="/sql/loginSQL.xml" />
+		<mapper resource="/sql/questionSQL.xml" />
+		<mapper resource="/sql/answerSQL.xml" />
+		<mapper resource="/sql/mypageSQL.xml" />
+		<mapper resource="/sql/adminPetitionSQL.xml" />
+		<mapper resource="/sql/adminMainSQL.xml" />
+		<mapper resource="/sql/adminReportSQL.xml" />
+		<mapper resource="/sql/tagSQL.xml" />
+		<mapper resource="/sql/qnaSQL.xml" />
 	</mappers>
   
 </configuration>

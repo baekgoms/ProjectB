@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="answer">
+
+	<!-- resultType으로 리턴
+		 parameterType DAO에서 가지고 오는 타입 -->
+	
+	<!-- =============================답변List관련====================================== -->	 
+	<select id ="getArticleCount" resultType="int" parameterType="map">
+		select count(*) from answer A 
+			INNER JOIN petition B ON A.petitionNum = B.num
+		where A.state = #{state} and A.department = #{department} 
+		<if test="category != null and category != '' and category != 0">
+			AND A.category = #{category}
+		</if>
+		<if test="keyword != null and keyword != ''">
+			AND B.title LIKE '%' || #{keyword} || '%'
+		</if>
+	</select>	
+
+	<select id="getCategoryList" resultType="CategoryDTO" >
+		select * from category 
+	</select>
+
+	<select id="getArticleAll" resultType="answerDTO" parameterType="map">
+		select * from (select num, petitionNum, state, category, content, answerLink, name, department, answerDate, recommend, 
+		opposite, addition, id, rownum r from(select A.* from answer A
+			INNER JOIN petition B ON A.petitionNum = B.num
+		where A.department = #{department}
+		and A.state = #{state}
+		<if test="category != null and category != '' and category != 0">
+			AND A.category = #{category}
+		</if>
+		<if test="keyword != null and keyword != ''">
+			AND B.title LIKE '%' || #{keyword} || '%'
+		</if>
+		<if test="sort != null and sort != ''">
+			<choose>
+				<when test="sort == 1">
+				<!-- 최신순 -->
+				ORDER BY B.num DESC
+				</when>
+				<when test="sort == 2">
+				<!-- 동의순 -->
+				ORDER BY B.petition DESC
+				</when>
+			</choose>
+		</if>
+		)
+		) where r <![CDATA[>=]]> #{startRow} and r <![CDATA[<=]]>#{endRow}
+	</select>
+	
+	
+	<!-- =============================답변Upload관련====================================== -->	 	 
+	<select id="getReplyerInfo" resultType="petitionerDTO" parameterType="String">
+    	select * from petitioner where id=#{id}
+    </select>
+    
+	<select id="getPetitionInfo" resultType="petitionDTO" parameterType="int">
+      	select * from petition where num = #{petitionNum} 
+    </select>
+    
+    <select id="getAnswerByPetitionNum" parameterType="int" resultType="answerDTO">
+		SELECT * FROM answer WHERE petitionNum = #{petitionNum} ORDER BY parentNum DESC
+	</select>
+	
+	
+	<update id="updatePetitionState" parameterType="int">
+		update petition set petitionState = petitionState + 1 where num=#{num}
+	</update>
+	
+	<update id="updateAnswerState" parameterType="int">
+		update answer set state = state + 1 where petitionNum=#{petitionNum} and parentNum is NULL
+	</update>
+	
+	<select id="insertParentNum" parameterType="int" resultType="int">
+		select num from answer where petitionNum = #{petitionNum}
+	</select>
+	
+	<select id="findParentNum" parameterType="answerDTO" resultType="int">
+		select parentNum from answer where petitionNum = #{petitionNum} and state is null
+	</select>
+	
+	
+	<insert id="createRow" parameterType="answerDTO">
+    	INSERT INTO answer
+   			(num, petitionNum, content, parentNum, answerLink, answerDate)
+    	VALUES
+   			(answerNum_seq.nextval ,#{petitionNum}, #{content}, #{parentNum}, #{answerLink}, sysdate)
+    </insert>
+	
+	<!-- 답변 작성 -->
+	<update id ="insertArticle" parameterType="answerDTO">
+		UPDATE answer 
+			SET content = #{content}, answerLink = #{answerLink}, answerDate = sysdate 
+		WHERE petitionNum = #{petitionNum}
+	</update>
+	
+	<!-- 추가 답변 작성 -->
+	<update id ="insertAddArticle" parameterType="answerDTO">
+		UPDATE answer 
+			SET content = #{content}, answerLink = #{answerLink}, answerDate = sysdate 
+		WHERE parentNum = #{parentNum}
+	</update>
+	
+	<!-- =============================답변Content관련====================================== -->	
+	
+	 
+	
+    
+    <update id="updateArticle" parameterType="answerDTO">
+    	UPDATE answer 
+    		SET answerLink = #{answerLink}, content = #{content}, answerDate = sysdate 
+    	WHERE num = #{num}
+    </update>
+    
+    <!-- =============================답변Reaction관련====================================== -->
+    
+
+    <select id="getAnswerPetitionerMap" parameterType="answerPetitionerMapDTO" resultType="answerPetitionerMapDTO">
+		select * from answerPetitionerMAP where answerNum = #{answerNum} AND petitioner = #{petitioner}
+    </select>
+    
+    <insert id="insertAnswerPetitionerMap" parameterType="answerPetitionerMapDTO">
+    	INSERT INTO answerPetitionerMAP
+   			(answerNum, petitioner, type)
+    	VALUES
+   			(#{answerNum}, #{petitioner}, #{type})
+    </insert>
+    
+    <update id="answerReact" parameterType="answerPetitionerMapDTO">
+    	UPDATE answer
+   			SET
+   			<if test="type == 1">
+   				recommend = recommend + 1
+   			</if>
+   			<if test="type == 2">
+   				opposite = opposite + 1
+   			</if>
+   			<if test="type == 3">
+   				addition = addition + 1
+   			</if>
+    	WHERE
+    		num = #{answerNum}
+    </update>
+    
+    
+    
+    
+    
+    
+    <select id = "getAnswerByRecommends" resultType="answerDTO" parameterType="map">
+    select * from (select num, petitionNum, state, category, content, answerLink,
+		name, department, answerDate, recommend, opposite, addition, id, rownum r
+		from (select * from answer order by recommend desc, num asc)
+		order by recommend desc, num asc)
+		where r <![CDATA[>=]]> #{ startRow } and r <![CDATA[<=]]>#{ endRow }
+		
+		<if test="sort == 1">
+			and answerDate >= sysdate - 7
+		</if>
+		
+		<if test="sort == 2">
+			and answerDate >= add_months(sysdate, -1)
+		</if>
+		
+		<if test="sort == 3">
+			and answerDate >= add_months(sysdate, -6)
+		</if>
+		
+		<if test="sort == 4">
+			and answerDate >= add_months(sysdate, -12)
+		</if>
+    </select>
+    
+    <select id = "getAnswerByOpposites" resultType="answerDTO" parameterType="map">
+	    select * from (select num, petitionNum, state, category, content, answerLink,
+			name, department, answerDate, recommend, opposite, addition, id, rownum r
+			from (select * from answer order by opposite desc, num asc)
+			order by opposite desc, num asc)
+			where r <![CDATA[>=]]> #{ startRow } and r <![CDATA[<=]]>#{ endRow }
+			
+		<if test="sort == 1">
+			and answerDate >= sysdate - 7
+		</if>
+		
+		<if test="sort == 2">
+			and answerDate >= add_months(sysdate, -1)
+		</if>
+		
+		<if test="sort == 3">
+			and answerDate >= add_months(sysdate, -6)
+		</if>
+		
+		<if test="sort == 4">
+			and answerDate >= add_months(sysdate, -12)
+		</if>
+    </select>
+        
+    <select id = "getAnswerByAdditions" resultType="answerDTO" parameterType="map">
+	    select * from (select num, petitionNum, state, category, content, answerLink,
+			name, department, answerDate, recommend, opposite, addition, id, rownum r
+			from (select * from answer order by addition desc, num asc)
+			order by addition desc, num asc)
+			where r <![CDATA[>=]]> #{ startRow } and r <![CDATA[<=]]>#{ endRow }
+			
+		<if test="sort == 1">
+			and answerDate >= sysdate - 7
+		</if>
+		
+		<if test="sort == 2">
+			and answerDate >= add_months(sysdate, -1)
+		</if>
+		
+		<if test="sort == 3">
+			and answerDate >= add_months(sysdate, -6)
+		</if>
+		
+		<if test="sort == 4">
+			and answerDate >= add_months(sysdate, -12)
+		</if>
+    </select>
+
+
+
+	<!-- 답변 완료된 청원 게시판     ########### 보배 ################-->
+	
+	<select id="completedAnswer" resultType="AnswerDTO" parameterType="map">
+		select * from (select num, petitionNum, state, category, content, answerLink, name, department, answerDate, recommend, 
+		opposite, addition, id, rownum r from(select*from answer where state= #{state} order by num desc)order by num desc)
+		where r <![CDATA[>=]]> #{startRow} and r <![CDATA[<=]]>#{endRow}
+	</select>
+	
+	<select id="completedAnswerCount" resultType="int" parameterType="int">
+		select count(*) from answer where state=#{state}
+	</select>
+	
+	<select id="getInfobyNum" resultType="petitionDTO" parameterType="int">
+		select*from petition where num = #{num}
+	</select>
+	
+	
+
+	
+</mapper>
+

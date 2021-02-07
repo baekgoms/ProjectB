@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="login">
+	<!--  CRUD (Create, Read, Update, Delete) -> DB구축  -->
+	
+	<select id = "login" resultType="int" parameterType="petitionerDTO">
+		select count(*) from petitioner where id = #{ id } and password = #{ password }
+	</select>
+	
+	<select id = "loginInfo" resultType="petitionerDTO" parameterType="petitionerDTO">
+		select * from petitioner where id = #{ id } and password = #{ password }
+	</select>
+</mapper>
+

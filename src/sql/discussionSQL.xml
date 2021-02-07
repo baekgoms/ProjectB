@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="disBoard">
+	<!--  CRUD (Create, Read, Update, Delete) -> DB구축  -->
+	<insert id="insertArticle" parameterType="discussionDTO">
+		insert into discussion values(discussion_seq.nextval, 
+									  #{write},
+									  #{content},
+									  sysdate,
+									  #{agreement},
+									  #{opposition},
+									  #{tag},
+									  #{report},
+									  #{open},
+									  #{subject})
+	</insert>
+	
+	<select id="getArticleCount" resultType="int" parameterType="string">
+		select count(*) from discussion
+		<if test="keyword != null">
+			where subject like '%' || #{keyword} || '%' or content like '%' || #{keyword} || '%' or tag like '%' || #{keyword} || '%' 
+		</if>
+	</select>
+	
+	<select id="getArticles" parameterType="map" resultType="discussionDTO">
+		select * from (select num, write, content, reg, agreement, opposition, tag, report, open, subject, link, commentcount, rownum as r from(select * from discussion 
+		<if test="keyword != null">
+			where subject like '%' || #{keyword} || '%' or content like '%' || #{keyword} || '%' or tag like '%' || #{keyword} || '%' 
+		</if>
+		order by num desc) order by num desc)
+		<![CDATA[where r >= #{start} and r <= #{end}]]>
+	</select>
+	
+	<select id="getBestArticles" parameterType="map" resultType="discussionDTO">
+		select * from (select num, write, content, reg, agreement, opposition, tag, report, open, subject, link, commentcount, rownum as r from(select * from discussion 
+		<if test="date1 == null and sort == 1">
+			<![CDATA[where to_char(reg, 'yyyy-mm-dd') <= to_char(sysdate, 'yyyy-mm-dd') and to_char(reg, 'yyyy-mm-dd') >= to_char(sysdate-7, 'yyyy-mm-dd')]]>
+		</if>
+		<if test="date1 == null and sort == 2">
+			<![CDATA[where to_char(reg, 'yyyy-mm-dd') <= to_char(sysdate, 'yyyy-mm-dd') and to_char(reg, 'yyyy-mm-dd') >= to_char(sysdate-30, 'yyyy-mm-dd') ]]>
+		</if>
+		<if test="date1 != null and date2 != null">
+			<![CDATA[where reg between to_date(#{date1}) and to_date(#{date2})]]>
+		</if>
+		order by agreement+opposition desc) order by agreement+opposition desc) <![CDATA[where r >= #{start} and r <= #{end} ]]>
+	</select>
+
+	<select id="getBestCArticles" parameterType="map" resultType="discussionDTO">
+		select * from (select num, write, content, reg, agreement, opposition, tag, report, open, subject, link, commentcount, rownum as r from(select * from discussion 
+		<if test="date1 == null and sort == 1">
+			<![CDATA[where reg >= sysdate-7 and reg < sysdate]]>
+		</if>
+		<if test="date1 == null and sort == 2">
+			<![CDATA[where reg >= sysdate-30 and reg < sysdate]]>
+		</if>
+		<if test="date1 != null and date2 != null">
+			<![CDATA[where reg >= #{date1} and reg < #{date2}]]>
+		</if>
+		order by commentcount desc) order by commentcount desc) <![CDATA[where r >= #{start} and r <= #{end}]]>
+	</select>
+	
+	<select id="getWeekBestArticles" parameterType="map" resultType="discussionDTO">
+	select * from (select num, write, content, reg, agreement, opposition, tag, report, open, subject, link, commentcount, rownum as r from(select * from discussion <![CDATA[where reg >= #{date1} and reg < #{date2}]]> order by agreement+opposition desc) order by agreement+opposition desc) <![CDATA[where r >= #{start} and r <= #{end}]]> 
+	</select>
+	
+	<select id="getArticle" parameterType="int" resultType="discussionDTO">
+		select * from discussion where num = #{num}
+	</select>
+	
+	<update id="updateArticle" parameterType="discussionDTO">
+	 	update discussion set subject=#{subject},content=#{content} where num=#{num}
+	</update>
+	
+	 <delete id="deleteArticle" parameterType="int">
+	 	delete from discussion where num=#{num}
+	 </delete>
+	 
+	 <update id="agreement" parameterType="int">
+	 	update discussion set agreement=agreement+1 where num=#{num}
+	 </update>
+	 
+	 <update id="opposition" parameterType="int">
+	 	update discussion set opposition=opposition+1 where num=#{num}
+	 </update>
+	 
+	 <update id="report" parameterType="int">
+	 	update discussion set report=report+1 where num=#{num}
+	 </update>
+	 
+	 <select id="openStateCheck" parameterType="int" resultType="int">
+	 	select open from discussion where num=#{num}
+	 </select>
+	 
+	 <update id="openStateOpen" parameterType="int">
+	 	update discussion set open=0 where num=#{num}
+	 </update>
+	 
+	 <update id="openStateClose" parameterType="int">
+	 	update discussion set open=1 where num=#{num}
+	 </update>
+
+</mapper>
+

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="disBoardComment">
+	<!--  CRUD (Create, Read, Update, Delete) -> DB구축  -->
+	<insert id="insertComment" parameterType="disBoardCommDTO">
+		insert into discussionComment values( discussionComment_seq.nextval, 
+		#{ discussionNum }, #{ writer }, #{ content }, #{ imgState },
+		#{ up }, #{ down }, #{ report }, #{ open },
+		#{ grouping }, #{ depth }, sysdate )
+	</insert>
+	
+	<select id="selectCommentByDiscussionNum" parameterType="int" resultType="disBoardCommDTO">
+		select * from discussionComment where discussionNum = #{ value }
+	</select>
+	
+	<update id = "updateDepth" parameterType = "map">
+		update discussionComment set depth = depth + 1 where grouping = #{ grouping } and depth <![CDATA[>]]> #{ depth }
+	</update>
+	
+	<select id="getNextDepth" resultType="int" parameterType = "map">
+		select max(depth) + 1 from discussionComment where discussionNum = #{ discussionNum } and grouping = #{ grouping }
+	</select>
+	
+	<select id="getNextNumber" parameterType="int" resultType="int">
+		select max(num) + 1 from discussionComment where discussionNum = #{ value }
+	</select>
+	
+	<select id="getMaxNumber" parameterType="int" resultType="int">
+		select max(num) from discussionComment where discussionNum = #{ value }
+	</select>
+	
+	<update id="updateGrouping" parameterType = "int">
+		update discussionComment set grouping= #{ value } where num = #{ value }
+	</update>
+	
+	<select id="getCommentCountByDiscussionNum" parameterType="int" resultType="int">
+		select count(*) from discussionComment where discussionNum = #{ value }
+	</select>
+	
+	<select id = "getCommentsByStartAndEnd" resultType = "disBoardCommDTO" parameterType = "map">
+		select * from (select num, discussionNum, writer, content, imgState, up,
+		down, report, open, grouping, depth, reg, rownum r
+		from (select * from discussionComment order by grouping desc, depth asc) 
+		order by grouping desc, depth asc)
+				where discussionNum = #{ discussionNum } 
+				and r <![CDATA[>=]]> #{ startRow } 
+				and r <![CDATA[<=]]> #{ endRow }  
+	</select>
+	
+	<update id="add_up">
+		update discussionComment set up = up + 1 where num = #{ value }
+	</update>
+	
+	<update id="sub_up">
+		update discussionComment set up = up - 1 where num = #{ value }
+	</update>
+	
+	<update id="add_down">
+		update discussionComment set down = down + 1 where num = #{ value }
+	</update>
+	
+	<update id="sub_down">
+		update discussionComment set down = down - 1 where num = #{ value }
+	</update>
+	
+	
+	<insert id="insertCommentVote" parameterType = "commentVoteDTO">
+		insert into commentVote values(commentVote_seq.nextval, #{ discussionNum }, #{ commentNum }, #{ writer }, #{ state })
+	</insert>
+	
+	<select id="getCommentVote" resultType = "commentVoteDTO" parameterType = "map">
+		select * from commentVote where discussionNum = #{ discussionNum } and commentNum = #{ discussionNum } and writer = #{ writer }
+	</select>
+	
+	<select id="checkCommentVote" resultType = "int" parameterType = "map">
+		select count(*) from commentVote where discussionNum = #{ discussionNum } and commentNum = #{ commentNum } and writer = #{ writer }
+	</select>
+	
+	<delete id="deleteCmVote" parameterType = "commentVoteDTO">
+		delete commentVote where writer = #{ writer } and commentNum = #{ commentNum } and discussionNum = #{ discussionNum }
+	</delete>
+	
+	<select id="getCmmVoteCount" resultType = "int" parameterType = "map">
+		select count(*) from commentVote where writer = #{ writer } and discussionNum = #{ discussionNum }
+	</select>
+	
+	<select id="getCmmVotes" resultType = "commentVoteDTO" parameterType = "map">
+		select * from commentVote where writer = #{ writer } and discussionNum = #{ discussionNum }
+	</select>
+	
+</mapper>

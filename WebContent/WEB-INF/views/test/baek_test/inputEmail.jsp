@@ -24,23 +24,20 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1> input Test </h1>
-	<div class="col-sm-12 col-md-6 col-lg-4">
-		<div class="card">
-			<div class="card-body">
-				<h4 class="card-title">Input Type Email</h4>
-				<h6 class="card-subtitle">
-					Using
-					<code>input type="email"</code>
-				</h6>
-				<form class="mt-4">
-					<div class="form-group">
-						<input type="email" class="form-control">
-						<button type="button" onclick=""
-							class="btn waves-effect waves-light btn-outline-dark">
-							인증번호 전송</button>
-					</div>
-				</form>
+	<div class = "container">
+		<div class="col-sm-12 col-md-6 col-lg-4">
+			<div class="card">
+				<div class="card-body">
+					<h4 class="card-title">이메일 입력</h4>
+					<form class="mt-4" action = "inputAuthEmail.aa">
+						<div class="form-group">
+							<input type="email" class="form-control">
+							<button type="button" onclick=""
+								class="btn waves-effect waves-light btn-outline-dark">
+								인증번호 전송</button>
+						</div>
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>
