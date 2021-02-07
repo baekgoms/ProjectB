@@ -111,6 +111,9 @@
 				<c:when test="${petitionPetitionerService.isAgreed(petitionNum,memId)}">
 					alert("이미 동의한 청원입니다.");
 				</c:when>
+				<c:when test="${petitionDTO.petitionState == 3 or petitionDTO.petitionState == 4}">
+					alert("기간이 만료된 청원입니다.");
+				</c:when>
 				<c:otherwise>
                     $.ajax({
                         url: "/projectB/petition/petitionCommentPro.aa",

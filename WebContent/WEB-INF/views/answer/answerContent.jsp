@@ -147,7 +147,13 @@
 	</div>
 	
 	<script>
+		var isVoted = false; // 참여 여부
 		function fnAnswerReact(type, num) {
+			if (isVoted) {
+				// 참여한 경우
+				alert("투표에 이미 참여하였습니다.");
+				return false;
+			}
 			$.ajax({
 				url : '/projectB/answer/answerReact.aa',
 				method: 'POST',
@@ -169,6 +175,7 @@
 						} if (type == 3) {
 							$('#additionCnt').text((parseInt($('#additionCnt').text()) + 1));
 						}
+						isVoted = true;
 					} else if (data == 2) {
 						// 완료
 						alert("투표에 이미 참여하였습니다.");

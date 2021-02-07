@@ -75,6 +75,10 @@
 		update answer set state = state + 1 where petitionNum=#{petitionNum} and parentNum is NULL
 	</update>
 	
+	<update id="updateAnswerStateAddition" parameterType="int">
+		update answer set state = 6 where num = #{answerNum} AND state != 6
+	</update>
+	
 	<select id="insertParentNum" parameterType="int" resultType="int">
 		select num from answer where petitionNum = #{petitionNum}
 	</select>
@@ -146,7 +150,9 @@
     		num = #{answerNum}
     </update>
     
-    
+    <select id="getAnswerByNum" parameterType="int" resultType="answerDTO">
+    	SELECT * FROM answer WHERE num = #{answerNum} 
+    </select>
     
     
     

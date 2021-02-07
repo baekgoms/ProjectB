@@ -11,4 +11,8 @@ public interface AnswerContentService {
 
   public void updateArticle(AnswerDTO answerDTO) throws Exception;
 
+  public AnswerDTO getAnswerByNum (int answerNum);
+  
+  public int updateAnswerStateAddition (int answerNum);
+  
 }

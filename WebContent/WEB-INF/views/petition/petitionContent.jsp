@@ -312,7 +312,7 @@ function goPetitionList() {
 	} else if (petitionState == '3') {
 		window.location.href = '/projectB/petition/terminationPetition.aa';
 	} else if (petitionState == '4') {
-		window.location.href = '/petition/standbyPetition.aa';
+		window.location.href = '/projectB/petition/standbyPetition.aa';
 	}
 }
 

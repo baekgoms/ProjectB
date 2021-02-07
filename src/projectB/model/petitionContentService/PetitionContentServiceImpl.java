@@ -85,7 +85,7 @@ public class PetitionContentServiceImpl implements PetitionContentService{
     public void updateIndicator(int num, String gender, int age) {
         Map<String, Object> map = new HashMap<>();
         map.put("petitionNum", num);
-        map.put("gender", "남자".equals(gender));
+        map.put("gender", "남".equals(gender));
         map.put("age", age);
         dao.update("petition.updateIndicator", map);
     }
@@ -100,6 +100,12 @@ public class PetitionContentServiceImpl implements PetitionContentService{
     @Override
     public void deletePetition(int petitionNum) throws Exception {
         dao.delete("petition.deletePetition",petitionNum);
+    }
+
+    @Override
+    public void insertAnswerDTO(PetitionDTO petitionDTO) {
+        dao.insert("petition.insertAnswerDTO",petitionDTO);
+      
     }
 
 }

@@ -28,4 +28,6 @@ public interface PetitionContentService {
     public void updatePetitionState(int petitionNum)throws Exception;
     public void deletePetition(int petitionNum)throws Exception;
     
+    public void insertAnswerDTO(PetitionDTO petitionDTO);
+    
 }

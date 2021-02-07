@@ -230,5 +230,13 @@
 	<delete id="deletePetition" parameterType="int">
 		delete from petition where num=#{num} 
 	</delete>
+	
+	<insert id="insertAnswerDTO" parameterType="petitionDTO">
+		insert into 
+			answer (num,petitionNum,state,category)
+			values (answerNum_seq.nextval,#{petitionNum},#{petitionState},#{category}) 
+	</insert> 
+	
+	
 </mapper>
 

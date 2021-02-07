@@ -75,6 +75,11 @@ public class AnswerContentController {
           }
         AnswerPetitionerMapService.insertAnswerPetitionerMap(answerPetitionerMapDTO);
         AnswerPetitionerMapService.answerReact(answerPetitionerMapDTO);
+
+        AnswerDTO answer = AnswerContentService.getAnswerByNum(answerPetitionerMapDTO.getAnswerNum());
+        if (answer.getAddition() >= 100000 && answer.getState() != 6) {
+          AnswerContentService.updateAnswerStateAddition(answerPetitionerMapDTO.getAnswerNum());
+        }
         return "1";
       } catch (Exception e) {
         e.printStackTrace();

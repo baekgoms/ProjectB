@@ -73,6 +73,7 @@ public class PetitionContentController {
       petCmtList = Collections.emptyList();
     }
     number = count - (currentPage - 1) * pageSize;
+    PetitionDTO petitionDTO = PetitionContentService.getArticle(petitionNum);
 
     model.addAttribute("petitionPetitionerService", petitionPetitionerService);
     model.addAttribute("currentPage", new Integer(currentPage));
@@ -83,16 +84,19 @@ public class PetitionContentController {
     model.addAttribute("number", new Integer(number));
     model.addAttribute("petitionNum", new Integer(petitionNum));
     model.addAttribute("petCmtList", petCmtList);
+    model.addAttribute("petitionDTO", petitionDTO);
     return "petition/petitionComment";
   }
 
   @RequestMapping("petitionCommentPro.aa")
-  public String insertCmt(PetCommentDTO dto) throws Exception {
-    String writerId = dto.getWriter();
+  public String insertCmt(PetCommentDTO dto,PetitionDTO petitionDTO) throws Exception {
+    
+    String writerId = dto.getWriter(); //To do: 세션아이디 가져와서 writer에 넣기 
     PetitionerDTO petitionerDTO = PetitionContentService.getPetitionerById(writerId);
     String gender = petitionerDTO.getGender();
     String birthday = petitionerDTO.getBirthday();
 
+    System.out.println("birthday===="+birthday);
     if (Integer.parseInt(birthday) > 21)
       birthday = "19" + birthday;
     else
@@ -109,11 +113,13 @@ public class PetitionContentController {
     PetitionContentService.updatePetitionCount(dto.getPetitionNum());
     petitionPetitionerService.insertMap(dto.getPetitionNum(), dto.getWriter());
 
-
+ 
 
     PetitionContentService.updatePetitionState(dto.getPetitionNum());
-
-
+    
+    if(petitionDTO.getPetitionState() == 4) {
+      PetitionContentService.insertAnswerDTO(petitionDTO);
+    }
     return "petition/petitionCommentPro";
   }
 
