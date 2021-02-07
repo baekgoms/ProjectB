@@ -61,7 +61,7 @@
 							<c:forEach var="article" items="${articleList}" begin="0" end="5" step="1" varStatus="status">
 								<tr>
                                 	<td>
-	                                	<a href ="projectB/petition/petContent.aa?num=${article.num}">${article.title}</a><br>
+	                                	<a href ="/projectB/petition/petContent.aa?num=${article.num}">${article.title}</a><br>
 									</td>
 								</tr>
 							</c:forEach>
@@ -104,7 +104,7 @@
                         <c:forEach var="enddate" items="${enddateList}" begin="0" end="5" step="1" varStatus="status">
 	                        <tr>
 	                        	<td>
-	                            	<a href ="projectB/petition/petContent.aa?num=${enddate.num}">${enddate.title}</a>
+	                            	<a href ="/projectB/petition/petContent.aa?num=${enddate.num}">${enddate.title}</a>
 	                            </td>
 	                            <td>
 	                            	<font color="red"><fmt:formatDate value="${enddate.endDate}" pattern = "yyyy-MM-dd" /></font>
@@ -128,7 +128,7 @@
 	                        <c:forEach var="petition" items="${petitionList}" begin="0" end="5" step="1" varStatus="status">
 		                        <tr>
 		                        	<td>
-		                            	<a href ="projectB/petition/petContent.aa?num=${petition.num}">${petition.title}</a>
+		                            	<a href ="/projectB/petition/petContent.aa?num=${petition.num}">${petition.title}</a>
 		                            </td>
 		                            <td>
 		                            	<font color="red">${petition.petition}</font>
