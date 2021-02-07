@@ -24,16 +24,19 @@
 
 	<select id ="getArticleCount" resultType="int">
 		select count(*) from petition
+		<if test="stateList != null">
+			where petitionState in 
+			${stateList}
+		</if>
 		<if test="keyword != null">
 		<choose>
 				<when test="searchOption == 'all'">
-					WHERE writer like '%' ||#{keyword}||'%'
+					And writer like '%' ||#{keyword}||'%'
 					OR content like '%'||#{keyword}||'%'
 					OR title like '%'||#{keyword}||'%'
-				
 				</when>
 				<otherwise>
-					WHERE ${searchOption} like '%'||#{keyword}||'%'
+					And ${searchOption} like '%'||#{keyword}||'%'
 				</otherwise>
 			</choose>
 			</if>
@@ -42,22 +45,21 @@
 	<select id="getArticleAll" resultType="petitionDTO" parameterType="map">
 		select * from (select num, title, content, category, startDate, endDate, writer,
 		petition, petitionState, link, indicatorNum, tag, report, open, rownum r 
-		from(select * from petition 
+		from(select * from petition
+			<if test="stateList != null">
+			where petitionState in 
+			${stateList}
+		</if>
 		<if test="keyword != null">
 			<choose>
 				<when test="searchOption == 'all'">
-					WHERE writer like '%' ||#{keyword}||'%'
+					And writer like '%' ||#{keyword}||'%'
 					OR content like '%'||#{keyword}||'%'
 					OR title like '%'||#{keyword}||'%'
-					<if test ="check != null">
-						AND petitionState = ${check}
-					</if>
+			
 				</when>
 				<otherwise>
-					WHERE ${searchOption} like '%'||#{keyword}||'%'
-						<if test ="check != null">
-							AND petitionState = ${check}
-						</if>
+					And ${searchOption} like '%'||#{keyword}||'%'
 				</otherwise>
 			</choose>
 		</if>

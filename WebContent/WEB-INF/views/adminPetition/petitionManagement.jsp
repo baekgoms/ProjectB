@@ -13,6 +13,7 @@
 <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
 <script type="text/javascript">
 function inputCheck(){ 
+	    
 	if($("#keyword").val() == ""){
 		$("#keyword").addClass(" is-invalid");
 		$("#keyword").focus(); 
@@ -74,6 +75,7 @@ function inputCheck(){
 			});
 		}
 	}
+
 </script>
 <title>청원관리</title>
 <style>
@@ -123,46 +125,19 @@ function inputCheck(){
 					<table class="table">
 						<tr>
 							<td>
-							<ul>
-								<li class="search_li">청원상태</li>
-							</ul>
-						</td>
+								청원상태
+							</td>
 						<td>
-								<ul>
-									<li><input type="checkbox" id="r1" name="state" value="1001" />
-										<label for="r1">청원시작</label></li>
-									<li><input type="checkbox" id="r2" name="state" value="1005" />
-										<label for="r2">청원진행중</label></li>
-									<li><input type="checkbox" id="r3" name="state" value="1009" />
-										<label for="r3">청원진행중</label></li>
-								</ul>
+									<input type="checkbox" id="r1" name="stateList" value="1" />
+										<label for="r1">청원시작</label>
+									<input type="checkbox" id="r2" name="stateList" value="2" />
+										<label for="r2">청원진행중</label>
+									<input type="checkbox" id="r3" name="stateList" value="3" />
+										<label for="r3">청원진행중</label>
 							</td>
 						</tr>
 						<tr>
-							<td>청원수</td>
-							<td>    
-								<input type="range" value="150000" min="0" max="300000" step="1000" onchange = "SetValue(this)">
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<ul>
-									<li class="search_li">일자별</li>
-								</ul>
-							</td>
-							<td>
-								<ul>
-									<li><input type="checkbox" id="r1" name="date" value="2001" />
-										<label for="r1">최근1주</label></li>
-									<li><input type="checkbox" id="r2" name="date" value="2005" />
-										<label for="r2">최근1개월</label></li>
-									<li><input type="checkbox" id="r3" name="date" value="2009" />
-										<label for="r3">최근3개월</label></li>
-								</ul>
-							<td>
-						</tr>
-						<tr>
-							<td colspan="2" >
+							<td colspan="2">
 								<select id="searchOption" name="searchOption" >
 									<option value="all" <c:out value="${searchOption == 'all'?'selected':''}"/>>전체</option>
 									<option value="title" <c:out value="${searchOption == 'title'?'selected':''}"/>>제목</option>

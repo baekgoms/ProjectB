@@ -15,8 +15,8 @@ public interface petitionManegementService {
 	public List<CategoryDTO> getCategoryList() throws Exception;
 	public int getArticleCountbyState(int state) throws Exception;
 	public List<petitionStateDTO> getStateList() throws Exception;
-	public List<PetitionDTO> getArticlesSearch(int startRow, int endRow, String keyword, String searchOption, int check) throws Exception;
-	public int getArticleCount(String keyword, String searchOption, int chkeck) throws Exception;
+	public List<PetitionDTO> getArticlesSearch(int startRow, int endRow, String keyword, String searchOption, int stateList) throws Exception;
+	public int getArticleCount(String keyword, String searchOption, int stateList) throws Exception;
 	public PetitionDTO getContent(int num) throws Exception;
 	public List<PetitionDTO> getArtilclebyState(int state, int startRow, int endRow) throws Exception;
 	public void deleteArticle(int num);

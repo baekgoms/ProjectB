@@ -63,7 +63,7 @@ public class petitionManagementController {
 	@RequestMapping("petitionManagementSearch.aa")
 	public String ing_listSearch(@RequestParam(defaultValue = "1") int pageNum, Model model, 
 								@RequestParam(defaultValue = "")String keyword,
-								@RequestParam(defaultValue = "title")String searchOption, int check)
+								@RequestParam(defaultValue = "title")String searchOption, int stateList)
 			throws Exception {
 		int pageSize = 10;
 		int currentPage = pageNum;
@@ -71,11 +71,11 @@ public class petitionManagementController {
 		int endRow = currentPage * pageSize;
 		int count = 0;
 		int number = 0;
-
+		
 		List<PetitionDTO> articleList = null;
-		count = ManageService.getArticleCount(keyword,searchOption, check);
+		count = ManageService.getArticleCount(keyword,searchOption,stateList);
 		if (count > 0) {
-			articleList = ManageService.getArticlesSearch(startRow, endRow, keyword,searchOption, check);
+			articleList = ManageService.getArticlesSearch(startRow, endRow, keyword,searchOption,stateList);
 		} else {
 			articleList = Collections.emptyList();
 		}
@@ -94,8 +94,8 @@ public class petitionManagementController {
 		model.addAttribute("pageNum", new Integer(pageNum));
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("searchOption", searchOption);
-		model.addAttribute("check", new Integer(check));
-
+		model.addAttribute("stateList", stateList);
+		
 		return "adminPetition/petitionManagement";
 	}
 	
