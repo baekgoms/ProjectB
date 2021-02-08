@@ -33,30 +33,52 @@
 </head>
 
 <script type="text/javascript">
+	var count = 0;
 	
 	function selectOption(obj) {
 		var open = ${open};
 		window.location.href = "report.aa?open="+open+"&option="+ obj.value;
 	}
+	
 	function selectAll() {
 		var chkbox = document.getElementsByName("checkbox");
-		for (var i = 0; i < chkbox.length; i++) {
-			chkbox[i].checked = true;
+		if(count == 0){
+			for (var i = 0; i < chkbox.length; i++) {
+				chkbox[i].checked = true;
+				count = 1;
+			
+			}
+			return;
+		}	
+		if(count == 1){
+			for (var i = 0; i < chkbox.length; i++) {
+				chkbox[i].checked = false;
+				count = 0;
+			}
+			return;
 		}
 	}
 
-	function selectDel() {
+	function selectUpdate() {
 		var chkbox = document.getElementsByName("checkbox");
+		var sort = document.getElementsByName("sort");
+		var open = ${open};
 		var str = "";
+		var sortStr = "";
+		
+		if(open == 1){ open = 0; }
+		else{ open = 1; }
+		
 		for (var i = 0; i < chkbox.length; i++) {
 			if (chkbox[i].checked) {
 				str = str + chkbox[i].value + ",";
+				sortStr = sortStr + sort[i].value + ",";
 			}
 		}
-
+		
 		var form = document.createElement('form');
 		form.setAttribute('method', 'post');
-		form.setAttribute('action', 'selectDel.aa');
+		form.setAttribute('action', 'selectUpdate.aa');
 		document.charset = "utf-8";
 		
 		var hiddenField = document.createElement("input");
@@ -64,6 +86,18 @@
 		hiddenField.setAttribute('name', 'selects');
 		hiddenField.setAttribute('value', str);
 		form.appendChild(hiddenField);
+		
+		var hiddenSort = document.createElement("input");
+		hiddenSort.setAttribute('type', 'hidden');
+		hiddenSort.setAttribute('name', 'sorts');
+		hiddenSort.setAttribute('value', sortStr);
+		form.appendChild(hiddenSort);
+		
+		var hiddenOpen = document.createElement("input");
+		hiddenOpen.setAttribute('type', 'hidden');
+		hiddenOpen.setAttribute('name', 'open');
+		hiddenOpen.setAttribute('value', open);
+		form.appendChild(hiddenOpen);
 
 		document.body.appendChild(form);
 		form.submit();
@@ -93,9 +127,9 @@
 
 	<div class="card">
 		<div class="card-body">
-			<input type="button" value="공개" class="btn waves-effect waves-light btn-outline-dark"
+			<input type="button" value="공개 보기" class="btn waves-effect waves-light btn-outline-dark"
 				onclick="document.location.href='/projectB/admin/report.aa?option=${option}'">
-			<input type="button" value="비공개" class="btn waves-effect waves-light btn-outline-dark"	
+			<input type="button" value="비공개 보기" class="btn waves-effect waves-light btn-outline-dark"	
 				onclick="document.location.href='/projectB/admin/report.aa?open=1&option=${option}'">
 		
 			
@@ -106,7 +140,13 @@
 			</select>
 
 		</div>
-		
+	
+	<div>
+		&nbsp;&nbsp;&nbsp;
+		<input type="checkbox" class="btn waves-effect waves-light btn-outline-dark" 
+				onclick="selectAll()" > 전체 선택 
+		&nbsp;&nbsp;	
+	</div>	
 		<div class="table-responsive">
 			<table class="table">
 				<thead class="thead-light">
@@ -114,7 +154,7 @@
 						<th scope="col"> <!-- 체크 번호 -->
 							#
 						</th>
-						<th scope="col">분류</th> <!-- 1:청원, 2:청원댓글, 3:토론, 4:토론댓글 -->
+						<th scope="col">분류</th> <!-- 1:청원, 2:토론, 3:토론 댓글 -->
 						<th scope="col">신고 글(제목 또는 내용) </th>
 						<th scope="col">신고 글 작성자 </th>
 						<th scope="col">신고수</th>
@@ -132,6 +172,7 @@
 								</div>
 							</th>
 							<td>
+								<input type="hidden" name = "sort" id="customCheck_${ status.index }" value = "${ totalList.sort }"/>
 								<c:if test="${ totalList.sort == 1 }">청원</c:if>
 								<c:if test="${ totalList.sort == 2 }">토론</c:if>
 								<c:if test="${ totalList.sort == 3 }">토론 댓글</c:if>
@@ -163,17 +204,14 @@
 	</div>
 	
 	<div>
+		&nbsp;
 		<button class="btn waves-effect waves-light btn-outline-dark"
-			onclick="selectAll()">
-			전체 선택
+			onclick="selectUpdate()">
+			<c:if test="${ open == 0 }">비공개하기</c:if>
+			<c:if test="${ open == 1 }">공개하기</c:if>
 		</button>
 		
-		<button class="btn waves-effect waves-light btn-outline-dark"
-			onclick="selectDel()">
-			비공개하기
-		</button>
 	</div>
-
 
 	<c:if test="${ totalListCount > 0 }">
 		<ul id="commentPage" class="pagination justify-content-center">

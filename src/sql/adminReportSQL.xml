@@ -60,8 +60,6 @@
 	<select id ="getDiscussionCommentCount" resultType="int" parameterType="map">
 		select count(*) from DiscussionComment where open= #{open} and report > 0
 	</select>
-
-	
 	
 	<select id ="getPetition" resultType="petitionDTO" parameterType="int">
 		select * from petition where open = #{open} and report > 0
@@ -71,92 +69,27 @@
 		select * from Discussion where open= #{open} and report > 0
 	</select>
 
-
-
-
-
-
-
-	<!-- 		참고		 -->
-	<update id ="updatePetition" parameterType="petitionDTO" >
-		UPDATE petition SET title = #{title}, 
-		content = #{content} WHERE num = #{num}
-	</update>
-	
-	<update id ="updateClose" parameterType="int" >
-		UPDATE petition SET open = 1 WHERE num = #{num}
-	</update>
-	
-	<update id ="updateOpen" parameterType="int" >
-		UPDATE petition SET open = 0 WHERE num = #{num}
-	</update>
-
-	<select id ="getArticleCount" resultType="int">
-		select count(*) from petition
-		<if test="keyword != null">
+	<update id="updateState" parameterType="map">
+		update 
 		<choose>
-				<when test="searchOption == 'all'">
-					WHERE writer like '%' ||#{keyword}||'%'
-					OR content like '%'||#{keyword}||'%'
-					OR title like '%'||#{keyword}||'%'
-				</when>
-				<otherwise>
-					WHERE ${searchOption} like '%'||#{keyword}||'%'
-				</otherwise>
-			</choose>
-			</if>
-	</select>
-	
-	<select id="getArticleAll" resultType="petitionDTO" parameterType="map">
-		select * from (select num, title, content, category, startDate, endDate, writer,
-		petition, petitionState, link, indicatorNum, tag, report, open, rownum r 
-		from(select * from petition 
-		<if test="keyword != null">
-			<choose>
-				<when test="searchOption == 'all'">
-					WHERE writer like '%' ||#{keyword}||'%'
-					OR content like '%'||#{keyword}||'%'
-					OR title like '%'||#{keyword}||'%'
-				</when>
-				<otherwise>
-					WHERE ${searchOption} like '%'||#{keyword}||'%'
-				</otherwise>
-			</choose>
-		</if>
-		order by num desc) order by num desc)  
-		where r <![CDATA[>=]]> #{startRow} and r <![CDATA[<=]]>#{endRow}
-	</select>
-	
-	<select id ="getArticleCountCategory" resultType="int" parameterType="int">
-		select count(*) from petition where category= #{category} 
-	</select>
-	
-	<select id="getCategoryList" resultType="CategoryDTO" >
-		select*from category 
-	</select>
-	
-	<select id ="getArticleCountState" resultType="int" parameterType="int">
-		select count(*) from petition where petitionState= #{state} 
-	</select>
-	
-	<select id="getStateList" resultType="petitionStateDTO">
-		select*from petitionState 
-	</select>
-	
-	<select id="getContent" resultType="petitionDTO" parameterType="int">
-		select*from petition where num = #{num}
-	</select>
-	
-	<select id ="getArticleState" resultType="petitionDTO" parameterType="map">
-				select * from (select num, title, content, category, startDate, endDate, writer,
-		petition, petitionState, link, indicatorNum, tag, report, open,rownum r 
-		from(select * from petition where petitionState= #{state} order by num desc) order by num desc) 
-		where r <![CDATA[>=]]> #{startRow} and r <![CDATA[<=]]>#{endRow}
-	</select>
+			<when test="sort == 1">
+				petition
+			</when>
+			<when test="sort == 2">
+				discussion
+			</when>
+			<otherwise>
+			     discussionComment
+		    </otherwise>
+		</choose>
+		set open = #{open} where num = #{num}
+	</update>
 
-	<delete id="deleteArticle" parameterType="int">
-		delete from petition where num= #{num}
-	</delete>
+
+
+
+
+	
 
 </mapper>
 
