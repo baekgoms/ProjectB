@@ -66,9 +66,6 @@
 		var str = "";
 		var sortStr = "";
 		
-		if(open == 1){ open = 0; }
-		else{ open = 1; }
-		
 		for (var i = 0; i < chkbox.length; i++) {
 			if (chkbox[i].checked) {
 				str = str + chkbox[i].value + ",";
@@ -78,7 +75,7 @@
 		
 		var form = document.createElement('form');
 		form.setAttribute('method', 'post');
-		form.setAttribute('action', 'selectUpdate.aa');
+		form.setAttribute('action', 'selectUpdate.aa?');
 		document.charset = "utf-8";
 		
 		var hiddenField = document.createElement("input");
@@ -132,13 +129,17 @@
 			<input type="button" value="비공개 보기" class="btn waves-effect waves-light btn-outline-dark"	
 				onclick="document.location.href='/projectB/admin/report.aa?open=1&option=${option}'">
 		
-			
 			<select class="form-control" id="exampleFormControlSelect1" style="width: 150px; float: right;"
 				onchange = "selectOption(this)">
 				<option value="0" <c:if test="${ option == 0 }">selected</c:if>>최신순</option>
 				<option value="1" <c:if test="${ option == 1 }">selected</c:if>>신고순</option>
 			</select>
-
+			
+			<h2 class="text-dark mb-1 font-weight-medium">
+				<c:if test="${ open == 0 }">공개 </c:if>
+				<c:if test="${ open == 1 }">비공개 </c:if>
+			목록</h2>
+			
 		</div>
 	
 	<div>

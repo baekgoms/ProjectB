@@ -80,9 +80,10 @@ public class AdminReportController {
 	}
 	
 	@RequestMapping(value = "selectUpdate.aa", method = RequestMethod.POST)
-	public String selectUpdate(String selects, String sorts, int open) {
+	public String selectUpdate(String selects, String sorts, int open, Model model) {
 		System.out.println("===selectUpdate start==");
-		
+		if(open == 1) { open = 0; }
+		else { open = 1; }
 		if(selects != null) {
 			System.out.println("selectUpdate run");
 			String[] sort = sorts.split(",");
@@ -104,6 +105,10 @@ public class AdminReportController {
 				e.printStackTrace();
 			}
 		}
+		if(open == 1) { open = 0; }
+		else { open = 1; }
+		model.addAttribute("open", open);
+		
 		System.out.println("===selectUpdate finish==");
 		return "redirect:report.aa";
 	}
