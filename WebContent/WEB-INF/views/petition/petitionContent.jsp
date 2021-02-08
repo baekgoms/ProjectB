@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -59,7 +60,7 @@
 			<br/>
 			<span style="color:black;font-weight:bold">${petitionDTO.title}</span>
 		</div>
-		<span class="petition-dday" style="visibility: hidden;" id="dDay" ></span>
+			<span class="petition-dday" style="visibility: hidden;" id="dDay" ></span>
 	</div>
 	<div class="petition-header">
 		<br/>
@@ -107,10 +108,12 @@
 	<div class="petition-body">
 		<pre style="font-size:14px; font-family: Ubuntu Mono">${petitionDTO.content}</pre>
 		<br/>
-		<a href="#">#안녕</a>
-		<c:forEach items="${fn:split(petitionDTO.tag, ',') }" var="item">
-           <a href="/projectB/petition/tag?tag=${item}">#${item}</a>
-        </c:forEach>
+			
+		<c:if test="${petitionDTO.tag != null}">
+			<c:forEach items="${fn:split(petitionDTO.tag, ',') }" var="item">
+	            <a href="/projectB/petition/afootPetitionSearch.aa?keyword=${item}">#${item}</a>
+	        </c:forEach>
+        </c:if>
 	</div>
 
 	
@@ -122,8 +125,7 @@
         	
 	</div>
 	
-	
-	<c:if test="${commentYn != 'N'}">
+
 	<div style="margin-top: 30px;" id="chartArea">
 		 <input type="hidden" id="manCount" value="${petitionIndicatorDTO.manCount}" />
 	     <input type="hidden" id="womanCount" value="${petitionIndicatorDTO.womanCount}" />
@@ -174,7 +176,7 @@
 	<br/><br/>
 	
 		<iframe src="/projectB/petition/petComment.aa?petitionNum=${petitionDTO.num}" ></iframe>
-	</c:if>
+
 
 		
 </section>
@@ -239,14 +241,16 @@ function dateDiff(_date1, _date2) {
  
     return diff;
 }
+
 $(document).ready(function () {
 	$('#copy_url').attr('href', document.location.href);
 	$('#copy_url').text(document.location.href);
     
     var endDate = $('#endDate').val();
-    
-    console.log(dateDiff(endDate, "2021-01-23"));
-    var dateDiffCnt = dateDiff(endDate, '2021-01-23');
+    var today = new Date();
+
+    console.log(dateDiff(endDate, today));
+    var dateDiffCnt = dateDiff(endDate, today);
     if (dateDiffCnt > 0) {
     	$('#dDay').text(" D-" + dateDiffCnt);
     	$('#dDay').css("visibility", 'visible');
