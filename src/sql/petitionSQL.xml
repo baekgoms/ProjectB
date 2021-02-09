@@ -104,11 +104,11 @@
 	</select>
 
 	<select id="MainbyEnddate" resultType="petitionDTO">
-		select*from petition order by enddate asc
+		select*from petition where petitionState= 2 order by enddate asc
 	</select>
 	
 	<select id="MainbyPetition" resultType="petitionDTO">
-		select*from petition order by petition desc
+		select*from petition where petitionState= 2 order by petition desc
 	</select>
 	
 

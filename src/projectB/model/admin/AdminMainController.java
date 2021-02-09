@@ -42,6 +42,7 @@ public class AdminMainController {
 		model.addAttribute("todayPercent", todayPercent);
 		
 		//새로운 회원
+		
 		int todayQuestion = DAO.getCountQuestionToday();
 		model.addAttribute("todayQuestion", todayQuestion);
 		//새로운 회원 퍼센트
