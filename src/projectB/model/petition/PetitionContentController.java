@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import projectB.model.petitionContentService.PetitionContentService;
 import projectB.model.petitionContentService.PetitionPetitionerMapService;
 import projectB.model.petitioner.PetitionerDTO;
+import projectB.model.login.LoginUtils;
 import projectB.model.petition.PetitionDTO;
 
 @Controller
@@ -89,33 +91,27 @@ public class PetitionContentController {
   }
 
   @RequestMapping("petitionCommentPro.aa")
-  public String insertCmt(PetCommentDTO dto,PetitionDTO petitionDTO) throws Exception {
+  public String insertCmt(PetCommentDTO petCommentDTO,PetitionDTO petitionDTO,HttpSession session) throws Exception {
     
-    String writerId = dto.getWriter(); //To do: 세션아이디 가져와서 writer에 넣기 
-    PetitionerDTO petitionerDTO = PetitionContentService.getPetitionerById(writerId);
+    String cmtWriter = LoginUtils.getLoginID(session); 
+    PetitionerDTO petitionerDTO = PetitionContentService.getPetitionerById(cmtWriter);
     String gender = petitionerDTO.getGender();
     String birthday = petitionerDTO.getBirthday();
 
-    System.out.println("birthday===="+birthday);
-    if (Integer.parseInt(birthday) > 21)
-      birthday = "19" + birthday;
-    else
-      birthday = "20" + birthday;
+    
+    int age = LocalDate.now().getYear() - Integer.parseInt(birthday) + 1;
 
-    int birthYear = Integer.parseInt(birthday.substring(0, 4));
-    int age = LocalDate.now().getYear() - birthYear + 1;
+    System.out.println("gender : " + gender + ", age : " + age + ", birthYear : " + birthday);
 
-    System.out.println("gender : " + gender + ", age : " + age + ", birthYear : " + birthYear);
+    PetitionContentService.updateIndicator(petCommentDTO.getPetitionNum(), gender, age);
 
-    PetitionContentService.updateIndicator(dto.getPetitionNum(), gender, age);
-
-    PetitionContentService.insertPetCmt(dto);
-    PetitionContentService.updatePetitionCount(dto.getPetitionNum());
-    petitionPetitionerService.insertMap(dto.getPetitionNum(), dto.getWriter());
+    PetitionContentService.insertPetCmt(petCommentDTO);
+    PetitionContentService.updatePetitionCount(petCommentDTO.getPetitionNum());
+    petitionPetitionerService.insertMap(petCommentDTO.getPetitionNum(), petCommentDTO.getWriter());
 
  
 
-    PetitionContentService.updatePetitionState(dto.getPetitionNum());
+    PetitionContentService.updatePetitionState(petCommentDTO.getPetitionNum());
     
     if(petitionDTO.getPetitionState() == 4) {
       PetitionContentService.insertAnswerDTO(petitionDTO);

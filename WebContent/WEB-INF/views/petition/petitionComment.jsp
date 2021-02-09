@@ -119,7 +119,7 @@
                         url: "/projectB/petition/petitionCommentPro.aa",
                         method: "post",
                         data: {
-                            "writer" : "${memId}",
+                            "cmtWriter" : "${memId}",
                             "content" : "동의합니다.",
                             "petitionNum" : "${petitionNum}"
                         },

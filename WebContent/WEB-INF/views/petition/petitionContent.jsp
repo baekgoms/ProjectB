@@ -49,7 +49,7 @@
 <br>
 <br>
 <br>
-<input type="hidden" id="achive" value="${petitionDTO.petition / 2000}" />
+<input type="hidden" id="achive" value="${petitionDTO.petition / 2}" />
 <input type="hidden" id="petitionState" value="${petitionDTO.petitionState}" />
 <input type="hidden" id="endDate" value="<fmt:formatDate value="${petitionDTO.endDate}"
                         pattern = "yyyy-MM-dd" />"/>
@@ -125,7 +125,7 @@
         	
 	</div>
 	
-
+	 <c:if test="${petitionIndicatorDTO.manCount != 0 && petitionIndicatorDTO.womanCount != 0}">
 	<div style="margin-top: 30px;" id="chartArea">
 		 <input type="hidden" id="manCount" value="${petitionIndicatorDTO.manCount}" />
 	     <input type="hidden" id="womanCount" value="${petitionIndicatorDTO.womanCount}" />
@@ -151,7 +151,7 @@
 	     	</div>
 	
 	</div>
-	
+	</c:if>
 	<div class="petition-link-area2">
 		<h5 style="color:black;">URL</h5>
 		<a id="copy_url" target="_blank"></a>

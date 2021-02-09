@@ -63,9 +63,9 @@ public class PetitionContentServiceImpl implements PetitionContentService{
    
    
     @Override
-    public PetitionerDTO getPetitionerById(String writerId) {
+    public PetitionerDTO getPetitionerById(String cmtWriter) {
      
-      return dao.selectOne("petition.getPetitionerById", writerId);
+      return dao.selectOne("petition.getPetitionerById", cmtWriter);
     }
 
     @Override
