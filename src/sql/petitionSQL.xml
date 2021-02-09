@@ -23,7 +23,7 @@
 	</insert>
 	 
 	<select id ="getCategory" resultType="String">
-		select categoryName from category
+		select categoryName from category order by num desc
 	</select>
 	
 

@@ -56,13 +56,13 @@ public class PetitionUploadController {
        System.out.println("Writer:"+dto.getWriter());
        petitionDAO.insertArticle(dto);
        System.out.println("getTags:"+dto.getTags());
-       if(dto.getTags() != null) {
+       if(dto.getTags().get(0) != null ) {
 	       for(String s : dto.getTags()) {
 	    	   int result = tagService.checkTag(s);
 				if (result > 0) {
 					tagService.updateTag(s);
 				} else {
-					tagService.insertTag(s);
+					if(s != null && s != "") { tagService.insertTag(s); }
 	    	   }
 	       }
        }
