@@ -30,9 +30,9 @@ public class petitionListController {
 		int state=2;
 
 		List<PetitionDTO> articleList = null;
-		count = petitionDAO.getArticleCountbyState(state);
+		count = petitionDAO.getArticleCount();
 		if (count > 0) {
-			articleList = petitionDAO.getArtilclebyState(state, startRow, endRow);
+			articleList = petitionDAO.getArticles(startRow, endRow);
 		} else {
 			articleList = Collections.emptyList();
 		}
