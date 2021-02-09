@@ -32,6 +32,24 @@ public class AopPetition {
 		return view;
 	}
 	
+	@Around("execution(public * projectB.model.question..*(..))")
+	public Object checklogin_question(ProceedingJoinPoint jp) throws Throwable {
+		System.out.println("upload_petition");
+		
+		RequestAttributes ra = RequestContextHolder.currentRequestAttributes();
+		ServletRequestAttributes sra = (ServletRequestAttributes)ra;
+		
+		HttpServletRequest request = sra.getRequest();
+		HttpSession session = request.getSession();
+		
+		System.out.println("id = " + LoginUtils.getLoginID(session));
+		Object view = "redirect:/login/loginForm.aa";
+		if(LoginUtils.isLogin(session)) {
+			view = jp.proceed();
+		}
+		return view;
+	}
+	
 	@Around("execution(public * projectB.model.answer..*(..))")
 	public Object checklogin_answer(ProceedingJoinPoint jp) throws Throwable {
 		System.out.println("checklogin_answer");

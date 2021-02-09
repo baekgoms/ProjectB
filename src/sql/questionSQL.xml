@@ -19,15 +19,18 @@
 		select * from question_category
 	</select>
 	
+	<delete id="delete" parameterType="int">
+		delete from question where num = #{num} 
+	</delete>
+	
+	
+	
 <!-- =============================================================== -->
 	
-	<select id="getArticle" resultType="questionDTO" parameterType="map">
+	<select id="getArticle" resultType="questionDTO" parameterType="String">
 		select * from (select num, category, title, content, writer, reply, reg
 		from(select * from question 
-		where open = 1
-		<if test="keyword != null">
-			or title like '%' || #{keyword} || '%' or content like '%' || #{keyword} || '%'
-		</if>
+		where open = 1 or writer = '${writer}'
 		order by num desc) order by num desc) 
 	</select>
 	
