@@ -1,12 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <title>uploadPro</title>
-</head>
-<body>
-<h1>uploading..</h1>
-</body>
-</html>
+
+<c:redirect url="/petition/afootPetition.aa" />
