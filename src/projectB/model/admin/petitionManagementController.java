@@ -1,4 +1,4 @@
-package projectB.model.adminPetition;
+package projectB.model.admin;
 
 import java.util.Arrays;
 import java.util.Collections;
