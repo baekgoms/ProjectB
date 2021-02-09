@@ -90,7 +90,6 @@
 
 <div align="left">
 	<input type="button" value="전체목록" class="btn waves-effect waves-light btn-outline-dark" onclick="document.location.href='/projectB/admin/petitionManagement.aa'">
-	<input type="button" value="수정요청 청원" class="btn waves-effect waves-light btn-outline-dark" onclick="document.location.href='/projectB/admin/modifyManagement.aa'">
 	<input type="button" value="추상답변 관리" class="btn waves-effect waves-light btn-outline-dark"	onclick="document.location.href='/projectB/admin/abstractManagement.aa'">
 </div>
 <br>

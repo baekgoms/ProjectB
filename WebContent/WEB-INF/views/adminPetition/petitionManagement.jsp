@@ -107,7 +107,6 @@ function inputCheck(){
 
 <div align="left">
 	<input type="button" value="전체목록" class="btn waves-effect waves-light btn-outline-dark" onclick="document.location.href='/projectB/admin/petitionManagement.aa'">
-	<input type="button" value="수정요청 청원" class="btn waves-effect waves-light btn-outline-dark" onclick="document.location.href='/projectB/admin/modifyManagement.aa'">
 	<input type="button" value="추상답변 관리" class="btn waves-effect waves-light btn-outline-dark"	onclick="document.location.href='/projectB/admin/abstractManagement.aa'">
 <br>
 <br>
@@ -171,10 +170,25 @@ function inputCheck(){
             <th scope="col">작성자</th>
             <th scope="col">만료일</th>
             <th scope="col">신고수</th>
+            <c:if test="${stateList == null }">
             <th scope="col">청원상태</th>
+            </c:if>
             <th scope="col">청원동의수</th>
            	<th scope="col">글상태</th>
         </tr>
+        
+        <c:choose>
+			<c:when test="${count == 0 && empty keyword}">
+					<tr>
+						<td align="center" colspan ="10">현재 진행중인 청원이 없습니다.</td>
+					</tr>	
+			</c:when>
+			<c:when test="${count == 0 && not empty keyword }">
+					<tr>
+						<td align="center" colspan ="10">검색하신 내용과 일치하는 청원이 없습니다.</td>
+					</tr>
+			</c:when>
+		</c:choose>
 	<c:if test="${count > 0 }">
 		<c:forEach var="article" items="${ articleList }">
          <tr>
@@ -186,7 +200,9 @@ function inputCheck(){
                 <td>${article.writer}</td>
                 <td><fmt:formatDate pattern="yyyy-MM-dd" value="${article.endDate}" /></td>
                 <td>${article.report}</td>
+                <c:if test="${stateList == null }">
                 <td>${ state[article.petitionState].state }</td>
+                </c:if>
                 <td>${article.petition}</td>
                 <td>
                 <c:choose>
