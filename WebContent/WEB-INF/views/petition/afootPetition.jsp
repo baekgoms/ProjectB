@@ -80,7 +80,7 @@ function inputCheck(){
 </div>
 
 <form name="form" method="post" action="/projectB/petition/afootPetitionSearch.aa" id="search">
-	<table class="table"  >
+	<table class="table" style="text-align:center;" >
 		<tr>
 			<td>
 				<input type="text" class="form-control" name="keyword" id="keyword" placeholder="검색어를 입력하세요.">
@@ -111,7 +111,7 @@ function inputCheck(){
 		<tr>
 			<th scope="col" >글번호</th>
 			<th scope="col" >분류</th>
-			<th scope="col" >제목</th>
+			<th scope="col" style="width: 50%" >제목</th>
 			<th scope="col" >청원만료일</th>
 			<th scope="col" >참여인원</th>
 		</tr>
@@ -140,10 +140,10 @@ function inputCheck(){
 				<tr>
 					<c:set var="number" value="${number-1}" />
 					<td width=80 scope="row" align="center">${article.num}</td>
-					<td width=100 align="center">
+					<td width=100 align="center" style="width: 15%">
 						${ category[article.category].categoryName }
 					</td>
-					<td width=300 align="center">
+					<td width=300 align="center" style="width: 50%">
 	        			<a href ="/projectB/petition/petContent.aa?num=${article.num}&pageNum=${currentPage}">${article.title}
 	        			</a>
 	        		

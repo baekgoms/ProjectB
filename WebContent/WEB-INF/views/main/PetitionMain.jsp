@@ -26,7 +26,7 @@
 <br>
 <br>
 <div align="center">
-	<table width="1300" style="text-align: center;">
+	<table style="text-align: center;">
 	<br>
 	<br>
 	
@@ -47,8 +47,63 @@
 				<hr>
 			</td>
 		</tr> --%>
+		
+	</table>
+	</div>
+<div align="center">
+	<table style="text-align: center;">
 		<tr>
-			<td width="650"><br>
+			<td width="750"><br>
+				<div class="table-responsive">
+                	<table class="table">
+                    	 <tr>
+                        	<th scope="col" colspan="2"><h3 class="jb-600">마감임박 청원</h3></th>
+                         </tr>
+                         <tr>
+                         	<th scope="col">제목</th>
+                            <th scope="col">종료일</th>
+   						</tr>
+                        <c:forEach var="enddate" items="${enddateList}" begin="0" end="5" step="1" varStatus="status">
+	                        <tr>
+	                        	<td>
+	                            	<a href ="/projectB/petition/petContent.aa?num=${enddate.num}">${enddate.title}</a>
+	                            </td>
+	                            <td>
+	                            	<font color="red"><fmt:formatDate value="${enddate.endDate}" pattern = "yyyy-MM-dd" /></font>
+	                            </td>
+	                        </tr>
+                        </c:forEach>
+					</table>
+				</div>
+			</td>
+			
+			<td width="750"><br>
+				<div class="table-responsive">
+	                	<table class="table">
+	                    	 <tr>
+	                        	<th scope="col" colspan="2"><h3 class="jb-600">동의수 높은 청원</h3></th>
+	                         </tr>
+	                         <tr>
+	                         	<th scope="col">제목</th>
+	                            <th scope="col">동의수</th>
+	   						</tr>
+	                        <c:forEach var="petition" items="${petitionList}" begin="0" end="5" step="1" varStatus="status">
+		                        <tr>
+		                        	<td>
+		                            	<a href ="/projectB/petition/petContent.aa?num=${petition.num}">${petition.title}</a>
+		                            </td>
+		                            <td>
+		                            	<font color="red">${petition.petition}</font>
+		                            </td>
+		                        </tr>
+	                        </c:forEach>
+						</table>
+					</div>
+			</td>
+		</tr>
+		
+		<tr>
+			<td width="750"><br>
 				<div class="table-responsive">
                 	<table class="table">
                      	<tr>
@@ -69,7 +124,7 @@
 					</table>
                   </div>
 				</td>
-				<td width="650"><br>
+				<td width="750"><br>
 					<div class="table-responsive">
 	                	<table class="table">
 	                    	<tr>
@@ -83,61 +138,6 @@
 	                     </table>
 	                </div>
 				</td>
-		</tr>
-	</table>
-	</div>
-<div align="center">
-	<table width="1300" style="text-align: center;">
-	<br>
-	<br>
-		<tr>
-			<td width="650"><br>
-				<div class="table-responsive">
-                	<table class="table">
-                    	 <tr>
-                        	<th scope="col" colspan="2"><h3 class="jb-600">마감임박 청원</h3></th>
-                         </tr>
-                         <tr>
-                         	<th scope="col">제목</th>
-                            <th scope="col">청원 종료일</th>
-   						</tr>
-                        <c:forEach var="enddate" items="${enddateList}" begin="0" end="5" step="1" varStatus="status">
-	                        <tr>
-	                        	<td>
-	                            	<a href ="/projectB/petition/petContent.aa?num=${enddate.num}">${enddate.title}</a>
-	                            </td>
-	                            <td>
-	                            	<font color="red"><fmt:formatDate value="${enddate.endDate}" pattern = "yyyy-MM-dd" /></font>
-	                            </td>
-	                        </tr>
-                        </c:forEach>
-					</table>
-				</div>
-			</td>
-			
-			<td width="650"><br>
-				<div class="table-responsive">
-	                	<table class="table">
-	                    	 <tr>
-	                        	<th scope="col" colspan="2"><h3 class="jb-600">동의수 높은 청원</h3></th>
-	                         </tr>
-	                         <tr>
-	                         	<th scope="col">제목</th>
-	                            <th scope="col">청원 동의수</th>
-	   						</tr>
-	                        <c:forEach var="petition" items="${petitionList}" begin="0" end="5" step="1" varStatus="status">
-		                        <tr>
-		                        	<td>
-		                            	<a href ="/projectB/petition/petContent.aa?num=${petition.num}">${petition.title}</a>
-		                            </td>
-		                            <td>
-		                            	<font color="red">${petition.petition}</font>
-		                            </td>
-		                        </tr>
-	                        </c:forEach>
-						</table>
-					</div>
-			</td>
 		</tr>
 	<br>
 	<br>
