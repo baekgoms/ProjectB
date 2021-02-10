@@ -34,9 +34,9 @@ public class QuestionServiceImpl implements QuestionService{
 	}
 
 	@Override
-	public List<QuestionDTO> getArticle() throws Exception {
+	public List<QuestionDTO> getArticle( String writer) throws Exception {
 
-		List<QuestionDTO> articleList = dao.selectList("question.getArticle");
+		List<QuestionDTO> articleList = dao.selectList("question.getArticle", writer);
 
 		return articleList;
 	}
@@ -72,6 +72,11 @@ public class QuestionServiceImpl implements QuestionService{
 	
 	public int questionCount(int sort) throws Exception {
 		return dao.selectOne("question.totalQuestionCount", sort);
+	}
+
+	@Override
+	public void delete(int num) throws Exception {
+		dao.delete("question.delete", num);
 	}
 
 }

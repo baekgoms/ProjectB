@@ -3,6 +3,7 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
 <!-- Custom CSS -->
 <link href="/projectB/resource/bootstrap/css/style.css" rel="stylesheet">
@@ -55,47 +56,55 @@
 <input type="hidden" name="name" value="${petitionerDTO.name}" />
 <input type="hidden" name="department" value="${petitionerDTO.department}" />
 <input type="hidden" name="id" value="${petitionerDTO.id}" />
+<input type="hidden" name="num" value="${answerList[fn:length(answerList) - 1].num}" />
 
 
 	<div class="card">
 		<div class="card-body">
+				<c:if test="${answerList[0].state == 5 }">
 			    <h4 class="card-title">청원정보</h4>
 					<div class="form-group">
-			
-					<!-- 청원제목. 링크타고 새창으로 청원보기 연결 -->	
 					<a href="/projectB/petition/petContent.aa?num=${petitionDTO.num}" target="_blank">${petitionDTO.title}</a>
 				</div>
 					<br/>
 					<hr>
-					
+				</c:if>	
+				
+				<c:if test="${answerList[0].state == 7 }">	
+				<h4 class="card-title">청원/기존 답변정보</h4>
+					<div class="form-group">
+					<a href="/projectB/answer/answerContent.aa?petitionNum=${petitionDTO.num}" target="_blank">${petitionDTO.title}</a>
+					</div>
+					<br/><hr>
+				</c:if>	
+				
 				<div class="form-group" style="color:black; font-size:14pt">
-				부서
-				<input type="text" class="form-control" id="nametext1" placeholder="${petitionerDTO.department}" readOnly>
-				이름
-				<input type="text" class="form-control" id="nametext1" placeholder="${petitionerDTO.name}" readOnly>
+					부서<input type="text" class="form-control" id="nametext1" placeholder="${petitionerDTO.department}" readOnly>
+					이름<input type="text" class="form-control" id="nametext1" placeholder="${petitionerDTO.name}" readOnly>
 				</div>
 				
-					<!-- 관련 동영상링크 작성-->
+
 				<h4 class="card-title">관련 영상 링크 </h4>    
 					<div class="form-group">
-						<input type="text" class="form-control" name="answerLink" id="answerLink" value="${answerDTO.answerLink}">
+						<input type="text" class="form-control" name="answerLink" id="answerLink" value="${answerList[fn:length(answerList) - 1].answerLink}">
 					</div>
 		
 		
-					<!-- 관련 내용 작성 -->
-				<h4 class="card-title">답변내용</h4>
-					<div data-spy="scroll" data-target="#navbar-example2" data-offset="0"
-					 class="position-relative mt-2" style="height: 700px; overflow: auto;">	
-						                            
-					<textarea class="form-control content" rows="3" name="content" id="content" 
-					style="height: 700px; overflow: auto;">${answerDTO.content}</textarea>
-						                            					                          
-					</div>
-		                                        
-					<hr>
-		                                        
-		                            
-		                                    
+				<c:if test="${answerList[0].state == 5 }">
+					<h4 class="card-title">답변내용</h4>
+				</c:if>
+				<c:if test="${answerList[0].state == 7 }">
+					<h4 class="card-title">추가답변내용</h4>
+				</c:if>
+				<div data-spy="scroll" data-target="#navbar-example2" data-offset="0"
+				 class="position-relative mt-2" style="height: 700px; overflow: auto;">	
+					                            
+				<textarea class="form-control content" rows="3" name="content" id="content" 
+				style="height: 700px; overflow: auto;">${answerList[fn:length(answerList) - 1].content}</textarea>
+					                            					                          
+				</div>         
+		                     
+		            <hr>                        
 					<div class="form-actions">
 						<div class="text-right">
 		    				<button type="submit" class="btn btn-info">등록 </button>

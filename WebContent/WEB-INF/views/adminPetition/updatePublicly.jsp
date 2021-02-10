@@ -1,28 +1,25 @@
-<%@ page contentType = "text/html; charset=UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" type="image/png" sizes="16x16" href="/projectB/resource/bootstrap/assets/images/favicon.png">
-    <link href="/projectB/resource/bootstrap/css/style.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="/projectB/resource/bootstrap/assets/extra-libs/prism/prism.css">
-
-
+<!-- Custom CSS -->
+<link href="/projectB/resource/bootstrap/css/style.css" rel="stylesheet">
+<!-- This Page CSS -->
+<link href="/projectB/resource/assets/libs/morris.js/morris.css" rel="stylesheet">
 </head>
+<body>
+<form>
 
-<body>  
+	<script>
+			alert("해당글이 공개로 변경되었습니다.");
+			self.close();
+	</script>
 
-<script>
-window.location="/projectB/answer/addAnswerContent.aa?petitionNum=${petitionNum}";
-</script>
+</form>
 
 <script src="/projectB/resource/bootstrap/assets/libs/jquery/dist/jquery.min.js"></script>
     <script src="/projectB/resource/bootstrap/assets/libs/popper.js/dist/umd/popper.min.js"></script>
@@ -33,6 +30,6 @@ window.location="/projectB/answer/addAnswerContent.aa?petitionNum=${petitionNum}
     <script src="/projectB/resource/bootstrap/assets/extra-libs/sparkline/sparkline.js"></script>
     <script src="/projectB/resource/bootstrap/js/sidebarmenu.js"></script>
     <script src="/projectB/resource/bootstrap/js/custom.min.js"></script>
-    <script src="/projectB/resource/bootstrap/assets/extra-libs/prism/prism.js"></script>         
+    <script src="/projectB/resource/bootstrap/assets/extra-libs/prism/prism.js"></script>     
 </body>
-</html>      
+</html>

@@ -83,6 +83,9 @@
 </head>
 
 <body>
+<jsp:include page="/WEB-INF/views/topbar/admintopbar.jsp" />
+<br>
+<br>
 <br>
 <br>
 <h3>청원 관리</h3>
@@ -90,19 +93,18 @@
 
 <div align="left">
 	<input type="button" value="전체목록" class="btn waves-effect waves-light btn-outline-dark" onclick="document.location.href='/projectB/admin/petitionManagement.aa'">
-	<input type="button" value="수정요청 청원" class="btn waves-effect waves-light btn-outline-dark" onclick="document.location.href='/projectB/admin/modifyManagement.aa'">
 	<input type="button" value="추상답변 관리" class="btn waves-effect waves-light btn-outline-dark"	onclick="document.location.href='/projectB/admin/abstractManagement.aa'">
 </div>
 <br>
 
   
 <div class="table-responsive"  >
-	<table class="table" style="text-align:center;">
+	<table class="table" style="text-align:center; table-layout: fixed;">
     	<tr>
         	<th scope="col" style="vertical-align:middle; display:inline-block; margin-bottom:2px;" >&nbsp;<input id="allCheck" type="checkbox" name="allCheck" class="form-check-input"/></th>
             <th scope="col">청원번호</th>
             <th scope="col">카테고리</th>
-            <th scope="col">제목</th>
+            <th scope="col" width="35%">제목</th>
             <th scope="col">작성자</th>
             <th scope="col">만료일</th>
             <th scope="col">신고수</th>

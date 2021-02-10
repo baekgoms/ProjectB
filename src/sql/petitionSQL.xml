@@ -23,7 +23,7 @@
 	</insert>
 	 
 	<select id ="getCategory" resultType="String">
-		select categoryName from category
+		select categoryName from category order by num desc
 	</select>
 	
 
@@ -31,18 +31,18 @@
 
 	
 	<select id ="getArticleCount" resultType="int">
-		select count(*) from petition
+		select count(*) from petition where petitionState= 2
 		<if test="keyword != null">
-			where title like '%' || #{keyword} || '%' or content like '%' || #{keyword} || '%' or tag like '%' || #{keyword} || '%'
+			and title like '%' || #{keyword} || '%' or content like '%' || #{keyword} || '%' or tag like '%' || #{keyword} || '%'
 		</if>
 	</select>
 	
 	<select id="getArticleAll" resultType="petitionDTO" parameterType="map">
 		select * from (select num, title, content, category, startDate, endDate, writer,
 		petition, petitionState, link, indicatorNum, tag, report, open, rownum r 
-		from(select * from petition 
+		from(select * from petition where petitionState= 2
 		<if test="keyword != null">
-			where title like '%' || #{keyword} || '%' or content like '%' || #{keyword} || '%' or tag like '%' || #{keyword} || '%'
+			and title like '%' || #{keyword} || '%' or content like '%' || #{keyword} || '%' or tag like '%' || #{keyword} || '%'
 		</if>
 		<if test="sort == null">
 		order by num desc) order by num desc) 
@@ -63,12 +63,12 @@
 	<select id ="getArticleCategory" resultType="petitionDTO" parameterType="map">
 				select * from (select num, title, content, category, startDate, endDate, writer,
 		petition, petitionState, link, indicatorNum, tag, report, open,rownum r 
-		from(select * from petition where category= #{category} order by num desc) order by num desc) 
+		from(select * from petition where petitionState= 2 and category= #{category} order by num desc) order by num desc) 
 		where r <![CDATA[>=]]> #{startRow} and r <![CDATA[<=]]>#{endRow}
 	</select>
 
 	<select id ="getArticleCountCategory" resultType="int" parameterType="int">
-		select count(*) from petition where category= #{category} 
+		select count(*) from petition where petitionState= 2 and category= #{category} 
 	</select>
 
 	<select id ="getArticleCountState" resultType="int" parameterType="int">
@@ -104,11 +104,11 @@
 	</select>
 
 	<select id="MainbyEnddate" resultType="petitionDTO">
-		select*from petition order by enddate asc
+		select*from petition where petitionState= 2 order by enddate asc
 	</select>
 	
 	<select id="MainbyPetition" resultType="petitionDTO">
-		select*from petition order by petition desc
+		select*from petition where petitionState= 2 order by petition desc
 	</select>
 	
 
@@ -129,13 +129,9 @@
 	
 	
 	<insert id="insertPetCmt" parameterType="PetCommentDTO">
-		insert into petitionComment (
-			num, petitionNum, writer, content, reg
-		) values (PETITIONCOMMENT_SEQ.nextval,
-											#{petitionNum},
-											#{writer},
-											#{content},
-											sysdate)
+		INSERT INTO 
+			petitionComment (num, petitionNum, writer, content, reg) 
+		VALUES (PETITIONCOMMENT_SEQ.nextval,#{petitionNum},#{writer},#{content},sysdate)
 	</insert>	
 	
 	
@@ -217,11 +213,11 @@
 		SET
 			petitionState = 
 				CASE 
-					WHEN petition &gt;= 100
+					WHEN petition &gt;= 11
 						THEN 2
-					WHEN sysdate &gt;= endDate and petition &lt; 200000
+					WHEN sysdate &gt;= endDate and petition &lt; 100
 						THEN 3
-					WHEN sysdate &gt;= endDate and petition &gt; 200000
+					WHEN sysdate &gt;= endDate and petition &gt; 100
 						THEN 4
 					ELSE 1 END
 		where num = #{ petitionNum }
@@ -230,5 +226,14 @@
 	<delete id="deletePetition" parameterType="int">
 		delete from petition where num=#{num} 
 	</delete>
+	
+	<insert id="insertAnswerDTO" parameterType="petitionDTO">
+		insert into 
+			answer (num,petitionNum,state,category)
+			values (answerNum_seq.nextval,#{petitionNum},#{petitionState},#{category}) 
+	</insert> 
+	
+	
+	
 </mapper>
 

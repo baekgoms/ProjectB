@@ -39,7 +39,7 @@ public class PetitionUploadController {
 		List category = null;
 
 		model.addAttribute("dto", dto);
-		dto.setWriter((String) session.getAttribute("memId"));
+		dto.setWriter((String)session.getAttribute("memId"));
 		// System.out.println("Writer:"+dto.getWriter());
 		category = petitionDAO.getCategory();
 		model.addAttribute("category", category);
@@ -55,16 +55,17 @@ public class PetitionUploadController {
        dto.setWriter(LoginUtils.getLoginID(session));
        System.out.println("Writer:"+dto.getWriter());
        petitionDAO.insertArticle(dto);
-       
-       for(String s : dto.getTags()) {
-    	   int result = tagService.checkTag(s);
-			if (result > 0) {
-				tagService.updateTag(s);
-			} else {
-				tagService.insertTag(s);
-    	   }
+       System.out.println("getTags:"+dto.getTags());
+       if(dto.getTags().get(0) != null ) {
+	       for(String s : dto.getTags()) {
+	    	   int result = tagService.checkTag(s);
+				if (result > 0) {
+					tagService.updateTag(s);
+				} else {
+					if(s != null && s != "") { tagService.insertTag(s); }
+	    	   }
+	       }
        }
-       
        return "petition/uploadPro";
    }
    

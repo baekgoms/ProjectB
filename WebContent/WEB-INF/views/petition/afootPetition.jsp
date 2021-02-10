@@ -80,39 +80,42 @@ function inputCheck(){
 </div>
 
 <form name="form" method="post" action="/projectB/petition/afootPetitionSearch.aa" id="search">
-	<table class="table"  >
+	<table class="table" >
 		<tr>
-			<td>
-				<input type="text" class="form-control" name="keyword" id="keyword" placeholder="검색어를 입력하세요.">
-				<div class="invalid-feedback" align="center">
-					검색어가 입력되지 않았습니다.
-				</div>
+			<td align="left" width="350">
+				<input type="text" class="form-control" name="keyword" id="keyword" value="${keyword}" style="width:300px; word-break:break-all"" placeholder="검색어를 입력하세요." >
 			</td>
-			<td>
+			<td align="left">
 				<button type="button" class="btn waves-effect waves-light btn-outline-dark" onClick="inputCheck()">검색</button>
+			</td>
+			<td colspan="3" width="200">
 			</td>
 		</tr>
 		<tr>
-			<td>
+			<td align="left">
 				<c:if test="${keyword == null }">
-		  			<select class="custom-select mr-sm-2"  id="select" name="select" onchange="if(this.value) location.href=(this.value);" >
+		  			<select class="custom-select mr-sm-2"  style="width:300px;" id="select" name="select" onchange="if(this.value) location.href=(this.value);" >
 						<option value="http://localhost:8080/projectB/petition/afootPetition.aa" selected>정렬</option>
 						<option value="http://localhost:8080/projectB/petition/afootPetition.aa?pageNum=1">최신순</option>
 						<option value="http://localhost:8080/projectB/petition/afootPetitionSort.aa?pageNum=1&sort=1" >동의순</option>
 					</select>
 				</c:if>
 			</td>
-			<td colspan="5" align="right">
+			<td colspan="3">
+			</td>
+			<td align="right">
 				<button type="button" class="btn waves-effect waves-light btn-outline-dark"
 				onClick="document.location.href='/projectB/petition/upload.aa'">지금 청원하기</button>
 			</td>
 		</tr>
-
+	</table>
+	
+	<table class="table" style="text-align:center;" >
 		<tr>
 			<th scope="col" >글번호</th>
 			<th scope="col" >분류</th>
-			<th scope="col" >제목</th>
-			<th scope="col" >청원만료일</th>
+			<th scope="col" style="width: 50%">제목</th>
+			<th scope="col" style="width: 20%">청원만료일</th>
 			<th scope="col" >참여인원</th>
 		</tr>
 
@@ -140,10 +143,10 @@ function inputCheck(){
 				<tr>
 					<c:set var="number" value="${number-1}" />
 					<td width=80 scope="row" align="center">${article.num}</td>
-					<td width=100 align="center">
+					<td width=100 align="center" style="width: 15%">
 						${ category[article.category].categoryName }
 					</td>
-					<td width=300 align="center">
+					<td width=300 align="center" style="width: 50%">
 	        			<a href ="/projectB/petition/petContent.aa?num=${article.num}&pageNum=${currentPage}">${article.title}
 	        			</a>
 	        		

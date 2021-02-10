@@ -48,42 +48,63 @@ public class QuestionController {
 		questionDAO.insertQuestion(dto);
 		System.out.println("uploadPro run");
        
-		return "question/uploadPro";
+		return "question/redirect";
 	}
 	
 	//==========================보기================================
 	@RequestMapping("board.aa")
-	public String board( Model model) throws Exception {
+	public String board( Model model, HttpSession session) throws Exception {
+		System.out.println("question board start");
+		String writer = LoginUtils.getLoginID(session);
 		
         List<QuestionDTO> articleList = null;
         List category = null;
-        System.out.println("wooch board run");
+       
         
         category = questionDAO.getCategory();
         model.addAttribute("category", category);
         System.out.println("category size:"+category.size()+"\n"+category);
         
-        articleList = questionDAO.getArticle();
+        articleList = questionDAO.getArticle(writer);
         model.addAttribute("articleList", articleList);
-        
+        System.out.println("question board finish");
 		return "question/questionBoard";
 	}
 	 
 	@RequestMapping("content.aa")
-public String content( Model model, int num) throws Exception {
+	public String content( Model model, int num, HttpSession session) throws Exception {
+		System.out.println("===question content start===");
 		
+		String writer = LoginUtils.getLoginID(session);
+		System.out.println("writer : " + writer);
+		int same = 0;
         List<QuestionDTO> articleList = null;
         List category = null;
-        System.out.println("wooch board run");
                 
         category = questionDAO.getCategory();
         model.addAttribute("category", category);
         System.out.println("category size:"+category.size()+"\n"+category);
         
         articleList = questionDAO.getOneInfo(num);
+        System.out.println("getWriter : " + articleList.get(0).getWriter());
+        if(writer.equals(articleList.get(0).getWriter())) {
+        	System.out.println("same writer.");
+        	same = 1;
+        }
+        model.addAttribute("num", num);
+        model.addAttribute("same", same);
         model.addAttribute("articleList", articleList);
-        
+        System.out.println("===question content finish===");
 		return "question/questionContent";
+	}
+	
+	@RequestMapping("delete.aa")
+	public String delete( Model model, int num) throws Exception {
+		System.out.println("question delete run.");
+	       
+        questionDAO.delete(num);
+       
+		return "question/redirect";
 	}
 	
 }

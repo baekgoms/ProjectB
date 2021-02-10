@@ -1,4 +1,4 @@
-package projectB.model.answer;
+package projectB.model.petition;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import projectB.model.CompletedAnswerService.CompletedAnswerListService;
-import projectB.model.petition.PetitionDTO;
+import projectB.model.answer.AnswerDTO;
 
 
 @Controller

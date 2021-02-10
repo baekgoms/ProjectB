@@ -22,10 +22,12 @@ public interface PetitionContentService {
     public PetitionIndicatorDTO getPetitionIndicator(int num) throws Exception;
     public void updateIndicator(int num, String gender, int age);
 
-    public PetitionerDTO getPetitionerById(String writerId)throws Exception;
+    public PetitionerDTO getPetitionerById(String writer)throws Exception;
 
     public String getPetitionState(int petitionState)throws Exception;
     public void updatePetitionState(int petitionNum)throws Exception;
     public void deletePetition(int petitionNum)throws Exception;
+    
+    public void insertAnswerDTO(PetitionDTO petitionDTO);
     
 }

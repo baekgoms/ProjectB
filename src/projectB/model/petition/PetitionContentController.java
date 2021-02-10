@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import projectB.model.petitionContentService.PetitionContentService;
 import projectB.model.petitionContentService.PetitionPetitionerMapService;
 import projectB.model.petitioner.PetitionerDTO;
+import projectB.model.login.LoginUtils;
 import projectB.model.petition.PetitionDTO;
 
 @Controller
@@ -73,6 +75,7 @@ public class PetitionContentController {
       petCmtList = Collections.emptyList();
     }
     number = count - (currentPage - 1) * pageSize;
+    PetitionDTO petitionDTO = PetitionContentService.getArticle(petitionNum);
 
     model.addAttribute("petitionPetitionerService", petitionPetitionerService);
     model.addAttribute("currentPage", new Integer(currentPage));
@@ -83,37 +86,37 @@ public class PetitionContentController {
     model.addAttribute("number", new Integer(number));
     model.addAttribute("petitionNum", new Integer(petitionNum));
     model.addAttribute("petCmtList", petCmtList);
+    model.addAttribute("petitionDTO", petitionDTO);
     return "petition/petitionComment";
   }
 
   @RequestMapping("petitionCommentPro.aa")
-  public String insertCmt(PetCommentDTO dto) throws Exception {
-    String writerId = dto.getWriter();
-    PetitionerDTO petitionerDTO = PetitionContentService.getPetitionerById(writerId);
+  public String insertCmt(PetCommentDTO petCommentDTO,PetitionDTO petitionDTO,HttpSession session) throws Exception {
+    
+    String writer = LoginUtils.getLoginID(session); 
+    System.out.println(writer);
+    PetitionerDTO petitionerDTO = PetitionContentService.getPetitionerById(writer);
     String gender = petitionerDTO.getGender();
     String birthday = petitionerDTO.getBirthday();
 
-    if (Integer.parseInt(birthday) > 21)
-      birthday = "19" + birthday;
-    else
-      birthday = "20" + birthday;
+    
+    int age = LocalDate.now().getYear() - Integer.parseInt(birthday) + 1;
 
-    int birthYear = Integer.parseInt(birthday.substring(0, 4));
-    int age = LocalDate.now().getYear() - birthYear + 1;
+    System.out.println("gender : " + gender + ", age : " + age + ", birthYear : " + birthday);
 
-    System.out.println("gender : " + gender + ", age : " + age + ", birthYear : " + birthYear);
+    PetitionContentService.updateIndicator(petCommentDTO.getPetitionNum(), gender, age);
 
-    PetitionContentService.updateIndicator(dto.getPetitionNum(), gender, age);
+    PetitionContentService.insertPetCmt(petCommentDTO);
+    PetitionContentService.updatePetitionCount(petCommentDTO.getPetitionNum());
+    petitionPetitionerService.insertMap(petCommentDTO.getPetitionNum(), petCommentDTO.getWriter());
 
-    PetitionContentService.insertPetCmt(dto);
-    PetitionContentService.updatePetitionCount(dto.getPetitionNum());
-    petitionPetitionerService.insertMap(dto.getPetitionNum(), dto.getWriter());
+ 
 
-
-
-    PetitionContentService.updatePetitionState(dto.getPetitionNum());
-
-
+    PetitionContentService.updatePetitionState(petCommentDTO.getPetitionNum());
+    
+    if(petitionDTO.getPetitionState() == 4) {
+      PetitionContentService.insertAnswerDTO(petitionDTO);
+    }
     return "petition/petitionCommentPro";
   }
 

@@ -27,6 +27,7 @@ public class petitionListController {
 		int endRow = currentPage * pageSize;
 		int count = 0;
 		int number = 0;
+		int state=2;
 
 		List<PetitionDTO> articleList = null;
 		count = petitionDAO.getArticleCount();

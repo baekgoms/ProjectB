@@ -34,6 +34,8 @@
 		<typeAlias alias="interestTagDTO" type="projectB.model.mypage.InterestTagDTO" />
 		<typeAlias alias="tagDTO" type="projectB.model.tag.TagDTO" />
 		<typeAlias alias="answerPetitionerMapDTO" type="projectB.model.answer.AnswerPetitionerMapDTO"/>
+		<typeAlias alias="adminReportDTO" type="projectB.model.admin.AdminReportDTO"/>
+		<typeAlias alias="qnaDTO" type="projectB.model.qna.QnADTO"/>
 	</typeAliases>
 	
 	<mappers>

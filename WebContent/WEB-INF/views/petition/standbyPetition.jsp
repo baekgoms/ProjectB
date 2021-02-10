@@ -25,9 +25,11 @@
 </style>
 </head>
 <body>
-
-<br />
-<br />
+<jsp:include page="/WEB-INF/views/topbar/top.jsp" />
+<br>
+<br>
+<br>
+<br>
 <form name="form" method="post">
 	<div align="center">
 		<input type="button" value="							진행중인 청원							" class="btn waves-effect waves-light btn-outline-dark"
@@ -49,14 +51,14 @@
 	<br />
 
 	<div class="table-responsive">
- 		<table class="table" >
+ 		<table class="table" style="text-align:center;">
   			<tr>
-  				 <td colspan ="5" align="lift" border=1>답변을 기다리는 청원</td>
+  				 <td colspan ="5" align="left" >답변을 기다리는 청원</td>
    			</tr>
    			<tr>
    				<th scope="col">글번호</th>
     			<th scope="col">분류</th>
-    			<th scope="col">제목</th>
+    			<th scope="col" style="width: 50%" >제목</th>
     			<th scope="col">청원만료일</th>
     			<th scope="col">참여인원</th>
     		</tr>

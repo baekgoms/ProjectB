@@ -118,7 +118,7 @@
 							                                        <select class="custom-select mr-sm-2" id="inputGroupSelect01" name="category" >
 							                                           <!-- DB 컬럼 개수만큼 반복  -->
 							                                           <c:forEach var="name" items="${category}" varStatus="status">
-																			<option value="${status.count}"><c:out value="${name}" /></option>
+																			<option value="${status.count-1}"><c:out value="${name}" /></option>
 																		</c:forEach>
 							                                        </select>
 							                                    </div>

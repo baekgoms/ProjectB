@@ -13,6 +13,7 @@
 <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
 <script type="text/javascript">
 function inputCheck(){ 
+	    
 	if($("#keyword").val() == ""){
 		$("#keyword").addClass(" is-invalid");
 		$("#keyword").focus(); 
@@ -74,6 +75,7 @@ function inputCheck(){
 			});
 		}
 	}
+
 </script>
 <title>청원관리</title>
 <style>
@@ -105,7 +107,6 @@ function inputCheck(){
 
 <div align="left">
 	<input type="button" value="전체목록" class="btn waves-effect waves-light btn-outline-dark" onclick="document.location.href='/projectB/admin/petitionManagement.aa'">
-	<input type="button" value="수정요청 청원" class="btn waves-effect waves-light btn-outline-dark" onclick="document.location.href='/projectB/admin/modifyManagement.aa'">
 	<input type="button" value="추상답변 관리" class="btn waves-effect waves-light btn-outline-dark"	onclick="document.location.href='/projectB/admin/abstractManagement.aa'">
 <br>
 <br>
@@ -122,31 +123,20 @@ function inputCheck(){
 				<form name="form" method="post" action="/projectB/admin/petitionManagementSearch.aa" id="search">
 					<table class="table">
 						<tr>
-							<td>청원상태</td>
 							<td>
-								<label><input type="radio" name="fDTypes1" class="mr01" value="전체">전체</label>
-								<label><input type="radio" name="fDTypes1" class="mr01" value="청원시작">청원시작</label>
-								<label><input type="radio" name="fDTypes1" class="mr01" value="청원진행중">청원진행중</label>
-								<label><input type="radio" name="fDTypes1" class="mr01" value="청원완료">청원완료</label>
+								청원상태
 							</td>
-							
-						</tr>
-						<tr>
-							<td>청원수</td>
-							<td>    
-								<input type="range" value="150000" min="0" max="300000" step="1000" onchange = "SetValue(this)">
+						<td>
+									<input type="checkbox" id="r1" name="stateList" value="1" />
+										<label for="r1">청원시작</label>
+									<input type="checkbox" id="r2" name="stateList" value="2" />
+										<label for="r2">청원진행중</label>
+									<input type="checkbox" id="r3" name="stateList" value="3" />
+										<label for="r3">청원진행중</label>
 							</td>
 						</tr>
 						<tr>
-							<td>일자별</td>
-							<td>
-							  <label><input type="radio" name="fDTypes" class="mr0" value="최근1주">최근1주</label>
-							  <label><input type="radio" name="fDTypes" class="mr0" value="최근1개월">최근1개월</label>
-							  <label><input type="radio" name="fDTypes" class="mr0" value="최근3개월">최근3개월</label>
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2" >
+							<td colspan="2">
 								<select id="searchOption" name="searchOption" >
 									<option value="all" <c:out value="${searchOption == 'all'?'selected':''}"/>>전체</option>
 									<option value="title" <c:out value="${searchOption == 'title'?'selected':''}"/>>제목</option>
@@ -171,19 +161,34 @@ function inputCheck(){
 </div>
   
 <div class="table-responsive"  >
-	<table class="table" style="text-align:center;">
+	<table class="table" style="text-align:center; table-layout: fixed;">
     	<tr>
         	<th scope="col" style="vertical-align:middle; display:inline-block; margin-bottom:2px;" >&nbsp;<input id="allCheck" type="checkbox" name="allCheck" class="form-check-input"/></th>
             <th scope="col">청원번호</th>
             <th scope="col">카테고리</th>
-            <th scope="col">제목</th>
+            <th scope="col" width="35%">제목</th>
             <th scope="col">작성자</th>
             <th scope="col">만료일</th>
             <th scope="col">신고수</th>
+            <c:if test="${stateList == null }">
             <th scope="col">청원상태</th>
+            </c:if>
             <th scope="col">청원동의수</th>
            	<th scope="col">글상태</th>
         </tr>
+        
+        <c:choose>
+			<c:when test="${count == 0 && empty keyword}">
+					<tr>
+						<td align="center" colspan ="10">현재 진행중인 청원이 없습니다.</td>
+					</tr>	
+			</c:when>
+			<c:when test="${count == 0 && not empty keyword }">
+					<tr>
+						<td align="center" colspan ="10">검색하신 내용과 일치하는 청원이 없습니다.</td>
+					</tr>
+			</c:when>
+		</c:choose>
 	<c:if test="${count > 0 }">
 		<c:forEach var="article" items="${ articleList }">
          <tr>
@@ -195,7 +200,9 @@ function inputCheck(){
                 <td>${article.writer}</td>
                 <td><fmt:formatDate pattern="yyyy-MM-dd" value="${article.endDate}" /></td>
                 <td>${article.report}</td>
+                <c:if test="${stateList == null }">
                 <td>${ state[article.petitionState].state }</td>
+                </c:if>
                 <td>${article.petition}</td>
                 <td>
                 <c:choose>

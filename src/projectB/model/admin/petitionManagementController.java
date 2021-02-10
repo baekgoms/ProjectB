@@ -1,4 +1,4 @@
-package projectB.model.adminPetition;
+package projectB.model.admin;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -63,7 +63,7 @@ public class petitionManagementController {
 	@RequestMapping("petitionManagementSearch.aa")
 	public String ing_listSearch(@RequestParam(defaultValue = "1") int pageNum, Model model, 
 								@RequestParam(defaultValue = "")String keyword,
-								@RequestParam(defaultValue = "title")String searchOption )
+								@RequestParam(defaultValue = "title")String searchOption, int stateList)
 			throws Exception {
 		int pageSize = 10;
 		int currentPage = pageNum;
@@ -71,11 +71,11 @@ public class petitionManagementController {
 		int endRow = currentPage * pageSize;
 		int count = 0;
 		int number = 0;
-
+		
 		List<PetitionDTO> articleList = null;
-		count = ManageService.getArticleCount(keyword,searchOption);
+		count = ManageService.getArticleCount(keyword,searchOption,stateList);
 		if (count > 0) {
-			articleList = ManageService.getArticlesSearch(startRow, endRow, keyword,searchOption);
+			articleList = ManageService.getArticlesSearch(startRow, endRow, keyword,searchOption,stateList);
 		} else {
 			articleList = Collections.emptyList();
 		}
@@ -94,8 +94,8 @@ public class petitionManagementController {
 		model.addAttribute("pageNum", new Integer(pageNum));
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("searchOption", searchOption);
+		model.addAttribute("stateList", stateList);
 		
-
 		return "adminPetition/petitionManagement";
 	}
 	
@@ -185,4 +185,34 @@ public class petitionManagementController {
 		
 		return "adminPetition/petitionDetailDelete";
 	}
+	
+	@RequestMapping("openClosePetition.aa")
+	public String openClosePetition(int num, Model model) throws Exception{
+
+		PetitionDTO list = ManageService.checkOpCl(num);
+		
+		model.addAttribute("num", new Integer(num));
+		model.addAttribute("list", list);
+		
+		return "adminPetition/openClosePetition";
+	}
+	
+	 @RequestMapping("updatePrivate.aa")
+	  public String updatePrivate(@RequestParam("num") int num, Model model) throws Exception{
+	   
+		
+		ManageService.updatePrivate(num);
+	    model.addAttribute("num", num);
+	    
+	    return "adminPetition/updatePrivate";
+	  }
+	  
+	  @RequestMapping("updatePublicly.aa")
+	  public String updatePublicly(@RequestParam("num") int num, Model model) throws Exception{
+		
+		ManageService.updatePublicly(num);
+	    model.addAttribute("num", num);
+	    
+	    return "adminPetition/updatePublicly";
+	  }
 }

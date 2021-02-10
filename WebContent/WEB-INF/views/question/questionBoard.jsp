@@ -124,15 +124,6 @@
 											</c:forEach>
 												
                                         </tbody>
-                                        <tfoot>
-                                           <tr>
-                                                <th>분류</th>
-                                                <th>제목</th>
-                                                <th>작성자</th>
-                                                <th>답변여부</th>
-                                                <th>작성시간</th>
-                                            </tr>
-                                        </tfoot>
                                     </table>
                                     
                                 </div>
