@@ -129,13 +129,9 @@
 	
 	
 	<insert id="insertPetCmt" parameterType="PetCommentDTO">
-		insert into petitionComment (
-			num, petitionNum, writer, content, reg
-		) values (PETITIONCOMMENT_SEQ.nextval,
-											#{petitionNum},
-											#{writer},
-											#{content},
-											sysdate)
+		INSERT INTO 
+			petitionComment (num, petitionNum, writer, content, reg) 
+		VALUES (PETITIONCOMMENT_SEQ.nextval,#{petitionNum},#{writer},#{content},sysdate)
 	</insert>	
 	
 	
@@ -217,11 +213,11 @@
 		SET
 			petitionState = 
 				CASE 
-					WHEN petition &gt;= 100
+					WHEN petition &gt;= 11
 						THEN 2
-					WHEN sysdate &gt;= endDate and petition &lt; 200
+					WHEN sysdate &gt;= endDate and petition &lt; 100
 						THEN 3
-					WHEN sysdate &gt;= endDate and petition &gt; 200
+					WHEN sysdate &gt;= endDate and petition &gt; 100
 						THEN 4
 					ELSE 1 END
 		where num = #{ petitionNum }
@@ -236,6 +232,7 @@
 			answer (num,petitionNum,state,category)
 			values (answerNum_seq.nextval,#{petitionNum},#{petitionState},#{category}) 
 	</insert> 
+	
 	
 	
 </mapper>

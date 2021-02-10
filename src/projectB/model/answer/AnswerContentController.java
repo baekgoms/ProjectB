@@ -2,6 +2,7 @@ package projectB.model.answer;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,10 +14,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import projectB.model.answerContentService.AnswerContentService;
 import projectB.model.answerContentService.AnswerPetitionerMapService;
 import projectB.model.answerUploadService.AnswerUploadService;
+import projectB.model.login.LoginUtils;
 import projectB.model.petition.PetitionDTO;
 import projectB.model.petition.PetitionIndicatorDTO;
 import projectB.model.petitionContentService.PetitionContentService;
 import projectB.model.petitionContentService.PetitionPetitionerMapService;
+import projectB.model.petitioner.PetitionerDTO;
 
 
 @Controller 
@@ -36,7 +39,7 @@ public class AnswerContentController {
     private AnswerPetitionerMapService AnswerPetitionerMapService= null;
     
     @RequestMapping("answerContent.aa")
-    public String answerContent(@RequestParam("petitionNum") int petitionNum, Model model) throws Exception{
+    public String answerContent(@RequestParam("petitionNum") int petitionNum, Model model,HttpSession session) throws Exception{
 
       PetitionDTO petitionDTO = PetitionContentService.getArticle(petitionNum);
 
@@ -46,18 +49,18 @@ public class AnswerContentController {
       String categoryName = PetitionContentService.getCategoryName(categoryNum);
       PetitionIndicatorDTO petitionIndicatorDTO = PetitionContentService.getPetitionIndicator(petitionNum);
 
-      
-    //AnswerDTO answerDTO = AnswerContentService.getAnswerByPetitionNum(petitionNum);
+      String id = LoginUtils.getLoginID(session);
+      PetitionerDTO petitionerDTO = AnswerUploadService.getPetitionerInfo(id);
 
-      List<AnswerDTO> answerList = new ArrayList<>();
+      List<AnswerDTO> answerList = new ArrayList<>(); 
       answerList = AnswerContentService.getAnswerByPetitionNum(petitionNum);
-      model.addAttribute("answerList",answerList);
       
+      model.addAttribute("petitionerDTO",petitionerDTO);
+      model.addAttribute("answerList",answerList);
       model.addAttribute("categoryName", categoryName);
       model.addAttribute("petitionDTO", petitionDTO);
       model.addAttribute("petitionState", petitionState);
       model.addAttribute("petitionIndicatorDTO", petitionIndicatorDTO);
-    //model.addAttribute("answerDTO", answerDTO);
       
       return "answer/answerContent";
     
@@ -65,9 +68,12 @@ public class AnswerContentController {
     
     @ResponseBody
     @RequestMapping(value="answerReact.aa", method=RequestMethod.POST, produces = "application/json")
-    public String addAnswerReact(@ModelAttribute AnswerPetitionerMapDTO answerPetitionerMapDTO) throws Exception{
+    public String addAnswerReact(@ModelAttribute AnswerPetitionerMapDTO answerPetitionerMapDTO,HttpSession session) throws Exception{
       String petitioner = "1"; // TODO - session
       answerPetitionerMapDTO.setPetitioner(petitioner);
+      
+      String id = LoginUtils.getLoginID(session);
+      PetitionerDTO petitionerDTO = AnswerUploadService.getPetitionerInfo(id);
       try {
         AnswerPetitionerMapDTO existMapDTO = AnswerPetitionerMapService.getAnswerPetitionerMap(answerPetitionerMapDTO);
           if (existMapDTO != null) {
@@ -77,7 +83,7 @@ public class AnswerContentController {
         AnswerPetitionerMapService.answerReact(answerPetitionerMapDTO);
 
         AnswerDTO answer = AnswerContentService.getAnswerByNum(answerPetitionerMapDTO.getAnswerNum());
-        if (answer.getAddition() >= 100000 && answer.getState() != 6) {
+        if (answer.getAddition() >= 10 && answer.getState() != 6) {
           AnswerContentService.updateAnswerStateAddition(answerPetitionerMapDTO.getAnswerNum());
         }
         return "1";
@@ -89,13 +95,13 @@ public class AnswerContentController {
     
     
     @RequestMapping("answerContentUpdate.aa")
-    public String answerUpload(@RequestParam("petitionNum") int petitionNum, Model model) throws Exception {
+    public String answerUpload(@RequestParam("petitionNum") int petitionNum, Model model, HttpSession session) throws Exception {
 
-    /*
+    
     String id = LoginUtils.getLoginID(session);
-    PetitionerDTO petitionerDTO = AnswerUploadService.getReplyerInfo(id);
+    PetitionerDTO petitionerDTO = AnswerUploadService.getPetitionerInfo(id);
     model.addAttribute("petitionerDTO",petitionerDTO);
-    */
+    
     PetitionDTO petitionDTO = AnswerUploadService.getPetitionInfo(petitionNum);
     model.addAttribute("petitionNum", petitionNum);
     model.addAttribute("petitionDTO",petitionDTO);
@@ -119,66 +125,6 @@ public class AnswerContentController {
       return "answer/answerContentUpdatePro";
     }
     
-    //=============================================추가답변=================================================
-    /*
-    @RequestMapping("addAnswerContent.aa")
-    public String addAnswerContent(@RequestParam("petitionNum") int petitionNum, Model model) throws Exception{
-
-      PetitionDTO petitionDTO = PetitionContentService.getArticle(petitionNum);
-
-      String petitionState = PetitionContentService.getPetitionState(petitionDTO.getPetitionState());
-
-      int categoryNum = petitionDTO.getCategory();
-      String categoryName = PetitionContentService.getCategoryName(categoryNum);
-      PetitionIndicatorDTO petitionIndicatorDTO = PetitionContentService.getPetitionIndicator(petitionNum);
-
-      
-      AnswerDTO answerDTO = AnswerContentService.getAnswerByPetitionNum(petitionNum);
-      System.out.println(answerDTO.getContent());
-      
-      
-      model.addAttribute("categoryName", categoryName);
-      model.addAttribute("petitionDTO", petitionDTO);
-      model.addAttribute("petitionState", petitionState);
-      model.addAttribute("petitionIndicatorDTO", petitionIndicatorDTO);
-      model.addAttribute("answerDTO", answerDTO);
     
-      return "answer/addAnswerContent";
-    
-    }
-    
-  
-    
-    
-    @RequestMapping("addAnswerContentUpdate.aa")
-    public String addAnswerContentUpdate(@RequestParam("petitionNum") int petitionNum, Model model) throws Exception {
-
-    
-    String id = LoginUtils.getLoginID(session);
-    PetitionerDTO petitionerDTO = AnswerUploadService.getReplyerInfo(id);
-    model.addAttribute("petitionerDTO",petitionerDTO);
-    
-    PetitionDTO petitionDTO = AnswerUploadService.getPetitionInfo(petitionNum);
-    model.addAttribute("petitionNum", petitionNum);
-    model.addAttribute("petitionDTO",petitionDTO);
-    
-    AnswerDTO answerDTO = AnswerContentService.getAnswerByPetitionNum(petitionNum);
-    model.addAttribute("answerDTO",answerDTO);
-    
-    return "answer/addAnswerContentUpdate";
-    }
-    
-    
-    @RequestMapping("addAnswerContentUpdatePro.aa")
-    public String addAnswerContentUpdatePro(@RequestParam("petitionNum") int petitionNum, @ModelAttribute AnswerDTO answerDTO, Model model) throws Exception{
-     
-
-      AnswerContentService.updateArticle2(answerDTO);
-      
-      model.addAttribute("petitionNum", petitionNum);
-
-      return "answer/addAnswerContentUpdatePro";
-    }
-    */
 }
 

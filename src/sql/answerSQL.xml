@@ -54,7 +54,7 @@
 	
 	
 	<!-- =============================답변Upload관련====================================== -->	 	 
-	<select id="getReplyerInfo" resultType="petitionerDTO" parameterType="String">
+	<select id="getPetitionerInfo" resultType="petitionerDTO" parameterType="String">
     	select * from petitioner where id=#{id}
     </select>
     
@@ -111,8 +111,7 @@
 	
 	<!-- =============================답변Content관련====================================== -->	
 	
-	 
-	
+
     
     <update id="updateArticle" parameterType="answerDTO">
     	UPDATE answer 

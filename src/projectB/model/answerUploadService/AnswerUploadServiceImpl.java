@@ -36,7 +36,7 @@ public class AnswerUploadServiceImpl implements AnswerUploadService {
 
 
     @Override
-    public PetitionerDTO getReplyerInfo(String id) throws Exception {
+    public PetitionerDTO getPetitionerInfo(String id) throws Exception {
       return dao.selectOne("answer.getReplyerInfo",id);
     }
 

@@ -93,8 +93,9 @@ public class PetitionContentController {
   @RequestMapping("petitionCommentPro.aa")
   public String insertCmt(PetCommentDTO petCommentDTO,PetitionDTO petitionDTO,HttpSession session) throws Exception {
     
-    String cmtWriter = LoginUtils.getLoginID(session); 
-    PetitionerDTO petitionerDTO = PetitionContentService.getPetitionerById(cmtWriter);
+    String writer = LoginUtils.getLoginID(session); 
+    System.out.println(writer);
+    PetitionerDTO petitionerDTO = PetitionContentService.getPetitionerById(writer);
     String gender = petitionerDTO.getGender();
     String birthday = petitionerDTO.getBirthday();
 
