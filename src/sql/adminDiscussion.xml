@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="disBoard">
+	<!--  CRUD (Create, Read, Update, Delete) -> DB구축  -->
+	
+	<select id="getArticleCount" parameterType="string">
+		select count(*) from discussion
+	</select>
+	
+	<select id="getArticles" parameterType="map" resultType="discussionDTO">
+		select * from (select num, write, content, reg, agreement, opposition, tag, report, open, subject, link, commentcount, rownum as r from(select * from discussion 
+		order by num desc) order by num desc)
+		<![CDATA[where r >= #{start} and r <= #{end}]]>
+	</select>
+
+	<select id="getArticle" parameterType="int" resultType="discussionDTO">
+		select * from discussion where num = #{num}
+	</select>
+	
+	 <delete id="deleteArticle" parameterType="int">
+	 	delete from discussion where num=#{num}
+	 </delete>
+
+</mapper>
+

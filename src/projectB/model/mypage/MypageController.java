@@ -1,4 +1,4 @@
-package projectB.test.hj;
+package projectB.model.mypage;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import projectB.model.mypageService.MypageService;
 import projectB.model.petition.CategoryDTO;
 import projectB.model.petition.DiscussionDTO;
 import projectB.model.petition.PetitionDTO;

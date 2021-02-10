@@ -1,9 +1,10 @@
-package projectB.test.hj;
+package projectB.model.mypageService;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import projectB.model.mypage.InterestTagDTO;
 import projectB.model.petition.CategoryDTO;
 import projectB.model.petition.DiscussionDTO;
 import projectB.model.petition.PetitionDTO;

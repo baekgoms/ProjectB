@@ -1,4 +1,4 @@
-package projectB.test.hj;
+package projectB.model.mypage;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

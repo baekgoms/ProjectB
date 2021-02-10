@@ -1,4 +1,4 @@
-package projectB.test.hj;
+package projectB.model.mypageService;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,6 +10,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import projectB.model.mypage.InterestTagDTO;
 import projectB.model.petition.CategoryDTO;
 import projectB.model.petition.DiscussionDTO;
 import projectB.model.petition.PetitionDTO;
