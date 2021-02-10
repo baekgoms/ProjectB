@@ -18,8 +18,9 @@
 <script src="/projectB/js/socket.io.js"></script>
 <script>
 	$(document).ready(function() {
-		var socket = io.connect("http://61.75.18.99:12345");  //서버연결 
-		socket.on('response', function(msg){// 서버로부터 채팅메세지를 계속 받고있다. .. 
+		var socket = io.connect("http://192.168.0.119:12345");  //서버연결 
+		socket.on('response', function(msg){// 서버로부터 채팅메세지를 계속 받고있다. ..
+			$("#msgs").empty();		//모든 요소를비운다.
 			$('#msgs').append('<br>' + msg.msg);		// 채팅 메세지 받아 출력 부분..
 		});
 		
