@@ -157,6 +157,18 @@ ol, li {
 			</tr>
 		</c:forEach>
  	</table>
+ 	
+ 	<c:if test="${count == 0}">
+				<div class="table-responsive" >
+ 					<table align="center">
+ 						<tr>
+ 							<td align ="center">
+ 								답변이 완료된 청원이 없습니다.
+ 							</td>
+ 						</tr>
+ 					</table>
+				</div>
+			</c:if>
 
         <c:if test="${count > 0}">
 			<c:set var="pageCount" value="${count / pageSize +(count % pageSize == 0 ? 0: 1)}" />

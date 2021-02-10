@@ -70,7 +70,7 @@ public class AopPetition {
 	
 	@Around("execution(public * projectB.model.admin..*(..))")
 	public Object checklogin_admin(ProceedingJoinPoint jp) throws Throwable {
-		System.out.println("checklogin_answer");
+		System.out.println("checklogin_admin");
 		
 		RequestAttributes ra = RequestContextHolder.currentRequestAttributes();
 		ServletRequestAttributes sra = (ServletRequestAttributes)ra;
@@ -85,4 +85,5 @@ public class AopPetition {
 		}
 		return view;
 	}
+	
 }

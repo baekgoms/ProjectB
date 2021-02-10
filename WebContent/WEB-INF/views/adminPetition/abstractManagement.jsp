@@ -83,6 +83,9 @@
 </head>
 
 <body>
+<jsp:include page="/WEB-INF/views/topbar/admintopbar.jsp" />
+<br>
+<br>
 <br>
 <br>
 <h3>청원 관리</h3>
@@ -96,12 +99,12 @@
 
   
 <div class="table-responsive"  >
-	<table class="table" style="text-align:center;">
+	<table class="table" style="text-align:center; table-layout: fixed;">
     	<tr>
         	<th scope="col" style="vertical-align:middle; display:inline-block; margin-bottom:2px;" >&nbsp;<input id="allCheck" type="checkbox" name="allCheck" class="form-check-input"/></th>
             <th scope="col">청원번호</th>
             <th scope="col">카테고리</th>
-            <th scope="col">제목</th>
+            <th scope="col" width="35%">제목</th>
             <th scope="col">작성자</th>
             <th scope="col">만료일</th>
             <th scope="col">신고수</th>

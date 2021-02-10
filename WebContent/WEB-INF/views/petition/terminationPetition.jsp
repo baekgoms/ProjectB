@@ -15,7 +15,7 @@
     <link href="/projectB/resource/bootstrap/css/style.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/projectB/resource/bootstrap/assets/extra-libs/prism/prism.css">
 
-<title>기간이 만료된 게시판</title>
+<title>기간이 만료된 청원 게시판</title>
 <style>
       th {
         text-align: center;
@@ -24,9 +24,11 @@
 </style>
 </head>
 <body>
-
-<br />
-<br />
+<jsp:include page="/WEB-INF/views/topbar/top.jsp" />
+<br>
+<br>
+<br>
+<br>
 <form name="form" method="post">
 	<div align="center">
 		<input type="button" value="							진행중인 청원							" class="btn waves-effect waves-light btn-outline-dark"
@@ -48,14 +50,14 @@
 <br />
 
 	<div class="table-responsive">
- 		<table class="table" >
+ 		<table class="table" style="text-align:center;">
 	  		<tr>
 	   			<td colspan ="5" align="left" >기간이 만료된 청원</td>
 	  		 </tr>
 	   		 <tr>
 		   		<th scope="col">글번호</th>
 		    	<th scope="col">분류</th>
-		    	<th scope="col">제목</th>
+		    	<th scope="col" style="width: 50%">제목</th>
 		    	<th scope="col">청원만료일</th>
 		    	<th scope="col">참여인원</th>
 	   		 </tr>
