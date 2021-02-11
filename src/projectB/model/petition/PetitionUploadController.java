@@ -66,6 +66,7 @@ public class PetitionUploadController {
 	    	   }
 	       }
        }
+       petitionDAO.insertPetitionIndicator(dto);
        return "petition/uploadPro";
    }
    

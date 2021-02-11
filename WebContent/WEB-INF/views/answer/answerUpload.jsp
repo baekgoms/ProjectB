@@ -75,8 +75,8 @@
 		</c:if>
 			
 			<div class="form-group" style="color:black; font-size:14pt">
-				부서<input type="text" class="form-control" id="nametext1" placeholder="${petitionerDTO.department}" readOnly>
-				이름<input type="text" class="form-control" id="nametext1" placeholder="${petitionerDTO.name}" readOnly>
+				부서<input type="text" style="font-color:black;margin-left:5px" class="form-control" id="nametext1" value="${petitionerDTO.department}" readOnly> 
+				이름<input type="text" style="font-color:black;margin-left:5px" class="form-control" id="nametext1" value="${petitionerDTO.name}" readOnly> 
 			</div>
 			
 		<c:if test="${answerList[0].state == 4 }">

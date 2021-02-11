@@ -14,6 +14,10 @@
 		insert into petition(
 		num,title,content,category,startDate,endDate,writer,link,tag) 
 		values(petition_seq.nextval, #{title}, #{content}, #{category}, sysdate, sysdate+(interval '1' month), #{writer},#{link},#{tag})
+ 
+		<selectKey resultType="integer" keyProperty="num" order="AFTER">
+		    SELECT petition_seq.currval FROM DUAL
+		</selectKey>
 	</insert>
 
 	<insert id ="insertDiscussion" parameterType="petitionDTO">
@@ -155,20 +159,33 @@
         select * from petitionIndicator where num = #{num}
     </select>
 	
-	<!-- 청원번호/청원자번호를 넣는다 -->
-	<insert id="insertPetitionPetitionerMap" parameterType="HashMap">
-		insert into petitionPetitionerMap values ( #{petitionNum}, #{petitionerId} ) 
+	<select id="getPetitionPetitionerMap" resultType="petitionPetitionerMapDTO" parameterType="petitionPetitionerMapDTO">
+		select * from petitionPetitionerMap where petitionNum = #{petitionNum} and petitionerId = #{petitionerId} 
+	</select>
+	
+
+	<insert id="insertPetitionPetitionerMap" parameterType="petitionPetitionerMapDTO">
+		insert into petitionPetitionerMap 
+			(petitionNum, petitionerId)
+		values 
+			( #{petitionNum}, #{petitionerId} ) 
 	</insert>
+	
+	<update id="agreePetition" parameterType="petitionPetitionerMapDTO">
+    	UPDATE petition
+   			SET 
+   				petition = petition + 1
+    		WHERE
+    			num = #{petitionNum}
+    </update>
+	
 	
 	<!--청원번호에 해당하는 mapping정보를 확인한다 (여기X) -->
 	<select id="getPetitionPetitionerByPetitionNum" resultType="petitionPetitionerMapDTO" parameterType="int">
 		select * from petitionPetitionerMap where petitionNum = #{petitionNum}
 	</select>
+
 	
-	<!-- 청원번호/청원아이디의 mapping정보를 확인한다.-->
-	<select id="getPetitionPetitionerByPetitionNumPetitionerId" resultType="petitionPetitionerMapDTO" parameterType="HashMap">
-		select * from petitionPetitionerMap where petitionNum = #{petitionNum} and petitionerId = #{petitionerId}
-	</select>
 	
 	
 	
@@ -189,6 +206,12 @@
         select state from petitionState where num = #{num}
     </select>
     
+    <insert id="insertIndicator" parameterType="PetitionDTO">
+    	INSERT INTO petitionIndicator
+    	(num, MANCOUNT, WOMANCOUNT, TEENS, TWENTIES, THIRTIES, FORTIES, FIFTIES, SIXTIES)
+    	VALUES
+    	(#{num}, 0,0,0,0,0,0,0,0)
+    </insert>
     <update id="updateIndicator" parameterType="HashMap">
 		update petitionIndicator 
 		<set>

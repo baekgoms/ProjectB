@@ -14,19 +14,21 @@ public class PetitionPetitionerMapServiceImpl implements PetitionPetitionerMapSe
   private SqlSessionTemplate dao = null;
   
   @Override
-  public boolean isAgreed(int petitionNum, String writer) {
-    Map<String, Object> map = new HashMap<>();
-    map.put("petitionNum", petitionNum);
-    map.put("petitionerId", writer);
-    PetitionPetitionerMapDTO m = (PetitionPetitionerMapDTO) dao.selectOne("petition.getPetitionPetitionerByPetitionNumPetitionerId", map);
-    return (m != null);
+  public void insertPetitionPetitionerMap(PetitionPetitionerMapDTO petitionPetitionerMapDTO) {
+    dao.insert("petition.insertPetitionPetitionerMap", petitionPetitionerMapDTO);;
   }
 
   @Override
-  public int insertMap(int petitionNum, String writer) {
-    Map<String, Object> map = new HashMap<>();
-    map.put("petitionNum", petitionNum);
-    map.put("petitionerId", writer);
-    return dao.insert("petition.insertPetitionPetitionerMap", map);
+  public void agreePetition(PetitionPetitionerMapDTO petitionPetitionerMapDTO) throws Exception {
+    dao.update("petition.agreePetition", petitionPetitionerMapDTO);
   }
+
+  @Override
+  public PetitionPetitionerMapDTO getPetitionPetitionerMap(
+      PetitionPetitionerMapDTO petitionPetitionerMapDTO) throws Exception {
+    return dao.selectOne("petition.getPetitionPetitionerMap", petitionPetitionerMapDTO);
+  }
+
+  
+  
 }

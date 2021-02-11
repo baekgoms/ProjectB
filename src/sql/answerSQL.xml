@@ -128,9 +128,9 @@
     
     <insert id="insertAnswerPetitionerMap" parameterType="answerPetitionerMapDTO">
     	INSERT INTO answerPetitionerMAP
-   			(answerNum, petitioner, type)
+   			(num,answerNum, petitioner, type)
     	VALUES
-   			(#{answerNum}, #{petitioner}, #{type})
+   			(ANSWERPETITIONER_SEQ.nextval, #{answerNum}, #{petitioner}, #{type})
     </insert>
     
     <update id="answerReact" parameterType="answerPetitionerMapDTO">

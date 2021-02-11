@@ -39,6 +39,12 @@ public class PetitionServiceImpl implements PetitionService {
 		return dao.selectList("petition.getCategory");
 	}
 
+    @Override
+    public void insertPetitionIndicator(PetitionDTO dto) {
+      // TODO Auto-generated method stub
+      dao.insert("petition.insertIndicator", dto);
+  }
+
 	//==============================보배===================================
 	/*
 	@Override

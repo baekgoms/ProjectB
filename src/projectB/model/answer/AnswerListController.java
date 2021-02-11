@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,8 +12,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import projectB.model.answerListService.AnswerListService;
+import projectB.model.answerUploadService.AnswerUploadService;
+import projectB.model.login.LoginUtils;
 import projectB.model.petition.CategoryDTO;
 import projectB.model.petition.PetitionDTO;
+import projectB.model.petitioner.PetitionerDTO;
 
 @Controller 
 @RequestMapping("answer")
@@ -21,9 +25,12 @@ public class AnswerListController {
   @Autowired
   private AnswerListService AnswerListService = null;
   
+  @Autowired
+  private AnswerUploadService AnswerUploadService = null;
+  
   @RequestMapping("list.aa")
   public String AnswerList(@RequestParam(defaultValue="1")int pageNum, @ModelAttribute AnswerDTO paramDTO,
-      HttpServletRequest request, Model model) throws Exception {
+      HttpServletRequest request, HttpSession session, Model model) throws Exception {
 
       int pageSize = 10;
       int currentPage = pageNum;
@@ -34,7 +41,10 @@ public class AnswerListController {
 
       String keyword = request.getParameter("keyword");
       String sort = request.getParameter("sort"); // 정렬 1:최신, 2:동의
-      String department = "dep_1"; // TODO - session에서 가져오기
+      
+      String id = LoginUtils.getLoginID(session);
+      PetitionerDTO petitionerDTO = AnswerUploadService.getPetitionerInfo(id);
+      String department = petitionerDTO.getDepartment();
       
       List<PetitionDTO> petitionList = new ArrayList<>();
       
@@ -52,7 +62,8 @@ public class AnswerListController {
       }
       number = count-(currentPage-1)*pageSize;
       
-
+      
+      model.addAttribute("petitionerDTO",petitionerDTO);
       model.addAttribute("petitionList",petitionList);
       model.addAttribute("state",paramDTO.getState());
       model.addAttribute("answerDTO",paramDTO);

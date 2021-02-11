@@ -15,14 +15,15 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/projectB/resource/bootstrap/assets/images/favicon.png">
     <link href="/projectB/resource/bootstrap/css/style.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/projectB/resource/bootstrap/assets/extra-libs/prism/prism.css">
-
+    
 <title>청원 댓글</title>
 </head>
 
 <body>  
-
+memId==${memId}
+petitionerId==${petitionerId}
 <form id="agreeForm">
-	<input type="button" VALUE="청원동의" class="btn btn-block btn-primary" onclick="Confirm()"/>
+	<input type="button" VALUE="청원동의" class="btn btn-block btn-primary" onclick="Confirm()">
 		
 		
      <div class="card-body">
@@ -101,39 +102,50 @@
 	    e.preventDefault();
 	  });
 
-	
-		function Confirm() {
-			<c:choose>
-				<c:when test="${memId == null}">
-					alert("로그인이 필요한 서비스 입니다.");
-					parent.window.location = "/projectB/login/loginForm.aa";
-				</c:when>
-				<c:when test="${petitionPetitionerService.isAgreed(petitionNum,memId)}">
-					alert("이미 동의한 청원입니다.");
-				</c:when>
-				<c:when test="${petitionDTO.petitionState == 3 or petitionDTO.petitionState == 4}">
-					alert("기간이 만료된 청원입니다.");
-				</c:when>
-				<c:otherwise>
-                    $.ajax({
-                        url: "/projectB/petition/petitionCommentPro.aa",
-                        method: "post",
-                        data: {
-                            "writer" : "${memId}",
-                            "content" : "동의합니다.",
-                            "petitionNum" : "${petitionNum}"
-                        },
-                        success: function(e) {
-                            alert("동의가 완료되었습니다.");
-                            location.reload();
-                        },
-                        error : function(e) {
-                            alert("오류가 발생했습니다.");
-                        }
-                    });
-				</c:otherwise>
-			</c:choose>
+	var isVoted = false; // 참여 여부
+	function Confirm() {
+		if (isVoted) {
+			// 참여한 경우
+			alert("투표에 이미 참여하였습니다.");
+			return false;
 		}
+		$.ajax({
+			url : "/projectB/petition/agreePetition.aa",
+			method: "post",
+			data : {
+				petitionNum : "${petitionNum}",
+				writer : "${memId}",
+				content : "동의합니다."
+
+			},
+			dataType: 'html',
+			beforeSend : function () {
+				
+			},
+			success : function (data) {
+				if (data == 1) {
+					// 성공
+					alert("동의가 완료되었습니다.");
+                    location.reload();
+					isVoted = true;
+				} else if (data == 2) {
+					// 완료
+					alert("투표에 이미 참여하였습니다.");
+				} else {
+					alert("DB 처리에 실패하였습니다.");
+				}
+			},
+			error : function (request,status,error) {
+				 alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+			},
+			complete : function () {
+				
+			}
+		})
+	}
+	
+
+		
 	</script>
 </body>
 </html>      

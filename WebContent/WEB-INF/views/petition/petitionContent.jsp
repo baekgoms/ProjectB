@@ -36,9 +36,13 @@
       iframe {
          width: 100%;
          border: none;
-         height: 700px;
+         height: 900px;
          margin: 20px auto;
       }
+      
+		.petition-body > pre {
+		    white-space: pre-wrap;
+		}
    </style>
 
    <title>청원 보기</title>
@@ -117,25 +121,27 @@
 	</div>
 
 	
+	<c:if test="${petitionDTO.link != null}">
 	<div class="petition-link-area">
 		<h5 style="color:black;">관련 링크</h5>
 		<c:forEach items="${fn:split(petitionDTO.link, ',') }" var="item">
            <a href="${item}" target="_blank">${item}</a>
         </c:forEach>
-        	
 	</div>
+	</c:if>
 	
-	 <c:if test="${petitionIndicatorDTO.manCount != 0 && petitionIndicatorDTO.womanCount != 0}">
+	 
+	<input type="hidden" id="manCount" value="${petitionIndicatorDTO.manCount}" />
+    <input type="hidden" id="womanCount" value="${petitionIndicatorDTO.womanCount}" />
+    <input type="hidden" id="teens" value="${petitionIndicatorDTO.teens}" />
+    <input type="hidden" id="twenties" value="${petitionIndicatorDTO.twenties}" />
+    <input type="hidden" id="thirties" value="${petitionIndicatorDTO.thirties}" />
+    <input type="hidden" id="forties" value="${petitionIndicatorDTO.forties}" />
+    <input type="hidden" id="fifties" value="${petitionIndicatorDTO.fifties}" />
+    <input type="hidden" id="sixties" value="${petitionIndicatorDTO.sixties}" />
+		
+		<c:if test="${petitionIndicatorDTO.manCount != 0 || petitionIndicatorDTO.womanCount != 0}">
 	<div style="margin-top: 30px;" id="chartArea">
-		 <input type="hidden" id="manCount" value="${petitionIndicatorDTO.manCount}" />
-	     <input type="hidden" id="womanCount" value="${petitionIndicatorDTO.womanCount}" />
-	     <input type="hidden" id="teens" value="${petitionIndicatorDTO.teens}" />
-	     <input type="hidden" id="twenties" value="${petitionIndicatorDTO.twenties}" />
-	     <input type="hidden" id="thirties" value="${petitionIndicatorDTO.thirties}" />
-	     <input type="hidden" id="forties" value="${petitionIndicatorDTO.forties}" />
-	     <input type="hidden" id="fifties" value="${petitionIndicatorDTO.fifties}" />
-	     <input type="hidden" id="sixties" value="${petitionIndicatorDTO.sixties}" />
-	
 	     	<div style="display: inline-block; height: 200px; width: 300px; margin-left:100px;">
 	        	<canvas id="pie-chart"  class="chartjs-render-monitor"
 	                    style="display: inline; height: 200px; width: 300px;">

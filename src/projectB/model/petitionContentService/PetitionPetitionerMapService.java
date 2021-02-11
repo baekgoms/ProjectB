@@ -1,8 +1,12 @@
 package projectB.model.petitionContentService;
 
-public interface PetitionPetitionerMapService {
-    
-  public boolean isAgreed(int petitionNum,String writer);
+import projectB.model.petition.PetitionPetitionerMapDTO;
 
-  public int insertMap(int petitionNum, String writer);
+public interface PetitionPetitionerMapService {
+
+  public void insertPetitionPetitionerMap(PetitionPetitionerMapDTO petitionPetitionerMapDTO);
+  
+  public void agreePetition(PetitionPetitionerMapDTO petitionPetitionerMapDTO) throws Exception;
+  
+  public PetitionPetitionerMapDTO getPetitionPetitionerMap(PetitionPetitionerMapDTO petitionPetitionerMapDTO) throws Exception;
 }

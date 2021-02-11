@@ -10,11 +10,16 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import projectB.model.petitionContentService.PetitionContentService;
 import projectB.model.petitionContentService.PetitionPetitionerMapService;
 import projectB.model.petitioner.PetitionerDTO;
+import projectB.model.answer.AnswerDTO;
+import projectB.model.answer.AnswerPetitionerMapDTO;
 import projectB.model.login.LoginUtils;
 import projectB.model.petition.PetitionDTO;
 
@@ -26,7 +31,7 @@ public class PetitionContentController {
   private PetitionContentService PetitionContentService = null;
 
   @Autowired
-  private PetitionPetitionerMapService petitionPetitionerService = null;
+  private PetitionPetitionerMapService PetitionPetitionerMapService = null;
 
 
   @RequestMapping("petContent.aa")
@@ -55,11 +60,11 @@ public class PetitionContentController {
     model.addAttribute("commentYn", commentYn);
     return "petition/petitionContent";
   }
-
-
-  @RequestMapping("petComment.aa")
+  
+  
+  @RequestMapping(value="petComment.aa", produces = "application/json")
   public String petCmtListAll(@RequestParam("petitionNum") int petitionNum,
-      @RequestParam(defaultValue = "1") int pageNum, Model model) throws Exception {
+      @RequestParam(defaultValue = "1") int pageNum, Model model,HttpSession session) throws Exception {
     int pageSize = 10;
     int currentPage = pageNum;
     int startRow = (currentPage - 1) * pageSize + 1;
@@ -77,7 +82,10 @@ public class PetitionContentController {
     number = count - (currentPage - 1) * pageSize;
     PetitionDTO petitionDTO = PetitionContentService.getArticle(petitionNum);
 
-    model.addAttribute("petitionPetitionerService", petitionPetitionerService);
+    String petitionerId = LoginUtils.getLoginID(session);
+    
+    
+    model.addAttribute("petitionerId", petitionerId);
     model.addAttribute("currentPage", new Integer(currentPage));
     model.addAttribute("startRow", new Integer(startRow));
     model.addAttribute("endRow", new Integer(endRow));
@@ -90,36 +98,76 @@ public class PetitionContentController {
     return "petition/petitionComment";
   }
 
+  @ResponseBody
+  @RequestMapping(value="agreePetition.aa", method=RequestMethod.POST)
+  public String agreePetition(@ModelAttribute PetitionPetitionerMapDTO petitionPetitionerMapDTO,PetCommentDTO petCommentDTO,HttpSession session) throws Exception{
+    
+    try {
+      String petitionerId = LoginUtils.getLoginID(session);
+      petitionPetitionerMapDTO.setpetitionerId(petitionerId);
+      PetitionerDTO petitionerDTO = PetitionContentService.getPetitionerById(petitionerId);
+      PetitionPetitionerMapDTO existMapDTO = PetitionPetitionerMapService.getPetitionPetitionerMap(petitionPetitionerMapDTO);
+        if (existMapDTO != null) {
+          return "2"; // 투표 완료된 경우 
+        }
+      PetitionPetitionerMapService.insertPetitionPetitionerMap(petitionPetitionerMapDTO); 
+      PetitionPetitionerMapService.agreePetition(petitionPetitionerMapDTO);
+      
+      String birthday = petitionerDTO.getBirthday();
+      String gender = petitionerDTO.getGender();
+      
+      int age = LocalDate.now().getYear() - Integer.parseInt(birthday) + 1;
+
+      System.out.println("gender : " + gender + ", age : " + age + ", birthYear : " + birthday);
+
+      int num = petCommentDTO.getPetitionNum();
+      PetitionContentService.updateIndicator(num, gender, age);
+      System.out.println(num);
+      
+      PetitionContentService.insertPetCmt(petCommentDTO);
+      PetitionContentService.updatePetitionState(num);
+      
+      return "1";
+    } catch (Exception e) {
+      e.printStackTrace();
+      return "0";
+    }
+  }
+  
   @RequestMapping("petitionCommentPro.aa")
-  public String insertCmt(PetCommentDTO petCommentDTO,PetitionDTO petitionDTO,HttpSession session) throws Exception {
+  public String insertCmt(PetCommentDTO petCommentDTO,PetitionDTO petitionDTO,HttpSession session,Model model,PetitionPetitionerMapDTO petitionPetitionerMapDTO ) throws Exception {
+      /*
+      String petitionerId = LoginUtils.getLoginID(session);
+      petitionPetitionerMapDTO.setpetitionerId(petitionerId);
+      PetitionerDTO petitionerDTO = PetitionContentService.getPetitionerById(petitionerId);
+      
+      String birthday = petitionerDTO.getBirthday();
+      String gender = petitionerDTO.getGender();
+      
+      int age = LocalDate.now().getYear() - Integer.parseInt(birthday) + 1;
+
+      System.out.println("gender : " + gender + ", age : " + age + ", birthYear : " + birthday);
+
+      PetitionContentService.updateIndicator(petCommentDTO.getPetitionNum(), gender, age);
+
+      PetitionContentService.insertPetCmt(petCommentDTO);
+      PetitionContentService.updatePetitionState(petCommentDTO.getPetitionNum());
+      */
+
+      model.addAttribute("num", petCommentDTO.getPetitionNum());
+      
+      return "petition/petitionCommentPro";
     
-    String writer = LoginUtils.getLoginID(session); 
-    System.out.println(writer);
-    PetitionerDTO petitionerDTO = PetitionContentService.getPetitionerById(writer);
-    String gender = petitionerDTO.getGender();
-    String birthday = petitionerDTO.getBirthday();
 
-    
-    int age = LocalDate.now().getYear() - Integer.parseInt(birthday) + 1;
-
-    System.out.println("gender : " + gender + ", age : " + age + ", birthYear : " + birthday);
-
-    PetitionContentService.updateIndicator(petCommentDTO.getPetitionNum(), gender, age);
-
-    PetitionContentService.insertPetCmt(petCommentDTO);
-    PetitionContentService.updatePetitionCount(petCommentDTO.getPetitionNum());
-    petitionPetitionerService.insertMap(petCommentDTO.getPetitionNum(), petCommentDTO.getWriter());
-
- 
-
-    PetitionContentService.updatePetitionState(petCommentDTO.getPetitionNum());
-    
+    /*
     if(petitionDTO.getPetitionState() == 4) {
       PetitionContentService.insertAnswerDTO(petitionDTO);
     }
-    return "petition/petitionCommentPro";
+    */
+    
   }
 
+  
   @RequestMapping("deletePetition.aa")
   public String deletePetition(PetCommentDTO dto) throws Exception {
     PetitionContentService.deletePetition(dto.getPetitionNum());

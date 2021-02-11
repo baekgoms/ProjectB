@@ -34,7 +34,6 @@
 
 <body>
 <input type="hidden" id="achive" value="${petitionDTO.petition}" />
-<input type="hidden" id="petitionState" value="${petitionDTO.petitionState}" />
 <input type="hidden" id="endDate" value="<fmt:formatDate value="${petitionDTO.endDate}"
                         pattern = "yyyy-MM-dd" />"/>
 
@@ -91,40 +90,49 @@
 		<iframe style="margin-left:80px;" width="700" height="394" src="https://www.youtube.com/embed/${answerList[fn:length(answerList) - 1].answerLink}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 	</div>
 	
-	<div class="petition-body"><h5 style="color:black;">청원 내용</h5>
+	<div class="petition-body"><h3 style="color:black;">청원 내용</h3>
 		<br/>
 		<pre style="font-size:14px; font-family: Ubuntu Mono">${petitionDTO.content}</pre>
 		<br/>
-		<a href="#">#안녕</a>
-		<c:forEach items="${fn:split(petitionDTO.tag, ',') }" var="item">
-           <a href="/projectB/petition/tag?tag=${item}">#${item}</a>
-        </c:forEach>
+			<c:if test="${petitionDTO.tag != null}">
+				<c:forEach items="${fn:split(petitionDTO.tag, ',') }" var="item">
+		            <a href="/projectB/petition/afootPetitionSearch.aa?keyword=${item}">#${item}</a>
+		        </c:forEach>
+	        </c:if>
 	</div>
 
-	
-	<div class="petition-link-area">
-		<h5 style="color:black;">관련 링크</h5>
-		<c:forEach items="${fn:split(petitionDTO.link, ',') }" var="item">
-           <a href="${item}" target="_blank">${item}</a>
-        </c:forEach>
-        	
-	</div>
+	<br/><br/>
+	<c:if test="${petitionDTO.link != null}">
+		<div class="petition-link-area">
+			<h3 style="color:black;">관련 링크</h3>
+			<c:forEach items="${fn:split(petitionDTO.link, ',') }" var="item">
+	           <a href="${item}" target="_blank">${item}</a>
+	        </c:forEach>
+		</div>
+	</c:if>
 
 	<c:if test="${fn:length(answerList) == 1}">
 		<div class="answer-reply-content">
-			<h5 style="color:black;">답변원고</h5>
-			${answerList[0].content}
+			<h3 style="color:black;">답변원고</h3>
+			<br/>
+			<pre style="font-size:14px; font-family: Ubuntu Mono">${answerList[0].content}</pre>
+			
 		</div>
 	</c:if>
+	
 	
 	<c:if test="${fn:length(answerList) == 2}">
 		<div class="answer-reply-content">
 	
 				<h5 style="color:black;">답변원고_1</h5>
-				${answerList[0].content}
+				<br/>
+				<pre style="font-size:14px; font-family: Ubuntu Mono">${answerList[0].content}</pre>
+				
 				<br/><br/>
 				<h5 style="color:black;">답변원고_2</h5>
-				${answerList[1].content}
+				<br/>
+				<pre style="font-size:14px; font-family: Ubuntu Mono">${answerList[1].content}</pre>
+				
 				<br/><br/>
 		</div>
 	</c:if>
@@ -183,8 +191,8 @@
 						alert("DB 처리에 실패하였습니다.");
 					}
 				},
-				error : function (e) {
-					alert("서버 에러입니다.");
+				error : function (request,status,error) {
+					 alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 				},
 				complete : function () {
 					

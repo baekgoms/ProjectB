@@ -69,12 +69,12 @@ public class AnswerContentController {
     @ResponseBody
     @RequestMapping(value="answerReact.aa", method=RequestMethod.POST, produces = "application/json")
     public String addAnswerReact(@ModelAttribute AnswerPetitionerMapDTO answerPetitionerMapDTO,HttpSession session) throws Exception{
-      String petitioner = "1"; // TODO - session
+      String petitioner = LoginUtils.getLoginID(session);
       answerPetitionerMapDTO.setPetitioner(petitioner);
+      PetitionerDTO petitionerDTO = AnswerUploadService.getPetitionerInfo(petitioner);
       
-      String id = LoginUtils.getLoginID(session);
-      PetitionerDTO petitionerDTO = AnswerUploadService.getPetitionerInfo(id);
       try {
+        
         AnswerPetitionerMapDTO existMapDTO = AnswerPetitionerMapService.getAnswerPetitionerMap(answerPetitionerMapDTO);
           if (existMapDTO != null) {
             return "2"; // 투표 완료된 경우
