@@ -19,7 +19,7 @@
 		select * from question_category
 	</select>
 	
-	<delete id="delete" parameterType="int">
+	<delete id="deleteQuestion" parameterType="int">
 		delete from question where num = #{num} 
 	</delete>
 	

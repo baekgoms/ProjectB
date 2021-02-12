@@ -75,8 +75,8 @@ public class QuestionServiceImpl implements QuestionService{
 	}
 
 	@Override
-	public void delete(int num) throws Exception {
-		dao.delete("question.delete", num);
+	public void deleteQuestion(int num) throws Exception {
+		dao.delete("question.deleteQuestion", num);
 	}
 
 }

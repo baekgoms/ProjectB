@@ -13,7 +13,7 @@ public interface QuestionService {
 	public List<QuestionDTO> getArticle( String writer) throws Exception;
 	public List<QuestionDTO> getArticles(int start, int end) throws Exception;
 	public List<QuestionDTO> getOneInfo(int num) throws Exception;
-	public void delete(int num) throws Exception;
+	public void deleteQuestion(int num) throws Exception;
 	public List<QuestionDTO> questions(int start, int end, int sort) throws Exception;
 	public int questionCount(int sort) throws Exception;
 }

@@ -102,9 +102,18 @@ public class QuestionController {
 	public String delete( Model model, int num) throws Exception {
 		System.out.println("question delete run.");
 	       
-        questionDAO.delete(num);
+        questionDAO.deleteQuestion(num);
        
 		return "question/redirect";
+	}
+	
+	@RequestMapping("modify.aa")
+	public String modify( Model model, int num) throws Exception {
+		System.out.println("question modify run.");
+	       
+        //questionDAO.deleteQuestion(num);
+       
+		return "question/questionModify";
 	}
 	
 }

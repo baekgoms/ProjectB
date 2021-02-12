@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="disBoard">
+<mapper namespace="adminDisBoard">
 	<!--  CRUD (Create, Read, Update, Delete) -> DB구축  -->
 	
 	<select id="getArticleCount" parameterType="string">

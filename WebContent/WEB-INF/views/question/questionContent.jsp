@@ -34,7 +34,7 @@
 </head>
 
 <body>
-
+<jsp:include page="/WEB-INF/views/topbar/top.jsp" /><br><br><br><br>
 <!-- ============================================================================================================= -->
 <!-- Page wrapper -->
 <!-- ============================================================================================================== -->
@@ -86,7 +86,7 @@
                                     <table id="zero_config" class="table table-striped table-bordered no-wrap">
                                         <input class="btn btn-dark" type="button" value="목록" onclick="document.location.href='/projectB/question/board.aa'" />
                                     	<c:if test="${same == 1}">
-     										&nbsp;<input class="btn btn-dark" type="button" value="수정" onclick="document.location.href='/projectB/question/update.aa?num=${num}'"/>
+     										&nbsp;<input class="btn btn-dark" type="button" value="수정" onclick="document.location.href='/projectB/question/modify.aa?num=${num}'"/>
                                    			&nbsp;<input class="btn btn-dark" type="button" value="삭제" onclick="document.location.href='/projectB/question/delete.aa?num=${num}'"/>
 								        </c:if>
                                         <hr>
