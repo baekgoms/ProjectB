@@ -16,7 +16,7 @@ public interface PetitionService {
 	public void insertDiscussion(DiscussionDTO dto) throws Exception;
 	public List<PetitionDTO> getCategory() throws Exception;
     public void insertPetitionIndicator(PetitionDTO dto);
-	
+    public int getMyNewPetition(String writer); 
 	
 	
 	

@@ -49,7 +49,7 @@ public class PetitionUploadController {
     }
     
    @RequestMapping("uploadPro.aa")
-   public String writePro(PetitionDTO dto, HttpServletRequest request, HttpSession session) throws Exception{
+   public String writePro(PetitionDTO dto, HttpServletRequest request, HttpSession session, Model model) throws Exception{
 	   System.out.println("uploadPro run");    
        
        dto.setWriter(LoginUtils.getLoginID(session));
@@ -67,6 +67,7 @@ public class PetitionUploadController {
 	       }
        }
        petitionDAO.insertPetitionIndicator(dto);
+       model.addAttribute("num", dto.getNum());
        return "petition/uploadPro";
    }
    

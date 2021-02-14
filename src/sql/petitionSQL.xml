@@ -13,7 +13,7 @@
 	<insert id ="insertArticle" parameterType="petitionDTO">
 		insert into petition(
 		num,title,content,category,startDate,endDate,writer,link,tag) 
-		values(petition_seq.nextval, #{title}, #{content}, #{category}, sysdate, sysdate+(interval '1' month), #{writer},#{link},#{tag})
+		values(petition_seq.nextval, #{title}, #{content}, #{category}, sysdate, sysdate+(interval '30' day), #{writer},#{link},#{tag})
  
 		<selectKey resultType="integer" keyProperty="num" order="AFTER">
 		    SELECT petition_seq.currval FROM DUAL
@@ -30,6 +30,9 @@
 		select categoryName from category order by num desc
 	</select>
 	
+	<select id="getMyNewPetition" resultType="PetitionDTO" parameterType="int">
+		select max(num) from petition where writer = #{writer}
+	</select>
 
 	<!-- ==============================보배=========================== -->
 

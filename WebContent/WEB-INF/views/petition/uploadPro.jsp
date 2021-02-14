@@ -4,4 +4,4 @@
 
 <title>uploadPro</title>
 
-<c:redirect url="/petition/afootPetition.aa" />
+<c:redirect url="/petition/petContent.aa?num=${num}" />

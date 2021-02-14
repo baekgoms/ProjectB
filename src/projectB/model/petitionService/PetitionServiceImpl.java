@@ -45,6 +45,11 @@ public class PetitionServiceImpl implements PetitionService {
       dao.insert("petition.insertIndicator", dto);
   }
 
+	@Override
+	public int getMyNewPetition(String writer) {
+		return dao.selectOne("petition.getMyNewPetition", writer);
+	}
+
 	//==============================보배===================================
 	/*
 	@Override
