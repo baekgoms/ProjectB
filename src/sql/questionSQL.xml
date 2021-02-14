@@ -4,7 +4,6 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="question">
 
-<!-- ==============================우찬=========================== -->
 	<insert id ="insertArticle" parameterType="questionDTO">
 		insert into question(
 		num,category,title,content,writer,open,reg) 
@@ -22,10 +21,6 @@
 	<delete id="deleteQuestion" parameterType="int">
 		delete from question where num = #{num} 
 	</delete>
-	
-	
-	
-<!-- =============================================================== -->
 	
 	<select id="getArticle" resultType="questionDTO" parameterType="String">
 		select * from (select num, category, title, content, writer, reply, reg
@@ -61,6 +56,16 @@
 		<if test="value == 2">
 			where reply = 1
 		</if>
+	</select>
+	
+	<insert id ="insertComment" parameterType="questionCommentDTO">
+		insert into questionComment(num, content, writer) 
+							 values(#{num}, #{content}, #{writer})
+	</insert>
+	
+	<select id="getComments" resultType="questionCommentDTO" parameterType="int">
+		select * from questionComment 
+		where num = #{num} order by reg asc
 	</select>
 	
 </mapper>

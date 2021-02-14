@@ -2,6 +2,7 @@ package projectB.model.questionService;
 
 import java.util.List;
 
+import projectB.model.question.QuestionCommentDTO;
 import projectB.model.question.QuestionDTO;
 
 
@@ -16,4 +17,6 @@ public interface QuestionService {
 	public void deleteQuestion(int num) throws Exception;
 	public List<QuestionDTO> questions(int start, int end, int sort) throws Exception;
 	public int questionCount(int sort) throws Exception;
+	public void insertComment(QuestionCommentDTO dto) throws Exception;
+	public List<QuestionCommentDTO> getComments( int num) throws Exception;
 }

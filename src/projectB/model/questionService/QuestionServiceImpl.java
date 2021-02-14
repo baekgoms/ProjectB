@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import projectB.model.question.QuestionCommentDTO;
 import projectB.model.question.QuestionDTO;
 
 @Service("questionDAO")
@@ -77,6 +78,18 @@ public class QuestionServiceImpl implements QuestionService{
 	@Override
 	public void deleteQuestion(int num) throws Exception {
 		dao.delete("question.deleteQuestion", num);
+	}
+
+	@Override
+	public void insertComment(QuestionCommentDTO dto) throws Exception {
+		dao.insert("question.insertComment", dto);
+		
+	}
+
+	@Override
+	public List<QuestionCommentDTO> getComments(int num) throws Exception {
+		List<QuestionCommentDTO> comment = dao.selectList("question.getComments", num);
+		return comment;
 	}
 
 }

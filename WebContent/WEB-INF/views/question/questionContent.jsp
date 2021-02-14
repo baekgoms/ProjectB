@@ -33,6 +33,23 @@
 <![endif]-->
 </head>
 
+<script type="text/javascript">
+	    
+		function checkIt()
+	    {
+	        var content = document.getElementById("content");
+	        
+	       	if(content.value=="") {
+	           	alert("내용을 입력해주세요");
+	           	content.focus();
+	           	return false;
+	       	}
+	       
+	    	return true;
+	    }
+	    
+	</script>
+
 <body>
 <jsp:include page="/WEB-INF/views/topbar/top.jsp" /><br><br><br><br>
 <!-- ============================================================================================================= -->
@@ -104,13 +121,24 @@
                                     </table>
                                     
                                 </div>
+                                
+                                <c:forEach items="${comment}" var="article">
+                                 <tr>
+	                               <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	                               	   ${article.writer}&nbsp;|&nbsp;</td>
+	                               <td>${article.content}&nbsp;|&nbsp;</td>
+	                               <td>${article.reg}</td><br>
+	                             </tr>   
+	                            </c:forEach>
+                                
                                  <div class="form-actions">
                                 <div class="text-right">
-                                
-                                <c:if test="${admin == 1}">
-	                                 <textarea class="form-control content" rows="3" placeholder="답글 입력 " name="content" id="content"
+                                <c:if test="${ admin == 1 || same == 1 }">
+                               		<form method="post" id="tag-form" name="uploadForm" onsubmit="return checkIt()" action="/projectB/question/comment.aa?num=${num}" >
+	                                  <textarea class="form-control content" rows="3" placeholder="댓글 입력 " name="content" id="content"
 							                            				style="height: 150px; overflow: auto; resize: none;"></textarea>
-	                                 <input class="btn btn-dark" type="button" value="입력" onclick="document.location.href=''"/>
+									  <button type="submit" class="btn btn-info">등록 </button>
+									</form>
 								</c:if>
 								</div>  
 								</div>   

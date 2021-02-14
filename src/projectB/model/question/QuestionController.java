@@ -79,6 +79,7 @@ public class QuestionController {
 		System.out.println("writer : " + writer);
 		int same = 0;
         List<QuestionDTO> articleList = null;
+        List<QuestionCommentDTO> comment = null;
         List category = null;
                 
         category = questionDAO.getCategory();
@@ -91,9 +92,11 @@ public class QuestionController {
         	System.out.println("same writer.");
         	same = 1;
         }
+        comment = questionDAO.getComments(num);
         model.addAttribute("num", num);
         model.addAttribute("same", same);
         model.addAttribute("articleList", articleList);
+        model.addAttribute("comment", comment);
         System.out.println("===question content finish===");
 		return "question/questionContent";
 	}
@@ -107,5 +110,16 @@ public class QuestionController {
 		return "question/redirect";
 	}
 	
+	@RequestMapping("comment.aa")
+	public String comment( Model model, int num, String content, HttpSession session, QuestionCommentDTO dto) throws Exception {
+		System.out.println("question comment run.");
+		
+		dto.setNum(num);
+		dto.setContent(content);
+		dto.setWriter((String)session.getAttribute("memId"));
+		questionDAO.insertComment(dto);
+       
+		return content(model, num, session);
+	}
 
 }

@@ -29,6 +29,7 @@
 		<typeAlias alias="petitionPetitionerMapDTO" type="projectB.model.petition.PetitionPetitionerMapDTO" />
 		<typeAlias alias="commentVoteDTO" type="projectB.model.discussion.CommentVoteDTO" /> 
 		<typeAlias alias="questionDTO" type="projectB.model.question.QuestionDTO" /> 
+		<typeAlias alias="questionCommentDTO" type="projectB.model.question.QuestionCommentDTO" />
 		<typeAlias alias="answerDTO" type="projectB.model.answer.AnswerDTO" />
 		<typeAlias alias="petitionStateDTO" type="projectB.model.petition.petitionStateDTO" />
 		<typeAlias alias="interestTagDTO" type="projectB.model.mypage.InterestTagDTO" />
