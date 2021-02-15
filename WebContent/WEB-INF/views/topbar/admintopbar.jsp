@@ -81,7 +81,7 @@ a:visited {
                 		</li>
                 		
                 		<li class="nav-item dropdown" style="position: relative; left: 420px;">
-                			<a href="">
+                			<a href="/projectB/admin/adminDis.aa">
                 				<strong style="color: white;">
                 					토론 관리
                 				</strong>

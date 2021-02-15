@@ -45,6 +45,11 @@ $(".chBox").click(function(){
 	  $("#allCheck").prop("checked", false);
 });
 </script>
+	<jsp:include page="/WEB-INF/views/topbar/admintopbar.jsp" />
+	<br>
+	<br>
+	<br>
+	<br>
 <c:if test="${count == 0 }">
 <table class="table">
 		  <tr>
