@@ -133,7 +133,7 @@
                                 
                                  <div class="form-actions">
                                 <div class="text-right">
-                                <c:if test="${ admin == 1 || same == 1 }">
+                                <c:if test="${ same == 1 }">
                                		<form method="post" id="tag-form" name="uploadForm" onsubmit="return checkIt()" action="/projectB/question/comment.aa?num=${num}" >
 	                                  <textarea class="form-control content" rows="3" placeholder="댓글 입력 " name="content" id="content"
 							                            				style="height: 150px; overflow: auto; resize: none;"></textarea>

@@ -88,10 +88,11 @@ public class QuestionController {
         
         articleList = questionDAO.getOneInfo(num);
         System.out.println("getWriter : " + articleList.get(0).getWriter());
-        if(writer.equals(articleList.get(0).getWriter())) {
+        if(writer.equals(articleList.get(0).getWriter()) || writer.contains("admin")) {
         	System.out.println("same writer.");
         	same = 1;
         }
+
         comment = questionDAO.getComments(num);
         model.addAttribute("num", num);
         model.addAttribute("same", same);
