@@ -92,13 +92,16 @@ public class AdminMainController {
 		List<DiscussionDTO> topDiscussion = DAO.getTopDiscussion();
 		System.out.println("topDiscussion : "+topDiscussion);
 		model.addAttribute("topDiscussion", topDiscussion);
-		int agree = (int)topDiscussion.get(0).getAgreement();
-		int oppo = (int)topDiscussion.get(0).getOpposition();
-		double dOnePer = (agree + oppo) / 100.0;
-		double agreePer = agree / dOnePer;
-		double oppoPer = oppo / dOnePer;
-		model.addAttribute("agreePer", agreePer);
-		model.addAttribute("oppoPer", oppoPer);
+		if(topDiscussion != null && topDiscussion.size() != 0) {
+			int agree = (int)topDiscussion.get(0).getAgreement();
+			int oppo = (int)topDiscussion.get(0).getOpposition();
+			double dOnePer = (agree + oppo) / 100.0;
+			double agreePer = agree / dOnePer;
+			double oppoPer = oppo / dOnePer;
+			model.addAttribute("agreePer", agreePer);
+			model.addAttribute("oppoPer", oppoPer);
+		}
+				
 		
 		//새로운 청원
 		int todayPetition = DAO.getCountPetitionToday();
