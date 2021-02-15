@@ -82,7 +82,7 @@
    							<td scope="row">${article.num}</td>
         					<td>${article.category }</td>
         					<td>
-        						<a href ="projectB/petition/petContent.aa?num=${article.num}&pageNum=${currentPage}">
+        						<a href ="petContent.aa?num=${article.num}&pageNum=${currentPage}">
         						${article.title}</a>
         					</td>
             				<td>${article.endDate}</td>
