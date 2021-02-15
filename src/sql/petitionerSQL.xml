@@ -37,7 +37,7 @@
 	
 	<select id="petitionersByState" resultType="petitionerDTO" parameterType="map">
 	  select * from (select num, id, password, name, contact, email,
-		gender, report, state, emailArg, reg, blockReg, authKey, birthday, rownum r
+		gender, report, state, emailArg, reg, blockReg, authKey, birthday, department, rownum r
     	from (select * from petitioner where state = #{ state }
         order by num desc)
 	    order by num desc)
