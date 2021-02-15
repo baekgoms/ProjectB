@@ -80,12 +80,12 @@
     				<tr>
    						<c:set var="number" value="${ number -1 }"/>
    							<td scope="row">${article.num}</td>
-        					<td>${article.category }</td>
+        					<td>${ category[article.category].categoryName }</td>
         					<td>
         						<a href ="petContent.aa?num=${article.num}&pageNum=${currentPage}">
         						${article.title}</a>
         					</td>
-            				<td>${article.endDate}</td>
+            				<td><fmt:formatDate pattern="yyyy-MM-dd" value="${article.endDate}" /></td>
             				<td>${article.petition}</td>
    						</tr>
     			</c:forEach>

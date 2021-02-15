@@ -85,7 +85,7 @@
 		        			<a href ="petContent.aa?num=${article.num}&pageNum=${currentPage}">${article.title}
 		        			</a>
 		        		</td>
-						<td width=100 align="center">${article.endDate}</td>
+						<td width=100 align="center"><fmt:formatDate pattern="yyyy-MM-dd" value="${article.endDate}" /></td>
 						<td width=100 align="center">${article.petition}</td>
 		   			</tr>
 	    		</c:forEach>

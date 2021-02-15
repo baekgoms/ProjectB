@@ -180,6 +180,8 @@ public class petitionListController {
 			articleList = Collections.emptyList();
 		}
 		number = count - (currentPage - 1) * pageSize;
+		List<CategoryDTO> getCategory = petitionDAO.getCategoryList();
+		model.addAttribute("category", getCategory);
 
 		model.addAttribute("currentPage", new Integer(currentPage));
 		model.addAttribute("startRow", new Integer(startRow));
@@ -211,6 +213,9 @@ public class petitionListController {
 			articleList = Collections.emptyList();
 		}
 		number = count - (currentPage - 1) * pageSize;
+		
+		List<CategoryDTO> getCategory = petitionDAO.getCategoryList();
+		model.addAttribute("category", getCategory);
 
 		model.addAttribute("currentPage", new Integer(currentPage));
 		model.addAttribute("startRow", new Integer(startRow));
