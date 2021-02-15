@@ -38,7 +38,7 @@ public class AnswerContentController {
     @Autowired
     private AnswerPetitionerMapService AnswerPetitionerMapService= null;
     
-    @RequestMapping("answerContent.aa")
+    @RequestMapping("content.aa")
     public String answerContent(@RequestParam("petitionNum") int petitionNum, Model model,HttpSession session) throws Exception{
 
       PetitionDTO petitionDTO = PetitionContentService.getArticle(petitionNum);

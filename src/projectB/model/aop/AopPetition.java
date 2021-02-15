@@ -50,7 +50,7 @@ public class AopPetition {
 		return view;
 	}
 	
-	@Around("execution(public * projectB.model.answer..*(..))")
+	@Around("execution(public * projectB.model.answer..answer(..))")
 	public Object checklogin_answer(ProceedingJoinPoint jp) throws Throwable {
 		System.out.println("checklogin_answer");
 		
