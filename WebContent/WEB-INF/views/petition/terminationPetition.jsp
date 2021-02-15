@@ -82,7 +82,7 @@
 							${ category[article.category].categoryName }
 						</td>
 						<td width=300 align="center">
-		        			<a href ="projectB/petition/content.aa?num=${article.num}&pageNum=${currentPage}">${article.title}
+		        			<a href ="projectB/petition/petContent.aa?num=${article.num}&pageNum=${currentPage}">${article.title}
 		        			</a>
 		        		</td>
 						<td width=100 align="center">${article.endDate}</td>
