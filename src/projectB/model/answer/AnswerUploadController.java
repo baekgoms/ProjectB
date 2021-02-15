@@ -58,9 +58,9 @@ public class AnswerUploadController {
     int petitionNum = answerDTO.getPetitionNum();
     int state = answerDTO.getState();
     if(state == 4) {
-    AnswerUploadService.updateAnswerState(petitionNum);
-    AnswerUploadService.updatePetitionState(petitionNum);
-    AnswerUploadService.insertArticle(answerDTO);
+      AnswerUploadService.updateAnswerState(petitionNum);
+      AnswerUploadService.updatePetitionState(petitionNum);
+      AnswerUploadService.insertArticle(answerDTO);
     }
     
     if(state != 4) {

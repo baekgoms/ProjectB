@@ -205,7 +205,7 @@ var chart = d3.select("#percentageChart").append("svg") // creating the svg obje
 
 var x = d3.scale.linear() // takes the fixed width and creates the percentage from the data values
   .domain([0, d3.max(data)])
-  .range([0, 100]); 
+  .range([0, 200]); 
 
 chart.selectAll("rect") // this is what actually creates the bars
   .data(data)
