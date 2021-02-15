@@ -90,7 +90,7 @@
 		<iframe style="margin-left:80px;" width="700" height="394" src="https://www.youtube.com/embed/${answerList[fn:length(answerList) - 1].answerLink}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 	</div>
 	
-	<div class="petition-body"><h3 style="color:black;">청원 내용</h3>
+	<div class="petition-body"><h3 style="color:black;font-weight:bold">청원 내용</h3>
 		<br/>
 		<pre style="font-size:14px; font-family: Ubuntu Mono;white-space: pre-wrap;">${petitionDTO.content}</pre>
 		<br/>
@@ -104,18 +104,19 @@
 	<br/><br/>
 	<c:if test="${petitionDTO.link != null}">
 		<div class="petition-link-area">
-			<h3 style="color:black;">관련 링크</h3>
+			<h3 style="color:black;font-weight:bold">관련 링크</h3>
 			<c:forEach items="${fn:split(petitionDTO.link, ',') }" var="item">
 	           <a href="${item}" target="_blank">${item}</a>
 	        </c:forEach>
 		</div>
 	</c:if>
-
+	<hr size="1px" color="#DDD"><br/><br/>
 	<c:if test="${fn:length(answerList) == 1}">
 		<div class="answer-reply-content">
-			<h3 style="color:black;">답변원고</h3>
+			<h3 style="color:black;font-weight:bold">답변원고</h3>
 			<br/>
-			<pre style="font-size:14px; font-family: Ubuntu Mono;white-space: pre-wrap;">${answerList[0].content}</pre>
+			<pre style="font-size:14px; font-family: Ubuntu Mono;white-space: pre-wrap;border: 2px solid #DDD;background: #f6f7fb;
+    		border-radius: 10px;padding: 15px 20px;">${answerList[0].content}</pre>
 			
 		</div>
 	</c:if>
@@ -124,14 +125,16 @@
 	<c:if test="${fn:length(answerList) == 2}">
 		<div class="answer-reply-content">
 	
-				<h5 style="color:black;">답변원고_1</h5>
+				<h3 style="color:black;font-weight:bold">답변원고_1</h3>
 				<br/>
-				<pre style="font-size:14px; font-family: Ubuntu Mono;white-space: pre-wrap;">${answerList[0].content}</pre>
+				<pre style="font-size:14px; font-family: Ubuntu Mono;white-space: pre-wrap;border: 2px solid #DDD;background: #f6f7fb;
+   				 border-radius: 10px;padding: 15px 20px;">${answerList[0].content}</pre>
 				
 				<br/><br/>
-				<h5 style="color:black;">답변원고_2</h5>
+				<h3 style="color:black;font-weight:bold">답변원고_2</h3>
 				<br/>
-				<pre style="font-size:14px; font-family: Ubuntu Mono;white-space: pre-wrap;">${answerList[1].content}</pre>
+				<pre style="font-size:14px; font-family: Ubuntu Mono;white-space: pre-wrap;border: 2px solid #DDD;background: #f6f7fb;
+    			border-radius: 10px;padding: 15px 20px;">${answerList[1].content}</pre>
 				
 				<br/><br/>
 		</div>
@@ -146,7 +149,7 @@
 		</div>
 
 		<c:if test="${petitionerDTO.getState() == 6 }" > 
-		<input type="button" style="margin-top:30px; margin-left:370px;" class="btn waves-effect waves-light btn-outline-dark" align="center" value="수정하기"
+		<input type="button" style="margin-top:30px; margin-left:355px;" class="btn waves-effect waves-light btn-outline-dark" align="center" value="수정하기"
 		onclick="document.location.href='/projectB/answer/answerContentUpdate.aa?petitionNum=${petitionDTO.num}'"></button>
 		<input type="button" style="margin-top:30px;" class="btn waves-effect waves-light btn-outline-dark" align="center" value="목록보기"
 		onclick="document.location.href='/projectB/answer/list.aa?state=${answerList[0].state}'"></button>
