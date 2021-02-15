@@ -23,7 +23,7 @@ public class AdmnDiscussionController {
 	@RequestMapping("adminDis.aa")
 	public String adminDis(@RequestParam(defaultValue="1" , required = true)int pageNum, Model model) throws Exception {
 		
-		int pageSize = 6;
+		int pageSize = 9;
         int currentPage = pageNum;
         int startRow = (currentPage - 1) * pageSize + 1;
         int endRow = currentPage * pageSize;

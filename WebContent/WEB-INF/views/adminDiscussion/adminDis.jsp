@@ -6,44 +6,63 @@
 
 <!-- Custom CSS -->
 <link href="/projectB/resource/bootstrap/css/style.css" rel="stylesheet">
+<link href="/projectB/resource/bootstrap/css/style.min.css" rel="stylesheet">
 <!-- This Page CSS -->
 <link href="/projectB/resource/assets/libs/morris.js/morris.css" rel="stylesheet">
 
 <script>
-$("#allCheck").click(function(){
-	var chk = $("#allCheck").prop("checked");
-	if(chk) {
-		$(".chBox").prop("checked", true);
-	} else {
-		$(".chBox").prop("checked", false);
+var c = 0;
+function checkAll() {
+	var chBoxArr = document.getElementsByName("chBox");
+	if(c == 0){
+		for (var i = 0; i < chBoxArr.length; i++) {
+			chBoxArr[i].checked = true;
+			c = 1;
+		
+		}
+		return;
+	}	
+	if(c == 1){
+		for (var i = 0; i < chBoxArr.length; i++) {
+			chBoxArr[i].checked = false;
+			c = 0;
+		}
+		return;
 	}
-});
+}
 
-$(".selectDelete_btn").click(function(){
-	var confirm_val = confirm("정말 삭제하시겠습니까?");  
-	if(confirm_val) {
-		var checkArr = new Array();
-		$("input[class='chBox']:checked").each(function(){
-			checkArr.push($(this).attr("data-num"));
-		});
+function deleteValue(){
+	var url = "delete.aa";
+	var valueArr = new Array();
+	var list = $("input[name='chBox']");
+	for(var i = 0; i < list.length; i++){
+		if(list[i].checked){
+			valueArr.pust(list[i].value);
+		}
+	}
+	if(valueArr.length == 0){
+		alert("선택된 글이 없습니다.");
+	}else{
+		var chk = confirm("정말 삭제하시겠습니까?");
 		$.ajax({
-			url : "/admin/delete.aa",
-			type : "post",
-			data : { chbox : checkArr },
-			success : function(result){
-				if(result == 1){
-					location.href = "/admin/adminDis.aa";
+			url : url,
+			type : 'POST',
+			traditional : true,
+			data : {
+				valueArr : valueArr
+			},
+			success: function(jdata){
+				if(jdata = 1){
+					alert("삭제 성공");
+					location.href = "adminDis.aa";
 				}else{
 					alert("삭제 실패");
 				}
 			}
-		});
+		})
 	}
-});
+}
 
-$(".chBox").click(function(){
-	  $("#allCheck").prop("checked", false);
-});
 </script>
 	<jsp:include page="/WEB-INF/views/topbar/admintopbar.jsp" />
 	<br>
@@ -58,38 +77,40 @@ $(".chBox").click(function(){
 </table>
 </c:if>
 <c:if test="${count > 0}">
-	<div class="allCheck">
-		<input type="checkbox" name="allCheck" id="allCheck" /><label for="allCheck">모두 선택</label> 
-	</div>
-  
-	<div class="delBtn">
-		<button type="button" class="selectDelete_btn">선택 삭제</button>
-	</div>
-<c:forEach items="${articleList}" var="article">
-<div class="col-lg-6">
-	<div class="card">
-		<div class="card-body">
-			<input type="checkbox" name="chBox" class="chBox" data-num="${article.num}" />
-			<div id="${article.num}"></div>
-			<img src="" id="noimg" height=""> <br />
-			<h4 class="card-title">
-				<a href="/projectB/discussion/content.aa?pageNum=${pageNum}&discussionNum=${article.num}">
-				${article.subject}<br />
-				${article.write}<br />
-				<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${article.reg}" /><br />
-				</a>
-			</h4>
+	<table class="table">
+	<tr align="right"><td>
+		<input type="checkbox" id="allCheck" class="form-check-input" style='zoom:1.7;' onclick="checkAll()"/><label for="allCheck" style="margin-right:5px;">모두 선택</label> 
+		<button type="button" class="btn waves-effect waves-light btn-outline-dark" onclick="deleteValue();">선택 삭제</button>
+	</td></tr>
+	</table>
+	<c:set var="i" value="0" />
+	<c:set var="j" value="3" />
+	<table class="table">
+		<c:forEach items="${articleList}" var="article">
+			<c:if test="${i%j == 0 }">
+				<tr align="center" height="300">
+			</c:if>
+		<td width="450">
+		<div id="chBox" style="float:left;padding-left:140;">
+			<input type="checkbox" name="chBox" class="form-check-input" value="${article.num}" style='zoom:1.3;' /> <br />
 		</div>
-		<div class="delete">
-			<button type="button" class="delete_btn" data-cartNum="${cartList.cartNum}">삭제</button>
-		</div>
-	</div>
-</div>
-
-	
-	
-</c:forEach>
-
+		<br/>
+		<div id="${article.num}"></div>
+		<img src="" id="noimg" height=""> <br />
+		<a href="/projectB/discussion/content.aa?pageNum=${pageNum}&discussionNum=${article.num}">
+		${article.subject}<br />
+		${article.write}<br />
+		<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${article.reg}" /><br /></a>
+			<div class="delete" style="float:right;padding-right:100;">
+				<button type="button" class="btn waves-effect waves-light btn-outline-dark">삭제</button>
+			</div>
+		</td>
+		<c:if test="${i%j == j-1}">
+			</tr>
+		</c:if>
+		<c:set var="i" value="${i+1}" />
+		</c:forEach>
+	</table>
 </c:if>
 
 <c:if test="${count > 0}">
@@ -114,7 +135,7 @@ $(".chBox").click(function(){
 <ul class="pagination justify-content-center">
 <c:if test="${startPage > 10}">
 <li class="page-item">
-			<a class="page-link" href="/projectB/discussion/main.aa?keyword=${keyword}&pageNum=${startPage - 10}"aria-label="Previous">
+			<a class="page-link" href="/projectB/admin/adminDis.aa?pageNum=${startPage - 10}"aria-label="Previous">
         	<span aria-hidden="true">&laquo;</span>
 			<span class="sr-only">Previous</span>
    			</a>
@@ -124,14 +145,14 @@ $(".chBox").click(function(){
 
 <c:forEach var="i" begin="${startPage}" end="${endPage}">
 			<li class="page-item"><a class="page-link"
-			 	     href="/projectB/discussion/main.aa?pageNum=${i}">${i}</a>
+			 	     href="/projectB/admin/adminDis.aa?pageNum=${i}">${i}</a>
 			</li>
 
 </c:forEach>
 
 <c:if test="${endPage < pageCount}">
 <li class="page-item">
-		<a class="page-link" href="/projectB/discussion/main.aa?keyword=${keyword}&pageNum=${startPage + 10}" aria-label="Next">
+		<a class="page-link" href="/projectB/admin/adminDis.aa?pageNum=${startPage + 10}" aria-label="Next">
         <span aria-hidden="true">&raquo;</span>
         <span class="sr-only">Next</span>
 		</a>
@@ -147,6 +168,8 @@ $(".chBox").click(function(){
 <script src="/projectB/resource/bootstrap/assets/libs/jquery/dist/jquery.min.js"></script>
 <script src="/projectB/resource/bootstrap/assets/libs/popper.js/dist/umd/popper.min.js"></script>
 <script src="/projectB/resource/bootstrap/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/projectB/resource/bootstrap/js/app.min.js "></script>
+<script src="/projectB/resource/bootstrap/js/app.init-menusidebar.js"></script>
 <script src="/projectB/resource/bootstrap/js/app-style-switcher.js"></script>
 <script src="/projectB/resource/bootstrap/js/feather.min.js"></script>
 <script src="/projectB/resource/bootstrap/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
