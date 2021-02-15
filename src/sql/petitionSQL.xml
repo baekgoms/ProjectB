@@ -27,7 +27,7 @@
 	</insert>
 	 
 	<select id ="getCategory" resultType="String">
-		select categoryName from category order by num desc
+		select categoryName from category order by num asc
 	</select>
 	
 	<select id="getMyNewPetition" resultType="PetitionDTO" parameterType="int">

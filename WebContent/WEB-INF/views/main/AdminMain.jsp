@@ -230,11 +230,16 @@
                                
                                 <ul class="list-style-none mb-0">
                                     <li>
+                                    	<c:if test="${ topDiscussion[0].subject != null }">
                                         <a href="/projectB/question/content.aa" style="color: brown; 
 											display: inline-block; width: 90%; 
 											white-space: nowrap; overflow: hidden; 
 											text-overflow: ellipsis;">
-											"${topDiscussion[0].subject}"</a>
+												"${topDiscussion[0].subject}"</a>
+										</c:if>
+										<c:if test="${ topDiscussion[0].subject == null }">
+											표시할 토론이 없습니다.
+										</c:if>
                                     </li>
                                     <li class="mt-3">
                                         <i class="fas fa-circle text-cyan font-10 mr-2"></i>
@@ -355,13 +360,13 @@
     <script src="/projectB/resource/bootstrap/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
     <script src="/projectB/resource/bootstrap/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js"></script>
     <script src="/projectB/resource/bootstrap/assets/extra-libs/jvector/jquery-jvectormap-world-mill-en.js"></script>
-	 <!--Morris JavaScript -->
+	 <!--Morris JavaScript 
     <script src="/projectB/resource/bootstrap/assets/libs/raphael/raphael.min.js"></script>
     <script src="/projectB/resource/bootstrap/assets/libs/morris.js/morris.min.js"></script>
     <script src="/projectB/resource/bootstrap/assets/extra-libs/knob/jquery.knob.js"></script>
     
         <script src="/projectB/resource/bootstrap/js/pages/morris/morris-data.js"></script>
-    
+    -->
     
     <script>
         $(function () {
