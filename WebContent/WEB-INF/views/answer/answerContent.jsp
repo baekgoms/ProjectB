@@ -149,9 +149,16 @@
 	<div class="buttons" style="margin-top:30px; text-align: center;">
 		<input type="button" class="btn waves-effect waves-light btn-outline-dark" align="center" value="수정하기"
 		onclick="document.location.href='/projectB/answer/answerContentUpdate.aa?petitionNum=${petitionDTO.num}'"></button>
-	                  	
+	    
+	    <c:if test="${petitionerDTO.getState() == 6 }" >             	
 		<input type="button" class="btn waves-effect waves-light btn-outline-dark" align="center" value="목록보기"
 		onclick="document.location.href='/projectB/answer/list.aa?state=${answerList[0].state}'"></button>
+		</c:if>
+		
+		<c:if test="${petitionerDTO.getState() != 6 }" > 
+		<input type="button" class="btn waves-effect waves-light btn-outline-dark" align="center" value="목록보기"
+		onclick="document.location.href='/projectB/answer/completedAnswer.aa'"></button>
+		</c:if>
 	</div>
 	
 	<script>
