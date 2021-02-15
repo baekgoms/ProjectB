@@ -59,10 +59,11 @@ public class AdminMainController {
 		if(topPetition.size() != 0) {
 			int petition = (int)topPetition.get(0).getPetition();
 			System.out.println("petition : "+petition);
-			double petitioPercent = petition / (200000 / 100); 
-			System.out.println("petitioPercent : "+petitioPercent);
-			petitioPercent = Math.round(petitioPercent); 
-			model.addAttribute("petitioPercent", petitioPercent);
+			double petitionPercent = petition / (200000 / 100); 
+			petitionPercent = Math.round(petitionPercent); 
+			//int petitionPercent = (int) petitionPer;
+			System.out.println("petitionPercent : "+petitionPercent);
+			model.addAttribute("petitionPercent", petitionPercent);
 		}	
 		//최다 청원 분야
 		String bestCategory = DAO.getBestCategory();

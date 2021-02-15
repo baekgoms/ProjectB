@@ -142,7 +142,7 @@
                                 
                                 <div class="text-center">
                                     <input data-plugin="knob" data-width="220" data-height="220" data-linecap=round
-                                        data-fgColor="#01caf1" value="${petitioPercent}" data-skin="tron" data-angleOffset="180"
+                                        data-fgColor="#01caf1" value="${petitionPercent}" data-skin="tron" data-angleOffset="180"
                                         data-readOnly=true data-thickness=".2" />
                                 </div>
                                 
@@ -360,13 +360,12 @@
     <script src="/projectB/resource/bootstrap/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
     <script src="/projectB/resource/bootstrap/assets/extra-libs/jvector/jquery-jvectormap-2.0.2.min.js"></script>
     <script src="/projectB/resource/bootstrap/assets/extra-libs/jvector/jquery-jvectormap-world-mill-en.js"></script>
-	 <!--Morris JavaScript 
+	 <!--Morris JavaScript   -->
     <script src="/projectB/resource/bootstrap/assets/libs/raphael/raphael.min.js"></script>
     <script src="/projectB/resource/bootstrap/assets/libs/morris.js/morris.min.js"></script>
     <script src="/projectB/resource/bootstrap/assets/extra-libs/knob/jquery.knob.js"></script>
-    
         <script src="/projectB/resource/bootstrap/js/pages/morris/morris-data.js"></script>
-    -->
+  
     
     <script>
         $(function () {
@@ -378,6 +377,9 @@
 
         	var agree = ${agreePer};
         	var oppo = ${oppoPer};
+        	if(agree == null){ agree=0; };
+        	if(oppo == null){ oppo=0; };
+        	
             // ============================================================== 
             // income
             // ============================================================== 
