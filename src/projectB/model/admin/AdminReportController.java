@@ -44,21 +44,20 @@ public class AdminReportController {
 		map.put("open", open);
 		
 		int petitionCount = dao.selectOne("adminReport.getPetitionCount", map);
-		int discussionCount = dao.selectOne("adminReport.getPetitionCount", map);
-		int discussionCommentCount = dao.selectOne("adminReport.getPetitionCount", map);
+		int discussionCount = dao.selectOne("adminReport.getDiscussionCount", map);
+		int discussionCommentCount = dao.selectOne("adminReport.getDiscussionCommentCount", map);
 		int TotalCount = petitionCount + discussionCount + discussionCommentCount;
+		System.out.println("TotalCount : " + TotalCount);
 				
 		int startRow = (pageNum - 1) * LIST_LENGTH + 1;
 		int endRow = (pageNum) * LIST_LENGTH;
 		
 		int pageTotalCount = TotalCount / LIST_LENGTH;
-		if (TotalCount % LIST_LENGTH > 0)
-			pageTotalCount++;
+		if (TotalCount % LIST_LENGTH > 0) { pageTotalCount++; } 
 		
 		int startPageIndex = (((pageNum - 1) / PAGE_LENGTH) * PAGE_LENGTH) + 1;
 		int endPageIndex = startPageIndex + PAGE_LENGTH - 1;
-		if (endPageIndex > pageTotalCount)
-			endPageIndex = pageTotalCount;
+		if (endPageIndex > pageTotalCount) { endPageIndex = pageTotalCount; }
 		
 		map.put("startRow", startRow);
 		map.put("endRow", endRow);
