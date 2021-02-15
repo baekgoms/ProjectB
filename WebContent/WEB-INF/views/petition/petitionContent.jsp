@@ -53,7 +53,7 @@
 <br>
 <br>
 <br>
-<input type="hidden" id="achive" value="${petitionDTO.petition / 2}" />
+<input type="hidden" id="achive" value="${petitionDTO.petition}" />
 <input type="hidden" id="petitionState" value="${petitionDTO.petitionState}" />
 <input type="hidden" id="endDate" value="<fmt:formatDate value="${petitionDTO.endDate}"
                         pattern = "yyyy-MM-dd" />"/>
@@ -205,7 +205,7 @@ var chart = d3.select("#percentageChart").append("svg") // creating the svg obje
 
 var x = d3.scale.linear() // takes the fixed width and creates the percentage from the data values
   .domain([0, d3.max(data)])
-  .range([0, 200]); 
+  .range([0, 100]); 
 
 chart.selectAll("rect") // this is what actually creates the bars
   .data(data)

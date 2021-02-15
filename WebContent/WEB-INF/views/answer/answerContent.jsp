@@ -92,7 +92,7 @@
 	
 	<div class="petition-body"><h3 style="color:black;">청원 내용</h3>
 		<br/>
-		<pre style="font-size:14px; font-family: Ubuntu Mono">${petitionDTO.content}</pre>
+		<pre style="font-size:14px; font-family: Ubuntu Mono;white-space: pre-wrap;">${petitionDTO.content}</pre>
 		<br/>
 			<c:if test="${petitionDTO.tag != null}">
 				<c:forEach items="${fn:split(petitionDTO.tag, ',') }" var="item">
@@ -115,7 +115,7 @@
 		<div class="answer-reply-content">
 			<h3 style="color:black;">답변원고</h3>
 			<br/>
-			<pre style="font-size:14px; font-family: Ubuntu Mono">${answerList[0].content}</pre>
+			<pre style="font-size:14px; font-family: Ubuntu Mono;white-space: pre-wrap;">${answerList[0].content}</pre>
 			
 		</div>
 	</c:if>
@@ -126,12 +126,12 @@
 	
 				<h5 style="color:black;">답변원고_1</h5>
 				<br/>
-				<pre style="font-size:14px; font-family: Ubuntu Mono">${answerList[0].content}</pre>
+				<pre style="font-size:14px; font-family: Ubuntu Mono;white-space: pre-wrap;">${answerList[0].content}</pre>
 				
 				<br/><br/>
 				<h5 style="color:black;">답변원고_2</h5>
 				<br/>
-				<pre style="font-size:14px; font-family: Ubuntu Mono">${answerList[1].content}</pre>
+				<pre style="font-size:14px; font-family: Ubuntu Mono;white-space: pre-wrap;">${answerList[1].content}</pre>
 				
 				<br/><br/>
 		</div>

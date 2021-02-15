@@ -38,12 +38,10 @@ public class AnswerContentController {
     @Autowired
     private AnswerPetitionerMapService AnswerPetitionerMapService= null;
     
-    @RequestMapping("content.aa")
+    @RequestMapping("answerContent.aa")
     public String login_content(@RequestParam("petitionNum") int petitionNum, Model model,HttpSession session) throws Exception{
 
       PetitionDTO petitionDTO = PetitionContentService.getArticle(petitionNum);
-
-      String petitionState = PetitionContentService.getPetitionState(petitionDTO.getPetitionState());
 
       int categoryNum = petitionDTO.getCategory();
       String categoryName = PetitionContentService.getCategoryName(categoryNum);
@@ -59,7 +57,6 @@ public class AnswerContentController {
       model.addAttribute("answerList",answerList);
       model.addAttribute("categoryName", categoryName);
       model.addAttribute("petitionDTO", petitionDTO);
-      model.addAttribute("petitionState", petitionState);
       model.addAttribute("petitionIndicatorDTO", petitionIndicatorDTO);
       
       return "answer/answerContent";
