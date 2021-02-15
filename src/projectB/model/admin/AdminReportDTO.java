@@ -9,7 +9,7 @@ public class AdminReportDTO implements BaseDTO{
 
 	private int num;
 	private int sort;
-	private String content;
+	private String title;
 	private String writer;
 	private int report;
 	
@@ -18,7 +18,7 @@ public class AdminReportDTO implements BaseDTO{
 		try {
 			setNum(rs.getInt("num"));
 			setSort(rs.getInt("sort"));
-			setContent(rs.getString("content"));
+			setTitle(rs.getString("title"));
 			setWriter(rs.getString("writer"));
 			setReport(rs.getInt("report"));
 		}catch(SQLException e) {
@@ -28,8 +28,8 @@ public class AdminReportDTO implements BaseDTO{
 	
 	public int getNum() {return num;}
 	public void setNum(int num) {this.num = num;}
-	public String getContent() { return content; }
-	public void setContent(String content) { this.content = content; }
+	public String getTitle() { return title; }
+	public void setTitle(String title) { this.title = title; }
 	public String getWriter() { return writer; }
 	public void setWriter(String writer) { this.writer = writer; }
 	public int getReport() { return report; }

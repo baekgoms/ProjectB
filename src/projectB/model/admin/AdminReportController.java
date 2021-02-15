@@ -76,7 +76,7 @@ public class AdminReportController {
 		model.addAttribute("endPageIndex", endPageIndex);			
 		
 		System.out.println("===admin report controller end===");
-		return "wooch/AdminReport";
+		return "adminReport/AdminReport";
 	}
 	
 	@RequestMapping(value = "selectUpdate.aa", method = RequestMethod.POST)

@@ -6,8 +6,8 @@
 
 	<select id ="getTotalList" resultType="adminReportDTO" parameterType="map">
 		select * from 
-			(select num, sort, content, writer, report, rownum r from
-				(select num, 1  as sort, content, writer, report, rownum r from petition 
+			(select num, sort, title, writer, report, rownum r from
+				(select num, 1  as sort, title, writer, report, rownum r from petition 
 					where open = #{open} and report > 0 
 					union
 					select num, 2  as sort, subject, write, report,  rownum r  from discussion 
