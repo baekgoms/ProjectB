@@ -165,15 +165,15 @@ function inputCheck(){
     	<tr>
         	<th scope="col" style="vertical-align:middle; display:inline-block; margin-bottom:2px;" >&nbsp;<input id="allCheck" type="checkbox" name="allCheck" class="form-check-input"/></th>
             <th scope="col">청원번호</th>
-            <th scope="col">카테고리</th>
+            <th scope="col" style="width: 8%">카테고리</th>
             <th scope="col" width="35%">제목</th>
             <th scope="col">작성자</th>
-            <th scope="col">만료일</th>
+            <th scope="col" style="width: 10%">만료일</th>
             <th scope="col">신고수</th>
             <c:if test="${stateList == null }">
-            <th scope="col">청원상태</th>
+            <th scope="col" style="width: 8%">청원상태</th>
             </c:if>
-            <th scope="col">청원동의수</th>
+            <th scope="col">동의수</th>
            	<th scope="col">글상태</th>
         </tr>
         
@@ -203,7 +203,7 @@ function inputCheck(){
                 <c:if test="${stateList == null }">
                 <td>${ state[article.petitionState].state }</td>
                 </c:if>
-                <td>${article.petition}</td>
+                <td><fmt:formatNumber value="${article.petition}" pattern="#,###" /></td>
                 <td>
                 <c:choose>
 	                <c:when test="${article.open == 0}">

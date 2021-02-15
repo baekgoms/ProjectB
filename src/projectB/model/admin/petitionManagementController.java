@@ -138,6 +138,12 @@ public class petitionManagementController {
 				articleList = Collections.emptyList();
 			}
 			number = count - (currentPage - 1) * pageSize;
+			
+			List<CategoryDTO> getCategory = ManageService.getCategoryList();
+			List<petitionStateDTO> getState = ManageService.getStateList();
+			
+			model.addAttribute("state", getState);
+			model.addAttribute("category", getCategory);
 
 			model.addAttribute("currentPage", new Integer(currentPage));
 			model.addAttribute("startRow", new Integer(startRow));
