@@ -57,7 +57,7 @@ public class DiscussionUploadController {
        
        System.out.println("discussion uploadPro run");
        
-       return "discussion/discussionUploadPro";
+       return "redirect:/discussion/main.aa";
    }
 	
 }

@@ -95,7 +95,7 @@
 		                            <div class="card-body">
 		                                <h4 class="card-title">토론주제 </h4>    
 		                                  
-<!-- 			<form>				 --> <form method="post" id="tag-form" name="uploadForm" onsubmit="return checkIt()" action="/projectB/petition/discussionuploadPro.aa" >
+<!-- 			<form>				 --> <form method="post" id="tag-form" name="uploadForm" onsubmit="return checkIt()" action="/projectB/discussion/uploadPro.aa" >
 			                                <div class="form-group">
 	                                            
 	                                            <input type="text" class="form-control"

@@ -119,7 +119,7 @@ ol, li {
 		    		<div class="ans_name">
 						<div class="ans_name_title" style="border-bottom:none;">
 							<h4>청원답변${answer.num}호</h4>
-							<a href="/projectB/answer/answerContent.aa?petitionNum=${answer.petitionNum }">
+							<a href="/projectB/answer/content.aa?petitionNum=${answer.petitionNum }">
 							<h2 style="margin-bottom:15px;" class="TDepTitle">${petitionInfo[status.index].title }</h2></a>
 							<br>
 							<br>
