@@ -41,14 +41,20 @@ public class DiscussionUploadController {
        System.out.println("Write:"+dto.getWrite());
        petitionDAO.insertDiscussion(dto);
        
-       for(String s : dto.getTags()) {
-    	   int result = tagService.checkTag(s);
-			if (result > 0) {
-				tagService.updateTag(s);
-			} else {
-				tagService.insertTag(s);
-    	   }
-       }
+       if (dto.getTags().get(0) != null) {
+			for (String s : dto.getTags()) {
+				int result = tagService.checkTag(s);
+				if (result > 0) {
+					tagService.updateTag(s);
+				} else {
+
+					if (s != null && s != "") {
+						tagService.insertTag(s);
+					}
+				}
+			}
+		}
+       
        System.out.println("discussion uploadPro run");
        
        return "discussion/discussionUploadPro";
