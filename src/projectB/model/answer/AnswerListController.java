@@ -29,7 +29,7 @@ public class AnswerListController {
   private AnswerUploadService AnswerUploadService = null;
   
   @RequestMapping("list.aa")
-  public String AnswerList(@RequestParam(defaultValue="1")int pageNum, @ModelAttribute AnswerDTO paramDTO,
+  public String answer_List(@RequestParam(defaultValue="1")int pageNum, @ModelAttribute AnswerDTO paramDTO,
       HttpServletRequest request, HttpSession session, Model model) throws Exception {
 
       int pageSize = 10;
@@ -43,6 +43,7 @@ public class AnswerListController {
       String sort = request.getParameter("sort"); // 정렬 1:최신, 2:동의
       
       String id = LoginUtils.getLoginID(session);
+      System.out.println("answer ID : " + id);
       PetitionerDTO petitionerDTO = AnswerUploadService.getPetitionerInfo(id);
       String department = petitionerDTO.getDepartment();
       

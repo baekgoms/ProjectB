@@ -32,7 +32,7 @@ public class AnswerMainController {
 	private static int MAX_LENGTH = 10;
 
 	@RequestMapping("answerMain.aa")
-	public String answerMain(@RequestParam(defaultValue = "ALL", required = true) String sort, Model model) {
+	public String answer_main(@RequestParam(defaultValue = "ALL", required = true) String sort, Model model) {
 		System.out.println("answerMain run/" + sort);
 
 		try {

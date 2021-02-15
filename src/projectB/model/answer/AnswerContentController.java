@@ -39,7 +39,7 @@ public class AnswerContentController {
     private AnswerPetitionerMapService AnswerPetitionerMapService= null;
     
     @RequestMapping("content.aa")
-    public String answerContent(@RequestParam("petitionNum") int petitionNum, Model model,HttpSession session) throws Exception{
+    public String login_content(@RequestParam("petitionNum") int petitionNum, Model model,HttpSession session) throws Exception{
 
       PetitionDTO petitionDTO = PetitionContentService.getArticle(petitionNum);
 

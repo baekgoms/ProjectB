@@ -50,7 +50,24 @@ public class AopPetition {
 		return view;
 	}
 	
-	@Around("execution(public * projectB.model.answer..answer(..))")
+	@Around("execution(public * projectB.model..login_*(..))")
+	public Object checklogin_content(ProceedingJoinPoint jp) throws Throwable {
+		
+		RequestAttributes ra = RequestContextHolder.currentRequestAttributes();
+		ServletRequestAttributes sra = (ServletRequestAttributes)ra;
+		
+		HttpServletRequest request = sra.getRequest();
+		HttpSession session = request.getSession();
+		
+		System.out.println("id = " + LoginUtils.getLoginID(session));
+		Object view = "redirect:/login/loginForm.aa";
+		if(LoginUtils.isLogin(session)) {
+			view = jp.proceed();
+		}
+		return view;
+	}
+	
+	@Around("execution(public * projectB.model..answer_*(..))")
 	public Object checklogin_answer(ProceedingJoinPoint jp) throws Throwable {
 		System.out.println("checklogin_answer");
 		
