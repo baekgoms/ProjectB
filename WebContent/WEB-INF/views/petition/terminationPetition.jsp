@@ -39,13 +39,15 @@
 
 	<br />
 	<div align="center">
-		<input type="button" value="				답변된 청원				" class="btn waves-effect waves-light btn-outline-dark"
+		<input type="button" value="		  답변된 청원			" class="btn waves-effect waves-light btn-outline-dark"
 		onclick="document.location.href='/projectB/answer/completedAnswer.aa'" >
-		<input type="button" value="				답변 대기중인 청원				" class="btn waves-effect waves-light btn-outline-dark"
+		<input type="button" value="		  답변 대기중인 청원			  " class="btn waves-effect waves-light btn-outline-dark"
 		onclick="document.location.href='/projectB/petition/standbyPetition.aa'" >
-		<input type="button" value="			기간이 만료된 청원				" class="btn waves-effect waves-light btn-outline-dark"
+		<input type="button" value="	 	기간이 만료된 청원		 " class="btn waves-effect waves-light btn-outline-dark"
 		onclick="document.location.href='/projectB/petition/terminationPetition.aa'" >
-	</div>
+		<input type="button" value="	 	추가답변을 원하는 청원		 " class="btn waves-effect waves-light btn-outline-dark"
+		onclick="document.location.href='/projectB/petition/additionalPetition.aa'" >
+	</div> 
 <br />
 <br />
 

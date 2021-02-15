@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
@@ -16,7 +15,7 @@
     <link href="/projectB/resource/bootstrap/css/style.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/projectB/resource/bootstrap/assets/extra-libs/prism/prism.css">
 
-<title>답변을 기다리는 청원 게시판</title>
+<title>추가답변을 원하는 청원</title>
 <style>
       th {
         text-align: center;
@@ -37,6 +36,7 @@
 		<input type="button" value="							완료된 청원								" class="btn waves-effect waves-light btn-outline-dark"
 		onclick="document.location.href='/projectB/answer/completedAnswer.aa'" >
 	</div>
+
 	<br />
 	<div align="center">
 		<input type="button" value="		  답변된 청원			" class="btn waves-effect waves-light btn-outline-dark"
@@ -48,53 +48,53 @@
 		<input type="button" value="	 	추가답변을 원하는 청원		 " class="btn waves-effect waves-light btn-outline-dark"
 		onclick="document.location.href='/projectB/petition/additionalPetition.aa'" >
 	</div> 
-
-	<br />
-	<br />
+<br />
+<br />
 
 	<div class="table-responsive">
  		<table class="table" style="text-align:center;">
-  			<tr>
-  				 <td colspan ="5" align="left" >답변을 기다리는 청원</td>
-   			</tr>
-   			<tr>
-   				<th scope="col">글번호</th>
-    			<th scope="col">분류</th>
-    			<th scope="col" style="width: 50%" >제목</th>
-    			<th scope="col">청원만료일</th>
-    			<th scope="col">참여인원</th>
-    		</tr>
-
-	  		<c:if test="${count == 0}">
-				<div class="table-responsive">
-	 				<table align ="center">
-	 					<tr>
-	 						<td align ="center">
-	 							답변을 기다리는 청원이 없습니다.
-	 						</td>
-	 					</tr>
-	 				</table>
+	  		<tr>
+	   			<td colspan ="5" align="left" >추가답변을 원하는 청원</td>
+	  		 </tr>
+	   		 <tr>
+		   		<th scope="col">글번호</th>
+		    	<th scope="col">분류</th>
+		    	<th scope="col" style="width: 50%">제목</th>
+		    	<th scope="col">청원만료일</th>
+		    	<th scope="col">참여인원</th>
+	   		 </tr>
+	 
+			<c:if test="${count == 0}">
+				<div class="table-responsive" >
+ 					<table align="center">
+ 						<tr>
+ 							<td align ="center">
+ 								추가답변을 원하는 청원이 없습니다.
+ 							</td>
+ 						</tr>
+ 					</table>
 				</div>
 			</c:if>
-
-			<c:if test="${count > 0}">
-   				 <c:forEach var="article" items="${ articleList }"> 
-    				<tr>
-   						<c:set var="number" value="${ number -1 }"/>
-   							<td scope="row">${article.num}</td>
-        					<td>${ category[article.category].categoryName }</td>
-        					<td>
-        						<a href ="petContent.aa?num=${article.num}&pageNum=${currentPage}">
-        						${article.title}</a>
-        					</td>
-            				<td><fmt:formatDate pattern="yyyy-MM-dd" value="${article.endDate}" /></td>
-            				<td><fmt:formatNumber value="${article.petition}" pattern="#,###" /></td>
-   						</tr>
-    			</c:forEach>
+			<c:if test="${count > 0 }">
+				<c:forEach var="article" items="${ articleList }">
+					<tr>
+						<c:set var="number" value="${number-1}" />
+						<td width=80 scope="row" align="center">${article.num}</td>
+						<td width=100 align="center">
+							${ category[article.category].categoryName }
+						</td>
+						<td width=300 align="center">
+		        			<a href ="petContent.aa?num=${article.num}&pageNum=${currentPage}">${article.title}
+		        			</a>
+		        		</td>
+						<td width=100 align="center"><fmt:formatDate pattern="yyyy-MM-dd" value="${article.endDate}" /></td>
+						<td width=100 align="center"><fmt:formatNumber value="${article.petition}" pattern="#,###" /></td>
+		   			</tr>
+	    		</c:forEach>
    			</c:if>
-  		</table>
+ 		</table>
 	</div>
-                         
+
 
 	<c:if test="${count > 0}">
 		<c:set var="pageCount" value="${count / pageSize +(count % pageSize == 0 ? 0: 1)}" />
@@ -105,25 +105,26 @@
 		<c:if test="${ endPage > pageCount }">
 			<c:set var="endPage" value="${ pageCount }" />
 		</c:if>
-	
+
 		<ul class="pagination justify-content-center">
-	  		 <c:if test="${startPage > 10}">
-				 <li class="page-item">
-	      			<a class="page-link" href="/projectB/petition/standbyPetition?pageNum=${startPage - 10}" aria-label="Previous">
-	     				<span aria-hidden="true">«</span>
-	      				<span class="sr-only">Previous</span>
-	      	  		</a>
-	    		</li>
+			<c:if test="${startPage > 10}">
+	 			<li class="page-item">
+      				<a class="page-link" href="/projectB/petition/terminationPetition.aa?pageNum=${startPage - 10}" aria-label="Previous">
+     					<span aria-hidden="true">«</span>
+      					<span class="sr-only">Previous</span>
+        			</a>
+    			</li>
 			</c:if>
 			<c:forEach var="i" begin="${ startPage }" end="${ endPage }">    
-				<li class="page-item"><a class="page-link" href="/projectB/petition/standbyPetition.aa?pageNum=${i}">${i}</a></li>
+				<li class="page-item"><a class="page-link" href="/projectB/petition/terminationPetition.aa?pageNum=${i}">${i}</a></li>
 			</c:forEach>
+	
 			<c:if test="${endPage < pageCount}">
 				<li class="page-item">
-					<a class="page-link" href="/projectB/petition/standbyPetition.aa?pageNum=${startPage + 10}" aria-label="Next">
-					  	<span aria-hidden="true">»</span>
-					  	<span class="sr-only">Next</span>
-		  			</a>
+					<a class="page-link" href="/projectB/petition/terminationPetition.aa?pageNum=${startPage + 10}" aria-label="Next">
+		  				<span aria-hidden="true">»</span>
+		  				<span class="sr-only">Next</span>
+		 		 	</a>
 				</li>
 			</c:if>
 		</ul>
