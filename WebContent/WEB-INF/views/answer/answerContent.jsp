@@ -92,7 +92,7 @@
 	
 	<div class="petition-body"><h3 style="color:black;">청원 내용</h3>
 		<br/>
-		<pre style="font-size:14px; font-family: Ubuntu Mono">${petitionDTO.content}</pre>
+		<pre style="font-size:14px; font-family: Ubuntu Mono;white-space: pre-wrap;">${petitionDTO.content}</pre>
 		<br/>
 			<c:if test="${petitionDTO.tag != null}">
 				<c:forEach items="${fn:split(petitionDTO.tag, ',') }" var="item">
@@ -115,7 +115,7 @@
 		<div class="answer-reply-content">
 			<h3 style="color:black;">답변원고</h3>
 			<br/>
-			<pre style="font-size:14px; font-family: Ubuntu Mono">${answerList[0].content}</pre>
+			<pre style="font-size:14px; font-family: Ubuntu Mono;white-space: pre-wrap;">${answerList[0].content}</pre>
 			
 		</div>
 	</c:if>
@@ -126,12 +126,12 @@
 	
 				<h5 style="color:black;">답변원고_1</h5>
 				<br/>
-				<pre style="font-size:14px; font-family: Ubuntu Mono">${answerList[0].content}</pre>
+				<pre style="font-size:14px; font-family: Ubuntu Mono;white-space: pre-wrap;">${answerList[0].content}</pre>
 				
 				<br/><br/>
 				<h5 style="color:black;">답변원고_2</h5>
 				<br/>
-				<pre style="font-size:14px; font-family: Ubuntu Mono">${answerList[1].content}</pre>
+				<pre style="font-size:14px; font-family: Ubuntu Mono;white-space: pre-wrap;">${answerList[1].content}</pre>
 				
 				<br/><br/>
 		</div>
@@ -145,14 +145,19 @@
 			</c:if>
 		</div>
 
-	
-	<div class="buttons" style="margin-top:30px; text-align: center;">
-		<input type="button" class="btn waves-effect waves-light btn-outline-dark" align="center" value="수정하기"
+		<c:if test="${petitionerDTO.getState() == 6 }" > 
+		<input type="button" style="margin-top:30px; margin-left:370px;" class="btn waves-effect waves-light btn-outline-dark" align="center" value="수정하기"
 		onclick="document.location.href='/projectB/answer/answerContentUpdate.aa?petitionNum=${petitionDTO.num}'"></button>
-	                  	
-		<input type="button" class="btn waves-effect waves-light btn-outline-dark" align="center" value="목록보기"
+		<input type="button" style="margin-top:30px;" class="btn waves-effect waves-light btn-outline-dark" align="center" value="목록보기"
 		onclick="document.location.href='/projectB/answer/list.aa?state=${answerList[0].state}'"></button>
-	</div>
+	    </c:if>
+	    
+		
+		<c:if test="${petitionerDTO.getState() != 6 }" > 
+		<input type="button" style="margin-top:30px; margin-left:410px;" class="btn waves-effect waves-light btn-outline-dark" align="center" value="목록보기"
+		onclick="document.location.href='/projectB/answer/completedAnswer.aa'"></button>
+		</c:if>
+
 	
 	<script>
 		var isVoted = false; // 참여 여부

@@ -20,8 +20,7 @@
 </head>
 
 <body>  
-memId==${memId}
-petitionerId==${petitionerId}
+
 <form id="agreeForm">
 	<input type="button" VALUE="청원동의" class="btn btn-block btn-primary" onclick="Confirm()">
 		

@@ -228,7 +228,7 @@
 				<when test="age &lt; 40">THIRTIES = THIRTIES + 1	</when>
 				<when test="age &lt; 50">FORTIES = FORTIES + 1	</when>
 				<when test="age &lt; 60">FIFTIES =FIFTIES  + 1	</when>
-				<when test="age &lt; 99">SIXTIES = SIXTIES + 1	</when>
+				<when test="age &lt; 150">SIXTIES = SIXTIES + 1	</when>
 			</choose>
 		</set>
 		where num = #{ petitionNum }
@@ -258,6 +258,7 @@
 			answer (num,petitionNum,state,category)
 			values (answerNum_seq.nextval,#{petitionNum},#{petitionState},#{category}) 
 	</insert> 
+	
 	
 	
 	

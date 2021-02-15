@@ -53,7 +53,7 @@
 <br>
 <br>
 <br>
-<input type="hidden" id="achive" value="${petitionDTO.petition / 2}" />
+<input type="hidden" id="achive" value="${petitionDTO.petition}" />
 <input type="hidden" id="petitionState" value="${petitionDTO.petitionState}" />
 <input type="hidden" id="endDate" value="<fmt:formatDate value="${petitionDTO.endDate}"
                         pattern = "yyyy-MM-dd" />"/>
