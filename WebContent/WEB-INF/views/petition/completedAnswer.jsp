@@ -138,7 +138,7 @@ ol, li {
 				    		<li class="ans_name_info_list3">
 					    		<img src="/projectB/resource/bootstrap/assets/images/big/ans_icon3.png" alt="참여인원 아이콘">
 					    		<p class="ans_list3_1">참여인원</p>
-					    		<p class="ans_list3_2">[ ${petitionInfo[status.index].petition } ]</p>
+					    		<p class="ans_list3_2">[ <fmt:formatNumber value="${petitionInfo[status.index].petition }" pattern="#,###" /> ]</p>
 				    		</li>
 				    		<li class="ans_name_info_list4">
 					    		<img src="/projectB/resource/bootstrap/assets/images/big/ans_icon4.png" alt="답변일 아이콘">

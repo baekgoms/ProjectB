@@ -86,7 +86,7 @@
         						${article.title}</a>
         					</td>
             				<td><fmt:formatDate pattern="yyyy-MM-dd" value="${article.endDate}" /></td>
-            				<td>${article.petition}</td>
+            				<td><fmt:formatNumber value="${article.petition}" pattern="#,###" /></td>
    						</tr>
     			</c:forEach>
    			</c:if>

@@ -18,6 +18,7 @@
       .jb-600 {
         font-weight: 600;
       }
+
  
 </style>
 </head>
@@ -50,8 +51,30 @@
 		
 	</table>
 	</div>
+	
 <div align="center">
 	<table style="text-align: center;">
+		<tr>
+			<td width="1500" colspan="2"><br>
+				<div class="table-responsive">
+                	<table class="table" style="text-align: center;">
+                	<h3><font color="#295f9e">청와대의 직접 소통</font>은</h3><br>
+					<h2><font color="#112057">'국민이 물으면 정부가 답한다'</font>는 철학을 지향합니다.</h2>
+					<br>
+					<br>
+					<br>
+					<h5>국정 현안 관련, 국민들 다수의 목소리가 모여<br>
+					30일 동안 100명 이상 추천 청원에 대해서는<br>
+					<font color="#295f9e">정부 및 청와대 책임자(각 부처 및 기관의 장, 대통령 수석·비서관, 보좌관 등)가</font> 답하겠습니다.</h5>
+					<br>
+					<button type="button" class="btn waves-effect waves-light btn-outline-dark"
+					onClick="document.location.href='/projectB/petition/upload.aa'">지금 청원하러 가기</button>
+           
+					</table>
+				</div>
+			</td>
+		</tr>
+	
 		<tr>
 			<td width="750"><br>
 				<div class="table-responsive">
@@ -93,7 +116,7 @@
 		                            	<a href ="/projectB/petition/petContent.aa?num=${petition.num}">${petition.title}</a>
 		                            </td>
 		                            <td>
-		                            	<font color="red">${petition.petition}</font>
+		                            	<font color="red"><fmt:formatNumber value="${petition.petition}" pattern="#,###" /></font>
 		                            </td>
 		                        </tr>
 	                        </c:forEach>
@@ -111,6 +134,7 @@
                         </tr>
                         <tr>
                            	<th scope="col">제목</th>
+	                        <th scope="col">동의수</th>
                         </tr>
                         <c:if test="${ count > 0 }">
 							<c:forEach var="article" items="${articleList}" begin="0" end="5" step="1" varStatus="status">
@@ -118,6 +142,9 @@
                                 	<td>
 	                                	<a href ="/projectB/petition/petContent.aa?num=${article.num}">${article.title}</a><br>
 									</td>
+									<td>
+		                            	<font color="red"><fmt:formatNumber value="${article.petition}" pattern="#,###" /></font>
+		                            </td>
 								</tr>
 							</c:forEach>
 						</c:if>
@@ -130,7 +157,7 @@
 	                    	<tr>
 	                           <th scope="col"><h3 class="jb-600">가장 많이 사용된 태그</h3></th>
 	                        </tr>
-	                       	<c:forEach var="tag" items="${tagList}">
+	                       	<c:forEach var="tag" items="${tagList}" begin="0" end="5" step="1" varStatus="status">
 	                        <tr>
 	                             <td> ${tag.name} </td>
 							</tr>
