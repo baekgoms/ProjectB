@@ -1,6 +1,8 @@
 package projectB.model.adminDiscussionService;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +18,10 @@ public class AdminDiscussionServiceImpl implements AdminDiscussionService{
     
 	@Override
 	public List<DiscussionDTO> getAllArticles(int start, int end) throws Exception {
-		
-		List<DiscussionDTO> list = dao.selectList("disBoard.getArticles");
+		Map<String, Integer> map = new HashMap<>();
+		map.put("start", start);
+		map.put("end", end);
+		List<DiscussionDTO> list = dao.selectList("disBoard.getArticles", map);
 		return list;
 	}
 
