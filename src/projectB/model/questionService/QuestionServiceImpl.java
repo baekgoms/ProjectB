@@ -92,4 +92,12 @@ public class QuestionServiceImpl implements QuestionService{
 		return comment;
 	}
 
+	@Override
+	public boolean adminCheck(String id) throws Exception {
+		int state = dao.selectOne("petitioner.getPetitionerState", id);
+		boolean admin = false;
+		if (state == 7) { admin = true; }
+		return admin;
+	}
+
 }

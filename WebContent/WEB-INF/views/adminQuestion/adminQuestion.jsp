@@ -40,11 +40,6 @@ a:visited {
 	function selectOption(obj) {
 		window.location.href = "question.aa?sort=" + obj.value;
 	}
-	
-	function openNewWindow(url) { 
-		open(url,"Mail","toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, width=1000, height=875");
-	}
-	
 </script>
 </head>
 <body>
@@ -91,7 +86,7 @@ a:visited {
 								</c:if>
 						 	</td>
 						 	<td>
-								<a href="javascript:openNewWindow('/projectB/question/content.aa?num=${question.num}')">
+								<a href="/projectB/question/content.aa?num=${question.num}">
 									${ question.title }
 								</a>
 							</td>

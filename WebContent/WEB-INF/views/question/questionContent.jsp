@@ -110,7 +110,12 @@
                                 <!--  <h4 class="card-title">Zero Configuration</h4>-->
                                 <div class="table-responsive">
                                     <table id="zero_config" class="table table-striped table-bordered no-wrap">
+                                   	  <c:if test="${ admin == 1 }">
+                                        <input class="btn btn-dark" type="button" value="목록" onclick="document.location.href='/projectB/admin/question.aa'" />
+                                      </c:if>
+                                      <c:if test="${ admin == 0 }">
                                         <input class="btn btn-dark" type="button" value="목록" onclick="document.location.href='/projectB/question/board.aa'" />
+                                      </c:if>
                                     	<c:if test="${same == 1}">
                                    			&nbsp;<input class="btn btn-dark" type="button" value="삭제" onclick="document.location.href='/projectB/question/delete.aa?num=${num}'"/>
 								        </c:if>

@@ -27,8 +27,8 @@
 		select * from petitioner where num = #{ value }
 	</select>
 	
-	<select id = "getPetitionerState" resultType="petitionerDTO" parameterType="int">
-		select state from petitioner where writer = #{ writer }
+	<select id = "getPetitionerState" resultType="int" parameterType="String">
+		select state from petitioner where id = #{ id }
 	</select>
 	
 	<update id="updatePetitionerState" parameterType="petitionerDTO">

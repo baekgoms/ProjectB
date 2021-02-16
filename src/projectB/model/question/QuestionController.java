@@ -76,8 +76,10 @@ public class QuestionController {
 		System.out.println("===question content start===");
 		
 		String writer = LoginUtils.getLoginID(session);
+		String id = LoginUtils.getLoginID(session);
 		System.out.println("writer : " + writer);
 		int same = 0;
+		int admin = 0;
         List<QuestionDTO> articleList = null;
         List<QuestionCommentDTO> comment = null;
         List category = null;
@@ -88,14 +90,16 @@ public class QuestionController {
         
         articleList = questionDAO.getOneInfo(num);
         System.out.println("getWriter : " + articleList.get(0).getWriter());
-        if(writer.equals(articleList.get(0).getWriter()) || writer.contains("admin")) {
+        if(writer.equals(articleList.get(0).getWriter()) || questionDAO.adminCheck(id)) {
         	System.out.println("same writer.");
         	same = 1;
+        	if(questionDAO.adminCheck(id)) { admin = 1; }
         }
 
         comment = questionDAO.getComments(num);
         model.addAttribute("num", num);
         model.addAttribute("same", same);
+        model.addAttribute("admin", admin);
         model.addAttribute("articleList", articleList);
         model.addAttribute("comment", comment);
         System.out.println("===question content finish===");

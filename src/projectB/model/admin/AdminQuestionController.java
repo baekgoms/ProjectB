@@ -2,12 +2,15 @@ package projectB.model.admin;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import projectB.model.login.LoginUtils;
 import projectB.model.question.QuestionDTO;
 import projectB.model.questionService.QuestionService;
 
@@ -25,7 +28,6 @@ public class AdminQuestionController {
 			@RequestParam(defaultValue="0", required = true)int sort,
 			Model model) {
 		try {
-			
 			
 			int questionTotalCount = questionDAO.questionCount(sort);
 			int startRow = (pageNum - 1) * QUESTION_LENGTH + 1;
