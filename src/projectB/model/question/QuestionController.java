@@ -95,7 +95,7 @@ public class QuestionController {
         	same = 1;
         	if(questionDAO.adminCheck(id)) { admin = 1; }
         }
-
+      
         comment = questionDAO.getComments(num);
         model.addAttribute("num", num);
         model.addAttribute("same", same);
