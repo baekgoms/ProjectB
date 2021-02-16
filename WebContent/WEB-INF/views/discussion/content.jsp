@@ -1,3 +1,4 @@
+<%@page import="projectB.model.login.LoginUtils"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -358,7 +359,15 @@ $(document).ready(function(){
 </head>
 
 <body onload="SetPosition()">
-	<jsp:include page="/WEB-INF/views/topbar/top.jsp" />
+<%
+	String url = "/WEB-INF/views/topbar/top.jsp";
+	if(LoginUtils.isAdmin(session)) {
+		url = "/WEB-INF/views/topbar/admintopbar.jsp";
+	} else if (LoginUtils.isAnswer(session)) {
+		url = "/WEB-INF/views/topbar/anwerTopbar.jsp";
+	}
+%>
+	<jsp:include page="<%= url %>" />
 	<br><br>
 	
 	<div class="layer">
