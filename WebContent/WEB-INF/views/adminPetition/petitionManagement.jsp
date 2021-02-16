@@ -129,10 +129,10 @@ function inputCheck(){
 						<td>
 									<input type="checkbox" id="r1" name="stateList" value="1" />
 										<label for="r1">청원시작</label>
-									<input type="checkbox" id="r2" name="stateList" value="2" />
+									<input type="checkbox" id="r2" name="stateList" value="2" checked="checked"/>
 										<label for="r2">청원진행중</label>
 									<input type="checkbox" id="r3" name="stateList" value="3" />
-										<label for="r3">청원진행중</label>
+										<label for="r3">청원 기간 만료</label>
 							</td>
 						</tr>
 						<tr>
