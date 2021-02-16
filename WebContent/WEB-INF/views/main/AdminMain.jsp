@@ -150,7 +150,7 @@
                                 
                                 <ul class="list-style-none mb-0">
                                     <li>
-                                        <a href="/projectB/question/content.aa" style="color: brown; 
+                                        <a href="/projectB/petition /petContent.aa?num=${topPetition[0].num}" style="color: brown; 
 											display: inline-block; width: 90%; 
 											white-space: nowrap; overflow: hidden; 
 											text-overflow: ellipsis;">
@@ -231,7 +231,7 @@
                                 <ul class="list-style-none mb-0">
                                     <li>
                                     	<c:if test="${ topDiscussion[0].subject != null }">
-                                        <a href="/projectB/question/content.aa" style="color: brown; 
+                                        <a href="/projectB/discussion/content.aa?discussionNum=${topDiscussion[0].num}" style="color: brown; 
 											display: inline-block; width: 90%; 
 											white-space: nowrap; overflow: hidden; 
 											text-overflow: ellipsis;">
@@ -297,7 +297,7 @@
                                 <div id="morris-donut-chart"></div>
                                 <ul class="list-style-none mb-0">
                                     <li>
-                                        <a href="/projectB/question/content.aa" style="color: brown; 
+                                        <a href="/projectB/answer/answerContent.aa?petitionNum=${topAnswer[0].petitionNum}" style="color: brown; 
 											display: inline-block; width: 90%; 
 											white-space: nowrap; overflow: hidden; 
 											text-overflow: ellipsis;">
