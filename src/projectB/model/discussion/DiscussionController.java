@@ -91,7 +91,7 @@ public class DiscussionController {
         // 오늘을 기준으로 한 주씩 전의 일요일 날짜 구하기 (총 5주전까지)
         for(int i = 0; i < 5;i++) {
         	if(week == 1) {
-        		lastweek = disBoardDAO.getPreWeek(todayDate);
+        		lastweek = disBoardDAO.getPreWeek(lastweek);
                 sunday = disBoardDAO.getSunday(lastweek);
                 week = lastweek.get("week");
                 month = lastweek.get("month");  
@@ -159,6 +159,10 @@ public class DiscussionController {
         	weekArticleCList.add(i, list2);
         }
         }
+        System.out.println("weekList"+weekList);
+        System.out.println("nextSundayList"+nextSundayList);
+        System.out.println("sundayList"+sundayList);
+        
         model.addAttribute("listSize", new Integer(listSize));
         model.addAttribute("articleList", articleList);
         model.addAttribute("articleCList", articleCList);

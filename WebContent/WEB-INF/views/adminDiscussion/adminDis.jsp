@@ -76,6 +76,7 @@ function deleteValue(){
 		  </tr>
 </table>
 </c:if>
+<center>
 <c:if test="${count > 0}">
 	<table class="table">
 	<tr align="right"><td>
@@ -129,7 +130,7 @@ function deleteValue(){
 <div class="col-12">
 <br><hr><br>
 </div>
-                            
+     
 <div class="col-lg-4 mb-4">
 <nav aria-label="Page navigation example">
 <ul class="pagination justify-content-center">
