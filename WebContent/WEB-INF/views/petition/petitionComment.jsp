@@ -131,7 +131,7 @@
 					// 완료
 					alert("투표에 이미 참여하였습니다.");
 				} else {
-					alert("DB 처리에 실패하였습니다.");
+					alert("로그인이 필요한 서비스 입니다.");
 				}
 			},
 			error : function (request,status,error) {
