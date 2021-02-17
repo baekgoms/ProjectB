@@ -122,6 +122,7 @@
 				
 			},
 			success : function (data) {
+				
 				if (data == 1) {
 					// 성공
 					alert("동의가 완료되었습니다.");
@@ -132,6 +133,7 @@
 					alert("투표에 이미 참여하였습니다.");
 				} else {
 					alert("로그인이 필요한 서비스 입니다.");
+					parent.window.location = "/projectB/login/loginForm.aa";
 				}
 			},
 			error : function (request,status,error) {
