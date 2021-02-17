@@ -248,7 +248,7 @@ function dateDiff(_date1, _date2) {
     diffDate_1 =new Date(diffDate_1.getFullYear(), diffDate_1.getMonth()+1, diffDate_1.getDate());
     diffDate_2 =new Date(diffDate_2.getFullYear(), diffDate_2.getMonth()+1, diffDate_2.getDate());
  
-    var diff = Math.abs(diffDate_2.getTime() - diffDate_1.getTime());
+    var diff = Math.abs(diffDate_2.getTime() - diffDate_1.getTime() + 3*1000 * 3600 * 24);
     diff = Math.ceil(diff / (1000 * 3600 * 24));
  
     return diff;
@@ -261,10 +261,6 @@ $(document).ready(function () {
 	var endDate = $('#endDate').val();
     var today = new Date();
 
-    console.log(endDate);
-    console.log(today);
-    console.log(dateDiff(endDate, today));
-    
     var dateDiffCnt = dateDiff(endDate, today);
     if (dateDiffCnt > 0) {
     	$('#dDay').text(" D-" + dateDiffCnt);

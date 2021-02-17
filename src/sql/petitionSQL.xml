@@ -13,7 +13,7 @@
 	<insert id ="insertArticle" parameterType="petitionDTO">
 		insert into petition(
 		num,title,content,category,startDate,endDate,writer,link,tag) 
-		values(petition_seq.nextval, #{title}, #{content}, #{category}, sysdate, sysdate+(interval '27' day), 
+		values(petition_seq.nextval, #{title}, #{content}, #{category}, sysdate, sysdate+(interval '30' day), 
 		#{writer},#{link},#{tag})
 		
  
