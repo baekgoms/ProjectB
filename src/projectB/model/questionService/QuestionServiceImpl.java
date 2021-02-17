@@ -100,4 +100,9 @@ public class QuestionServiceImpl implements QuestionService{
 		return admin;
 	}
 
+	@Override
+	public void updateReply(int num) throws Exception {
+		dao.selectList("question.updateReply", num);
+	}
+
 }

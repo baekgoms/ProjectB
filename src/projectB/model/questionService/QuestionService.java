@@ -20,4 +20,6 @@ public interface QuestionService {
 	public void insertComment(QuestionCommentDTO dto) throws Exception;
 	public List<QuestionCommentDTO> getComments( int num) throws Exception;
 	public boolean adminCheck (String id) throws Exception;
+	public void updateReply(int num) throws Exception;
+	
 }

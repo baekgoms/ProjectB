@@ -123,6 +123,10 @@ public class QuestionController {
 		dto.setContent(content);
 		dto.setWriter((String)session.getAttribute("memId"));
 		questionDAO.insertComment(dto);
+		
+		if (LoginUtils.isAdmin(session)) {
+			questionDAO.updateReply(num);
+		}
        
 		return content(model, num, session);
 	}

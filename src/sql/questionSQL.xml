@@ -68,5 +68,9 @@
 		where num = #{num} order by reg asc
 	</select>
 	
+	<update id ="updateReply" parameterType="int" >
+		UPDATE question SET reply = 1 WHERE num = #{num}
+	</update>
+	
 </mapper>
 
