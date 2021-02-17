@@ -64,7 +64,12 @@
 			<br/>
 			<span style="color:black;font-weight:bold">${petitionDTO.title}</span>
 		</div>
-			<span class="petition-dday" style="visibility: hidden;" id="dDay" ></span>
+				<c:if test = "${petitionDTO.petitionState == 1 }">
+					<span class="petition-dday" style="visibility: hidden;" id="dDay"></span>
+				</c:if>
+				<c:if test = "${petitionDTO.petitionState == 2 }">
+					<span class="petition-dday" style="visibility: hidden;" id="dDay"></span>
+				</c:if>
 	</div>
 	<div class="petition-header">
 		<br/>
@@ -233,6 +238,7 @@ function copyToClipboard(element) {
 	$temp.remove();
 	alert("URL이 복사 되었습니다.");
 }
+
 //두개의 날짜를 비교하여 차이를 알려준다.
 function dateDiff(_date1, _date2) {
 	
@@ -252,16 +258,19 @@ $(document).ready(function () {
 	$('#copy_url').attr('href', document.location.href);
 	$('#copy_url').text(document.location.href);
     
-    var endDate = $('#endDate').val();
+	var endDate = $('#endDate').val();
     var today = new Date();
 
+    console.log(endDate);
+    console.log(today);
     console.log(dateDiff(endDate, today));
+    
     var dateDiffCnt = dateDiff(endDate, today);
     if (dateDiffCnt > 0) {
     	$('#dDay').text(" D-" + dateDiffCnt);
     	$('#dDay').css("visibility", 'visible');
     }
-	
+    
     var manCount = $('#manCount').val();
     var womanCount = $('#womanCount').val();
     var teens = $('#teens').val();
