@@ -164,7 +164,7 @@
                                     <li class="mt-3">
                                         <i class="fas fa-circle text-cyan font-10 mr-2"></i>
                                         <span class="text-muted">청원 동의 수</span>
-                                        <span class="text-dark float-right font-weight-medium">${topPetition[0].petition}</span>
+                                        <span class="text-dark float-right font-weight-medium"><fmt:formatNumber value="${topPetition[0].petition}" pattern="#,###" /></span>
                                     </li>
                                 </ul>
                             </div>
@@ -244,12 +244,12 @@
                                     <li class="mt-3">
                                         <i class="fas fa-circle text-cyan font-10 mr-2"></i>
                                         <span class="text-muted">찬성 수</span>
-                                        <span class="text-dark float-right font-weight-medium">${topDiscussion[0].agreement}</span>
+                                        <span class="text-dark float-right font-weight-medium"><fmt:formatNumber value="${topDiscussion[0].agreement}" pattern="#,###" /></span>
                                     </li>
                                     <li class="mt-3">
                                         <i class="fas fa-circle text-danger font-10 mr-2"></i>
                                         <span class="text-muted">반대 수 </span>
-                                        <span class="text-dark float-right font-weight-medium">${topDiscussion[0].opposition}</span>
+                                        <span class="text-dark float-right font-weight-medium"><fmt:formatNumber value="${topDiscussion[0].opposition}" pattern="#,###" /></span>
                                     </li>
                                 </ul>
                             </div>

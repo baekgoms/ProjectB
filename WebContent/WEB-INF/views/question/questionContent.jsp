@@ -139,9 +139,9 @@
                                 <c:forEach items="${comment}" var="article">
                                  <tr>
 	                               <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	                               	   ${article.writer}&nbsp;|&nbsp;</td>
+	                               	   ${article.writer}&nbsp;:&nbsp;</td>
 	                               <td>${article.content}&nbsp;|&nbsp;</td>
-	                               <td>${article.reg}</td><br>
+	                               <td><fmt:formatDate value="${article.reg}" pattern = "yyyy-MM-dd" /></td><br>
 	                             </tr>   
 	                            </c:forEach>
                                 
