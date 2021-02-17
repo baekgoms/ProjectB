@@ -41,9 +41,9 @@
    	<table cellspacing="0" cellpadding="0" align="center" width="900" border=1>
    	
       	<tr height="40">
-      		<td align="center" width="200" style="background-color:#D8D8D8;color:#000000" >카테고리</td>
-        	<td align="center"  colspan="4" width="800" style="background-color:#D8D8D8;color:#000000">청원제목</td>
-        	<td align="center" width="200" style="background-color:#D8D8D8;color:#000000">참여인원 </td>
+      		<td align="center" width="200" style="background-color:#E1E1E1;color:#7C8798" >카테고리</td>
+        	<td align="center"  colspan="4" width="800" style="background-color:#E1E1E1;color:#7C8798">청원제목</td>
+        	<td align="center" width="200" style="background-color:#E1E1E1;color:#7C8798">참여인원 </td>
 		</tr>
       	<tr height="70">
       		<td align="center" width="200">${categoryName}</td>
@@ -53,12 +53,12 @@
  
  
  		<tr height="40">
-        	<td align="center" width="200" style="background-color:#BDBDBD;color:#fff">청원상태</td>
-        	<td align="center" width="200" style="background-color:#BDBDBD;color:#fff">청원시작</td>
-        	<td align="center" width="200" style="background-color:#BDBDBD;color:#fff">청원마감</td>
-			<td align="center" width="200" style="background-color:#BDBDBD;color:#fff">청원인</td>
-			<td align="center" width="200" style="background-color:#BDBDBD;color:#fff">신고수</td>
-			<td align="center" width="200" style="background-color:#BDBDBD;color:#fff">공개여부</td>
+        	<td align="center" width="200" style="background-color:#E1E1E1;color:#7C8798">청원상태</td>
+        	<td align="center" width="200" style="background-color:#E1E1E1;color:#7C8798">청원시작</td>
+        	<td align="center" width="200" style="background-color:#E1E1E1;color:#7C8798">청원마감</td>
+			<td align="center" width="200" style="background-color:#E1E1E1;color:#7C8798">청원인</td>
+			<td align="center" width="200" style="background-color:#E1E1E1;color:#7C8798">신고수</td>
+			<td align="center" width="200" style="background-color:#E1E1E1;color:#7C8798">공개여부</td>
     	</tr>
     	<tr height="70">
         	<td align="center" width="200">${petitionState}</td>
@@ -79,14 +79,14 @@
 		
 
 		<tr height="40">
-        	<td align="center" colspan="6" width="1200" style="background-color:#BDBDBD;color:#000000">내용 </td>
+        	<td align="center" colspan="6" width="1200" style="background-color:#E1E1E1;color:#7C8798">내용 </td>
         </tr>
         <tr>
          	<td align="left" colspan="6" width="1200"><br/>
          	<pre style="font-family: Ubuntu Mono">${petitionDTO.content}</pre><br/></td>
       	</tr>
       	<tr height="40">
-        	<td align="center" width="200" style="background-color:#5f76e8;color:#fff"> 태그 </td>
+        	<td align="center" width="200" style="background-color:#E1E1E1;color:#7C8798"> 태그 </td>
          	<td width="1000" align="left" width="600" colspan="5">
             	<c:forEach items="${fn:split(petitionDTO.tag, ',') }" var="item">
                		<a href="/projectB/petition/tag?tag=${item}" 
@@ -96,7 +96,7 @@
       	</tr>
   
       	<tr height="40">
-        	<td align="center" width="200" style="background-color:#5f76e8;color:#fff">관련 링크</td>
+        	<td align="center" width="200" style="background-color:#E1E1E1;color:#7C8798">관련 링크</td>
         	<td width="1000" align="left" width="600" colspan="5" >
             	<c:forEach items="${fn:split(petitionDTO.link, ',') }" var="item">
                		<a href="${item}" target="_blank">${item}</a>
