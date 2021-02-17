@@ -13,7 +13,9 @@
 	<insert id ="insertArticle" parameterType="petitionDTO">
 		insert into petition(
 		num,title,content,category,startDate,endDate,writer,link,tag) 
-		values(petition_seq.nextval, #{title}, #{content}, #{category}, sysdate, sysdate+(interval '30' day), #{writer},#{link},#{tag})
+		values(petition_seq.nextval, #{title}, #{content}, #{category}, sysdate, sysdate+(interval '27' day), 
+		#{writer},#{link},#{tag})
+		
  
 		<selectKey resultType="integer" keyProperty="num" order="AFTER">
 		    SELECT petition_seq.currval FROM DUAL
