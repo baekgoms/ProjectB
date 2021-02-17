@@ -99,7 +99,7 @@ a:visited {
 								</c:if>								
 							</td>
 							<td>${ question.writer }</td>
-							<td>${ question.reg }</td>							
+							<td><fmt:formatDate value="${ question.reg }" pattern = "yyyy-MM-dd hh:mm" /></td>							
 						</tr>
 					 </c:forEach>
 				</tbody>				
