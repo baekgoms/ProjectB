@@ -65,6 +65,13 @@ a:visited {
 						</td>
 					</tr>
 					
+					<c:if test="${ dto.state == 6 }">
+						<tr>
+							<td>부서</td>
+							<td>${ dto.department }</td>
+						</tr>
+					</c:if>
+					
 					<tr>
 						<td>이름</td>
 						<td>${ dto.name }</td>
@@ -114,6 +121,10 @@ a:visited {
 							<c:if test="${ dto.state == 4 }">
 								블랙리스트
 							</c:if>					
+							
+							<c:if test="${ dto.state == 6 }">
+								답변자
+							</c:if>
 						</td>
 					</tr>
 					

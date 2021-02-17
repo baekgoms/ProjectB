@@ -69,6 +69,11 @@ a:visited {
 	  var url = "/projectB/admin/signUp.aa";
       open(url,"Mail","toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, width=1000, height=600");
    }
+   
+   function openDetail(number) {
+		  var url = "/projectB/admin/memberDetail.aa?num=" + number;
+	      open(url,"Mail","toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no");
+	   }
 </script>
 </head>
 <body>
@@ -138,9 +143,9 @@ a:visited {
                      </div>
                      </th>
                      <td>
-                        <a href="javascript:openNewWindow('/projectB/admin/memberDetail.aa?num=${ petitioner.num }')"> 
-                           ${ petitioner.id }
-                        </a>
+                     	<a href="" onclick="openDetail('${ petitioner.num }')"> 
+							${ petitioner.id }
+						</a>
                      </td>
                      <td>${ petitioner.name }</td>
                      <%-- <td>${ petitioner.gender }</td> --%>
