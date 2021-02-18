@@ -40,10 +40,10 @@ ${report.writer}
 <br />
 <tr>
 <td >
-	내용		:	
+	제목		:	
 </td>
 <td>
-${report.content}
+${report.title}
 </td>
 </tr>
 <br/>

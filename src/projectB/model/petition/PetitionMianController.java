@@ -35,7 +35,7 @@ public class PetitionMianController {
 			String id = LoginUtils.getLoginID(session);
 		
 		 	int count = 0;
-	        int state= 3;
+	        int state= 2;
 	        
 	        
 	        List<PetitionDTO> articleList = null;
@@ -45,9 +45,6 @@ public class PetitionMianController {
 	        } else {
 	            articleList = Collections.emptyList();
 	        }
-//	        System.out.println(count + "//count");
-//	        System.out.println(state + "//state");
-//	        System.out.println(id + "//id");
 	        
 	        List<PetitionDTO> enddateList = MainDAO.getArtilclebyEnddate();
 	        List<PetitionDTO> petitionList = MainDAO.getArtilclebyPetition();
