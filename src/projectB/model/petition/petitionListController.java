@@ -228,40 +228,6 @@ public class petitionListController {
 		return "petition/standbyPetition";
 	}
 	
-	@RequestMapping("additionalPetition.aa")
-	public String additionalPetition(@RequestParam(defaultValue = "1") int pageNum, Model model) throws Exception {
-
-		int pageSize = 10;
-		int currentPage = pageNum;
-		int startRow = (currentPage - 1) * pageSize + 1;
-		int endRow = currentPage * pageSize;
-		int count = 0;
-		int number = 0;
-		int state = 6;
-
-		List<PetitionDTO> articleList = null;
-		count = petitionDAO.getArticleCountbyState(state);
-		if (count > 0) {
-			articleList = petitionDAO.getArtilclebyState(state, startRow, endRow);
-		} else {
-			articleList = Collections.emptyList();
-		}
-		number = count - (currentPage - 1) * pageSize;
-		
-		List<CategoryDTO> getCategory = petitionDAO.getCategoryList();
-		model.addAttribute("category", getCategory);
-
-		model.addAttribute("currentPage", new Integer(currentPage));
-		model.addAttribute("startRow", new Integer(startRow));
-		model.addAttribute("endRow", new Integer(endRow));
-		model.addAttribute("count", new Integer(count));
-		model.addAttribute("pageSize", new Integer(pageSize));
-		model.addAttribute("number", new Integer(number));
-		model.addAttribute("articleList", articleList);
-
-
-		return "petition/additionalPetition";
-	}
 
 	// 신고하기
 	@RequestMapping("declareArticle.aa")

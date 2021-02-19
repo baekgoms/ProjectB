@@ -66,4 +66,48 @@ public class CompletedAnswerListController {
 	     
 	        return "petition/completedAnswer";
 	    }
+	 
+	 @RequestMapping("additionalPetition.aa")
+	    public String additionalPetition(@RequestParam(defaultValue = "1") int pageNum, Model model) throws Exception {
+
+	   int pageSize = 6;
+       int currentPage = pageNum;
+       int startRow = (currentPage -1) * pageSize +1;
+       int endRow = currentPage * pageSize;
+       int count = 0;
+       int number = 0;
+       int state = 7;
+       
+       List<PetitionDTO> petitionInfo = new ArrayList<>();
+       List<AnswerDTO> article = null;
+       count = completedAnswerService.completedAnswerCount(state);
+       
+       if(count > 0) {
+           article = completedAnswerService.getAnswerListbyState (state, startRow, endRow);
+           
+           for(int i=0; i <article.size(); i++) {
+               PetitionDTO Info = completedAnswerService.getInfobyNum(article.get(i).getPetitionNum());
+               petitionInfo.add(Info);
+              
+           }
+           
+       } else {
+         article = Collections.emptyList();
+       }
+       number = count - (currentPage-1)*pageSize;
+       
+       
+       model.addAttribute("currentPage", new Integer(currentPage));
+       model.addAttribute("startRow", new Integer(startRow));
+       model.addAttribute("endRow", new Integer(endRow));
+       model.addAttribute("count", new Integer(count));
+       model.addAttribute("pageSize", new Integer(pageSize));
+       model.addAttribute("number", new Integer(number));
+       model.addAttribute("pageNum", new Integer(pageNum));
+       model.addAttribute("article", article);
+       model.addAttribute("petitionInfo",petitionInfo);
+       
+
+	   return "petition/additionalPetition";
+	    }
 }
