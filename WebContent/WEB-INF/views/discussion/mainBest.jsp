@@ -147,7 +147,7 @@ function inputCheck(){
 			<tr align="center">
 			<td><c:out value="${number}"/>
 				<c:set var="number" value="${number + 1}"/></td>
-			<td width="500"><a href="/projectB/discussion/content.aa?num=${article.num}">${article.subject}</a></td>
+			<td width="500"><a href="/projectB/discussion/content.aa?pageNum=1&discussionNum=${article.num}">${article.subject}</a></td>
 			<td>${article.write}</td>
 			<td>${article.agreement} / ${article.opposition}</td>
 			<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${article.reg}" /></td>
@@ -172,7 +172,7 @@ function inputCheck(){
 			<tr align="center">
 			<td><c:out value="${number}"/>
 				<c:set var="number" value="${number + 1}"/></td>
-			<td width="500"><a href="/projectB/discussion/content.aa?num=${articleC.num}">${articleC.subject}</a></td>
+			<td width="500"><a href="/projectB/discussion/content.aa?pageNum=1&discussionNum=${articleC.num}">${articleC.subject}</a></td>
 			<td>${articleC.write}</td>
 			<td>${articleC.agreement} / ${articleC.opposition}</td>
 			<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${articleC.reg}" /></td>
@@ -199,7 +199,7 @@ function inputCheck(){
 			<tr align="center">
 			<td><c:out value="${number}"/>
 				<c:set var="number" value="${number + 1}"/></td>
-			<td width="500"><a href="/projectB/discussion/content.aa?num=${article.num}">${article.subject}</a></td>
+			<td width="500"><a href="/projectB/discussion/content.aa?pageNum=1&discussionNum=${article.num}">${article.subject}</a></td>
 			<td><p>${article.write}</p></td>
 			<td>${article.agreement} / ${article.opposition}</td>
 			<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${article.reg}" /></td>
@@ -227,7 +227,7 @@ function inputCheck(){
 			<tr align="center">
 			<td><c:out value="${number}"/>
 				<c:set var="number" value="${number + 1}"/></td>
-			<td width="500"><a href="/projectB/discussion/content.aa?num=${articleC.num}">${articleC.subject}</a></td>
+			<td width="500"><a href="/projectB/discussion/content.aa?pageNum=1&discussionNum=${articleC.num}">${articleC.subject}</a></td>
 			<td>${articleC.write}</td>
 			<td>${articleC.agreement} / ${articleC.opposition}</td>
 			<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${articleC.reg}" /></td>

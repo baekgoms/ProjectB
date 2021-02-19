@@ -412,7 +412,7 @@ $(document).ready(function(){
 					</div>
 					
 					<div class="text left cb text_wrap motion agenda-body display-idle fadeIn visible"
-						data-animation="fadeIn" style="word-break: break-all">
+						data-animation="fadeIn" style="word-break: break-all" align="center">
 						<pre style="font-size:14px; font-family: Ubuntu Mono">${article.content}</pre>
 						<input type="hidden" name="wv_token" id="wv_token">
 					</div>

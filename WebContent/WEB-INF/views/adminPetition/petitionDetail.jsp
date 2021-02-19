@@ -75,7 +75,7 @@
 </c:choose>
 </td>
 <td>${list.petition}</td>
-<td>${ state[list.petitionState].state }</td>
+<td>${ state[list.petitionState-1].state }</td>
 </tr>
 <tr align="center">
 <th scope="col" colspan ="4">내용</th>
