@@ -70,8 +70,14 @@
 	
 <!-- ==============================최다 청원 분야========================== -->
 	<select id="getBestCategoryNum" resultType="int">
-		SELECT T1.CATEGORY FROM (SELECT S1.TITLE, S1.CATEGORY, COUNT(*) OVER(PARTITION BY S1.CATEGORY) 
-		AS OVERLAP FROM PETITION S1)T1 WHERE T1.OVERLAP > 1 AND ROWNUM = 1
+		SELECT T1.CATEGORY 
+		  FROM (
+		  	SELECT S1.TITLE
+		  		 , S1.CATEGORY
+		  		 , COUNT(*) OVER(PARTITION BY S1.CATEGORY) AS OVERLAP 
+		  	FROM PETITION S1 ORDER BY OVERLAP DESC
+		  	)T1 
+		WHERE T1.OVERLAP > 1 AND ROWNUM = 1
 	</select>
  
 	<select id="getCategory" resultType="String" parameterType="int">
